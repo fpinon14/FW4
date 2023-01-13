@@ -1,0 +1,25 @@
+$PowerGenVersion=12
+$ProjectName="","P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_APPANC_121\P_FR_FW4_PB4_appanc_121.log",1,""
+$DefaultApplication=""
+$DefaultLibrary=""
+$ApplicationName="p_pb4obj",0,0,0,0,0,1253696745,1, 0
+$ApplicationLibrary="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_APPANC_121\P_FR_FW4_PB4_appanc_121.PBL",0
+$EXEPath="K:\MIGRATION_PB121\FR\PB_121\REGEN_FW4\P_FR_FW4_APPANC_121.EXE","",1,0
+$CodeSigning=
+$ICOPath=""
+$PBRPath=""
+$PBDPath="",0,0
+$SourceControl="fpi","P:\WorkSVN\Repository_PB\France\Framework4\Trunk","P:\Dev\Repository_PB\France\Framework4\Trunk","PB Native",0,1
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_APPANC_121\P_FR_FW4_PB4_appanc_121.PBL","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_APPANC_121\P_FR_FW4_PB4_appanc_121.PBg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_DW_121\P_FR_FW4_PB4_dw_121.PBL","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_DW_121\P_FR_FW4_PB4_dw_121.PBg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_F1_121\P_FR_FW4_PB4_f1_121.PBL","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_F1_121\P_FR_FW4_PB4_f1_121.PBg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_F2_121\P_FR_FW4_PB4_f2_121.PBL","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_F2_121\P_FR_FW4_PB4_f2_121.PBg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_ST_121\P_FR_FW4_PB4_st_121.PBL","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_ST_121\P_FR_FW4_PB4_st_121.PBg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_UO_121\P_FR_FW4_PB4_uo_121.PBL","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_UO_121\P_FR_FW4_PB4_uo_121.PBg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_WN_121\P_FR_FW4_PB4_wn_121.PBL","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\OBJ\P_FR_FW4_PB4_WN_121\P_FR_FW4_PB4_wn_121.PBg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_DW_121\P_FR_FW4_spb_dw_121.pbl","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_DW_121\P_FR_FW4_spb_dw_121.pbg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_F1_121\P_FR_FW4_spb_f1_121.pbl","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_F1_121\P_FR_FW4_spb_f1_121.pbg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_IN_121\P_FR_FW4_spb_in_121.pbl","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_IN_121\P_FR_FW4_spb_in_121.pbg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_UO_121\P_FR_FW4_spb_uo_121.pbl","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_UO_121\P_FR_FW4_spb_uo_121.pbg"
+$Library="P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_WN_121\P_FR_FW4_spb_wn_121.pbl","",0,2,0,"P:\Dev\Repository_PB\France\Framework4\Trunk\FW4\PB_121\SPB\P_FR_FW4_SPB_WN_121\P_FR_FW4_spb_wn_121.pbg"
+
