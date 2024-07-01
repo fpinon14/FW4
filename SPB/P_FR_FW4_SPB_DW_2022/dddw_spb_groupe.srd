@@ -1,0 +1,15 @@
+HA$PBExportHeader$dddw_spb_groupe.srd
+$PBExportComments$---} DropDownDatawindow pour les groupes
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=decimal(0) name=id_grp dbname="id_grp" )
+ column=(type=decimal(0) name=id_grp_base dbname="id_grp_base" )
+ column=(type=char(35) name=lib_grp dbname="lib_grp" )
+ procedure="1 execute sysadm.DD_S01_GROUPE;1 "  sort="id_grp A " )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="16711680" x="19" y="8" height="57" width="124" format="[general]"  name=id_grp edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="16711680" x="179" y="8" height="57" width="942" format="[general]"  name=lib_grp edit.limit=35 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="String(  id_grp ) + ~" ~" +  lib_grp "border="0" color="16711680" x="627" y="160" height="57" width="1153" format="[GENERAL]"  name=code_libelle  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

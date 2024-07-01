@@ -1,0 +1,14 @@
+HA$PBExportHeader$dddw_spb_typ_code_car.srd
+$PBExportComments$---} DropDownDataWindow pour les Types de Codes alphanum$$HEX1$$e900$$ENDHEX$$riques.
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(3) name=id_typ_code dbname="id_typ_code" )
+ column=(type=char(35) name=lib_typ_code dbname="lib_typ_code" )
+  sort="id_typ_code A " )
+data("-CC","Codes Courriers","-CE","Etat Travail","-CR","Code Re$$HEX1$$e700$$ENDHEX$$u","-CT","Code Type Re$$HEX1$$e700$$ENDHEX$$u","-DL","D$$HEX1$$e900$$ENDHEX$$lais","-IN","Type Interlocuteur","-MR","Mode de r$$HEX1$$e800$$ENDHEX$$glement","-PL","Plafonds","-TC","Type de carte","-VA","Variables","-MA","Mode d'adh$$HEX1$$e900$$ENDHEX$$sion",) 
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="16711680" x="14" y="4" height="61" width="110" format="[general]"  name=id_typ_code edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="16711680" x="138" y="4" height="61" width="974" format="[general]"  name=lib_typ_code edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
