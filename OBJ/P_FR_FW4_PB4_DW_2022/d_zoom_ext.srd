@@ -1,0 +1,21 @@
+HA$PBExportHeader$d_zoom_ext.srd
+$PBExportComments$------} Datawindow exemple pour u_Zoom
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=char(1) update=yes key=yes name=zoom_acces dbname="Zoom_acces" )
+ column=(type=char(1) update=yes key=yes name=zoom_saisie dbname="Zoom_saisie" )
+ column=(type=char(1) update=yes key=yes name=zoom_plein dbname="Zoom_plein" )
+ column=(type=char(30) update=yes key=yes name=zoom_lib dbname="Zoom_Lib" )
+ column=(type=number name=zoom_click dbname="Zoom_Click" )
+ update="to" updatewhere=0 updatekeyinplace=no  sort="zoom_saisie A " )
+data("O" "N" "N" "Zoom de visualisation" 6 "N" "N" "N" "Zoom de visualisation" 6 "O" "N" "N" "Zoom de saisie" 6 "O" "O" "O" "Zoom de saisie" 6 "N" "O" "N" "Zoom de saisie" 6 ) 
+text(band=header alignment="2" text="Zooms"border="6" color="16777215" x="10" y="8" height="61" width="874"  name=titre  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="32768" )
+compute(band=detail alignment="0" expression="Bitmap(
+ if(  #2 = ~"N~", ~"K:\PB4OBJ\BMP\Z_LOUPE.BMP~",
+ if( #3 = ~"N~", ~"K:\PB4OBJ\BMP\Z_VIDE.BMP~",
+~"K:\PB4OBJ\BMP\Z_PLEIN.BMP~" ) ) )"border="6" color="0" x="55" y="4" height="61" width="74" format="[GENERAL]"  name=image  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="6~t#5" color="0~tIf(  #1 =~"O~",0,8421504 )" x="161" y="4" height="61" width="714" format="[general]"  name=zoom_lib edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
