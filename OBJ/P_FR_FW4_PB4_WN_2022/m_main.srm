@@ -1,0 +1,184 @@
+HA$PBExportHeader$m_main.srm
+$PBExportComments$-----} Menu par d$$HEX1$$e900$$ENDHEX$$faut des fen$$HEX1$$ea00$$ENDHEX$$tres w_Main
+forward
+global type m_main from menu
+end type
+type m_fermer from menu within m_main
+end type
+type m_fermer from menu within m_main
+end type
+type m_quitter from menu within m_main
+end type
+type m_raffichemenu from menu within m_quitter
+end type
+type m_mosaque from menu within m_quitter
+end type
+type m_cascade from menu within m_quitter
+end type
+type m_pleinecran from menu within m_quitter
+end type
+type m_rorgicones from menu within m_quitter
+end type
+type m_quitter from menu within m_main
+m_raffichemenu m_raffichemenu
+m_mosaque m_mosaque
+m_cascade m_cascade
+m_pleinecran m_pleinecran
+m_rorgicones m_rorgicones
+end type
+type m_44 from menu within m_main
+end type
+type m_aproposde from menu within m_44
+end type
+type m_44 from menu within m_main
+m_aproposde m_aproposde
+end type
+end forward
+
+global type m_main from menu
+m_fermer m_fermer
+m_quitter m_quitter
+m_44 m_44
+end type
+global m_main m_main
+
+type variables
+
+end variables
+
+on m_main.create
+m_main=this
+this.m_fermer=create m_fermer
+this.m_quitter=create m_quitter
+this.m_44=create m_44
+this.Item[]={this.m_fermer, &
+this.m_quitter, &
+this.m_44}
+end on
+
+on m_main.destroy
+destroy(this.m_fermer)
+destroy(this.m_quitter)
+destroy(this.m_44)
+end on
+
+type m_fermer from menu within m_main
+end type
+
+on clicked;Close ( ParentWindow )
+
+end on
+
+on m_fermer.create
+this.Text="&Fermer"
+end on
+
+on m_fermer.destroy
+end on
+
+type m_quitter from menu within m_main
+m_raffichemenu m_raffichemenu
+m_mosaque m_mosaque
+m_cascade m_cascade
+m_pleinecran m_pleinecran
+m_rorgicones m_rorgicones
+end type
+
+on m_quitter.create
+this.Text="F&en$$HEX1$$ea00$$ENDHEX$$tre"
+this.m_raffichemenu=create m_raffichemenu
+this.m_mosaque=create m_mosaque
+this.m_cascade=create m_cascade
+this.m_pleinecran=create m_pleinecran
+this.m_rorgicones=create m_rorgicones
+this.Item[]={this.m_raffichemenu, &
+this.m_mosaque, &
+this.m_cascade, &
+this.m_pleinecran, &
+this.m_rorgicones}
+end on
+
+on m_quitter.destroy
+destroy(this.m_raffichemenu)
+destroy(this.m_mosaque)
+destroy(this.m_cascade)
+destroy(this.m_pleinecran)
+destroy(this.m_rorgicones)
+end on
+
+type m_raffichemenu from menu within m_quitter
+end type
+
+on clicked;ParentWindow.ParentWindow ().ToolBarVisible 		= True
+ParentWindow.ParentWindow ().ToolBarAlignment 	= AlignAtTop!
+
+end on
+
+on m_raffichemenu.create
+this.Text="&R$$HEX1$$e900$$ENDHEX$$affiche Menu"
+end on
+
+type m_mosaque from menu within m_quitter
+end type
+
+on clicked;ParentWindow.ArrangeSheets ( Tile! )
+end on
+
+on m_mosaque.create
+this.Text="&Mosa$$HEX1$$ef00$$ENDHEX$$que"
+end on
+
+type m_cascade from menu within m_quitter
+end type
+
+on clicked;ParentWindow.ArrangeSheets ( Cascade! )
+end on
+
+on m_cascade.create
+this.Text="&Cascade"
+end on
+
+type m_pleinecran from menu within m_quitter
+end type
+
+on clicked;ParentWindow.ArrangeSheets ( Layer! )
+end on
+
+on m_pleinecran.create
+this.Text="&Plein Ecran"
+end on
+
+type m_rorgicones from menu within m_quitter
+end type
+
+on clicked;ParentWindow.ArrangeSheets ( Icons! )
+end on
+
+on m_rorgicones.create
+this.Text="R$$HEX1$$e900$$ENDHEX$$org. &Icones"
+end on
+
+type m_44 from menu within m_main
+m_aproposde m_aproposde
+end type
+
+on m_44.create
+this.Text="&?"
+this.m_aproposde=create m_aproposde
+this.Item[]={this.m_aproposde}
+end on
+
+on m_44.destroy
+destroy(this.m_aproposde)
+end on
+
+type m_aproposde from menu within m_44
+end type
+
+on clicked;OpenWithParm ( w_a_Propos, stglb )
+end on
+
+on m_aproposde.create
+this.Text="A Propos de ..."
+end on
+
