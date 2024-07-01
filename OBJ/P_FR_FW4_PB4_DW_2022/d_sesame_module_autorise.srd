@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_sesame_module_autorise.srd
+$PBExportComments$------} Datawindow de chargement des modules autoris$$HEX1$$e900$$ENDHEX$$s pour l'op$$HEX1$$e900$$ENDHEX$$rateur (SqlServer)
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=1 color="536870912" )
+table(column=(type=char(4) name=id_mod dbname="id_mod" )
+ column=(type=number name=cod_acces dbname="cod_acces" )
+ column=(type=char(20) name=lib_entree_menu dbname="lib_entree_menu" )
+ column=(type=char(35) name=lib_mod dbname="lib_mod" )
+ procedure="1 execute sysadm.DW_S02_AUTORISATION :sIdAppli,  :sIdOper" arguments=(("sIdAppli", string),("sIdOper", string)) )

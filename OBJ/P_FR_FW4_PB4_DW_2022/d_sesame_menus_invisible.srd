@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_sesame_menus_invisible.srd
+$PBExportComments$------} Datawindow de chargement des menus $$HEX2$$e0002000$$ENDHEX$$cacher par module (SqlServer)
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=1 color="536870912" )
+table(column=(type=char(4) name=id_menu dbname="id_menu" )
+ column=(type=char(1) name=typ_menu dbname="typ_menu" )
+ procedure="1 execute sysadm.DW_S03_MENU :sIdAppli, :sIdMod, :iIdAcces" arguments=(("sIdAppli", string),("sIdMod", string),("iIdAcces", number)) )

@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_trt_corbeille_affect.srd
+$PBExportComments$------} Datawindow utilis$$HEX1$$e900$$ENDHEX$$e dans la fen$$HEX1$$ea00$$ENDHEX$$tre de gestion des Corbeilles/Op$$HEX1$$e900$$ENDHEX$$rateurs (W_TRT_CORB_OPER) Liste des corbeilles affect$$HEX1$$e900$$ENDHEX$$es. (U_AJOUT).
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=157 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=61 color="536870912" )
+table(column=(type=char(4) name=id_oper dbname="id_oper" )
+ column=(type=number name=id_corb dbname="id_corb" )
+ column=(type=char(35) name=lib_corb dbname="lib_corb" )
+ column=(type=char(1) name=alt_valide_avant dbname="alt_valide_avant" )
+ column=(type=char(1) name=alt_valide_apres dbname="alt_valide_apres" values="	O/	N" )
+ column=(type=number name=alt_avant dbname="alt_avant" )
+ column=(type=number name=alt_apres dbname="alt_apres" )
+  sort="id_oper A id_corb A " )
+text(band=header alignment="2" text="         Corbeilles affect$$HEX1$$e900$$ENDHEX$$es                                        "border="6" color="16777215" x="23" y="12" height="57" width="1185"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="8421376" )
+text(band=header alignment="2" text="Code"border="0" color="0" x="5" y="96" height="49" width="101"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Libell$$HEX1$$e900$$ENDHEX$$"border="0" color="0" x="129" y="96" height="49" width="929"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=10 border="0" color="0" x="1079" y="4" height="49" width="60" format="[general]"  name=alt_valide_apres visible="1~t0" checkbox.text="" checkbox.on="O" checkbox.off="N" checkbox.scale=no checkbox.3d=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="16711680" x="5" y="4" height="49" width="106" format="[general]"  name=id_corb edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="16711680" x="129" y="4" height="49" width="929" format="[general]"  name=lib_corb edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
