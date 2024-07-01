@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_tri.srs
+$PBExportComments$------} Structure servant $$HEX2$$e0002000$$ENDHEX$$l'objet de tri
+global type s_tri from structure
+    string simport
+    string striactuel
+end type
+
