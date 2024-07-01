@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_spb_produit_corb.srd
+$PBExportComments$---} Corbeille pour un produit
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=1 color="536870912" )
+table(column=(type=char(4) name=ccod_corb dbname="cod_corb" )
+ column=(type=char(35) name=clib_code dbname="lib_code" )
+ procedure="1 EXECUTE SYSADM.D_S_CORB_PROD :asIdDept" arguments=(("asIdDept", string))  sort="clib_code A " )
