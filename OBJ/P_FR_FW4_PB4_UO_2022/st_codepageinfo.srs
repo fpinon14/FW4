@@ -1,0 +1,9 @@
+HA$PBExportHeader$st_codepageinfo.srs
+$PBExportComments$[Recup vers SVN] : Structure de lecture des codes pages
+global type st_codepageinfo from structure
+	byte		bByte0
+	byte		bByte1
+	byte		bByte2
+	byte		bByte3
+end type
+
