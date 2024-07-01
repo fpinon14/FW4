@@ -1,0 +1,75 @@
+HA$PBExportHeader$f_plus_date.srf
+$PBExportComments$------} Ajout de n Jours,Mois,An $$HEX2$$e0002000$$ENDHEX$$une date
+global type f_plus_date from function_object
+end type
+
+forward prototypes
+global function date f_plus_date (date addepart, integer aidur, string asunt)
+end prototypes
+
+global function date f_plus_date (date addepart, integer aidur, string asunt);//*******************************************************************************************
+//	Fonction          	: F_Plus_Date
+//	Auteur            	: FS
+//	Date 					 	: 30/04/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Ajout de n Jours, Mois, Ann$$HEX1$$e900$$ENDHEX$$es $$HEX2$$e0002000$$ENDHEX$$une date
+//	Commentaires			: SI LA DUREE EST NEGATIVE LA DATE RETOURNEE EST DECREMENTEE.
+//
+//	Arguments				: adDepart	: Date de d$$HEX1$$e900$$ENDHEX$$part
+//								: aiDur		: Dur$$HEX1$$e900$$ENDHEX$$e
+//								: asUnt		: Unit$$HEX2$$e9002000$$ENDHEX$$de Dur$$HEX1$$e900$$ENDHEX$$e ( J/M/A )
+//
+//	Retourne					: Date Calcul$$HEX1$$e900$$ENDHEX$$e ( Date )
+//								  
+//*******************************************************************************************
+
+Date		dFin			// Date de fin
+Integer	iIncrement
+
+Choose Case Upper ( asUnt )
+	
+	Case "M"
+		dFin = F_Plus_Mois ( adDepart, aiDur )
+	
+	Case "A"
+		dFin = Date ( Year ( adDepart ) + aiDur, Month ( adDepart ), Day ( adDepart ) )
+/*------------------------------------------------------------------*/
+/* Le 19/01/1999.                                                   */
+/* La fonction ne marche pas si la date de d$$HEX1$$e900$$ENDHEX$$part est un 29         */
+/* F$$HEX1$$e900$$ENDHEX$$vrier, et que l'incr$$HEX1$$e900$$ENDHEX$$ment ne fait pas tomber sur une ann$$HEX1$$e900$$ENDHEX$$e     */
+/* bissextile. Si la zone dFin est $$HEX2$$e0002000$$ENDHEX$$NULL, on renvoie la fonction   */
+/* avec F_Plus_Mois ().                                             */
+/*------------------------------------------------------------------*/
+		If	String ( dFin ) = "01/01/1900"	Then
+			iIncrement = aiDur * 12
+			dFin = F_Plus_Mois ( adDepart, iIncrement )
+		End If
+	
+	Case "J"
+		dFin = RelativeDate ( adDepart, aiDur )
+
+	Case "H"
+
+/*------------------------------------------------------------------*/
+/* JFF le 11/04/2003 : Le cas n'existait pas, ce qui fait que       */
+/* beaucoup des refus param$$HEX1$$e800$$ENDHEX$$tr$$HEX1$$e900$$ENDHEX$$s dans SIMPA2 avec des heures pour   */
+/* les d$$HEX1$$e900$$ENDHEX$$lais, n'$$HEX1$$e900$$ENDHEX$$tait jamais  d$$HEX1$$e900$$ENDHEX$$clench$$HEX1$$e900$$ENDHEX$$. La fonction F_Plus_Date   */
+/* ne renvoyant que des Date sans heures,  J'essai de me            */
+/* rapprocher le plus possible en transformant les heures en        */
+/* jours, bien entendu, si $$HEX1$$e700$$ENDHEX$$a ne tombe pas juste, il y a une        */
+/* perte, mais on ne peut plus faire autrement.                     */
+/*------------------------------------------------------------------*/
+		If aiDur >= 24 Then
+			aiDur = Int ( aiDur / 24 )
+			dFin = RelativeDate ( adDepart, aiDur )
+		Else 
+			dFin = adDepart
+		End If
+
+
+	
+ End Choose
+
+Return ( dFin )
+
+end function
+
