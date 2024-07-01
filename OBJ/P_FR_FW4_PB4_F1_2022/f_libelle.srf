@@ -1,0 +1,39 @@
+HA$PBExportHeader$f_libelle.srf
+$PBExportComments$---} Fonction de regroupement des r$$HEX1$$e800$$ENDHEX$$gles de validation
+global type f_libelle from function_object
+end type
+
+forward prototypes
+global function boolean f_libelle (string astexte, integer airegle)
+end prototypes
+
+global function boolean f_libelle (string astexte, integer airegle);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_Libelle
+//* Auteur			: YP
+//* Date				: 06/11/1997 11:19:02
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Fonction de regroupement des r$$HEX1$$e800$$ENDHEX$$gles de validation
+//*					  des diff$$HEX1$$e900$$ENDHEX$$rents champs
+//* Commentaires	: 
+//*
+//* Arguments		: String		asTexte	-->	Valeur saisie pour le champ
+//*					  Integer	aiRegle  -->	Type de r$$HEX1$$e800$$ENDHEX$$gle de validation
+//*														que valeur doit respecter   	
+//*
+//* Retourne		: Bool$$HEX1$$e900$$ENDHEX$$en	Vrai 		-->	La valeur saisie pour le
+//*														respecte la r$$HEX1$$e800$$ENDHEX$$gle de 
+//*														validation correspondant 
+//*														au champ
+//*
+//*									Faux		-->	La r$$HEX1$$e800$$ENDHEX$$gle de validation du 
+//*														champ n'est pas respect$$HEX1$$e900$$ENDHEX$$e 	
+//*
+//*
+//*-----------------------------------------------------------------
+//* #1 PHG 14/03/2008	[SUISSE].LOT9 Deport de la fonction
+//*							dans un fournisseur de fonction globale
+
+return stGlb.uoGFP.uf_F_Libelle(astexte, airegle)
+
+end function
+

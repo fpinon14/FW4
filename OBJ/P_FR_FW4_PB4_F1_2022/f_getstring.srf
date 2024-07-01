@@ -1,0 +1,43 @@
+HA$PBExportHeader$f_getstring.srf
+$PBExportComments$---} Fonction de GetItem avec retour en chaine format$$HEX1$$e900$$ENDHEX$$e pour une chaine de caract$$HEX1$$e800$$ENDHEX$$re.
+global type f_getstring from function_object
+end type
+
+forward prototypes
+global function string f_getstring (datawindow adw, long allig, string ascol)
+end prototypes
+
+global function string f_getstring (datawindow adw, long allig, string ascol);//*-----------------------------------------------------------------
+//*
+//* Fonction		:	f_getstring ()
+//* Auteur			:	N$$HEX1$$b000$$ENDHEX$$6
+//* Date				:	13/06/97 11:44:29
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	
+//* Commentaires	:	
+//*
+//* Arguments		:	adw   Data Window source pour le GetItem x
+//									alLig : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									asCol : Nom de la colonne
+//*
+//* Retourne		:	Valeur sous forme de chaine
+//*-----------------------------------------------------------------
+//* #1 [MIGPB8COR] 03/05/2006  JFF  Ce code n'est plus utile en PB8
+//*-----------------------------------------------------------------
+
+String sGet
+
+sGet = Trim ( aDw.GetItemString ( alLig, asCol ) )
+
+/*------------------------------------------------------------------*/
+/* Si le champs est nul je retourne la chaine vide.                 */
+/*------------------------------------------------------------------*/
+// #1 
+//If isNull ( sGet ) Then 
+//
+//	sGet = ""
+//
+//End If
+
+Return ( sGet )
+end function
+

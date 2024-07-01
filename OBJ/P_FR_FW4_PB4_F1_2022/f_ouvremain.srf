@@ -1,0 +1,45 @@
+HA$PBExportHeader$f_ouvremain.srf
+$PBExportComments$------} Fonction ouverture fen$$HEX1$$ea00$$ENDHEX$$tre Main dans Environnement MDI envspb
+global type f_ouvremain from function_object
+end type
+
+forward prototypes
+global subroutine f_ouvremain (ref w_main awmain, menu ammenu, ref s_glb astglb)
+end prototypes
+
+global subroutine f_ouvremain (ref w_main awmain, menu ammenu, ref s_glb astglb);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_OuvreMain
+//* Auteur			: Erick John Stark
+//* Date				: 03/09/1997 16:55:04
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Ouverture d'une fen$$HEX1$$ea00$$ENDHEX$$tre Main correspondant $$HEX2$$e0002000$$ENDHEX$$un module
+//*					  Une fen$$HEX1$$ea00$$ENDHEX$$tre main est ouverte en temps que document d'une fen$$HEX1$$ea00$$ENDHEX$$tre MDI
+//*					  Elle est g$$HEX1$$e900$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$e automatiquement par la fen$$HEX1$$ea00$$ENDHEX$$tre MDI au niveau du menu
+//*
+//* Arguments		: W_Main			awMain			(R$$HEX1$$e900$$ENDHEX$$f)	Fen$$HEX1$$ea00$$ENDHEX$$tre $$HEX2$$e0002000$$ENDHEX$$ouvrir de type W_Main
+//*					  Menu			amMenu			(Val) Menu associ$$HEX4$$e9002000e0002000$$ENDHEX$$la fen$$HEX1$$ea00$$ENDHEX$$tre Main
+//*					  s_GLB			astGLB			(R$$HEX1$$e900$$ENDHEX$$f) Structure globale
+//*
+//* Retourne		: Rien
+//*
+//*-----------------------------------------------------------------
+
+/*------------------------------------------------------------------*/
+/* Cette fonction permet d'ouvrir une fen$$HEX1$$ea00$$ENDHEX$$tre de type MAIN. Elle    */
+/* va d$$HEX1$$e900$$ENDHEX$$clenecher l'$$HEX1$$e900$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$nement Open de W_MAIN, ce qui va entra$$HEX1$$ee00$$ENDHEX$$ner   */
+/* l'utilisation de Wf_PopMenu (), qui a pour but de faire          */
+/* dispara$$HEX1$$ee00$$ENDHEX$$tre les menus non accessibles $$HEX2$$e0002000$$ENDHEX$$l'op$$HEX1$$e900$$ENDHEX$$rateur.             */
+/*------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------*/
+/* On utilise la cha$$HEX1$$ee00$$ENDHEX$$ne sCodModule pour dire dans quel module on    */
+/* veut aller. L'ordre des modules est donc d$$HEX1$$e900$$ENDHEX$$finit par le Menu     */
+/* (M_Menu_MDI)                                                     */
+/*------------------------------------------------------------------*/
+
+astGLB.sCodModule = Upper ( amMenu.Text )
+
+OpenSheetWithParm ( awMain, astGLB, amMenu.ParentWindow, 0, Layered! )
+end subroutine
+

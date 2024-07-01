@@ -1,0 +1,49 @@
+HA$PBExportHeader$f_ouvredetail.srf
+$PBExportComments$----} Fonction ouverture fen$$HEX1$$ea00$$ENDHEX$$tre D$$HEX1$$e900$$ENDHEX$$tail dans Environnement MDI envspb
+global type f_ouvredetail from function_object
+end type
+
+forward prototypes
+global subroutine f_ouvredetail (ref w_traitement awtraitement, ref s_pass astpass)
+end prototypes
+
+global subroutine f_ouvredetail (ref w_traitement awtraitement, ref s_pass astpass);//*******************************************************************************************
+// Fonction            	: f_OuvreTraitement
+//	Auteur              	: D.Bizien
+//	Date 					 	: 22/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Ouverture d'une fen$$HEX1$$ea00$$ENDHEX$$tre de d$$HEX1$$e900$$ENDHEX$$tail
+// Commentaires			: 
+//
+// Arguments				: awTraitement - w_Traitement - Fen$$HEX1$$ea00$$ENDHEX$$tre devant $$HEX1$$ea00$$ENDHEX$$tre ouverte et enable
+//								  astPass		- s_Pass			- Structure de passage d'arguments entre 
+//																		  Fen$$HEX1$$ea00$$ENDHEX$$tres	
+//
+// Retourne					: Rien
+//								  
+//*******************************************************************************************
+
+If isValid ( astPass ) Then
+
+// ********	Si l'on souhaite que la fenetre appelante soit rendue inaccessible
+
+	If Not astPass.bEnableParent Then
+
+		astPass.wParent.TriggerEvent ( "ue_DisableFenetre" )
+	End If
+
+// ********	Si la fenetre est ouverte on l'affiche, sinon on l'ouvre
+
+	If isValid ( awTraitement ) Then
+	
+		Message.PowerObjectParm = astPass
+		awTraitement.TriggerEvent ( Open! )
+		awTraitement.Show ()
+	Else
+
+		OpenWithParm ( awTraitement, astPass, astPass.wParent.ParentWindow () )		
+	End If
+End If
+
+
+end subroutine
+

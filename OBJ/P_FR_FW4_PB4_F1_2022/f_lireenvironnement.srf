@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_lireenvironnement.srf
+$PBExportComments$----} Initialisation de la structure environnement
+global type f_lireenvironnement from function_object
+end type
+
+forward prototypes
+global function long f_lireenvironnement (ref s_glb astglb)
+end prototypes
+
+global function long f_lireenvironnement (ref s_glb astglb);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_LireEnvironnement
+//* Auteur			: Erick John Stark
+//* Date				: 21/09/1996 18:52:05
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Lecture de l'environnement
+//*
+//* Arguments		: s_GLB			astGLB			(R$$HEX1$$e900$$ENDHEX$$f)	Structure Globale
+//*
+//* Retourne		: Long			 1 = OK
+//*										-1 = Probl$$HEX1$$e800$$ENDHEX$$me Initialisation
+//*
+//*-----------------------------------------------------------------
+
+Long lRet
+Environment stEnv
+
+/*------------------------------------------------------------------*/
+/* Chargement des valeurs concernant l'environnement de             */
+/* d$$HEX1$$e900$$ENDHEX$$veloppement                                                    */
+/*------------------------------------------------------------------*/
+
+lRet = GetEnvironment ( stEnv )
+
+If	lRet > 0 Then
+
+	astGLB.stEnv.PBType					= stEnv.PBType
+	astGLB.stEnv.PBMajorRevision		= stEnv.PBMajorRevision
+	astGLB.stEnv.PBMinorRevision		= stEnv.PBMinorRevision
+	astGLB.stEnv.PBFixesRevision		= stEnv.PBFixesRevision
+	astGLB.stEnv.OSType					= stEnv.OSType
+	astGLB.stEnv.OSMajorRevision		= stEnv.OSMajorRevision
+	astGLB.stEnv.OSMinorRevision		= stEnv.OSMinorRevision
+	astGLB.stEnv.OSFixesRevision		= stEnv.OSFixesRevision
+	astGLB.stEnv.CPUType					= stEnv.CPUType
+	astGLB.stEnv.ScreenWidth			= stEnv.ScreenWidth
+	astGLB.stEnv.ScreenHeight			= stEnv.ScreenHeight
+	astGLB.stEnv.NumberOfColors		= stEnv.NumberOfColors
+
+End If
+
+Return ( lRet )
+
+
+end function
+

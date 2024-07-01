@@ -1,0 +1,38 @@
+HA$PBExportHeader$f_ouvremdi.srf
+$PBExportComments$------} Fonction ouverture fen$$HEX1$$ea00$$ENDHEX$$tre MDI dans Environnement MDI envspb
+global type f_ouvremdi from function_object
+end type
+
+forward prototypes
+global subroutine f_ouvremdi (ref w_mdi awmdi, ref s_glb astglb)
+end prototypes
+
+global subroutine f_ouvremdi (ref w_mdi awmdi, ref s_glb astglb);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_OuvreMdi
+//* Auteur			: Erick John Stark
+//* Date				: 03/09/1997 16:55:04
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Ouverture d'une fen$$HEX1$$ea00$$ENDHEX$$tre MDI (Application SPB)
+//*
+//* Arguments		: W_Mdi			awMdi				(R$$HEX1$$e900$$ENDHEX$$f)	Fen$$HEX1$$ea00$$ENDHEX$$tre $$HEX2$$e0002000$$ENDHEX$$ouvrir
+//*					  s_GLB			astGLB			(R$$HEX1$$e900$$ENDHEX$$f) Structure globale
+//*
+//* Retourne		: Rien
+//*
+//*-----------------------------------------------------------------
+
+/*------------------------------------------------------------------*/
+/* Cette fonction permet d'ouvrir une fen$$HEX1$$ea00$$ENDHEX$$tre de type MDI. Elle va  */
+/* d$$HEX1$$e900$$ENDHEX$$clecher l'$$HEX1$$e900$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$nement Open de W_MDI, ce qui va entra$$HEX1$$ee00$$ENDHEX$$ner la      */
+/* populisation des modules. ( Fonction Uf_PopMenu de U_EnvSpb ).   */
+/* En retour, on r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re la structure globale qui contient la      */
+/* liste des menus par module $$HEX2$$e0002000$$ENDHEX$$rendre invisibles dans les fen$$HEX1$$ea00$$ENDHEX$$tres */
+/* MAINS.                                                           */
+/*------------------------------------------------------------------*/
+
+OpenWithParm ( awMDI, astGLB )
+
+astGLB = Message.PowerObjectParm
+end subroutine
+

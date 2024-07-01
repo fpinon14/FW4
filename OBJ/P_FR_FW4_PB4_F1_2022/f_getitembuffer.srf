@@ -1,0 +1,66 @@
+HA$PBExportHeader$f_getitembuffer.srf
+$PBExportComments$----} Idem GetItem avec param$$HEX1$$e900$$ENDHEX$$tre Buffer et Valeur origine en plus
+global type f_getitembuffer from function_object
+end type
+
+forward prototypes
+global function string f_getitembuffer (ref datawindow adw, long allig, string ascol, dwBuffer aDwBuffer, boolean abOrig)
+end prototypes
+
+global function string f_getitembuffer (ref datawindow adw, long allig, string ascol, dwBuffer aDwBuffer, boolean abOrig);//*******************************************************************************************
+// Fonction          	: F_GetItemBuffer
+//	Auteur            	: FS
+//	Date 					 	: 26/03/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: GetItem en fonction du type de la colonne
+// Commentaires			: ( Ajout des param$$HEX1$$e800$$ENDHEX$$tres Buffer et Valeur d'origine ) en plus de F_GetItem
+//
+// Arguments				:	adw  (Ref)* Data Window source pour le GetItem x
+//									alLig     : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									asCol     : Nom de la colonne
+//                      adwBuffer : Buffer PRIMARY!, DELETE!, FILTER!
+//                      abOrig    : True = Valeur originale ( issue du retrieve )
+//                                  False  Valeur actuelle
+//
+// Retourne				:	Valeur sous forme de chaine
+//								  
+//*******************************************************************************************
+
+String sGet, sType
+
+sType =  left ( aDw.describe( asCol + ".coltype"), 5 )
+
+If isNull( adwBuffer ) Then adwBuffer = PRIMARY!
+
+Choose Case sType
+
+Case "char("
+
+	sGet = aDw.GetItemString ( alLig, asCol, adwBuffer, abOrig )
+
+Case "decim", "numbe"
+
+	sGet = string ( aDw.GetItemNumber ( alLig, asCol, adwBuffer, abOrig ) )
+
+Case "date"
+
+	sGet = string ( aDw.GetItemDate ( alLig, asCol, adwBuffer, abOrig ), "yyyy-mm-dd" )
+
+Case "datet"
+
+	sGet = string ( aDw.GetItemDateTime ( alLig, asCol, adwBuffer, abOrig ), "yyyy-mm-dd hh:mm:ss.ff" )
+
+Case "time"
+
+	sGet = string ( aDw.GetItemTime ( alLig, asCol, adwBuffer, abOrig ), "hh:mm:ss.ffffff" )
+
+End Choose
+
+If isNull ( sGet ) Then 
+	sGet = "''"
+Else
+	sGet = "'" + sGet + "'"
+End If
+
+Return ( sGet )
+end function
+

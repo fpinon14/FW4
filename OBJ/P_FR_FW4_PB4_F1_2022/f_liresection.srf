@@ -1,0 +1,69 @@
+HA$PBExportHeader$f_liresection.srf
+$PBExportComments$----} Lecture de toutes les entr$$HEX1$$e900$$ENDHEX$$es d'une section d'un Fichier INI
+global type f_liresection from function_object
+end type
+
+forward prototypes
+global function long f_liresection (string asficini, string assection, ref string asentree[])
+end prototypes
+
+global function long f_liresection (string asficini, string assection, ref string asentree[]);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_LireSection
+//* Auteur			: Erick John Stark
+//* Date				: 28/05/1996 09:10:09
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Lit la section sp$$HEX1$$e900$$ENDHEX$$cifi$$HEX1$$e900$$ENDHEX$$e d'un fichier INI et retourne
+//*                 l'ensemble des entr$$HEX1$$e900$$ENDHEX$$es lues
+//*
+//* Arguments		: String			asFicIni			(Val)	Nom du fichier INI
+//*                 String			asSection		(Val)	Nom de la section
+//*                 String			asEntree[]		(R$$HEX1$$e900$$ENDHEX$$f)	Tableau des entr$$HEX1$$e900$$ENDHEX$$es
+//*
+//* Retourne		: Long			 ? = Nbr d'entr$$HEX1$$e900$$ENDHEX$$es lues
+//*
+//*-----------------------------------------------------------------
+
+Long lNbrEntree
+Blob blBuffer
+Integer iTailleMax, iTaille
+String sEntree, sDefaut
+
+/*------------------------------------------------------------------*/
+/* Positionnement de l'entr$$HEX1$$e900$$ENDHEX$$e $$HEX2$$e0002000$$ENDHEX$$lire $$HEX2$$e0002000$$ENDHEX$$NULL                         */
+/* Initialisation du Blob                                           */
+/*------------------------------------------------------------------*/
+
+lNbrEntree	= 0
+iTailleMax 	= 32000
+// [MIGPB11] [EMD] : Debut Migration : Forcer la cr$$HEX1$$e900$$ENDHEX$$ation de Blob en ANSI
+//blBuffer		= Blob ( Space ( iTailleMax ),  )
+blBuffer		= Blob ( Space ( iTailleMax ), EncodingANSI! )
+// [MIGPB11] [EMD] : Fin Migration
+SetNull ( sEntree )
+
+/*------------------------------------------------------------------*/
+/* Initialisation Fonctions WINDOWS                                 */
+/* R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des entr$$HEX1$$e900$$ENDHEX$$es dans le blob                            */
+/*------------------------------------------------------------------*/
+
+iTaille = stGLB.uoWin.Uf_GetPrivateProfileString ( asSection, sEntree, sDefaut, blBuffer, iTailleMax, asFicIni )
+
+
+/*------------------------------------------------------------------*/
+/* Traitement des entr$$HEX1$$e900$$ENDHEX$$es r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$es                                */
+/*------------------------------------------------------------------*/
+
+blBuffer = BlobMid ( blBuffer, 1, iTaille + 1 )
+
+Do While Len ( String ( blBuffer ) ) > 0
+	lNbrEntree ++
+	asEntree[ lNbrEntree ] = String ( blBuffer )
+	blBuffer = BlobMid ( blBuffer, Len ( asEntree[ lNbrEntree ] ) + 2 )
+Loop
+
+Return ( lNbrEntree )
+
+
+end function
+
