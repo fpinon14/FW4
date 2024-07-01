@@ -1,0 +1,52 @@
+HA$PBExportHeader$f_initdeclarationwindows.srf
+$PBExportComments$----} Cr$$HEX1$$e900$$ENDHEX$$ation du UO servant aux API Windows
+global type f_initdeclarationwindows from function_object
+end type
+
+forward prototypes
+global function u_declarationwindows f_initdeclarationwindows (ref s_glb astglb)
+end prototypes
+
+global function u_declarationwindows f_initdeclarationwindows (ref s_glb astglb);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_InitDeclarationWindows
+//* Auteur			: Erick John Stark
+//* Date				: 21/09/1996 18:52:05
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Cr$$HEX1$$e900$$ENDHEX$$ation du pointeur pour les API Windows ( 16 ou 32 )
+//*
+//* Arguments		: s_GLB			astGLB			(R$$HEX1$$e900$$ENDHEX$$f)	Structure Globale
+//*
+//* Retourne		: u_DeclarationWindows	Pointeur		= OK
+//*													Null 			= Probl$$HEX1$$e800$$ENDHEX$$me Initialisation
+//*
+//*-----------------------------------------------------------------
+
+String sTypeOs
+u_DeclarationWindows uoWin
+
+sTypeOs = F_TypeOs ()
+
+Choose Case sTypeOs
+Case "WINNT", "WIN95"
+//	uoWin = Create u_DeclarationWindows32
+//Migration PB8-WYNIWYG-03/2006 FM
+//	uoWin = Create u_DeclarationWindows16
+	uoWin = Create u_DeclarationWindows32
+//Fin Migration PB8-WYNIWYG-03/2006 FM
+
+Case "WIN31"
+	uoWin = Create u_DeclarationWindows16
+
+Case Else
+	SetNull ( uoWin )
+
+End Choose
+
+Return ( uoWin )
+
+
+
+
+end function
+

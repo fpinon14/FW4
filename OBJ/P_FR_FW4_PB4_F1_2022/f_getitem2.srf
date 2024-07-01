@@ -1,0 +1,71 @@
+HA$PBExportHeader$f_getitem2.srf
+$PBExportComments$( Sql ) Fonction f_getitem mais avec les formats date time compatibles SqlServer
+global type f_getitem2 from function_object
+end type
+
+forward prototypes
+global function string f_getitem2 (ref datawindow adw, long allig, string ascol)
+end prototypes
+
+global function string f_getitem2 (ref datawindow adw, long allig, string ascol);//*******************************************************************************************
+// Fonction          	: F_GetItem2
+//	Auteur            	: FS
+//	Date 					 	: 13/09/2001
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: GetItem en fonction du type de la colonne
+// Commentaires			: Modification pour compatibilit$$HEX2$$e9002000$$ENDHEX$$avec SqlServer
+//
+// Arguments				:	adw   * Data Window source pour le GetItem x
+//									alLig : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									asCol : Nom de la colonne
+//
+// Retourne				:	Valeur sous forme de chaine
+//								  
+//*******************************************************************************************
+// #1 FS le 31/10/2001 Correction dans le cas des date time null pour ne pas avoir 01-01-1900
+//*******************************************************************************************
+
+
+String sGet, sType
+
+
+sType =  left ( aDw.describe( asCol + ".coltype"), 5 )
+
+Choose Case sType
+
+Case "char("
+
+	sGet = aDw.GetItemString ( alLig, asCol )
+
+Case "decim", "numbe"
+
+	sGet = string ( aDw.GetItemNumber ( alLig, asCol ) )
+
+Case "date"
+
+	sGet = string ( aDw.GetItemDate ( alLig, asCol ), "dd/mm/yyyy" )
+
+Case "datet"
+
+
+	sGet = string ( aDw.GetItemDateTime ( alLig, asCol ), "dd/mm/yyyy hh:mm:ss.ff"  )
+
+Case "time"
+
+	sGet = string ( aDw.GetItemTime ( alLig, asCol ), "hh:mm:ss.ffffff" )
+
+End Choose
+
+
+If isNull ( sGet ) Then 
+	sGet = "null"
+
+ElseIf sGet = "" And Left ( sType , 4 ) = "date" Then // ... #1
+   sGet = "null"
+
+ElseIf sType <> "decim" And sType <> "numbe" Then
+	sGet = "'" + sGet + "'"
+End If
+
+Return ( sGet )
+end function
+

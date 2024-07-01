@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_getwordexe.srf
+global type f_getwordexe from function_object
+end type
+
+forward prototypes
+global function string f_getwordexe ()
+end prototypes
+
+global function string f_getwordexe ();//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_GetWordExe			(PUBLIC)
+//* Auteur			: Franck Musso (pour Office 2010)
+//* Date				: 24/09/2010
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration du chemin du fichier executable de Word
+//*						(pour se passer de la cl$$HEX2$$e9002000$$ENDHEX$$dans le fichier .INI)
+//*
+//* Arguments		: Aucun
+//*
+//* Retourne		: String		 Chemin complet de l'exe Word
+//*
+//*-----------------------------------------------------------------
+//* MAJ      PAR      Date	  Modification
+//* 
+//*-----------------------------------------------------------------
+If IsNull(stglb.sWordPath) or len(stglb.sWordPath) = 0 Then
+	f_GetVersionWord()
+End If
+
+Return stglb.sWordPath
+
+end function
+

@@ -1,0 +1,67 @@
+HA$PBExportHeader$f_ouvreconsultation.srf
+$PBExportComments$----} Fonction ouverture fen$$HEX1$$ea00$$ENDHEX$$tre Consultation dans Environnement MDI envspb
+global type f_ouvreconsultation from function_object
+end type
+
+forward prototypes
+global subroutine f_ouvreconsultation (ref w_ancetre_consultation awconsultation, string asnomfenetre, ref s_pass astpass)
+end prototypes
+
+global subroutine f_ouvreconsultation (ref w_ancetre_consultation awconsultation, string asnomfenetre, ref s_pass astpass);//*******************************************************************************************
+// Fonction            	: f_OuvreConsultation
+//	Auteur              	: La recrue
+//	Date 					 	: 16/01/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Ouverture d'une fen$$HEX1$$ea00$$ENDHEX$$tre de consultation
+// Commentaires			: 
+//
+// Arguments				: awConsultation	- w_Anc$$HEX1$$ea00$$ENDHEX$$tre_consultation	- Fen$$HEX1$$ea00$$ENDHEX$$tre devant $$HEX1$$ea00$$ENDHEX$$tre ouverte et enable
+//								  asNomFenetre		- String							- Nom du type de fen$$HEX1$$ea00$$ENDHEX$$tre $$HEX2$$e0002000$$ENDHEX$$ouvrir en mode mdi
+//								  astPass	   	- s_Pass							- Structure de passage d'arguments entre 
+//																							  Fen$$HEX1$$ea00$$ENDHEX$$tres	
+//
+// Retourne					: Rien
+//								  
+//*******************************************************************************************
+
+w_Accueil_Consultation	wAppelant
+
+If isValid ( astPass ) Then
+
+	If ( astPass.wParent.windowType = Child! ) Or ( astPass.wParent.windowType = Popup! ) Then
+		wAppelant = astPass.wParent.ParentWindow()
+	Else
+		wAppelant = astPass.wParent
+	End If
+
+	If ( wAppelant.wf_Is_Mode_Mdi() ) Then
+
+		If ( wAppelant.wf_ajouter_fille() ) Then
+
+			astPass.bCloseRetour = True
+
+			If ( astPass.wParent.windowType = Child! ) Or ( astPass.wParent.windowType = Popup! ) Then
+				OpenWithParm ( awConsultation, astPass, asNomFenetre, astPass.wParent.ParentWindow() )
+			Else
+				OpenWithParm ( awConsultation, astPass, asNomFenetre, astPass.wParent )		
+			End If
+
+		End If
+
+	Else
+
+		If isValid ( awConsultation ) Then
+			awConsultation.ibAInitialiser	= True
+			Message.PowerObjectParm			= astPass
+		End If
+
+		If ( astPass.wParent.windowType = Child! ) Or ( astPass.wParent.windowType = Popup! ) Then
+			OpenWithParm ( awConsultation, astPass, astPass.wParent.ParentWindow() )
+		Else
+			OpenWithParm ( awConsultation, astPass, astPass.wParent )		
+		End If
+
+	End IF
+
+End If
+end subroutine
+

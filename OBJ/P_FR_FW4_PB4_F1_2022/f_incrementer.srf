@@ -1,0 +1,73 @@
+HA$PBExportHeader$f_incrementer.srf
+$PBExportComments$----} Incrementation d'un compteur dans la table PARAMETRE
+global type f_incrementer from function_object
+end type
+
+forward prototypes
+global function decimal f_incrementer (string asrefcpt, u_transaction atrtrans)
+end prototypes
+
+global function decimal f_incrementer (string asrefcpt, u_transaction atrtrans);//*******************************************************************************************
+// Fonction            	: f_Incremente - 
+//	Auteur              	: D.Bizien
+//	Date 					 	: 18/03/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Incremente un compteur dans la table PARAMETRE
+// Commentaires			: NE PAS OUBLIER DE FAIRE UN COMMIT ENSUITE
+//
+// Arguments				: asRefCpt			-  R$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence du compteur dans la table
+//								  atrTrans			-	Objet de u_transaction associ$$HEX4$$e9002000e0002000$$ENDHEX$$la base
+//
+// Retourne					: La Nouvelle Valeur du Compteur, -1 si probl$$HEX1$$e800$$ENDHEX$$me
+//								  
+//*******************************************************************************************
+// ! : La fonction est convertie pour compatibilit$$HEX2$$e9002000$$ENDHEX$$en SQL SERVER
+//*******************************************************************************************
+
+// sCommandeSql	:	Chaine de travail pour construction des ordres SQL
+String			sCommandeSql		
+
+// lCpt				:	Valeur du compteur
+Decimal {0}		dcCpt 
+		
+// bOk				:	Est $$HEX2$$e0002000$$ENDHEX$$vrai si tout c'est bien pass$$HEX1$$e900$$ENDHEX$$
+Boolean 			bOk	=	True
+
+asRefCpt	=	Upper ( asRefCpt )
+
+//	--------			Update sur la zone NUM_MAJ pour locker l'enregistrement
+
+sCommandeSql	=	"EXECUTE sysadm.u_parametre_num ~'" + asRefCpt + "~'"
+
+bOk = f_execute ( scommandeSql , atrTrans )
+
+//	-------- Le curseur initialement utilis$$HEX2$$e9002000$$ENDHEX$$a $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$remplac$$HEX2$$e9002000$$ENDHEX$$par un SELECT afin
+// -------- d'$$HEX1$$e900$$ENDHEX$$viter les probl$$HEX1$$e800$$ENDHEX$$mes de d$$HEX1$$e900$$ENDHEX$$claration multiple d'un m$$HEX1$$ea00$$ENDHEX$$me curseur.
+// -------- (Cela arrivait si on appelait plusieurs fois f_incrementer() sans
+// -------- commiter entre chaque appel.
+
+SELECT 		cpt_val
+	INTO		:dcCpt
+	FROM 		sysadm.parametre
+	WHERE 	ref_cpt = :asRefCpt
+Using			atrTrans;
+
+If atrTrans.SQLCode <> 0 Then
+
+	bOk = False
+
+End If
+
+
+//	--------				Incr$$HEX1$$e900$$ENDHEX$$mentation du curseur
+
+dcCpt = dcCpt + 1
+
+sCommandeSql	=	"EXECUTE sysadm.u_parametre_val ~'" + asRefCpt + "~' ," + String ( dcCpt )
+
+bOk = f_execute ( sCommandeSql , atrTrans )
+
+If Not bOk Then dcCpt = -1			// Retourne -1 si une erreur est survenue
+
+Return ( dcCpt )
+end function
+

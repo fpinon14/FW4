@@ -1,0 +1,64 @@
+HA$PBExportHeader$f_getversionword.srf
+global type f_getversionword from function_object
+end type
+
+forward prototypes
+global function string f_getversionword ()
+end prototypes
+
+global function string f_getversionword ();//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_GetVersionWord			(PUBLIC)
+//* Auteur			: Franck Musso (pour Office 2010)
+//* Date				: 21/09/2010
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration de la version de Word Install$$HEX1$$e900$$ENDHEX$$e (si pas encore r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$e),
+//* 						et stockage en variable globale.
+//*
+//* Arguments		: Aucun
+//*
+//* Retourne		: String		 num$$HEX1$$e900$$ENDHEX$$ro de version de Word
+//*									 8.0.xxxx	Office 97
+//*									 9.0.xxxx	Office 2000
+//*									10.0.xxxx	Office 2002
+//*									11.0.xxxx	Office 2003
+//*									    .0.xxxx	Office 2007
+//*									14.0.xxxx	Office 2010
+//*
+//*-----------------------------------------------------------------
+//* MAJ      PAR      Date	  Modification
+//* 			PHG		25/08/2011	Correction Bug : Si le ConnectToNewObject echouait,
+//*										On applicait quand m$$HEX1$$ea00$$ENDHEX$$me les ordres OLE, d'ou exception
+//*										SystemError. Ajout donc de lb_LolWordOk
+//*-----------------------------------------------------------------
+
+integer		li_Res
+oleobject		lol_Word
+boolean		lb_LolWordOk
+
+If IsNull(stglb.sWordVersion) or len(stglb.sWordVersion) = 0 or Left(stglb.sWordVersion, 5) = 'ERROR' Then
+	lol_Word = CREATE OLEObject
+	li_Res = lol_Word.ConnectToNewObject( "word.application")
+	If li_Res < 0 Then
+		li_Res = lol_Word.ConnectToObject("", "word.application")
+	End If
+	lb_LolWordOk = IsValid(lol_Word) and ( li_Res = 0 )
+	if lb_LolWordOk Then
+		//lol_Word.Application.Version ne r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e800$$ENDHEX$$re pas la version compl$$HEX1$$e800$$ENDHEX$$te, on en a besoin pour diff$$HEX1$$e900$$ENDHEX$$rencier le SP2 du SP3 de la V2003
+		stglb.sWordVersion = lol_Word.Application.Build
+		stglb.sWordPath = lol_Word.Application.Path + '\WINWORD.EXE'
+	Else
+		stglb.sWordVersion = 'ERROR'
+	End If
+	Yield() // On laisse le temps $$HEX2$$e0002000$$ENDHEX$$l'objet de pour terminer son instanciation.
+	If lb_LolWordOk Then 
+		lol_Word.Application.Quit(0)	//pour ne pas laisser un process word ouvert
+		li_Res = lol_Word.DisconnectObject()
+	End If
+	if IsValid(lol_Word) Then Destroy lol_Word
+End If //sinon rien $$HEX2$$e0002000$$ENDHEX$$faire la version est d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$enregistr$$HEX1$$e900$$ENDHEX$$e dans la structure globale
+
+Return stglb.sWordVersion
+
+end function
+

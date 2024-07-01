@@ -1,0 +1,28 @@
+HA$PBExportHeader$f_ouvreaccueil.srf
+$PBExportComments$------} Fonction ouverture fen$$HEX1$$ea00$$ENDHEX$$tre Accueil dans Environnement MDI envspb
+global type f_ouvreaccueil from function_object
+end type
+
+forward prototypes
+global subroutine f_ouvreaccueil (ref w_accueil awAccueil, menu ammenu, ref s_glb astglb)
+end prototypes
+
+global subroutine f_ouvreaccueil (ref w_accueil awAccueil, menu ammenu, ref s_glb astglb);//*******************************************************************************************
+// Fonction            	: f_OuvreAccueil
+//	Auteur              	: D.Bizien
+//	Date 					 	: 20/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Ouverture d'une fen$$HEX1$$ea00$$ENDHEX$$tre Accueil
+// Commentaires			: 
+//
+// Arguments				: awAccueil - w_Accueil - Fen$$HEX1$$ea00$$ENDHEX$$tre $$HEX2$$e0002000$$ENDHEX$$ouvrir
+//								  amMenu - Menu - Menu en cours sur lequel est apell$$HEX2$$e9002000$$ENDHEX$$la fonction
+//								  astGLB - s_GLB - Structure Globale de l'application
+//
+// Retourne					: Rien
+//								  
+//*******************************************************************************************
+
+
+OpenSheetWithParm ( awAccueil, astGLB, amMenu.ParentWindow, 0, Layered! )
+end subroutine
+

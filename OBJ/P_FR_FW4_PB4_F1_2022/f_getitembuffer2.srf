@@ -1,0 +1,66 @@
+HA$PBExportHeader$f_getitembuffer2.srf
+$PBExportComments$( Sql ) Fonction f_getitembuffer mais avec les formats datetime compatibles SqlServer
+global type f_getitembuffer2 from function_object
+end type
+
+forward prototypes
+global function string f_getitembuffer2 (ref datawindow adw, long allig, string ascol, dwbuffer adwbuffer, boolean aborig)
+end prototypes
+
+global function string f_getitembuffer2 (ref datawindow adw, long allig, string ascol, dwbuffer adwbuffer, boolean aborig);//*******************************************************************************************
+// Fonction          	: F_GetItemBuffer
+//	Auteur            	: FS
+//	Date 					 	: 26/03/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: GetItem en fonction du type de la colonne
+// Commentaires			: ( Ajout des param$$HEX1$$e800$$ENDHEX$$tres Buffer et Valeur d'origine ) en plus de F_GetItem
+//
+// Arguments				:	adw  (Ref)* Data Window source pour le GetItem x
+//									alLig     : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									asCol     : Nom de la colonne
+//                      adwBuffer : Buffer PRIMARY!, DELETE!, FILTER!
+//                      abOrig    : True = Valeur originale ( issue du retrieve )
+//                                  False  Valeur actuelle
+//
+// Retourne				:	Valeur sous forme de chaine
+//								  
+//*******************************************************************************************
+
+String sGet, sType
+
+sType =  left ( aDw.describe( asCol + ".coltype"), 5 )
+
+If isNull( adwBuffer ) Then adwBuffer = PRIMARY!
+
+Choose Case sType
+
+Case "char("
+
+	sGet = aDw.GetItemString ( alLig, asCol, adwBuffer, abOrig )
+
+Case "decim", "numbe"
+
+	sGet = string ( aDw.GetItemNumber ( alLig, asCol, adwBuffer, abOrig ) )
+
+Case "date"
+
+	sGet = string ( aDw.GetItemDate ( alLig, asCol, adwBuffer, abOrig ), "dd/mm/yyyy" )
+
+Case "datet"
+
+	sGet = string ( aDw.GetItemDateTime ( alLig, asCol, adwBuffer, abOrig ), "dd/mm/yyyy hh:mm:ss.ff" )
+
+Case "time"
+
+	sGet = string ( aDw.GetItemTime ( alLig, asCol, adwBuffer, abOrig ), "hh:mm:ss.ffffff" )
+
+End Choose
+
+If isNull ( sGet ) Then 
+	sGet = "null"
+ElseIf sType <> "decim" And sType <> "numbe" Then
+	sGet = "'" + sGet + "'"
+End If
+
+Return ( sGet )
+end function
+
