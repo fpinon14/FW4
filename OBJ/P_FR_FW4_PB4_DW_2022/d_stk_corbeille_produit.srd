@@ -1,0 +1,14 @@
+HA$PBExportHeader$d_stk_corbeille_produit.srd
+$PBExportComments$------} Datawindow utilis$$HEX1$$e900$$ENDHEX$$e dans la fen$$HEX1$$ea00$$ENDHEX$$tre de gestion des Corbeilles/Op$$HEX1$$e900$$ENDHEX$$rateurs (W_TRT_CORB_OPER) R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des produits/corbeilles.
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=1 color="536870912" )
+table(column=(type=number name=id_prod dbname="id_prod" )
+ column=(type=char(20) name=lib_court dbname="lib_court" )
+ column=(type=char(35) name=lib_long dbname="lib_long" )
+ column=(type=number name=id_corb dbname="id_corb" )
+ column=(type=char(35) name=lib_code dbname="lib_code" )
+ procedure="1 execute sysadm.DW_S01_CORB_PRODUIT_SAVANE "  sort="id_corb A id_prod A " )
