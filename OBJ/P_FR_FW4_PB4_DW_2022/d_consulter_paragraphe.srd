@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_consulter_paragraphe.srd
+$PBExportComments$------} Datawindow external utilis$$HEX1$$e900$$ENDHEX$$e avec W_CONSULTER_PARAGRAPHE
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="-1" )
+summary(height=1 color="-1" )
+footer(height=1 color="-1" )
+detail(height=485 color="-1" )
+table(column=(type=number name=id_ordre dbname="id_ordre" )
+ column=(type=char(4) name=id_para dbname="id_para" )
+ column=(type=char(32750) name=txt_para dbname="txt_para" )
+  sort="id_ordre A " )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="19" y="12" height="457" width="2423" format="[general]"  name=txt_para edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tRGB ( 255,255, 210 )" )

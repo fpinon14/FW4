@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_commune.srd
+$PBExportComments$Dataobject accueillant le le fichier des 39155 commune de france sur K:\PB801\INSEE.TXT
+release 8;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=char(35) updatewhereclause=yes name=commune dbname="COMMUNE" )
+ column=(type=char(5) updatewhereclause=yes name=cp dbname="CP" )
+ column=(type=char(35) updatewhereclause=yes name=departement dbname="DEPARTEMENT" )
+ column=(type=char(10) updatewhereclause=yes name=insee dbname="INSEE" )
+ column=(type=char(2) updatewhereclause=yes name=code_dept dbname="CODE_DEPT" )
+ )
+text(band=header alignment="2" text="Commune" border="6" color="16711680" x="14" y="8" height="56" width="878" html.valueishtml="0"  name=commune_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="C.Postal" border="6" color="16711680" x="910" y="8" height="56" width="187" html.valueishtml="0"  name=cp_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="D$$HEX1$$e900$$ENDHEX$$partement" border="6" color="16711680" x="1115" y="8" height="56" width="846" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="23" y="4" height="52" width="878" format="[general]" html.valueishtml="0"  name=commune visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="0" x="928" y="4" height="52" width="187" format="[general]" html.valueishtml="0"  name=cp visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="If ( len (code_dept) = 1, '0' + code_dept + '   ' + departement ,	code_dept + '   ' + departement  )"border="0" color="0" x="1134" y="4" height="52" width="832" format="[GENERAL]" html.valueishtml="0"  name=calc_dept visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )
