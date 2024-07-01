@@ -1,0 +1,13 @@
+HA$PBExportHeader$s_commune.srs
+$PBExportComments$Structure pour la recherche des communes
+global type s_commune from structure
+	datawindow		dw_commune
+	datastore		ds_commune
+	string		scommune
+	string		scp
+	string		sdepartement
+	string		scode_dept
+	string		sinsee
+	boolean		bvalider
+end type
+

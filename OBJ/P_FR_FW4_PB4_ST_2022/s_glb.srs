@@ -1,0 +1,52 @@
+HA$PBExportHeader$s_glb.srs
+$PBExportComments$----} Structure globale application
+global type s_glb from structure
+	string		scodoper
+	string		stypoper
+	string		scodappli
+	string		sfichierini
+	string		sfichiererreur
+	string		sfichiererreurg
+	string		scodserv
+	string		slibserv
+	string		slibcourtappli
+	string		slibappli
+	string		sversionappli
+	string		sdtedercnx
+	string		sdtederdcnx
+	u_sesame		uoenvspb
+	string		smessageerreur
+	s_module		stmodule[]
+	string		scodmodule
+	string		swindir
+	environment		stenv
+	u_declarationwindows		uowin
+	u_sesame		uosesame
+	decimal { 5 }		tx_euro
+	string		snomoper
+	string		sprenomoper
+	string		smonnaieformatdesire
+	string		smonnaiesymboledesire
+	string		smonnaielitteraldesire
+	string		smonnaieformatactuel
+	string		smonnaiesymboleactuel
+	string		smonnaielitteralactuel
+	boolean		bcreationtrv
+	boolean		bsaisiesin
+	boolean		bconsult
+	boolean		bedtsin
+	boolean		bvalsin
+	boolean		bsaivaledt
+	string		stab_opcon_xps[]
+	boolean		bcorbopersavane
+	string		sreptempo
+	u_spb_ds_commune		uocommune
+	n_cst_global_function_provider		uogfp
+	string		srevisionsvn
+	string		snomapplication
+	string		scodenv
+	boolean		bmodecnx
+	string		swordversion
+	string		swordpath
+end type
+

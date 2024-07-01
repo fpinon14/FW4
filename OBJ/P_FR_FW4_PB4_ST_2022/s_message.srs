@@ -1,0 +1,15 @@
+HA$PBExportHeader$s_message.srs
+$PBExportComments$------} Structure servant $$HEX2$$e0002000$$ENDHEX$$l'affichage des messages
+global type s_message from structure
+    button bouton
+    icon icon
+    string stitre
+    string scode
+    string sfichier
+    string svar[]
+    boolean berreurg
+    string sfichierg
+    boolean btrace
+    integer iDefautBouton
+end type
+

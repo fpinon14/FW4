@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_ofstruct.srs
+$PBExportComments$------} Structure servant $$HEX2$$e0002000$$ENDHEX$$la fonction de copy de fichier f_copy
+global type s_ofstruct from structure
+    uint cbyte
+    uint errcod
+    uint reserved[2]
+    uint strpath[64]
+end type
+
