@@ -1,0 +1,9 @@
+HA$PBExportHeader$st_attente.srs
+global type st_attente from structure
+    string stext
+    string sprog
+    string sclass
+    string snom
+    integer itours
+end type
+

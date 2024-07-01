@@ -1,0 +1,25 @@
+HA$PBExportHeader$s_txtmetrics_pb8.srs
+$PBExportComments$----} Migration PB8-WYNIWYG-03/2004 Structure Windows Servant pour le calcul de la taille des caract$$HEX1$$e800$$ENDHEX$$res
+global type s_txtmetrics_pb8 from structure
+	long		tmheight
+	long		tmascent
+	long		tmdescent
+	long		tminternalleading
+	long		tmexternalleading
+	long		tmavecharwidth
+	long		tmmaxcharwidth
+	long		tmweight
+	long		tmoverhang
+	long		tmdigitizedaspectx
+	long		tmdgitizedaspecty
+	character		tmfirstchar
+	character		tmlastchar
+	character		tmdefaultchar
+	character		tmbreakchar
+	character		tmitalic
+	character		tmunderlined
+	character		tmstruckout
+	character		tmpitchandfamily
+	character		tmcharset
+end type
+
