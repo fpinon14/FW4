@@ -1,0 +1,105 @@
+HA$PBExportHeader$f_monnaie.srf
+global type f_monnaie from function_object
+end type
+
+forward prototypes
+global function string f_monnaie (decimal adcmontant, long alchoix, string asseparateur)
+end prototypes
+
+global function string f_monnaie (decimal adcmontant, long alchoix, string asseparateur);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Monnaie 
+//* Auteur			: Erick John Stark
+//* Date				: 25/09/1998 11:12:15
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Conversion d'un montant (valeur d$$HEX1$$e900$$ENDHEX$$cimal en Francs) en une variable format$$HEX1$$e900$$ENDHEX$$e
+//*
+//* Arguments		: Decimal		adcMontant			(Val)	Montant en Francs
+//*					  Long			alChoix				(Val)	Type de formatage
+//*					  String			asSeparateur		(Val)	Type de s$$HEX1$$e900$$ENDHEX$$parateur
+//*
+//* Retourne		: String		 	
+//*
+//*-----------------------------------------------------------------
+//* #1 PHG 18/02/2008 [SUISSE].LOT3 : Gestion Historique Conversion Francs/euros
+//*											  + gestion Autre Monnaie ( pas de conversion, inversion simple )
+//*    JFF 02/10/2015 [VDOC15377]
+//*-----------------------------------------------------------------
+
+String sMontant
+Decimal {5} dcTxConversion
+Decimal {2} dcEuro
+Decimal {2} dcFranc
+
+dcTxConversion = stGLB.Tx_Euro
+
+String ( adcMontant, "#,##0.00" )
+
+Choose Case stGLB.sMonnaieFormatDesire
+/*------------------------------------------------------------------*/
+/* Le montant que l'on passe est un montant en FRANCS.              */
+/*------------------------------------------------------------------*/
+Case "F"
+	Choose Case alChoix
+	Case 1					// FRF XXXX.XX 
+		sMontant = "FRF " + String ( adcMontant, "#,##0.00" )
+
+	Case 2					// FRF XXXX.XX ( E XXX.XX )
+		dcEuro = adcMontant / dcTxConversion
+
+		sMontant = "FRF " + String ( adcMontant, "#,##0.00" ) + asSeparateur + "( $$HEX2$$ac202000$$ENDHEX$$" + String ( dcEuro, "#,##0.00" ) + " )"
+
+	Case 3					// E XXX.XX
+		dcEuro = adcMontant / dcTxConversion
+
+		sMontant = "$$HEX2$$ac202000$$ENDHEX$$" + String ( dcEuro, "#,##0.00" )
+
+	Case 4					// E XXX.XX ( FRF XXXX.XX )
+		dcEuro = adcMontant / dcTxConversion
+	
+		sMontant = "$$HEX2$$ac202000$$ENDHEX$$" + String ( dcEuro, "#,##0.00" ) + asSeparateur + "( FRF " + String ( adcMontant, "#,##0.00" ) + " )"
+		
+	// [VDOC15377]
+	Case 5	
+		dcEuro = adcMontant / dcTxConversion
+
+		sMontant = String ( dcEuro, "#,##0.00" ) + " $$HEX1$$ac20$$ENDHEX$$"  
+		
+	
+	End Choose
+Case "EURO" // [SUISSE].LOT3 "E" est remplac$$HEX2$$e9002000$$ENDHEX$$par "EURO".
+/*------------------------------------------------------------------*/
+/* Le montant que l'on passe est un montant en EUROS.               */
+/*------------------------------------------------------------------*/
+	Choose Case alChoix
+	Case 1					// FRF XXXX.XX 
+		dcFranc	= adcMontant * dcTxConversion
+
+		sMontant = "FRF " + String ( dcFranc, "#,##0.00" )
+
+	Case 2					// FRF XXXX.XX ( E XXX.XX )
+		dcFranc	= adcMontant * dcTxConversion
+
+		sMontant = "FRF " + String ( dcFranc, "#,##0.00" ) + asSeparateur + "( $$HEX2$$ac202000$$ENDHEX$$" + String ( adcMontant, "#,##0.00" ) + " )"
+ 
+	Case 3					// E XXX.XX
+		sMontant = "$$HEX2$$ac202000$$ENDHEX$$" + String ( adcMontant, "#,##0.00" )
+
+	Case 4					// E XXX.XX ( FRF XXXX.XX )
+		dcFranc	= adcMontant * dcTxConversion
+	
+		sMontant = "$$HEX2$$ac202000$$ENDHEX$$" + String ( adcMontant, "#,##0.00" ) + asSeparateur + "( FRF " + String ( dcFranc, "#,##0.00" ) + " )"
+		
+	// [VDOC15377]
+	Case 5	
+		sMontant = String ( adcMontant, "#,##0.00" ) + " $$HEX1$$ac20$$ENDHEX$$" 
+		
+	End Choose
+Case Else // [SUISSE].LOT3 Pour toute autre monnaie, on prends un format simple Invers$$HEX1$$e900$$ENDHEX$$
+			 // le parametre choix n'a aucun effet
+	sMontant = f_remplace ( stGLB.sMonnaieSymboleDesire, "\", "") + " " + String ( adcMontant, "#,##0.00" )
+End Choose
+
+Return sMontant
+end function
+

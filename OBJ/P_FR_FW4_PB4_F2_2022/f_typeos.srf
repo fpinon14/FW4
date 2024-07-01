@@ -1,0 +1,83 @@
+HA$PBExportHeader$f_typeos.srf
+$PBExportComments$--------} Retourne le syst$$HEX1$$e800$$ENDHEX$$me d'exploitation courant NT, Win  95 ou 3.1
+global type f_typeos from function_object
+end type
+
+forward prototypes
+global function string f_typeos ()
+end prototypes
+
+global function string f_typeos ();//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_TypeOs
+//* Auteur			: DBI
+//* Date				: 28/02/1997 16:31:37
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Retourne la plateforme sur laquelle on tourne
+//* Commentaires	: 
+//*
+//* Arguments		: Aucun
+//*
+//* Retourne		: String			 WIN31 = Windows 3.1
+//*										 WIN95 = Windows 95
+//*										 WINNT = Windows NT
+//*
+//*-----------------------------------------------------------------
+//*	MAJ		Le			PAR	Description
+//*			20/10/2011	PHG	[I037] Fct completement obsolete,
+//*									c'est un miracle qu'elle ait march$$HEX2$$e9002000$$ENDHEX$$si
+//*									longtemps... Refonte avec l'objet
+//*									Environnement de PowerBuilder
+
+String	sTypeOs			// Plateforme courante
+
+environment nvEnv
+
+/* Pour Info, extrait de l'aide sur l'objet "environment"
+OSFixesRevision	Integer	The maintenance version of the operating system.
+OSMajorRevision	Integer	The major version of the operating system. For example, 
+									this value would be :
+										- 4 for Windows 95, 98, ME, and NT 4.x, 
+										- 5 for Windows 2000, XP, or 2003
+										- 6 for Vista, Windows Server 2008, and Windows 7.
+OSMinorRevision	Integer	The point release of the operating system. 
+									For example, this value would be :
+										- 0 for Windows Server 2008 and Vista
+										- 1 for Windows XP or Windows 7
+										- 2 for Windows Server 2003 and 64-bit XP
+*/
+
+GetEnvironment(NvEnv)
+
+Choose case NvEnv.osmajorrevision
+	case IS>4
+		sTypeOs = "WINNT"
+	case 4
+		sTypeOs = "WIN95"
+	//case ??? // Windows 3.1 Non Support$$HEX1$$e900$$ENDHEX$$, mais on s'en doutait un peu quand m$$HEX1$$ea00$$ENDHEX$$me...	
+	//	sTypeOs = "WIN31"
+	
+End choose
+
+Return ( sTypeOs )		
+
+/* Ancien code, pour le fun
+//Migration PB8-WYNIWYG-03/2006 FM
+//If FileExists ( "C:\NTDETECT.COM" ) Then		
+If f_FileExists ( "C:\NTDETECT.COM" ) Then		
+//Fin Migration PB8-WYNIWYG-03/2006 FM
+
+	sTypeOs = "WINNT"
+
+//Migration PB8-WYNIWYG-03/2006 FM
+//ElseIf FileExists ( "C:\SYSTEM.1ST" ) Then		
+ElseIf f_FileExists ( "C:\SYSTEM.1ST" ) Then		
+//Fin Migration PB8-WYNIWYG-03/2006 FM
+
+		sTypeOs = "WIN95"
+	Else
+
+		sTypeOs = "WIN31"
+End If
+*/
+end function
+
