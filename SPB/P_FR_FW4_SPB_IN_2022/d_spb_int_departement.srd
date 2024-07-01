@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_spb_int_departement.srd
+$PBExportComments$---} Datawindow d'interrogation pour la recherche des d$$HEX1$$e900$$ENDHEX$$partements
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=209 color="536870912" )
+table(column=(type=char(3) name=id_dept dbname="id_dept" )
+ column=(type=char(35) name=lib_dept dbname="lib_dept" )
+ )
+text(band=detail alignment="1" text="D$$HEX1$$e900$$ENDHEX$$partement"border="0" color="0" x="202" y="20" height="65" width="279"  name=id_dept_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="16711680" x="522" y="20" height="65" width="302" format="[general]"  name=id_dept  tag="Code du d$$HEX1$$e900$$ENDHEX$$partement" dddw.name=dddw_spb_departement dddw.displaycolumn=id_dept dddw.datacolumn=id_dept dddw.percentwidth=400 dddw.limit=3 dddw.allowedit=yes dddw.useasborder=yes dddw.case=upper dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Nom du D$$HEX1$$e900$$ENDHEX$$partement"border="0" color="0" x="23" y="124" height="65" width="458"  name=lib_dept_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="16711680" x="522" y="124" height="65" width="997" format="[general]"  name=lib_dept  tag="Nom complet du d$$HEX1$$e900$$ENDHEX$$partement" edit.limit=35 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.nilisnull=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

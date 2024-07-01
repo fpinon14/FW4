@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_spb_int_groupe.srd
+$PBExportComments$---} Datawindow d'interrogation pour la recherche des groupes
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=309 color="536870912" )
+table(column=(type=char(3) name=id_grp dbname="id_grp" )
+ column=(type=char(3) name=id_grp_base dbname="id_grp_base" )
+ column=(type=char(35) name=lib_grp dbname="lib_grp" )
+ )
+text(band=detail alignment="1" text="Groupe"border="0" color="0" x="151" y="20" height="65" width="165"  name=id_grp_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="16711680" x="353" y="20" height="65" width="334" format="[general]"  name=id_grp  tag="Identifiant de la police d'assurance" dddw.name=dddw_spb_groupe dddw.displaycolumn=id_grp dddw.datacolumn=id_grp dddw.percentwidth=250 dddw.limit=4 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Grp Principal"border="0" color="0" x="37" y="124" height="65" width="279"  name=id_grp_base_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="16711680" x="353" y="124" height="65" width="334" format="[general]"  name=id_grp_base  tag="Identifiant de la compagnie" dddw.name=dddw_spb_groupe dddw.displaycolumn=id_grp dddw.datacolumn=id_grp dddw.percentwidth=250 dddw.limit=2 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Libell$$HEX1$$e900$$ENDHEX$$"border="0" color="0" x="174" y="228" height="65" width="142"  name=lib_grp_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="5" color="16711680" x="353" y="228" height="65" width="997" format="[general]"  name=lib_grp  tag="Num$$HEX1$$e900$$ENDHEX$$ro de la police d'assurance pour la compagnie" edit.limit=35 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
