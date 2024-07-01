@@ -1,0 +1,45 @@
+HA$PBExportHeader$f_decomposerchaine.srf
+$PBExportComments$----} D$$HEX1$$e900$$ENDHEX$$composition d'une chaine avec un s$$HEX1$$e900$$ENDHEX$$parateur et  positionne les $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$m$$HEX1$$e900$$ENDHEX$$nts dans un tableau
+global type f_decomposerchaine from function_object
+end type
+
+forward prototypes
+global subroutine f_decomposerchaine (string aschaine, character assep, ref string astab[])
+end prototypes
+
+global subroutine f_decomposerchaine (string aschaine, character assep, ref string astab[]);//*******************************************************************************************
+// Fonction            	: f_DecomposerChaine 
+//	Auteur              	: Erick John Stark
+//	Date 					 	: 22/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+// Commentaires			:
+//
+// Arguments				: asChaine	String		(Val)	Chaine $$HEX2$$e0002000$$ENDHEX$$Parser
+//								  asSep		Char			(Val)	S$$HEX1$$e900$$ENDHEX$$parateur que l'on recherche
+//								  asTab[]	String		(R$$HEX1$$e900$$ENDHEX$$f)	Tableau des $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ments retourn$$HEX1$$e900$$ENDHEX$$s
+//								  
+// Retourne					: 
+//								  
+//*******************************************************************************************
+
+
+String		sChaine
+Long			lCpt, lPos
+
+lCpt			=  1
+lPos			= -1
+sChaine		= RightTrim ( asChaine )
+
+Do While	sChaine <> "" And lPos <> 0 
+
+	lPos	= Pos ( sChaine, asSep )
+	If	lPos <> 0 Then
+		asTab[ lCpt ]	= Trim ( Left ( sChaine, lPos - 1 ) )
+		sChaine			= Mid ( sChaine, lPos + 1, Len ( sChaine ) - lPos )
+		lCpt ++
+	Else
+		asTab[ lCpt ] = Trim ( sChaine )
+	End If
+Loop
+end subroutine
+

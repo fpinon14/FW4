@@ -1,0 +1,80 @@
+HA$PBExportHeader$f_execute.srf
+$PBExportComments$------} Fonction Execution commande pr$$HEX1$$e900$$ENDHEX$$comil$$HEX1$$e900$$ENDHEX$$e
+global type f_execute from function_object
+end type
+
+forward prototypes
+global function boolean f_execute (string ascommande, ref u_transaction atrtrans)
+end prototypes
+
+global function boolean f_execute (string ascommande, ref u_transaction atrtrans);//*******************************************************************************************
+// Fonction            	: F_Execute - 
+//	Auteur              	: D.Bizien
+//	Date					 	: 22/02/1996
+// Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Execution d'une requete pr$$HEX1$$e900$$ENDHEX$$compil$$HEX1$$e900$$ENDHEX$$e sur la base Gupta
+//	Commentaires			: 
+//
+// Arguments				: asCommande - 	String - Commande $$HEX2$$e0002000$$ENDHEX$$envoyer
+//								  atpTransObject- U_Transaction, Objet de u_transaction associ$$HEX4$$e9002000e0002000$$ENDHEX$$la connexion
+//
+// Retourne					: Vrai si cela c'est bien pass$$HEX1$$e900$$ENDHEX$$
+//								  Faux si un probleme est survenu
+//*******************************************************************************************
+// JFF  30/01/2020 [20200130][JFF] Probl$$HEX1$$e800$$ENDHEX$$me dans le code de DB ou PHG, car si la chaine SQL contient par malheur dans le texte d'un commentaire
+//						 la chaine EXEC ou EXECUTE, tout ce qui est $$HEX2$$e0002000$$ENDHEX$$la gauche de cette chaine est supprim$$HEX1$$e900$$ENDHEX$$.
+//*******************************************************************************************
+
+Boolean bConnectOk = True
+// [MIGPB11] [EMD] : Debut Migration : Le parametre SqlNrows de l'objet u_trans n'est pas correctement MAJ avec SNC
+//EXECUTE IMMEDIATE :asCommande USING atrTrans;
+
+Long dwPosLeft
+string sValue
+long lRet
+string sCmdeUpp
+integer dwLen
+
+// Suppression de l'ent$$HEX1$$ea00$$ENDHEX$$te de la commande si c'est "EXECUTE "
+//sCmdeUpp = Upper(asCommande) [20200130][JFF]
+sCmdeUpp = Upper( Left ( Trim ( asCommande ), 7) ) // [20200130][JFF]
+
+// On recherche en premier le mot clef "EXECUTE"
+dwPosLeft = Pos(sCmdeUpp, "EXECUTE")
+dwLen = Len("EXECUTE")
+
+// Si le mot clef EXECUTE n'a pas $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$trouv$$HEX2$$e9002000$$ENDHEX$$on recheche "EXEC"
+if dwPosLeft = 0 then
+	sCmdeUpp = Upper( Left ( Trim ( asCommande ), 4) ) // [20200130][JFF]
+
+	// On essaie de chercher le mot clef "EXEC"
+	dwPosLeft = Pos(sCmdeUpp, "EXEC")
+	dwLen = Len( "EXEC")
+end if
+
+if(dwPosLeft>0) then
+	dwPosLeft += dwLen - 1
+	sValue = Right(asCommande, Len(asCommande) - dwPosLeft )
+	sValue = Trim( sValue )
+else
+	sValue = Trim ( asCommande ) // [20200130][JFF] ajout TRim
+end if
+
+// Execution d$$HEX1$$e900$$ENDHEX$$port$$HEX1$$e900$$ENDHEX$$e sur le serveur de la commande d$$HEX1$$e900$$ENDHEX$$sir$$HEX1$$e900$$ENDHEX$$e
+// [MIGPB11] [EMD] : Appel dynamic de PS_EXECUTE_SQL_CMDE car l'utilisation dans SAVANE de la couche PB4 du FW4
+// sans la couche SPB ne permet pas de r$$HEX1$$e900$$ENDHEX$$soudre les appels de fa$$HEX1$$e700$$ENDHEX$$on static.
+// Dans le cas de SAVANE, la fonction est definie dans u_trans_anc_savane dont herite u_transaction
+//lRet = atrTrans.PS_EXECUTE_SQL_CMDE( sValue )
+lRet = atrTrans.DYNAMIC PS_EXECUTE_SQL_CMDE( sValue )
+// [MIGPB11] [EMD] : Fin
+
+// Mise $$HEX2$$e0002000$$ENDHEX$$jour du SqlnRows avec la valeur correcte de RowCount retourn$$HEX2$$e9002000$$ENDHEX$$par la ProStoc
+atrTrans.sqlnrows = lRet
+	
+IF atrTrans.sqlcode <> 0 Or atrTrans.sqlDBcode <> 0 THEN
+	bConnectOk = False
+End if
+
+Return bConnectOk
+
+end function
+

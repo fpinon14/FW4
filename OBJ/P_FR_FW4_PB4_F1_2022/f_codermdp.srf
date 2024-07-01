@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_codermdp.srf
+$PBExportComments$------} Encryptage du mot de passe
+global type f_codermdp from function_object
+end type
+
+forward prototypes
+global function string f_codermdp (string asmot)
+end prototypes
+
+global function string f_codermdp (string asmot);//*******************************************************************************************
+//	Fonction          	: F_CoderMdp
+//	Auteur            	: DBI
+//	Date 					 	: 30/04/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Commentaires			: Encodage du mot de passe, Cette fonction marche en bascule
+//
+//	Arguments				: asMot : Mot de passe $$HEX2$$e0002000$$ENDHEX$$crypter ou d$$HEX1$$e900$$ENDHEX$$crypter
+//
+//	Retourne				: Mot de passe crypt$$HEX2$$e9002000$$ENDHEX$$ou d$$HEX1$$e900$$ENDHEX$$crypt$$HEX1$$e900$$ENDHEX$$
+//								  
+//*******************************************************************************************
+//[I037] Fonction OBSOLETE
+//U_DeclarationFuncky u_Funcky
+//String	sCle = "JDFBLVE", sRetour
+
+//U_Funcky	=	CREATE U_DeclarationFuncky
+
+//Migration PB8-WYNIWYG-03/2006 FM
+//sRetour = asMot
+//
+//U_Funcky._Encrypt ( sRetour, sCle, 0 )
+//sRetour = U_Funcky.uf_Encrypt(asMot, sCle)
+//DESTROY u_Funcky
+//If IsValid(U_Funcky) Then Destroy U_Funcky
+//Fin Migration PB8-WYNIWYG-03/2006 FM
+//Return sRetour
+return asMot
+
+end function
+
