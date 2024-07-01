@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_setnul.srf
+$PBExportComments$------} Armer la structure globale des valeus nulles.
+global type f_setnul from function_object
+end type
+
+forward prototypes
+global subroutine f_setnul (ref s_nul astnul)
+end prototypes
+
+global subroutine f_setnul (ref s_nul astnul);//*******************************************************************************************
+// Fonction            	: F_SetNul
+//	Auteur              	: Erick John Stark
+//	Date 					 	: 27/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$:
+// Commentaires			: Mise $$HEX2$$e0002000$$ENDHEX$$Null des principaux types
+//
+// Arguments				: s_Nul	astNul	(R$$HEX1$$e900$$ENDHEX$$f)	Structure pour les nulls
+//
+// Retourne					: Rien
+//								  
+//*******************************************************************************************
+
+SetNull ( astNul.iNum )
+SetNull ( astNul.Str  )
+SetNull ( astNul.Dat  )
+SetNull ( astNul.Dtm  )
+SetNull ( astNul.Tim  )
+SetNull ( astNul.Dcm  )
+SetNull ( astNul.Lng  )
+
+
+
+end subroutine
+

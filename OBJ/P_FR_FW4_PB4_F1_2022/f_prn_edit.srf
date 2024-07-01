@@ -1,0 +1,48 @@
+HA$PBExportHeader$f_prn_edit.srf
+$PBExportComments$----} Envoie d'un fichier d'$$HEX1$$e900$$ENDHEX$$dition .EDT sur le Spool de l'imprimante
+global type f_prn_edit from function_object
+end type
+
+forward prototypes
+global function boolean f_prn_edit (string asficedt, string asjob)
+end prototypes
+
+global function boolean f_prn_edit (string asficedt, string asjob);//*******************************************************************************************
+// Fonction		: f_Prn_Edit
+//	Auteur			: V.Capelle
+//	Date				: 04/07/1996
+//	Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+// Commentaires	: Envoie d'un fichier d'$$HEX1$$e900$$ENDHEX$$dition .EDT sur le Spool de l'imprimante
+//						  
+// Arguments		: String				asFicEdt 		-->	Chemin et nom du fichier $$HEX2$$e0002000$$ENDHEX$$
+//																				envoyer au spool 
+//													asJob 			-->	Libell$$HEX2$$e9002000$$ENDHEX$$descriptif de l'impression.
+//
+// Retourne		: Boolean				True si Ok
+//								  
+//*******************************************************************************************
+
+Boolean 						bOk 	= True
+
+Integer 						iRet 	= 0
+
+String							sImpri, &
+									sPort, &
+									sDevice
+
+
+sDevice		= ProfileString( "WIN.INI","Windows","Device", "" )
+sImpri		= Left ( sDevice, Pos( sDevice, "," ) -1 ) 
+sPort 		= Right( sDevice, 5 )
+
+
+iRet			= stGLB.uoWin.Uf_SpoolFile( sImpri, sPort, asJob, asFicEdt )
+Yield ()
+Yield ()
+
+If iRet < 0 Then bOk = False
+
+Return ( bOk )
+
+end function
+

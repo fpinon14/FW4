@@ -1,0 +1,214 @@
+HA$PBExportHeader$f_trace_erreur.srf
+$PBExportComments$------} Fonction d'affichage et de trace des messages d'erreurs syst$$HEX1$$e800$$ENDHEX$$mes (et autres)
+global type f_trace_erreur from function_object
+end type
+
+forward prototypes
+global function integer f_trace_erreur (string astypeerreur, ref s_glb astglb)
+end prototypes
+
+global function integer f_trace_erreur (string astypeerreur, ref s_glb astglb);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_Trace_Erreur
+//* Auteur			: Erick John Stark
+//* Date				: 01/10/1996 13:57:49
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Gestion d'une trace des Erreurs
+//*
+//* Arguments		: Integer		aiTypeErreur		(Val)	Type d'erreur
+//*					  s_GLB			astGLB				(R$$HEX1$$e900$$ENDHEX$$f) Structure Globale
+//*
+//* Retourne		: Integer		 Le num$$HEX1$$e900$$ENDHEX$$ro du bouton press$$HEX1$$e900$$ENDHEX$$
+//*
+//*-----------------------------------------------------------------
+
+/*------------------------------------------------------------------*/
+/* Il faut r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer le r$$HEX1$$e900$$ENDHEX$$pertoire qui sert $$HEX2$$e0002000$$ENDHEX$$la trace des erreurs. */
+/* Ce nom est sp$$HEX1$$e900$$ENDHEX$$cifi$$HEX2$$e9002000$$ENDHEX$$dans le fichier INI de l'application, dans   */
+/* la section TRACE, mot cl$$HEX2$$e9002000$$ENDHEX$$REP_TRACE_E                            */
+/* Le fichier d'erreur se nomme ERREUR.LOG                          */
+/*------------------------------------------------------------------*/
+
+//[I037]
+//u_DeclarationFuncky uoDeclarationFuncky		
+
+String sRep, sFicErreur, sFicErreurOper, sNomMachine, sMaintenant, sLigne, sTab, sNew
+String sTypFic, sNumFichier, sNumErreur
+String sText
+Integer iFic
+
+s_Pass stPass
+
+sTab			= "~t"
+sNew			= "~r~n"
+sRep 			= ProfileString ( astGLB.sfichierini, "TRACE", "REP_TRACE_E", "" )
+sMaintenant = String ( DateTime ( Today(), Now() ), "dd/mm/yyyy hh:mm:ss" )
+
+If	sRep = "" Then Return ( 0 )
+
+sFicErreur = sRep + "ERREUR.LOG"
+
+/*------------------------------------------------------------------*/
+/* Il faut r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer le N$$HEX2$$b0002000$$ENDHEX$$de la machine positionn$$HEX2$$e9002000$$ENDHEX$$dans la         */
+/* variable SQL                                                     */
+/*------------------------------------------------------------------*/
+
+//uoDeclarationFuncky	= Create u_DeclarationFuncky
+//sNomMachine 			= uoDeclarationFuncky.Uf_GetEnv ( "SQL" )
+sNomMachine 			= stGlb.uoWin.uf_GetEnvironment( "SQL")
+/*------------------------------------------------------------------*/
+/* On d$$HEX1$$e900$$ENDHEX$$termine le dernier num$$HEX1$$e900$$ENDHEX$$ro d'erreur utilis$$HEX2$$e9002000$$ENDHEX$$par              */
+/* l'utilisateur                                                    */
+/*------------------------------------------------------------------*/
+
+sTypFic 			= sRep + stGLB.sCodOper + ".*"
+//[I037] Migration FUNCKy
+//sNumFichier 	= String ( uoDeclarationFuncky.Uf_FileCount ( sTypFic, 0 ), "000" )
+sNumFichier 	= String ( stGlb.uoWin.Uf_FileCount ( sTypFic, 0 ), "000" )
+sFicErreurOper = sRep + stGLB.sCodOper + "." + sNumFichier
+
+//Migration PB8-WYNIWYG-03/2006 FM
+//Destroy uoDeclarationFuncky
+//If IsValid(uoDeclarationFuncky) Then Destroy uoDeclarationFuncky
+//Fin Migration PB8-WYNIWYG-03/2006 FM
+
+Choose Case asTypeErreur
+Case "1"							// Cas d'une erreur SYSTEME
+
+/*------------------------------------------------------------------*/
+/* On va d'abord d$$HEX1$$e900$$ENDHEX$$coder l'erreur syst$$HEX1$$e900$$ENDHEX$$me qui vient de survenir.    */
+/* En effet, le message est en anglais, donc peu causant.           */
+/*------------------------------------------------------------------*/
+
+	f_Decoder_Erreur_PB ()
+
+/*------------------------------------------------------------------*/
+/* On va $$HEX1$$e900$$ENDHEX$$crire une ligne dans le fichier ERREUR.LOG.               */
+/*------------------------------------------------------------------*/
+
+	sNumErreur	= String ( Error.Number )
+
+	sLigne = sMaintenant 			+ sTab + &
+				astGLB.sCodAppli		+ sTab + &
+				sNomMachine 			+ sTab + &
+				astGLB.sCodOper		+ sTab + &
+				sNumFichier				+ sTab + &
+				asTypeErreur			+ sTab + &
+				sNumErreur				+ sTab + &
+				Error.WindowMenu		+ sTab + &
+				Error.Object			+ sTab + &
+				Error.ObjectEvent		+ sTab + &
+				String ( Error.Line )
+
+	f_EcrireFichierText ( sFicErreur, sLigne )
+
+/*------------------------------------------------------------------*/
+/* On va $$HEX1$$e900$$ENDHEX$$crire un fichier pour le d$$HEX1$$e900$$ENDHEX$$tail de l'erreur syst$$HEX1$$e900$$ENDHEX$$me au    */
+/* format COD_OPER.NNN                                              */
+/*------------------------------------------------------------------*/
+
+	sText =	"//----------"											+ sNew + &
+				"// Erreur Syst$$HEX1$$e800$$ENDHEX$$me N$$HEX4$$b000200020002000$$ENDHEX$$: " + sNumErreur		+ sNew + &
+				"// Survenue le         : " + sMaintenant		+ sNew + &
+				"// Message             : " + Error.Text		+ sNew + &
+				"//----------"											+ sNew + sNew
+
+	iFic	= FileOpen ( sFicErreurOper, StreamMode!, Write!, LockReadWrite!, Append! )
+	FileWrite ( iFic, sText )
+	FileClose ( iFic )
+
+/*------------------------------------------------------------------*/
+/* On peut maintenant afficher une fen$$HEX1$$ea00$$ENDHEX$$tre avec le message          */
+/* d'erreur pr$$HEX1$$e900$$ENDHEX$$cis.                                                 */
+/* Sur cette fen$$HEX1$$ea00$$ENDHEX$$tre, si l'op$$HEX1$$e900$$ENDHEX$$rateur est un op$$HEX1$$e900$$ENDHEX$$rateur               */
+/* informatique, on lui permettra de continuer malgr$$HEX2$$e9002000$$ENDHEX$$l'erreur      */
+/* syt$$HEX1$$e800$$ENDHEX$$me.                                                          */
+/* Pour tous les autres types, l'arr$$HEX1$$ea00$$ENDHEX$$t sera obligatoire.            */
+/*------------------------------------------------------------------*/
+
+	Open ( w_Erreur_System )
+
+/*------------------------------------------------------------------*/
+/* On va $$HEX1$$e900$$ENDHEX$$crire le message de l'op$$HEX1$$e900$$ENDHEX$$rateur pr$$HEX1$$e900$$ENDHEX$$cisant les derni$$HEX1$$e800$$ENDHEX$$res   */
+/* op$$HEX1$$e900$$ENDHEX$$rations effectu$$HEX1$$e900$$ENDHEX$$es, dans le fichier LOG                       */
+/*------------------------------------------------------------------*/
+
+	stPass = Message.PowerObjectParm
+
+/*------------------------------------------------------------------*/
+/* Dans le cas d'un op$$HEX1$$e900$$ENDHEX$$rateur informatique, le message peut $$HEX1$$ea00$$ENDHEX$$tre $$HEX3$$e00020002000$$ENDHEX$$*/
+/* NULL. Il faut le tester.                                         */
+/*------------------------------------------------------------------*/
+
+	If	IsNull ( stPass.sTab[ 2 ] ) Or stPass.sTab[ 2 ] = "" Then
+		stPass.sTab[ 2 ] = " "
+	End If
+
+	sText =	"//----------"											+ sNew + &
+				"// Continuer/Retour    : " + stPass.sTab[1]	+ sNew + &
+				"// Description         : " 						+ sNew + &
+				"//----------"				 							+ sNew + &
+																			+ sNew + &
+				stPass.sTab[2]
+
+	iFic	= FileOpen ( sFicErreurOper, StreamMode!, Write!, LockReadWrite!, Append! )
+	FileWrite ( iFic, sText )
+	FileClose ( iFic )
+
+Case "2"							// Cas d'un message qu'il faut tracer
+
+/*------------------------------------------------------------------*/
+/* A la diff$$HEX1$$e900$$ENDHEX$$rence des erreurs syst$$HEX1$$e800$$ENDHEX$$mes, on ecrit une ligne dans    */
+/* le fichier, apr$$HEX1$$e900$$ENDHEX$$s avoir affich$$HEX2$$e9002000$$ENDHEX$$le message avec F_MESSAGE        */
+/*------------------------------------------------------------------*/
+
+	sLigne = sMaintenant 			+ sTab + &
+				astGLB.sCodAppli		+ sTab + &
+				sNomMachine 			+ sTab + &
+				astGLB.sCodOper		+ sTab + &
+				sNumFichier				+ sTab + &
+				asTypeErreur			+ sTab + &
+				Error.Object
+
+	f_EcrireFichierText ( sFicErreur, sLigne )
+
+/*------------------------------------------------------------------*/
+/* On va $$HEX1$$e900$$ENDHEX$$crire un fichier pour le d$$HEX1$$e900$$ENDHEX$$tail du message au format      */
+/* COD_OPER.NNN                                                     */
+/*------------------------------------------------------------------*/
+
+	sNumErreur	= String ( Error.Line )
+
+	sText =	"//----------"											+ sNew + &
+				"// Message N$$HEX11$$b0002000200020002000200020002000200020002000$$ENDHEX$$: " + Error.Object	+ sNew + &
+				"// Survenue le         : " + sMaintenant		+ sNew + &
+				"// Choix bouton        : " + sNumErreur		+ sNew + &
+				"// Message             : " 						+ sNew + &
+				"//----------"											+ sNew + sNew + &
+				Error.Text		
+
+	iFic	= FileOpen ( sFicErreurOper, StreamMode!, Write!, LockReadWrite!, Append! )
+	FileWrite ( iFic, sText )
+	FileClose ( iFic )
+
+/*------------------------------------------------------------------*/
+/* Comme je n'ai pas voulu utiliser une structure suppl$$HEX1$$e900$$ENDHEX$$mentaire,   */
+/* j'utilise celle de ERROR. Il ne faut pas oublier de              */
+/* r$$HEX1$$e900$$ENDHEX$$initialiser celle-ci.                                          */
+/*------------------------------------------------------------------*/
+
+	Error.Object 	= ""
+	Error.Text		= ""
+	Error.Line		= 0
+
+End Choose
+
+Return ( 1 )
+
+
+
+
+
+
+end function
+

@@ -1,0 +1,53 @@
+HA$PBExportHeader$f_txt_jour.srf
+$PBExportComments$----} Fonction retournant un jour en toute lettres ( ex: Lundi )
+global type f_txt_jour from function_object
+end type
+
+forward prototypes
+global function string f_txt_jour (integer aijour)
+end prototypes
+
+global function string f_txt_jour (integer aijour);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Txt_Jour
+//* Auteur			: Erick John Stark
+//* Date				: 20/11/1996 14:18:59
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Retourne le texte du jour en toutes lettres
+//*
+//* Arguments		: Integer		aiJour			(Val)	N$$HEX2$$b0002000$$ENDHEX$$du Jour
+//*
+//* Retourne		: String			 Jour en toutes lettres
+//*
+//*-----------------------------------------------------------------
+
+String sJour
+
+Choose Case aiJour
+Case 2
+	sJour = "Lundi"
+
+Case 3
+	sJour = "Mardi"
+
+Case 4
+	sJour = "Mercredi"
+
+Case 5
+	sJour = "Jeudi"
+
+Case 6
+	sJour = "Vendredi"
+
+Case 7
+	sJour = "Samedi"
+
+Case 1
+	sJour = "Dimanche"
+
+End Choose
+
+Return ( sJour )
+
+end function
+

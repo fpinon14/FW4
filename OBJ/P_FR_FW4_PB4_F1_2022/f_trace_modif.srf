@@ -1,0 +1,90 @@
+HA$PBExportHeader$f_trace_modif.srf
+$PBExportComments$----} Fonction de suivi des modifications d'enregistrement
+global type f_trace_modif from function_object
+end type
+
+forward prototypes
+global function boolean f_trace_modif (ref datawindow adw, u_transaction atrtranstrace, string asnomcommande, string asprod)
+end prototypes
+
+global function boolean f_trace_modif (ref datawindow adw, u_transaction atrtranstrace, string asnomcommande, string asprod);//*******************************************************************************************
+// Fonction		: f_Trace_Modif
+//	Auteur			: V.Capelle
+//	Date				: 19/06/1996
+//	Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+// Commentaires	: Renseigne les champs de la table de suivi des modifications lors 
+//						  d'une modification sur un enregistrement 
+//
+// Arguments		: Datawindow			adw          	-->	Datawindow de modifications 
+//																				d'une table
+//
+//						  U_Transaction		atrTransTrace	-->	Objet de u_transaction servant $$HEX1$$e000$$ENDHEX$$
+//																				mettre $$HEX2$$e0002000$$ENDHEX$$jour la table de 
+//																				suivi des modifications
+//
+//						  String				asNomCommande	-->	Commande Pr$$HEX1$$e900$$ENDHEX$$compil$$HEX1$$e900$$ENDHEX$$e 
+//																				d'insertion d'un enregistrement
+//																				d'une modification	dans la 
+//																				table de suivi des 
+//																				modifications
+//
+// Retourne		: Boolean 				bRet				--> 	True si suivi Ok
+//								  
+//*******************************************************************************************
+
+Boolean bRet = True
+Long 		lNbColonnes, lCpt
+String sSQL
+String 	sTable, 		&
+			sDossier, 		&
+			sNomCol, 		&
+			sMaj_par, 		&
+			sMaj_le
+
+sTable			= adw.Describe( "DataWindow.Table.UpdateTable" )
+//....Suppression du pr$$HEX1$$e900$$ENDHEX$$fixe 'Sysadm.' pour le nom de la table
+sTable 			= Upper ( Right ( sTable, ( Len ( sTable ) - Pos ( sTable, "." ) ) ) )
+sDossier 		= Upper ( adw.Describe( "#1.Name" ) )		//Nom de la colonne identifiant
+sDossier		= f_GetItem ( adw, 1, sDossier )
+sMaj_Par		= f_GetItem ( adw, 1, "MAJ_PAR" )
+sMaj_le			= f_GetItem ( adw, 1, "MAJ_LE" ) 
+
+lNbColonnes 	= Long ( adw.Describe( "DataWindow.Column.Count" ) )
+
+
+If adw.GetItemStatus ( 1, 0, Primary!) <> NotModified! Then
+	For lCpt = 1 To lNbColonnes
+		sNomCol = Upper ( adw.Describe( "#" + String ( lCpt ) + ".Name" ) ) 
+		If sNomCol <> "MAJ_LE" AND sNomCol <> "MAJ_PAR" Then
+			If adw.GetItemStatus ( 1, lCpt, Primary!) <> NotModified! Then
+				sSQL = 'EXECUTE SYSADM.' + asNomCommande 
+				sSQL = sSQL 																		+ " '" 	 	+ &
+			 		asProd																			+ "', '" 	+ &
+					sTable																			+ "', " 	+ &
+					sDossier																		+ ", " 		+ &
+					sMaj_le																			+ ", '" 	+ &
+					sNomCol																			+ "', " 	+ &
+					f_GetItemBuffer ( adw, 1, sNomCol, Primary!, TRUE  )		+ ", " 	 	+ &
+					f_GetItemBuffer ( adw, 1, sNomCol, Primary!, FALSE )		+ ", "	 	+ &
+					sMaj_Par  		
+				
+				bRet = f_execute ( sSql , atrTransTrace )
+			End If
+		End If
+	Next
+End If
+
+
+If bRet Then
+//	Commit Using atrTransTrace;
+	F_COMMIT ( atrTransTrace, TRUE ) // [PI056][TRANCOUNT][JFF][24/01/2020]
+Else
+// RollBack Using atrTransTrace;
+	F_COMMIT ( atrTransTrace, FALSE ) // [PI056][TRANCOUNT][JFF][24/01/2020]
+End If
+
+Return ( bRet )
+
+
+end function
+
