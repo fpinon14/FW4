@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_consulter_courrier.srd
+$PBExportComments$------} Datawindow external utilis$$HEX1$$e900$$ENDHEX$$e avec W_CONSULTER_COURRIER
+release 4;
+datawindow(units=1 timer_interval=0 color=30605311 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+summary(height=0 color="-1" )
+footer(height=0 color="-1" )
+detail(height=12 color="-1" )
+table(column=(type=number name=id_ordre dbname="id_ordre" )
+ column=(type=char(4) name=id_para dbname="id_para" )
+ column=(type=char(35) name=lib_para dbname="lib_para" )
+ column=(type=char(32750) name=txt_para dbname="txt_para" )
+ )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="22" y="16" height="198" width="515" format="[general]"  name=txt_para height.autosize=yes edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="2" text="$$HEX1$$c400$$ENDHEX$$"border="0" color="8421504" x="4" y="15" height="15" width="12"  font.face="Wingdings" font.height="-10" font.weight="400"  font.family="0" font.pitch="2" font.charset="2" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression=" id_para + ~" : ~" +  lib_para "border="0" color="0" x="4" y="1" height="14" width="284" format="[GENERAL]"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="553648127" )

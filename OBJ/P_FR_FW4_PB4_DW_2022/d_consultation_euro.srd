@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_consultation_euro.srd
+$PBExportComments$------} Datawindow external utilis$$HEX1$$e900$$ENDHEX$$e avec U_Consultation_Euro.
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=89 color="536870912" )
+table(column=(type=number name=num_dw dbname="NUM_DW" )
+ column=(type=char(35) name=nom_dw dbname="NOM_DW" )
+ column=(type=char(35) name=colonne dbname="COLONNE" )
+ column=(type=char(1) name=visible dbname="VISIBLE" )
+ column=(type=char(35) name=FONT dbname="FONT" )
+  sort="nom_dw A " )
+text(band=header alignment="2" text="Nom Dw"border="0" color="0" x="5" y="4" height="65" width="961"  name=nom_dw_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Colonne"border="0" color="0" x="970" y="4" height="65" width="961"  name=colonne_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Visible"border="0" color="0" x="1934" y="4" height="65" width="225"  name=visible_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="0" color="0" x="5" y="4" height="77" width="961" format="[general]"  name=nom_dw edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="0" color="0" x="970" y="4" height="77" width="961" format="[general]"  name=colonne edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=30 border="0" color="0" x="1934" y="4" height="77" width="28" format="[general]"  name=visible edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="2158" y="0" height="57" width="183" format="[general]"  name=num_dw edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=0 border="0" color="0" x="2341" y="0" height="57" width="805"  name=font  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
