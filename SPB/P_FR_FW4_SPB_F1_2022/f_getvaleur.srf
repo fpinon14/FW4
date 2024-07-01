@@ -1,0 +1,66 @@
+HA$PBExportHeader$f_getvaleur.srf
+$PBExportComments$-} Fonction de GetItem avec retour en chaine format$$HEX1$$e900$$ENDHEX$$e
+global type f_getvaleur from function_object
+end type
+
+forward prototypes
+global function string f_getvaleur (datawindow adw, long allig, string ascol)
+end prototypes
+
+global function string f_getvaleur (datawindow adw, long allig, string ascol);//*-----------------------------------------------------------------
+//*
+//* Fonction		:	f_getvaleur
+//* Auteur			:	N$$HEX1$$b000$$ENDHEX$$6
+//* Date				:	30/05/97 15:48:29
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	
+//* Commentaires	:	
+//*
+//* Arguments		:	adw   Data Window source pour le GetItem x
+//									alLig : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									asCol : Nom de la colonne
+//*
+//* Retourne		:	Valeur sous forme de chaine
+//*
+//*-----------------------------------------------------------------
+
+String sGet, sType
+
+sType =  left ( aDw.describe( asCol + ".coltype"), 5 )
+
+Choose Case sType
+
+Case "char("
+
+	sGet = aDw.GetItemString ( alLig, asCol )
+	sGet = '"' + sGet + '"'
+
+Case "decim", "numbe"
+
+	sGet = string ( aDw.GetItemNumber ( alLig, asCol ) )
+
+Case "date"
+
+	sGet = string ( aDw.GetItemDate ( alLig, asCol ), "dd/mm/yyyy" )
+	sGet = '"' + sGet + '"'
+
+Case "datet"
+
+	sGet = string ( aDw.GetItemDateTime ( alLig, asCol ), "dd/mm/yyyy hh:mm:ss.ff" )
+	sGet = '"' + sGet + '"'
+
+Case "time"
+
+	sGet = string ( aDw.GetItemTime ( alLig, asCol ), "hh:mm:ss.ff" )
+	sGet = '"' + sGet + '"'
+
+End Choose
+
+If isNull ( sGet ) Then 
+
+	sGet = "''"
+
+End If
+
+Return ( sGet )
+end function
+
