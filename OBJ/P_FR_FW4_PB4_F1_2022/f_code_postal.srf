@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_code_postal.srf
+$PBExportComments$---} Fonction de v$$HEX1$$e900$$ENDHEX$$rification des codes postaux
+global type f_code_postal from function_object
+end type
+
+forward prototypes
+global function boolean f_code_postal (string ascodepostal, integer airegle)
+end prototypes
+
+global function boolean f_code_postal (string ascodepostal, integer airegle);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_code_postal
+//* Auteur			: V.Capelle
+//* Date				: 28/02/1997 14:39:30
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Fonction de v$$HEX1$$e900$$ENDHEX$$rification des codes postaux
+//* Commentaires	: 
+//*
+//* Arguments		: 
+//*
+//* Retourne		: Bool$$HEX1$$e900$$ENDHEX$$en
+//*					
+//*
+//*-----------------------------------------------------------------
+//* N$$HEX2$$b0002000$$ENDHEX$$Modif          Re$$HEX1$$e700$$ENDHEX$$ue Le          Effectu$$HEX1$$e900$$ENDHEX$$e Le          PAR
+//*
+//* MOD-BUG3          01/08/97            01/08/97				 YP
+//* #1 PHG 14/03/2008	[SUISSE].LOT9 Deport de la fonction
+//*							dans un fournisseur de fonction globale
+
+return stGlb.uoGFP.uf_F_code_postal(ascodepostal, airegle)
+
+end function
+

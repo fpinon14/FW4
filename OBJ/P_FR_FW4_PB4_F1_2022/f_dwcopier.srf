@@ -1,0 +1,69 @@
+HA$PBExportHeader$f_dwcopier.srf
+$PBExportComments$----} Copie du contenu d'une datawindow vers une autre
+global type f_dwcopier from function_object
+end type
+
+forward prototypes
+global subroutine f_dwcopier (string asfiltre, ref u_datawindow adwsource, ref u_datawindow adwcible)
+end prototypes
+
+global subroutine f_dwcopier (string asfiltre, ref u_datawindow adwsource, ref u_datawindow adwcible);//*******************************************************************************************
+// Fonction            	: f_DwCopier
+//	Auteur              	: D.Bizien
+//	Date 					 	: 27/03/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Copie du contenu d'une datawindow vers une autre
+// Commentaires			: Positionnement d'un filtre avant copie si besoin
+//
+// Arguments				: asFiltre - String - Filtre $$HEX2$$e0002000$$ENDHEX$$appliquer
+//								  adwSource- u_Datawindow - Datawindow contenant les lignes $$HEX2$$e0002000$$ENDHEX$$copier
+//								  adwCible - u_Datawindow - Datawindow de destination
+//
+// Retourne					: Rien
+//								  
+//*******************************************************************************************
+
+Long		lNbLigSource		// Nombre de lignes de la datawindow source
+Long		l						// Compteur de boucle
+
+dwItemStatus	eStatus		// Itemstatus de la colonne en cours
+
+Integer	i						// Compteur de boucle
+Integer	iColCount			// Nombre de colonnes de la datawindow
+
+// *****        Filtre de la datawindow
+
+adwSource.uf_Filtrer ( asFiltre )
+
+// *****        Copie des lignes
+
+lNbLigSource = adwSource.RowCount ( )
+
+adwSource.RowsCopy ( 1, adwSource.RowCount ( ), Primary!, adwCible, 1, Primary! )
+
+// *****        Mise $$HEX2$$e0002000$$ENDHEX$$jour des status d'abord sur les colonnes puis sur la ligne enti$$HEX1$$e800$$ENDHEX$$re
+
+iColCount = Integer( adwSource.Describe( "datawindow.Column.Count" ) )
+
+For l = 1 to lNbLigSource
+
+	For i = 1 to iColCount
+
+
+		eStatus = adwSource.GetItemStatus( l, i, PRIMARY! )
+		adwCible.SetItemStatus( l, i, PRIMARY!, eStatus )
+	Next
+
+	eStatus = adwSource.GetItemStatus( l, 0, PRIMARY! )
+	If eStatus = NotModified! Then
+
+		adwCible.SetItemStatus( l, 0, PRIMARY!, DataModified! )
+		adwCible.SetItemStatus( l, 0, PRIMARY!, NotModified! )
+	Else
+
+		adwCible.SetItemStatus( l, 0, PRIMARY!, eStatus )
+	End IF
+
+Next
+
+end subroutine
+

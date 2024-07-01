@@ -1,0 +1,55 @@
+HA$PBExportHeader$f_connectgupta.srf
+$PBExportComments$----} Fonction g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rique de connexion $$HEX2$$e0002000$$ENDHEX$$une base Gupta
+global type f_connectgupta from function_object
+end type
+
+forward prototypes
+global function boolean f_connectgupta (string asfichierini, string assection, ref u_transaction atrtrans, ref string asmessageerreur)
+end prototypes
+
+global function boolean f_connectgupta (string asfichierini, string assection, ref u_transaction atrtrans, ref string asmessageerreur);//*******************************************************************************************
+// Fonction            	: F_ConnectGupta - 
+//	Auteur              	: D.Bizien
+//	Date 					 	: 14/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Connection une base de type Gupta SQLBASE $$HEX2$$e0002000$$ENDHEX$$partir d'un fichier Ini
+// Commentaires			: 
+//
+// Arguments				: asFichierIni - String, Fichier d'initialisation
+//								  asSection		- String, Section information de connexion dans fichier ini
+//								  atpTransObject- U_Transaction, Objet de u_transaction associ$$HEX4$$e9002000e0002000$$ENDHEX$$la connexion
+//
+// Retourne					: Vrai si la connexion est OK
+//								  Faux si un probleme est survenu
+//*******************************************************************************************
+
+Boolean bConnectOk
+
+bConnectOk = True
+
+//Migration PB8-WYNIWYG-03/2006 CP
+//If FileExists (asFichierIni) Then 
+If f_FileExists (asFichierIni) Then 
+//Fin Migration PB8-WYNIWYG-03/2006 CP	
+
+	atrTrans.DBMS     = ProfileString ( asFichierIni, asSection, "DBMS", "DBMS ERREUR" )
+	atrTrans.Database = ProfileString ( asFichierIni, asSection, "DATABASE", "Database ERREUR" )
+	atrTrans.UserId   = ProfileString ( asFichierIni, asSection, "USERID", "UserId ERREUR" )
+	atrTrans.DbPass   = F_CoderMdp ( ProfileString ( asFichierIni, asSection, "DBPASS", "DbPass ERREUR" ) )
+	atrTrans.Lock     = ProfileString ( asFichierIni, asSection, "LOCK", "Lock ERREUR" )
+	atrTrans.DBParm   = ProfileString ( asFichierIni, asSection, "DBPARM", "asynchronous = 1,disableBind = 1,recovery = 1" )
+	
+	If Not f_ConnectBase ( atrTrans ) Then
+
+		bConnectOk = False
+		asMessageErreur = asMessageErreur + "~n~r" + f_ErreurBase ( atrTrans )
+
+	End If
+Else
+
+	bConnectOk = False
+	asMessageErreur = asMessageErreur + "~n~r" + "Impossible de trouver le fichier " + asFichierIni
+End if
+
+Return bConnectOk
+end function
+

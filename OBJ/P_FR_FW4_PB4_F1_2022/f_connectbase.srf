@@ -1,0 +1,75 @@
+HA$PBExportHeader$f_connectbase.srf
+$PBExportComments$------} Fonction g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rique de connexion $$HEX2$$e0002000$$ENDHEX$$une base
+global type f_connectbase from function_object
+end type
+
+forward prototypes
+global function boolean f_connectbase (ref u_transaction atrtrans)
+end prototypes
+
+global function boolean f_connectbase (ref u_transaction atrtrans);//*******************************************************************************************
+// Fonction            	: F_ConnectBase - 
+//	Auteur              	: D.Bizien
+//	Date					 	: 14/02/1996
+// Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Connection une base de type de donn$$HEX1$$e900$$ENDHEX$$e
+//	Commentaires			: 
+//
+// Arguments				: atrTrans- U_Transaction, Objet de transaction associ$$HEX4$$e9002000e0002000$$ENDHEX$$la connexion
+//
+// Retourne					: Vrai si la connexion est OK
+//								  Faux si un probleme est survenu
+//*******************************************************************************************
+// #1	FPI 	09/09/2009	[ACTIVEDIRECTORY] - Utilisation des groupes Windows
+//			FPI/FS 25/08/2010	[SECURE_CNX] 
+//*******************************************************************************************
+
+Boolean bConnectOk = True
+boolean bAuthentWindows	// #1
+string 	sOldLog[]			// [SECURE_CNX] 
+
+// [SECURE_CNX] 
+sOldLog[1] = atrTrans.logid
+sOldLog[2] = atrTrans.logPass
+//: [SECURE_CNX] 
+
+// #1- En authentification Windows, on n'utilise pas de user ni password
+// [MIGPB11] [EMD] : Debut : Integration code INTEGRATEDSECURITY
+//bAuthentWindows= ( Pos(atrTrans.dbparm, "SECURE=1") > 0)
+bAuthentWindows= ( Pos ( atrTrans.dbparm, "INTEGRATEDSECURITY='SSPI'" ) > 0 )
+// [MIGPB11] [EMD] : Fin
+
+If Not bAuthentWindows Then
+	if Trim(atrTrans.logid) = "" or Trim(atrTrans.LogPass) = "" Then 
+		atrTrans.SQLDbcode = -1
+		atrTrans.SqlErrText = "Erreur de param$$HEX1$$e900$$ENDHEX$$trage dans le fichier INI - " + atrTrans.database
+		Return FALSE
+	// [SECURE_CNX]
+	Else
+		f_crypter( atrTrans.LogId, FALSE)
+		f_crypter( atrTrans.LogPass, FALSE)
+	// :[SECURE_CNX]
+	End if
+Else
+	atrTrans.LogId=""
+	atrTrans.LogPass=""
+	atrTrans.Userid = ""
+	atrTrans.DbPass = ""
+End if
+// #1 - Fin
+
+CONNECT  USING atrTrans;
+	
+IF atrTrans.sqlcode <> 0 THEN
+
+	bConnectOk = False
+End if
+
+// [SECURE_CNX] 
+atrTrans.logid = sOldLog[1]
+atrTrans.logPass = sOldLog[2] 
+//: [SECURE_CNX] 
+
+Return bConnectOk
+
+end function
+

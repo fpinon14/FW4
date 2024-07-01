@@ -1,0 +1,77 @@
+HA$PBExportHeader$f_decoder_erreur_pb.srf
+$PBExportComments$------} Fonction qui d$$HEX1$$e900$$ENDHEX$$code les messages d'erreurs syst$$HEX1$$e800$$ENDHEX$$mes en francais
+global type f_decoder_erreur_pb from function_object
+end type
+
+forward prototypes
+global subroutine f_decoder_erreur_pb ()
+end prototypes
+
+global subroutine f_decoder_erreur_pb ();//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_Decoder_Erreur_PB
+//* Auteur			: Erick John Stark
+//* Date				: 01/10/1996 13:57:49
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Permet de retourner le message d'erreur en francais
+//*
+//* Arguments		: Aucun
+//*
+//* Retourne		: Rien
+//*
+//*-----------------------------------------------------------------
+//* #1	PHG 	17/03/2008 [SUISSE].LOT9 : Ajout du Cas 30 : "Impossible de trouver la classe $$HEX2$$e0002000$$ENDHEX$$instancier lors d'un CREATE ou CREATE USING"
+
+String sText 
+
+Choose Case Error.Number
+Case 1	
+	sText = "Divison par z$$HEX1$$e900$$ENDHEX$$ro"																						// Divide by zero
+Case 2
+	sText = "L'objet r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$renc$$HEX2$$e9002000$$ENDHEX$$est $$HEX2$$e0002000$$ENDHEX$$NULL" 																	// Null object reference
+Case 3
+	sText = "D$$HEX1$$e900$$ENDHEX$$passement de capacit$$HEX2$$e9002000$$ENDHEX$$de tableau"																// Array boundary exceeded
+Case 4
+	sText = "Valeur d'$$HEX1$$e900$$ENDHEX$$num$$HEX1$$e900$$ENDHEX$$ration trop grande pour la fonction" 										// Enumerated value is out of range for function
+Case 5	
+	sText = "Valeur n$$HEX1$$e900$$ENDHEX$$gative rencontr$$HEX1$$e900$$ENDHEX$$e dans la fonction" 												// Negative value encountered in function
+Case 6	
+	sText = "N$$HEX2$$b0002000$$ENDHEX$$de ligne ou nom de colonne invalide dans la DataWindow" 								// Invalid DataWindow row/column specified
+Case 7	
+	sText = "Lien externe non r$$HEX1$$e900$$ENDHEX$$solu" 																			// Unresolvable external when linking reference
+Case 8	
+	sText = "R$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence $$HEX2$$e0002000$$ENDHEX$$un tableau avec des valeurs NULL" 												// Reference of array with NULL subscript
+Case 9	
+	sText = "Fonction externe non trouv$$HEX1$$e900$$ENDHEX$$e dans cette application" 										// DLL function not found in current application
+Case 10	
+	sText = "Type d'argument incorrect pour la fonction externe" 										// Unsupported argument type in DLL function
+Case 12	
+	sText = "La colonne de la DataWindow n'est pas du bon type pour la Fonction GetItemXXX"	// DataWindow column type does not match GetItem type
+Case 13	
+	sText = "Attribut non r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$renc$$HEX1$$e900$$ENDHEX$$" 																			// Unresolved attribute reference
+Case 14	
+	sText = "Impossible d'ouvrir la librairie dynamique pour une fonction externe" 				// Error opening DLL library for external function
+Case 15	
+	sText = "Impossible d'appeler la fonction externe" 													// Error calling external function
+Case 16	
+	sText = "La taille de la chaine de caract$$HEX1$$e800$$ENDHEX$$res est trop grande" 									// Maximum string size exceeded
+Case 17	
+	sText = "Le DataObject n'existe pas" 																		// DataWindow referenced in DataWindow object does not exist
+Case 30
+	sText = "Impossible de trouver la classe $$HEX2$$e0002000$$ENDHEX$$instancier lors d'un CREATE ou CREATE USING"	// [SUISSE].LOT9
+Case 50	
+	sText = "R$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence non r$$HEX1$$e900$$ENDHEX$$solue dans l'application" 													// Application reference could not be resolved
+Case 51	
+	sText = "Impossible de lire la librairie dynamique"													// Failure loading dynamic library
+Case Else
+	sText = "Cette erreur n'est pas r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$renc$$HEX1$$e900$$ENDHEX$$e"
+End Choose
+
+Error.Text = sText
+
+
+
+
+
+end subroutine
+

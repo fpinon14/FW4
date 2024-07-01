@@ -1,0 +1,162 @@
+HA$PBExportHeader$f_connectsqlserver.srf
+$PBExportComments$----} Fonction g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rique de connexion $$HEX2$$e0002000$$ENDHEX$$une base MS SQLSERVER
+global type f_connectsqlserver from function_object
+end type
+
+forward prototypes
+global function boolean f_connectsqlserver (string asfichierini, string assection, ref u_transaction atrtrans, ref string asmessageerreur, string aslibcourtappli, string ascodoper)
+end prototypes
+
+global function boolean f_connectsqlserver (string asfichierini, string assection, ref u_transaction atrtrans, ref string asmessageerreur, string aslibcourtappli, string ascodoper);//*******************************************************************************************
+// Fonction            	: F_ConnectSqlServer - 
+//	Auteur              	: N$$HEX1$$b000$$ENDHEX$$6
+//	Date 					 	: 29/05/1997
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Connection une base de type Ms SQLSERVER $$HEX2$$e0002000$$ENDHEX$$partir d'un fichier Ini
+// Commentaires			: 
+//
+// Arguments				: String				asFichierIni		( Val ) : Fichier d'initialisation.
+//								  String 			asSection			( Val ) : Section information de connexion dans fichier ini.
+//								  U_Transaction	atrTrans				( Ref ) : Objet de transaction associ$$HEX4$$e9002000e0002000$$ENDHEX$$la connexion.
+//								  String 			asmessageerreur	( Ref ) : Message d'erreur suite $$HEX2$$e0002000$$ENDHEX$$erreur de connexion.
+//								  String				asLibCourtAppli	( Val ) : Libell$$HEX2$$e9002000$$ENDHEX$$court de l'application.
+//								  String				asCodOper			( Val ) : Nom de l'op$$HEX1$$e900$$ENDHEX$$rateur connect$$HEX1$$e900$$ENDHEX$$.
+//
+// Retourne					: Vrai si la connexion est OK
+//								  Faux si un probleme est survenu
+//*******************************************************************************************
+// #1 FS le 22/02/2002 La cl$$HEX2$$e9002000$$ENDHEX$$METHODEMDP de la section [APPLICATION] nous indique la m$$HEX1$$e900$$ENDHEX$$thode de codage
+//                     NOUVELLE         = Nouvelle m$$HEX1$$e900$$ENDHEX$$thode
+//                     Autre ou absence = Ancienne m$$HEX1$$e900$$ENDHEX$$thode funcky
+//			FPI/FS 25/08/2010	[SECURE_CNX] D$$HEX1$$e900$$ENDHEX$$cryptage dans f_connect_base
+// 		FPI 	22/03/2019 [HOST] affichage du Host dans sp_who2
+//*******************************************************************************************
+
+
+Boolean bConnectOk
+String  sDbParm
+String  sMethode
+String  sLogPass
+String  sDbPass
+
+// [HOST]
+String idSql
+ContextKeyword Cnx_KeyWord
+String  sRet[]
+
+GetContextService ( "Keyword", Cnx_KeyWord )
+Cnx_KeyWord.GetContextKeyWords ( "SQL", sRet )
+
+idSql=""
+if UpperBound ( sRet ) = 1 Then
+	If	IsNull ( sRet[1] ) Or Len ( Trim ( sRet[1] ) ) = 0	Then
+		sRet[1] = ""
+	End If
+	
+	idSql=sRet[1]
+End if
+// :[HOST]
+
+bConnectOk = True
+//Migration PB8-WYNIWYG-03/2006 CP
+//If FileExists (asFichierIni) Then 
+If f_FileExists (asFichierIni) Then 
+//Fin Migration PB8-WYNIWYG-03/2006 CP
+   sMethode = ProfileString ( asFichierIni, "APPLICATION", "METHODEMDP", "ANCIENNE" )
+		
+	atrTrans.DBMS     	= ProfileString ( asFichierIni, asSection, "DBMS", "DBMS ERREUR" )
+	atrTrans.Database 	= ProfileString ( asFichierIni, asSection, "DATABASE", "Database ERREUR" )
+	atrTrans.UserId   	= ProfileString ( asFichierIni, asSection, "USERID", "UserId ERREUR" )
+	atrTrans.ServerName	= ProfileString ( asFichierIni, asSection, "SERVERNAME", "ServerName ERREUR" )
+	atrTrans.LogId   		= ProfileString ( asFichierIni, asSection, "LOGID", "LogId ERREUR" )
+
+   // ... #1 D$$HEX1$$e900$$ENDHEX$$but de modification
+
+	sLogPass =  ProfileString ( asFichierIni, asSection, "LOGPASSWORD", "LogPassword ERREUR" )
+	sDbPass  =  ProfileString ( asFichierIni, asSection, "DBPASS"     , "DbPass ERREUR" )
+  
+   If sMethode = "NOUVELLE" Then
+
+		/*------------------------------------------------------------------*/
+		/* Utilisation de la nouvelle m$$HEX1$$e900$$ENDHEX$$thode : Cle = LOGPASSWORD           */
+		/*------------------------------------------------------------------*/
+ 
+      F_Crypter ( sDbPass , False )
+      atrTrans.DbPass  = sDbPass
+
+		// F_Crypter ( sLogPass, False ) // [SECURE_CNX]
+		aTrTrans.LogPass = sLogPass
+
+   Else
+
+		/*------------------------------------------------------------------*/
+		/* Utilisation de l'ancienne m$$HEX1$$e900$$ENDHEX$$thode : Cle = LOGPASSWORD            */
+		/*------------------------------------------------------------------*/
+
+		atrTrans.DbPass   	= F_CoderMdp ( sDbPass  )
+		atrTrans.LogPass		= F_CoderMdp ( sLogPass )
+
+   End If
+
+   // ... #1 FIn de modification
+
+	/*------------------------------------------------------------------*/
+	/* Ce param$$HEX1$$e800$$ENDHEX$$tre d$$HEX1$$e900$$ENDHEX$$termine le niveau d'isolation.                    */
+	/*  - RC read commited : lors d'un select on lit les donn$$HEX1$$e900$$ENDHEX$$es qui    */
+	/* ont $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$valid$$HEX1$$e900$$ENDHEX$$es.                                                */
+	/*  - RU read uncommited : lors d'un select on lit toutes les       */
+	/* donn$$HEX1$$e900$$ENDHEX$$es m$$HEX1$$ea00$$ENDHEX$$me celles                                              */
+	/*    qui n'ont pas $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$valid$$HEX1$$e900$$ENDHEX$$es et qui peuvent donc changer.       */
+	/* RC : mode par d$$HEX1$$e900$$ENDHEX$$faut.														  */
+	/*------------------------------------------------------------------*/
+	atrTrans.Lock     	= ProfileString ( asFichierIni, asSection, "LOCK", "Lock ERREUR" )
+
+
+	/*------------------------------------------------------------------*/
+	/* Il faut positionner dans le DbParm le Nom de l'application       */
+	/* AppName = ?? et le nom de la personne connect$$HEX1$$e900$$ENDHEX$$e.                 */
+	/*------------------------------------------------------------------*/
+	sDbParm = ProfileString ( asFichierIni, asSection, "DBPARM", "" )
+
+	// [HOST] FPI - 27/01/2020
+	if asCodOper="" and isValid(stGlb) Then
+		if not isnull(stGlb.sCodOper) Then
+			asCodOper=stGlb.sCodOper
+		End if
+	End if
+	// :[HOST] FPI - 27/01/2020
+	
+	if idSql <> "" Then asCodOper+="/" + idSql  // [HOST] FPI - 21/03/2019 - Pour pr$$HEX1$$e900$$ENDHEX$$ciser le Host dans sp_who2
+
+	// [HOST] FPI - 27/01/2020
+	if isValid(stGlb) Then
+		if not isnull(stGlb.sCodAppli) Then
+			If Len(stGlb.scodAppli) > 0 Then asCodOper+="/" + stGlb.sCodAppli
+		End if
+	End if
+	// :[HOST] FPI - 27/01/2020
+	
+	// [MIGPB11] [EMD] : Debut Migration : ajout du param$$HEX1$$e800$$ENDHEX$$tre de connexion : database au atrTrans.DBParm
+	//atrTrans.DBParm   	= "AppName = '" + asLibCourtAppli + "', Host = '" + asCodOper +"', " + sDbParm
+	atrTrans.DBParm   	= "Database='" + atrTrans.Database + "', AppName = '" + asLibCourtAppli + "', Host='" + asCodOper +"', " + sDbParm
+	// [MIGPB11] [EMD] : Fin Migration
+	
+	if Pos(atrTrans.DBParm,"SQLNCLI11") > 0 Then
+		atrTrans.DBParm=f_remplace(atrTrans.DBParm, "DataTypeCompatibility=80","DataTypeCompatibility=80;WSID=" + asCodOper)
+	End if
+		
+	If Not f_ConnectBase ( atrTrans ) Then
+
+		bConnectOk = False
+		asMessageErreur = asMessageErreur + "~n~r" + f_ErreurBase ( atrTrans )
+
+	End If
+
+Else
+
+	bConnectOk = False
+	asMessageErreur = asMessageErreur + "~n~r" + "Impossible de trouver le fichier " + asFichierIni
+End if
+
+Return bConnectOk
+end function
+

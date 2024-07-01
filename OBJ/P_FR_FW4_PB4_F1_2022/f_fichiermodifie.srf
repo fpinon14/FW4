@@ -1,0 +1,61 @@
+HA$PBExportHeader$f_fichiermodifie.srf
+global type f_fichiermodifie from function_object
+end type
+
+forward prototypes
+global function boolean f_fichiermodifie (string asfic)
+end prototypes
+
+global function boolean f_fichiermodifie (string asfic);//*******************************************************************************************
+// Fonction            	: f_FichierModifie
+//	Auteur              	: FS
+//	Date 					 	: 22/05/2001
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Teste l'existance et si le fichier $$HEX3$$e0002000e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$modifi$$HEX1$$e900$$ENDHEX$$
+// Commentaires			: ( au pr$$HEX1$$e900$$ENDHEX$$alable if faut positionner le fichier au 01/01/2000 23:59:00
+//
+// Arguments				: asFichier - String - Nom complet du fichier 
+//								  
+// Retourne					: True si fichier modifi$$HEX1$$e900$$ENDHEX$$
+//								  
+//*******************************************************************************************
+
+Date dDate
+Time tHeure
+Boolean bOk
+String  sText
+
+// ... Le fichier existe t-il ?
+
+//Migration PB8-WYNIWYG-03/2006 CP
+//	bOk = FileExists ( asFic )
+	bOk = f_FileExists ( asFic )
+//Fin Migration PB8-WYNIWYG-03/2006 CP	
+	
+// ... Le fichier a t-il $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$modifi$$HEX2$$e9002000$$ENDHEX$$?
+
+	If bOk Then
+
+		stGLB.uoWin.uf_GetLastWriteDateTime ( asFic, dDate, tHeure )
+
+		If dDate = 2000-01-01 And tHeure = 23:59:00  Then bOk = False // ... Non modifi$$HEX1$$e900$$ENDHEX$$
+
+	End If
+
+// ... Pour test fs
+
+//sText = ""
+//
+//If bOk Then 
+//   sText = "Modifi$$HEX1$$e900$$ENDHEX$$"
+//Else
+//   sText = "inchang$$HEX1$$e900$$ENDHEX$$"
+//End If
+//
+//sText = sText + " " + STring ( dDate, "dd/mm/yyyy" ) + " " + String ( tHeure, "hh:mm:ss" )
+//
+//
+//MessageBox ( "Fichier " + asFic, sText )
+
+Return bOk
+end function
+

@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_creele.srf
+$PBExportComments$------} Impl$$HEX1$$e900$$ENDHEX$$mentation sur une DW du DateTime de cr$$HEX1$$e900$$ENDHEX$$ation de la ligne.
+global type f_creele from function_object
+end type
+
+forward prototypes
+global subroutine f_creele (ref datawindow adwdatawindow, long allig)
+end prototypes
+
+global subroutine f_creele (ref datawindow adwdatawindow, long allig);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_CREELE
+//* Auteur			: Erick John Stark
+//* Date				: 20/05/1996 15:45:37
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Mise $$HEX2$$e0002000$$ENDHEX$$jour de la zone CREE_LE
+//*
+//* Arguments		: DataWindow	adwDataWindow			(R$$HEX1$$e900$$ENDHEX$$f)	DataWindow $$HEX2$$e0002000$$ENDHEX$$mettre $$HEX2$$e0002000$$ENDHEX$$jour
+//*					  Long			alLig						(Val) N$$HEX2$$b0002000$$ENDHEX$$de la ligne
+//*
+//* Retourne		: Rien
+//*
+//*-----------------------------------------------------------------
+
+adwDatawindow.SetItem ( alLig, "CREE_LE",  DateTime ( Today (), Now () ) )
+
+
+end subroutine
+
