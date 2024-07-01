@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_spb_lst_para_rch.srd
+$PBExportComments$---} Liste des paragraphes disponibles ( Recherche ).
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=73 color="536870912" )
+table(column=(type=char(6) name=id_cour_null dbname="id_cour_null" )
+ column=(type=char(4) name=id_para dbname="id_para" )
+ column=(type=decimal(0) name=id_ordre_null dbname="id_ordre_null" )
+ column=(type=char(35) name=lib_para dbname="lib_para" )
+ column=(type=datetime name=cree_le_null dbname="cree_le_null" )
+ column=(type=datetime name=maj_le_null dbname="maj_le_null" )
+ column=(type=char(4) name=maj_par dbname="maj_par" )
+ procedure="1 execute sysadm.DW_S02_PARAGRAPHE;1 @sIdCour = :sIdCour" arguments=(("sIdCour", string)) )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="14" y="8" height="57" width="220" format="[general]"  name=id_para edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="247" y="8" height="57" width="805" format="[general]"  name=lib_para edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
