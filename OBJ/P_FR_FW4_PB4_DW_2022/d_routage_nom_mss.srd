@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_routage_nom_mss.srd
+$PBExportComments$---} SESAME : Liste de toutes les personnes ayant acc$$HEX1$$e800$$ENDHEX$$s $$HEX2$$e0002000$$ENDHEX$$une application (pour la gestion des corbeilles)
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=89 color="536870912" )
+table(column=(type=char(4) name=id_oper dbname="id_oper" )
+ column=(type=char(71) name=nom dbname="nom" )
+ procedure="1 EXECUTE sysadm.DW_S03_OPERATEUR :asidAppli" arguments=(("asidAppli", string)) )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="16711680" x="1" y="4" height="65" width="174"  name=id_oper  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="16711680" x="197" y="4" height="65" width="1121"  name=nom  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )

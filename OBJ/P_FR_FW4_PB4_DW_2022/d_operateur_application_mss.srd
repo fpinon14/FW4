@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_operateur_application_mss.srd
+$PBExportComments$------} SESAME : Datawindow utilis$$HEX1$$e900$$ENDHEX$$e dans la fen$$HEX1$$ea00$$ENDHEX$$tre de gestion des Corbeilles/Op$$HEX1$$e900$$ENDHEX$$rateurs (W_TRT_CORB_OPER) R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des op$$HEX1$$e900$$ENDHEX$$rateurs assign$$HEX1$$e900$$ENDHEX$$s $$HEX2$$e0002000$$ENDHEX$$une application
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=109 color="536870912" )
+table(column=(type=char(4) name=id_oper dbname="id_oper" )
+ column=(type=char(35) name=nom dbname="nom" )
+ column=(type=char(35) name=prenom dbname="prenom" )
+ procedure="1 execute sysadm.DW_S04_OPERATEUR;1 @sIdAppli = :sIdAppli" arguments=(("sIdAppli", string))  sort="nom A " )
+text(band=detail alignment="1" text="Id Oper:"border="0" color="0" x="37" y="4" height="65" width="225"  name=id_oper_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="279" y="4" height="77" width="138" format="[general]"  name=id_oper edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Nom:"border="0" color="0" x="499" y="4" height="65" width="225"  name=nom_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="741" y="4" height="77" width="988" format="[general]"  name=nom edit.limit=35 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Prenom:"border="0" color="0" x="1779" y="4" height="65" width="225"  name=prenom_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="2021" y="4" height="77" width="988" format="[general]"  name=prenom edit.limit=35 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

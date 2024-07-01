@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_operateur_application_gup.srd
+$PBExportComments$( Sql ) Datawindow utilis$$HEX1$$e900$$ENDHEX$$e dans la fen$$HEX1$$ea00$$ENDHEX$$tre de gestion des Corbeilles/Op$$HEX1$$e900$$ENDHEX$$rateurs (W_TRT_CORB_OPER) R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des op$$HEX1$$e900$$ENDHEX$$rateurs assign$$HEX1$$e900$$ENDHEX$$s $$HEX2$$e0002000$$ENDHEX$$une application
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=89 color="536870912" )
+table(column=(type=char(4) name=id_oper dbname="id_oper" )
+ column=(type=char(30) name=nom dbname="nom" )
+ column=(type=char(30) name=prenom dbname="prenom" )
+ procedure="1 execute sysadm.w_as_corb_oper :asCodAppli " arguments=(("asCodAppli", string))  sort="id_oper A " )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="5" y="4" height="77" width="110" format="[general]"  name=id_oper edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="202" y="4" height="77" width="823" format="[general]"  name=nom edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="1029" y="4" height="77" width="823" format="[general]"  name=prenom edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
