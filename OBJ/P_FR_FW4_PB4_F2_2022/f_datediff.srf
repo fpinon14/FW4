@@ -1,0 +1,234 @@
+HA$PBExportHeader$f_datediff.srf
+$PBExportComments$Retourne l'interval entre deux Dates, deux Times ou deux DateTime, dans plusieurs unit$$HEX1$$e900$$ENDHEX$$.
+global type f_datediff from function_object
+end type
+
+forward prototypes
+global function long f_datediff (string asinterval, string astraitement, date addate1, time attime1, date addate2, time attime2)
+end prototypes
+
+global function long f_datediff (string asinterval, string astraitement, date addate1, time attime1, date addate2, time attime2);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_DateDiff
+//* Auteur			: Fabry JF
+//* Date				: 22/11/1999 13:27:03
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Retourne l'interval entre deux Dates, deux Times ou deux DateTime, fonction identique
+//*					  $$HEX2$$e0002000$$ENDHEX$$DATEDIFF de SQLSERVER ou MS Visual Basic
+//* Commentaires	: Retourne l'interval de temps entre deux Dates, deux Times ou deux DateTimes.
+//*       			  Cet interval de temps peut $$HEX1$$ea00$$ENDHEX$$tre retourn$$HEX2$$e9002000$$ENDHEX$$dans plusieurs unit$$HEX1$$e900$$ENDHEX$$s (voir ci-dessous).
+//*
+//* Arguments 	   : STRING  asInterval  		 	(Val)   				 "s" -> Interval en secondes
+//*                   															 "n" -> Interval en minutes
+//*                   															 "h" -> Interval en heures
+//*                   															 "j" -> Interval en jours
+//*                   															 "m" -> Interval en mois
+//*                   															 "a" -> Interval en annees
+//*
+//*       			  STRING  asTraitement  	 	(Val)   				 "d" -> Interval entre les deux Dates (Date2 - Date1)
+//*                   															 "t" -> Interval entre les deux Times (Time2 - Time1)
+//*                   															 "dt"-> Interval entre les deux DateTimes (Date2 + Time2) - (Date1 + Time1)
+//*
+//*       			  DATE  	 adDate1    			(Val)   				 1$$HEX1$$e800$$ENDHEX$$re Date (jj-mm-aaaa)
+//*       			  TIME    atTime1  			  	(Val)   				 1er  Time (hh:mm:ss )
+//*       			  DATE    adDate2    			(Val)   				 2$$HEX1$$e800$$ENDHEX$$me Date (jj-mm-aaaa)
+//*       			  TIME    atTime2				  	(Val)   				 2$$HEX1$$e800$$ENDHEX$$me Time (hh:mm:ss )
+//*
+//* Retourne  : LONG  lInterval        L'interval POSITIF entre les deux dates, times ou datetimes (selon option asTraitement)
+//*                   					   -1 si l'$$HEX1$$e900$$ENDHEX$$cart est n$$HEX1$$e900$$ENDHEX$$gatif (Date1 > Date2), ou (Time1 > Time ), (DateTime1 > DateTime2 )
+//                    					   -2 incoh$$HEX1$$e900$$ENDHEX$$rence entre le type de traitement et le type d'interval de retour
+//                        				 	   ou, type de retour inexistant
+//                    						-3 Type de traitement inexistant
+//*			
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+
+Long   lInterval          						 // Interval retourn$$HEX1$$e900$$ENDHEX$$
+Long   lInterval1, lInterval2, lInterval3  // Variable de stockage temporaire
+
+asInterval   = Upper ( asInterval )
+asTraitement = Upper ( asTraitement )
+
+/*------------------------------------------------------------------*/
+/* Aiguillage pour les cas de calcul similaire                      */
+/*------------------------------------------------------------------*/
+If asTraitement = "DT" and ( asInterval = "J" or asInterval = "M" or asInterval = "A" ) then asTraitement = "D"
+
+/*------------------------------------------------------------------*/
+/* Traitement des diff$$HEX1$$e900$$ENDHEX$$rents cas                                    */
+/*------------------------------------------------------------------*/
+
+CHOOSE CASE asTraitement
+
+/*------------------------------------------------------------------*/
+/* Interval entre les deux Dates (Date2 - Date1)                    */
+/*------------------------------------------------------------------*/
+	CASE "D"
+
+		If adDate1 < adDate2 then
+
+			// Le retour en mois ou ann$$HEX1$$e900$$ENDHEX$$es n$$HEX1$$e900$$ENDHEX$$c$$HEX1$$e900$$ENDHEX$$ssite un autre traitement
+		   If (asInterval <> "M") and (asInterval <> "A") Then
+
+		   	lInterval = DaysAfter ( adDate1, adDate2 )
+				CHOOSE CASE asInterval
+
+					// Retour en secondes
+     				CASE "S"
+      				lInterval *= 86400  // 24x60x60
+
+     				// Retour en minutes
+     				CASE "N"
+      				lInterval *= 1440   // 24x60
+
+     				// Retour en heures
+       			CASE "H"
+      				lInterval *= 24
+
+     				// Retour en jours
+    				CASE "J"
+						// On laisse tel quel
+
+				   // Type de Retour inexistant
+   			  	CASE ELSE
+				      lInterval = -2
+
+			 	END CHOOSE
+
+			// Retour en mois ou ann$$HEX1$$e900$$ENDHEX$$e
+		   Else
+		   	// Dans tous les cas on calcul la diff$$HEX1$$e900$$ENDHEX$$rence entre les deux ann$$HEX1$$e900$$ENDHEX$$es
+    			// Cela servira au calcul de l'$$HEX1$$e900$$ENDHEX$$cart entre les mois.
+			   lInterval1 = Integer ( Mid ( String ( adDate2 ), 7, 4 ) ) - Integer ( Mid ( String ( adDate1 ), 7, 4 ) )
+
+			   CHOOSE CASE asInterval
+
+			   	// Retour en mois
+     				CASE "M"
+				      // On est dans la m$$HEX1$$ea00$$ENDHEX$$me ann$$HEX1$$e900$$ENDHEX$$e
+      				If lInterval1 = 0 Then
+				      	lInterval = Integer ( Mid ( String ( adDate2 ), 4, 2 ) ) - Integer ( Mid ( String ( adDate1 ), 4, 2 ) )
+
+      				// il y a une ou plusieurs ann$$HEX1$$e900$$ENDHEX$$es d'$$HEX1$$e900$$ENDHEX$$carts
+      				Else
+       					// (12 - le mois de Date1) + ( le nbre de mois de toutes les ann$$HEX1$$e900$$ENDHEX$$es interm$$HEX1$$e900$$ENDHEX$$diaire ) + ( le mois de Date2 )
+       					lInterval = ( 12 - Integer ( Mid ( String ( adDate1 ), 4, 2 ) ) ) + ( ( lInterval1 - 1 ) * 12 ) + &
+           				Integer ( Mid ( String ( adDate2 ), 4, 2 ) )
+      				End If
+
+			     // Retour en ann$$HEX1$$e900$$ENDHEX$$es
+			     CASE "A"
+				      lInterval = lInterval1
+
+			   END CHOOSE
+
+   		End If
+
+
+		ElseIf adDate1 > adDate2 then
+		   lInterval = -1
+	   Else
+		   lInterval = 0
+	   End IF
+
+/*------------------------------------------------------------------*/
+/* Interval entre les deux Times (Time2 - Time1)                    */
+/*------------------------------------------------------------------*/
+	CASE "T"
+
+		If atTime1 < atTime2 then
+
+			CHOOSE CASE asInterval
+
+				// Retour en secondes
+		      CASE "S"
+			   	lInterval = SecondsAfter ( atTime1, atTime2 )
+
+		     // Retour en minutes
+		     CASE "N"
+			      lInterval = Int ( SecondsAfter ( Time ( Left ( String ( atTime1 ), 6) + "00" ), Time ( Left ( String ( atTime2 ), 6) + "00" ) ) / 60 )
+
+		     // Retour en heures
+		     CASE "H"
+			      lInterval = Int ( SecondsAfter ( Time ( Left ( String ( atTime1 ), 3) + "00:00" ), Time ( Left ( String ( atTime2 ), 3) + "00:00" ) ) / 3600 )
+
+		     // Impossible pour un retour en Jours, Mois ou  Ann$$HEX1$$e900$$ENDHEX$$es
+		     CASE ELSE
+      			lInterval = -2
+			END CHOOSE
+
+		ElseIf atTime1 > atTime2 then
+			lInterval = -1
+	   Else
+		   lInterval = 0
+		End IF
+
+
+/*------------------------------------------------------------------*/
+/* Interval entre les deux DateTimes (Date2 + Time2) - (Date1 +     */
+/* Time1)                                                           */
+/*------------------------------------------------------------------*/
+	CASE "DT"
+
+		If DateTime ( adDate1 ,atTime1 ) < Datetime ( adDate2, atTime2 ) then
+
+			lInterval1 = DaysAfter ( adDate1, adDate2 ) * 86400
+			CHOOSE CASE asInterval
+
+				// Retour en secondes
+		      CASE "S"
+      			lInterval2 = ( Integer ( Right ( String ( atTime1 ), 2 ) )       )   + &
+           						 ( Integer ( mid ( String ( atTime1 ), 4, 2 ) ) * 60 )   + &
+           						 ( Integer ( left ( String ( atTime1 ), 2 ) ) * 3600 )
+
+			      lInterval3 = ( Integer ( Right ( String ( atTime2 ), 2 ) )       )   + &
+           						 ( Integer ( mid ( String ( atTime2 ), 4, 2 ) ) * 60 )   + &
+  						          ( Integer ( left ( String ( atTime2 ), 2 ) ) * 3600 )
+
+			      lInterval  = lInterval1 - lInterval2 + lInterval3
+
+		     // Retour en minutes
+		     CASE "N"
+
+			      lInterval2 = ( Integer ( mid ( String ( atTime1 ), 4, 2 ) )    ) 	+ &
+         						 ( Integer ( left ( String ( atTime1 ), 2 ) ) * 60 )
+
+			      lInterval3 = ( Integer ( mid ( String ( atTime2 ), 4, 2 ) )    )  + &
+						          ( Integer ( left ( String ( atTime2 ), 2 ) ) * 60 )
+
+			      lInterval  = ( lInterval1 / 60 ) - lInterval2 + lInterval3
+
+		     // Retour en heures
+		     CASE "H"
+
+			      lInterval2 = ( Integer ( left ( String ( atTime1 ), 2 ) ) )
+
+			      lInterval3 = ( Integer ( left ( String ( atTime2 ), 2 ) ) )
+
+			      lInterval  = ( lInterval1 / 3600 ) - lInterval2 + lInterval3
+
+		     // Type de Retour inexistant
+		     CASE ELSE
+      			lInterval = -2
+
+			END CHOOSE
+
+		ElseIf DateTime ( adDate1 ,atTime1 ) > Datetime ( adDate2, atTime2 ) then
+			lInterval = -1
+	   Else
+		   lInterval = 0
+		End IF
+
+	// Type de traitement inexistant
+	CASE ELSE
+
+		lInterval = -3
+
+END CHOOSE
+
+
+Return lInterval
+end function
+

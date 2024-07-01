@@ -1,0 +1,133 @@
+HA$PBExportHeader$f_initdirectory.srf
+$PBExportComments$Fonction d'Initialisation de r$$HEX1$$e900$$ENDHEX$$pertoire ( Supprime/Cr$$HEX1$$e900$$ENDHEX$$e le r$$HEX1$$e900$$ENDHEX$$pertoire pass$$HEX2$$e9002000$$ENDHEX$$en parametre )
+global type f_initdirectory from function_object
+end type
+
+forward prototypes
+global function integer f_initdirectory (string asdirectory)
+end prototypes
+
+global function integer f_initdirectory (string asdirectory);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_initdirectory
+//* Auteur			: Pierre-Henri Gillot
+//* Date				: 20/09/2006 11:00:08
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Cette fonction Initialise un r$$HEX1$$e900$$ENDHEX$$pertoire, C-A-D
+//*                 - Teste l'existence du r$$HEX1$$e900$$ENDHEX$$pertoire
+//*					  - S'il existe, le vide
+//*					  - S'il n'existe pas, le Cr$$HEX1$$e900$$ENDHEX$$e ainsi que ses r$$HEX1$$e900$$ENDHEX$$pertoire ancetre si besoin. 
+//*					
+//*				   !!!! ATTENTION : NON COMPATIBLE AVEC LES CHEMIN UNC !!!!
+//*
+//*					     !!!! ATTENTION !!!! ACTHUNG !!!! WARNING !!!!
+//*					  !!!!  SUPPRESSION RECURSIVE SANS CONFIRMATION  !!!!
+//*						  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//*
+//* Arguments		: value string asDirectory : Repertoire, en chemin absolu
+//*
+//* Retourne		: integer : 1 Ok, -1 N.Ok	
+//*
+//*-----------------------------------------------------------------
+//* MAJ   PAR      Date	     Modification
+//* #..   ...   ../../....   
+//* 
+//*-----------------------------------------------------------------
+
+n_cst_shell_fileoperations lnv_FileOp
+integer li_i, li_slashpos, li_ret, li_errorcode = 0
+string ls_CurrentRep
+boolean lb_DirOk = true
+
+// #1 Controle des chemins en param$$HEX1$$e800$$ENDHEX$$tres
+// Ctrl Chemin UNC 
+if asdirectory="\\" Then Return -1
+
+// Ctrl chemin mapp$$HEX2$$e9002000$$ENDHEX$$: s'il existe pas, retour -1
+If Mid(asdirectory,2) = ":\" Then 
+	lb_dirOk = DirectoryExists(asdirectory) 
+	if Not lb_DirOk then  return -1
+End if
+// Fin #1
+
+// Si un slash est a la fin de la chaine, on le vire.
+if right(asdirectory, 1) = "\" then asdirectory = left(asdirectory, len(asdirectory)-1 )
+
+
+// #1
+lb_dirOk = DirectoryExists(asdirectory) 
+
+If not lb_dirOk Then
+	
+	// Il faut cr$$HEX1$$e900$$ENDHEX$$er les r$$HEX1$$e900$$ENDHEX$$pertoires
+	
+	// On recherche le parent existant
+	ls_CurrentRep=asdirectory
+	do
+		li_slashpos = Pos( Reverse(ls_CurrentRep), "\")
+		li_slashpos = Len(ls_CurrentRep) - li_slashpos
+
+		ls_CurrentRep = Left(ls_CurrentRep, li_slashpos)
+		
+		if Len(ls_CurrentRep) < 3 Then Exit
+		lb_dirOk = DirectoryExists(ls_CurrentRep) 
+	Loop Until lb_dirOk
+	
+	If not lb_dirOk Then Return -1
+	
+	
+	Do
+		li_slashpos = Pos(asdirectory,"\",Len(ls_CurrentRep) +2)
+		if li_slashpos=0 Then 
+			ls_CurrentRep = asdirectory
+		Else
+			ls_CurrentRep = Left(asdirectory,li_slashpos -1)
+		End if
+		lb_dirOk = ( CreateDirectory(ls_CurrentRep) = 1 )
+	Loop until not lb_dirOk or ls_CurrentRep = asdirectory
+	
+	If not lb_dirOk And ls_CurrentRep <> asdirectory Then Return -1
+End if
+
+// On a test$$HEX1$$e900$$ENDHEX$$/cr$$HEX3$$e900e9002000$$ENDHEX$$tous les r$$HEX1$$e900$$ENDHEX$$pertoires ancetres
+// On s'occupe du dernier r$$HEX1$$e900$$ENDHEX$$pertoire
+li_errorcode = lnv_FileOp.K_SUCCESS
+lnv_FileOp.of_ViderDir( asdirectory, li_errorcode )
+lb_dirOk = ( li_errorcode = lnv_FileOp.K_SUCCESS )
+	
+if lb_DirOk then return 1
+return -1
+// Fin #1
+
+
+// On commence
+/*do
+	li_slashpos = Pos( asdirectory, "\", li_Slashpos+1 )
+	li_i ++
+	if li_i = 1 then continue // on saute le cas <lettre de lecteur>:\
+	if li_slashpos > 0 then // On a trouve un slash donc la chaine avant EST un repertoire
+		ls_CurrentRep = Left(asdirectory, li_slashpos)
+		lb_dirOk = DirectoryExists(ls_CurrentRep) 
+		If Not lb_dirOk then // Si le directory n'existe pas on le cr$$HEX1$$e900$$ENDHEX$$e
+			lb_dirOk = ( CreateDirectory(ls_CurrentRep) = 1 )
+		End If
+	else 
+		// On a test$$HEX1$$e900$$ENDHEX$$/cr$$HEX3$$e900e9002000$$ENDHEX$$tous les r$$HEX1$$e900$$ENDHEX$$pertoires ancetres
+		// On s'occupe du dernier r$$HEX1$$e900$$ENDHEX$$pertoire
+		lb_dirOk = DirectoryExists(asdirectory) 
+		If lb_dirOk then // S'il existe, on le vide
+			li_errorcode = lnv_FileOp.K_SUCCESS
+			lnv_FileOp.of_ViderDir( asdirectory, li_errorcode )
+			lb_dirOk = ( li_errorcode = lnv_FileOp.K_SUCCESS )
+		else
+			lb_dirOk = ( CreateDirectory(asdirectory) = 1 ) // Sinon on le cr$$HEX1$$e900$$ENDHEX$$e
+		end if
+	End If
+loop until li_slashpos = 0 or (Not lb_dirOk)
+
+if lb_DirOk then return 1
+return -1
+
+*/
+end function
+

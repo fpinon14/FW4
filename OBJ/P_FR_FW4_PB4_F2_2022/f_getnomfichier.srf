@@ -1,0 +1,104 @@
+HA$PBExportHeader$f_getnomfichier.srf
+$PBExportComments$---}
+global type f_getnomfichier from function_object
+end type
+
+forward prototypes
+global function string f_getnomfichier (string astitrebox, string asfiltre, string asextension, boolean abextoblig)
+end prototypes
+
+global function string f_getnomfichier (string astitrebox, string asfiltre, string asextension, boolean abextoblig);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_GetNomFichier (Public)
+//* Auteur			: Fabry JF
+//* Date				: 20/05/1999 08:59:27
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Retourne un nom de fichier choisi par l'utilisateur
+//*					  via la fonction PB GetFileSaveName(..)
+//*
+//* Commentaires	: 
+//*
+//* Arguments		: String				asTitreBox			(Val)			Titre de la box (si "", un titre par d$$HEX1$$e900$$ENDHEX$$faut sera affich$$HEX1$$e900$$ENDHEX$$)
+//*					  String				asFiltre				(Val)			Filtre l'affichage des fichiers sur la box ( si "", filtre *.* par d$$HEX1$$e900$$ENDHEX$$faut)
+//*					  String				asExtension			(Val)			Force l'extension du fichier (sur 3 lettres) si l'utilisateur n'en saisie pas
+//*																					( si "", libre choix $$HEX2$$e0002000$$ENDHEX$$l'utilisateur)
+//*					  Boolean			abExtOblig			(Val)			$$HEX2$$e0002000$$ENDHEX$$TRUE, l'extension 'asExtention' est obligatoire quelque que soit l'extension
+//*																					saisie par l'utilisateur.
+//*																					( Attention, si la variable 'asExtention' est $$HEX2$$e0002000$$ENDHEX$$"", Le TRUE a pour effet dans
+//*																					ce cas de ne jamais mettre d'extension )
+//*
+//* Retourne		: String				Nom complet du fichier
+//*			
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+String			sNomComplet, sNomFic, sChemin, sTitre, sFiltre, sExtension
+Int				iRetour, iPos
+
+
+If asTitreBox = "" Then
+	sTitre = "Saisissez un nom de fichier."
+Else
+	sTitre = asTitreBox
+End If
+
+If asFiltre = "" Then
+	sFiltre = "Tous Fichiers (*.*),*.*"
+Else
+	sFiltre = asFiltre
+End If
+
+If asExtension <> "" Then
+	sExtension = Left ( asExtension , 3 )
+Else
+	sExtension = ""
+End If
+
+iRetour = GetFileSaveName( sTitre, sNomComplet, sNomFic, sExtension, sFiltre )
+
+
+If iRetour > 0 Then 
+
+	If abExtOblig Then
+
+			/*------------------------------------------------------------------*/
+			/* On isole le chemin                                               */
+			/*------------------------------------------------------------------*/
+ 
+			iPos = len ( sNomComplet )
+			Do While iPos > 0 and mid ( sNomComplet, iPos, 1 ) <> '\'
+				iPos -= 1
+			Loop
+
+			sChemin = Left ( sNomComplet, iPos )
+
+
+			/*------------------------------------------------------------------*/
+			/* On contr$$HEX1$$f400$$ENDHEX$$le le nom du fichier												  */
+			/*------------------------------------------------------------------*/
+
+			iPos = 1
+			Do While iPos <= Len ( sNomFic ) and mid ( sNomFic, iPos, 1 ) <> '.' and iPos <= 8
+				iPos += 1
+			Loop
+
+			sNomFic 	 = upper ( Left ( sNomFic, iPos - 1 ) + "." + sExtension )
+			sNomComplet = upper ( sChemin ) + sNomFic
+
+	End If
+
+Else 
+
+			/*------------------------------------------------------------------*/
+			/* Dans ce cas l'utilisateur choisi d'ANNULER.                      */
+			/*------------------------------------------------------------------*/
+
+			sNomComplet = ""
+
+End IF
+
+
+Return sNomComplet
+end function
+

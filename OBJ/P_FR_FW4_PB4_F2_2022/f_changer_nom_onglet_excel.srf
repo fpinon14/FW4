@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_changer_nom_onglet_excel.srf
+$PBExportComments$Change le nom d'une Sheet Excel
+global type f_changer_nom_onglet_excel from function_object
+end type
+
+forward prototypes
+global function integer f_changer_nom_onglet_excel (string asnomfichiercomplet, integer ainumsheet, string asnouvnomsheet)
+end prototypes
+
+global function integer f_changer_nom_onglet_excel (string asnomfichiercomplet, integer ainumsheet, string asnouvnomsheet);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_CHANGER_NOM_ONGLET_EXCEL (Public)
+//* Auteur			: Fabry JF
+//* Date				: 27/05/2015 
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Change le nom d'une Sheet Excel
+//*					  
+//*
+//* Commentaires	: 
+//*
+//* Arguments		: String		asNomFichierComplet	
+//*					  Integer	aiNumSheet
+//*					  String		asNouvNomSheet
+//*
+//* Retourne		: Integer
+//*			
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+Integer li_rtn 
+OleObject lole_excel
+
+lole_excel = Create OleObject 
+li_rtn = lole_excel.ConnectToNewObject("excel.application")
+if li_rtn <> 0 then
+      destroy lole_Excel
+		Return -1
+else
+  lole_excel.WorkBooks.Open( asNomFichierComplet ) 
+  
+  // Set the cell value
+  lole_excel.application.workbooks(1).worksheets(aiNumSheet).name = asNouvNomSheet
+
+  // Save
+  lole_excel.application.workbooks(1).save()
+  // Quit
+  lole_excel.application.quit()
+  lole_excel.DisconnectObject()
+  destroy lole_excel
+end if
+
+Return 1
+
+end function
+

@@ -1,0 +1,51 @@
+HA$PBExportHeader$f_epure_chaine.srf
+global type f_epure_chaine from function_object
+end type
+
+forward prototypes
+global function string f_epure_chaine (string asval, string ascas)
+end prototypes
+
+global function string f_epure_chaine (string asval, string ascas);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_EPURE_CHAINE
+//* Auteur			: Fabry JF (Repris de FPI	20/01/2017)
+//* Date				: 23/05/2017
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+//* 		FPI	20/01/2017	[EPURE_PT_RELAI]
+string sCarSpeciaux,sCarRemplace
+int i, l
+
+sCarSpeciaux="$$HEX65$$e000e800ec00f200f900c000c800cc00d200d9002000e400eb00ef00f600fc00c400cb00cf00d600dc002000e200ea00ee00f400fb00c200ca00ce00d400db002000e100e900ed00f300fa00c100c900cd00d300da00f000d000fd00dd002000e300f100f500c300d100d500610160017e017d01e700c700e500c500f800d8002000$$ENDHEX$$*'^$$HEX4$$a300a800a000b000$$ENDHEX$$\/	"
+sCarRemplace="aeiouAEIOU aeiouAEIOU aeiouAEIOU aeiouAEIOUdDyY anoANOsSzZcCaAoO           "
+
+Choose Case Upper ( asCas ) 
+	Case "EXCL_SLASHX2"
+		sCarSpeciaux="$$HEX65$$e000e800ec00f200f900c000c800cc00d200d9002000e400eb00ef00f600fc00c400cb00cf00d600dc002000e200ea00ee00f400fb00c200ca00ce00d400db002000e100e900ed00f300fa00c100c900cd00d300da00f000d000fd00dd002000e300f100f500c300d100d500610160017e017d01e700c700e500c500f800d8002000$$ENDHEX$$*'^$$HEX5$$a300a800a000b0000900$$ENDHEX$$"
+		sCarRemplace="aeiouAEIOU aeiouAEIOU aeiouAEIOU aeiouAEIOUdDyY anoANOsSzZcCaAoO         "
+		
+End Choose 
+
+l = Len(sCarSpeciaux)
+
+If isnull(asVal) Then 
+	return asVal
+End if
+
+If Len(trim(asVal)) = 0 Then 
+	return asVal
+End if
+
+For i=1 to l
+	asVal=f_remplace(asVal, Mid(sCarSpeciaux,i,1),Mid(sCarRemplace,i,1))
+Next
+
+Return asVal
+
+end function
+
