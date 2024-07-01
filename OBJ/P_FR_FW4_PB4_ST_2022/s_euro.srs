@@ -1,0 +1,12 @@
+HA$PBExportHeader$s_euro.srs
+$PBExportComments$------} Structure servant $$HEX2$$e0002000$$ENDHEX$$l'affichage de la fen$$HEX1$$ea00$$ENDHEX$$tre W_EURO
+global type s_euro from structure
+    decimal {2} dcmtInitial
+    integer ix
+    integer iy
+    window wparent
+    u_datawindow dwtrt
+    string scol
+    long llig
+end type
+

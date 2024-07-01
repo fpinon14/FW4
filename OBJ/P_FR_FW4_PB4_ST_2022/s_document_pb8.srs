@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_document_pb8.srs
+$PBExportComments$cr$$HEX3$$e900e9002000$$ENDHEX$$lors de la migration PB8 pour remplacer la structure d$$HEX1$$e900$$ENDHEX$$clar$$HEX1$$e900$$ENDHEX$$e dans u_saisieparagraphe (P_PB4_UO.pbl)
+global type s_document_pb8 from structure
+	string		sTempFileName
+	boolean		bSauvegarde
+	boolean		bFerme
+end type
+

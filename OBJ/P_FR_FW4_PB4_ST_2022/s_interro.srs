@@ -1,0 +1,11 @@
+HA$PBExportHeader$s_interro.srs
+$PBExportComments$------} Structure contenant la d$$HEX1$$e900$$ENDHEX$$finition pour la fen$$HEX1$$ea00$$ENDHEX$$tre d'interrogation
+global type s_interro from structure
+    w_ancetre wancetre
+    string sdataobject
+    string stitre
+    string scodedw
+    s_datainterro sdata[]
+    boolean bTrace
+end type
+

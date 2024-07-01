@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_fileopeninfo.srs
+global type s_fileopeninfo from structure
+	character		c_length
+	character		c_fixed_disk
+	unsignedinteger		ui_dos_error
+	unsignedinteger		ui_na1
+	unsignedinteger		ui_na2
+	character		c_pathname[128]
+end type
+

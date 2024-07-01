@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_se_params.srs
+global type s_se_params from structure
+	string		isValeurStr[]
+	integer		iiValeurInt[]
+end type
+

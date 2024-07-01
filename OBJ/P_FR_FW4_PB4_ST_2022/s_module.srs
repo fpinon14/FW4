@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_module.srs
+$PBExportComments$------} Structure contenant la d$$HEX1$$e900$$ENDHEX$$finition des modules autoris$$HEX1$$e900$$ENDHEX$$s de l'application et des menus
+global type s_module from structure
+    string scodmodule
+    string slibmodule
+    string scodmenu[]
+    string stypmenu[]
+end type
+

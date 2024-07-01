@@ -1,0 +1,16 @@
+HA$PBExportHeader$s_clientarearecord.srs
+global type s_clientarearecord from structure
+    unsignedinteger uiserviceversion
+    character ctabsize
+    unsignedinteger uinbcopie
+    character cprintflags
+    unsignedinteger uimaxline
+    unsignedinteger uimaxchars
+    character acformname[16]
+    character acreserved[6]
+    character acbannerusername[13]
+    character acbannerfilename[13]
+    character acbannerheaderfilename[14]
+    character acfilepathname[80]
+end type
+

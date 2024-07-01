@@ -1,0 +1,11 @@
+HA$PBExportHeader$s_datainterro.srs
+$PBExportComments$------} Structure contenant la d$$HEX1$$e900$$ENDHEX$$finition d'une colonne dans la fen$$HEX1$$ea00$$ENDHEX$$tre d'interrogation
+global type s_datainterro from structure
+    string snom
+    string sdbname
+    string sdbnameconsult[]
+    string stype
+    string soperande
+    string sMoteur
+end type
+

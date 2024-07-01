@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_date.srs
+$PBExportComments$------} Structure donnant une date ou une p$$HEX1$$e900$$ENDHEX$$riode sous la forme ann$$HEX1$$e900$$ENDHEX$$e mois jour
+global type s_date from structure
+    integer ijour
+    integer imois
+    integer iannee
+end type
+

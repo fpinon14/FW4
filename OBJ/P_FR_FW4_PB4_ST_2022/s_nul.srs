@@ -1,0 +1,13 @@
+HA$PBExportHeader$s_nul.srs
+$PBExportComments$------} Structure d'initialisation des nuls
+global type s_nul from structure
+    integer inum
+    string str
+    date dat
+    datetime dtm
+    time tim
+    decimal {0} dcm
+    long lng
+    Blob blb
+end type
+
