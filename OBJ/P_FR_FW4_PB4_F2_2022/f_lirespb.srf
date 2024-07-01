@@ -1,0 +1,38 @@
+HA$PBExportHeader$f_lirespb.srf
+$PBExportComments$------} Fonction de chargement des param$$HEX1$$e800$$ENDHEX$$tres administratifs de de la S.P.B
+global type f_lirespb from function_object
+end type
+
+forward prototypes
+global subroutine f_lirespb (s_Glb astGlb, ref s_spb astspb)
+end prototypes
+
+global subroutine f_lirespb (s_Glb astGlb, ref s_spb astspb);//*-----------------------------------------------------------------
+//*
+//* Fonction		:	f_lirespb
+//* Auteur			:	La Recrue
+//* Date				:	18/03/1997 11:26:17
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	Retrouve dans le .INI de l'application les coordon$$HEX1$$e900$$ENDHEX$$e
+//*						de la SPB 
+//* Commentaires	:	Cette structure sert essentiellement pour l'$$HEX1$$e900$$ENDHEX$$dition des courriers
+//*
+//*
+//* Arguments		:	s_Glb			astGlb	(Val) Structure Global
+//*						s_SPB			astSpb	(Ref)	Structure Spb
+//*
+//* Retourne		:	Rien				
+//*											
+//*
+//*-----------------------------------------------------------------
+
+astSpb.sNom		= ProfileString( astGlb.sFichierIni, "SPB", "NOM", "" )
+astSpb.sRso		= ProfileString( astGlb.sFichierIni, "SPB", "RSO", "" )
+astSpb.sAd1		= ProfileString( astGlb.sFichierIni, "SPB", "AD1", "" )
+astSpb.sAd2		= ProfileString( astGlb.sFichierIni, "SPB", "AD2", "" )
+astSpb.sCpo		= ProfileString( astGlb.sFichierIni, "SPB", "CPO", "" )
+astSpb.sVil		= ProfileString( astGlb.sFichierIni, "SPB", "VIL", "" )
+astSpb.sLidir	= ProfileString( astGlb.sFichierIni, "SPB", "LIDIR", "" )
+astSpb.sLivoc	= ProfileString( astGlb.sFichierIni, "SPB", "LIVOC", "" )
+astSpb.sFax		= ProfileString( astGlb.sFichierIni, "SPB", "FAX", "" )
+end subroutine
+

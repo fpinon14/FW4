@@ -1,0 +1,54 @@
+HA$PBExportHeader$f_aleatoire.srf
+$PBExportComments$------} fonction renvoyant une chaine de caract$$HEX1$$e800$$ENDHEX$$res et de chiffres al$$HEX1$$e900$$ENDHEX$$atoires.
+global type f_aleatoire from function_object
+end type
+
+forward prototypes
+global function string f_aleatoire (long alnbcar)
+end prototypes
+
+global function string f_aleatoire (long alnbcar);//*******************************************************************************************
+//	Fonction          	: F_Al$$HEX1$$e900$$ENDHEX$$atoire
+//	Auteur            	: N$$HEX1$$b000$$ENDHEX$$6
+//	Date 					 	: 24/07/96
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Commentaires			: Fonction g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rant une chaine de caract$$HEX1$$e800$$ENDHEX$$res constitu$$HEX1$$e900$$ENDHEX$$es de chiffres
+//								  et de lettres.
+//
+//	Arguments				: alNbCar : longueur de la chaine d$$HEX1$$e900$$ENDHEX$$sir$$HEX2$$e9002000$$ENDHEX$$( valeur ).
+//
+//	Retourne				: la chaine obtenue.
+//
+// ----------------------------------------------------------------------------
+// MAJ PAR		Date				Modification
+// N$$HEX1$$b000$$ENDHEX$$6			17/10/1996		ACCE 3
+//		Suppression dans le tableau sCar des caract$$HEX1$$e800$$ENDHEX$$res "o" et "0".
+//
+//*******************************************************************************************
+
+String	sRetour, sCar[34]
+
+Long		lCpt, lCar
+
+sRetour = ""
+// affectation des caracteres autoris$$HEX1$$e900$$ENDHEX$$s.
+
+sCar = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",&
+			 "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U",&
+			 "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5",&
+			 "6", "7", "8", "9" }
+
+// --- Afin que la s$$HEX1$$e900$$ENDHEX$$quence g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$soit dif$$HEX1$$e800$$ENDHEX$$rente.
+
+Randomize ( 0 )
+
+For lCpt = 1 To alNbCar
+
+	lCar = Rand ( 34 )
+	sRetour = sRetour + sCar[ lCar ]
+
+Next
+
+Return ( sRetour )
+end function
+

@@ -1,0 +1,44 @@
+HA$PBExportHeader$f_fin_mois.srf
+$PBExportComments$------} Jour de fin de mois
+global type f_fin_mois from function_object
+end type
+
+forward prototypes
+global function long f_fin_mois (integer aian, integer aimois)
+end prototypes
+
+global function long f_fin_mois (integer aian, integer aimois);//*******************************************************************************************
+//	Fonction          	: F_Fin_Mois
+//	Auteur            	: FS
+//	Date 					 	: 27/04/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: D$$HEX1$$e900$$ENDHEX$$termination du jour de fin de mois
+//	Commentaires			:
+//
+//	Arguments				: aiMois : N$$HEX2$$b0002000$$ENDHEX$$du mois
+//								: aiAn   : Ann$$HEX1$$e900$$ENDHEX$$e
+//
+//	Retourne				: Le jour de fin de mois
+//								  
+//*******************************************************************************************
+
+Date date1, Date2
+Integer iMois, iAn
+
+iMois = aiMois + 1
+iAn   = aiAn
+
+If iMois = 13 Then 
+	iMois = 1
+	iAn   = iAn + 1
+End If
+
+Date1 = Date ( String ( aiAn ) + "-" + String ( aiMois, "00" ) + "-" + "01" )
+Date2 = Date ( String ( iAn  ) + "-" + String ( imois , "00" ) + "-" + "01" )
+
+Return ( DaysAfter(  date1, date2 ) )
+
+
+
+
+end function
+

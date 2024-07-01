@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_cle_iban.srf
+$PBExportComments$Calcul de la Cl$$HEX2$$e9002000$$ENDHEX$$d'un IBAN
+global type f_cle_iban from function_object
+end type
+
+forward prototypes
+global function boolean f_cle_iban (string asidiban, ref long alcle)
+end prototypes
+
+global function boolean f_cle_iban (string asidiban, ref long alcle);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Iban
+//* Auteur			: Erick John Stark
+//* Date				: 17/03/2008 21:42:15
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Calcul de la cl$$HEX2$$e9002000$$ENDHEX$$de contr$$HEX1$$f400$$ENDHEX$$le pour un IBAN.
+//*
+//* Arguments		: String			asIdIban				(Val)	IBAN $$HEX2$$e0002000$$ENDHEX$$contr$$HEX1$$f400$$ENDHEX$$ler
+//*					  Long			alCle					(R$$HEX1$$e900$$ENDHEX$$f)	Cl$$HEX2$$e9002000$$ENDHEX$$de contr$$HEX1$$f400$$ENDHEX$$le
+//*
+//* Retourne		: Boolean
+//*
+//*-----------------------------------------------------------------
+
+return stGlb.uoGFP.uf_F_iban(asIdIban, 'C', alCle)
+end function
+

@@ -1,0 +1,71 @@
+HA$PBExportHeader$f_copy.srf
+$PBExportComments$------} Copie de fichier
+global type f_copy from function_object
+end type
+
+forward prototypes
+global function boolean f_copy (u_declarationwindows uowin, string assource, string asdest)
+end prototypes
+
+global function boolean f_copy (u_declarationwindows uowin, string assource, string asdest);//*******************************************************************************************
+//	Fonction          	: F_Copy
+//	Auteur            	: La Recrue
+//	Date 					 	: 05/02/1997 
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Copie de fichier avec les focntions LZ
+//	Commentaires			: 
+//	Arguments				: uoWin		u_declarationwindows	(Val)	Environnement( 16 ou 32 )
+//								  asSource	String					(Val) Fichier Source
+//								  asDest		String					(Val) Fichier Destination
+//
+//	Retourne					: Boolean	True	-> La Copie s'est bien pass$$HEX1$$e900$$ENDHEX$$e.
+//												False	-> La Copie ne s'est pas bien pass$$HEX1$$e900$$ENDHEX$$e.
+//
+//----------------------------------------------------------------------------
+// MAJ PAR		Date				Modification
+//
+//*******************************************************************************************
+
+//Migration PB8-WYNIWYG-03/2006 FM
+//s_ofstruct ofstruct,ofstruct1
+s_ofstruct32 ofstruct,ofstruct1
+//Fin Migration PB8-WYNIWYG-03/2006 FM
+int hfilesrc,hfiledes
+long retlz
+Boolean bOk = True
+
+hfilesrc = uoWin.Uf_LZopenfile ( asSource, ofstruct, 0 )		//	0 = Read Only
+
+If ( hfilesrc = -1 ) then
+
+	bOk = False	
+Else
+
+	hfiledes = uoWin.Uf_LZopenfile ( asDest, ofstruct1, 4096 ) 
+
+	if ( hfiledes = -1 ) then
+
+		bOk = False		
+		uoWin.Uf_LZclose ( hfilesrc )
+
+	End if
+
+End if
+
+If bOk Then
+
+	retlz = uoWin.Uf_LZcopy ( hfilesrc ,hfiledes )
+
+	If ( retlz < 0 ) Then
+
+		bOk = False
+
+	End if
+
+	uoWin.Uf_LZclose ( hfilesrc )
+	uoWin.Uf_LZclose ( hfiledes )
+
+End if
+
+Return ( bOk )
+end function
+

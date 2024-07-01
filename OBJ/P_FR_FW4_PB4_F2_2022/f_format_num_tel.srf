@@ -1,0 +1,84 @@
+HA$PBExportHeader$f_format_num_tel.srf
+global type f_format_num_tel from function_object
+end type
+
+forward prototypes
+global function string f_format_num_tel (string astext, boolean abswitch)
+end prototypes
+
+global function string f_format_num_tel (string astext, boolean abswitch);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Format_num_Tel 
+//* Auteur			: Fabry JF
+//* Date				: 06/10/2001
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Formatage des N$$HEX2$$b0002000$$ENDHEX$$de Tel
+//* Commentaires	: 
+//*
+//* Arguments		: asText		String		Val
+//*					  abSwitch	Boolean		Val		True : on ins$$HEX1$$e900$$ENDHEX$$re des espaces
+//*																False: on retire les espaces
+//*					  
+//*
+//* Retourne		: String
+//*
+//*-----------------------------------------------------------------
+//* MAJ   PAR      Date	     Modification
+//* #..   ...   ../../....   
+//* 
+//*-----------------------------------------------------------------
+
+String	sVal, sCar
+Int		iLen
+Long		lCpt
+
+
+sVal = Trim ( asText )
+iLen = Len ( Trim ( sVal ) )
+
+/*------------------------------------------------------------------*/
+/* Que des Chiffres ou des espaces dans le n$$HEX2$$b0002000$$ENDHEX$$de T$$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$phone.         */
+/*------------------------------------------------------------------*/
+If abSwitch Then
+	For lCpt = 1 To iLen
+		sCar = Mid ( sVal, lCpt, 1 )
+		If Not ( ( Asc (sCar) >= 48 And asc (sCar) <= 57 ) Or sCar = " " ) Then
+			sVal = "-1"
+			Return sVal
+		End If
+	Next
+End IF
+
+CHOOSE CASE abSwitch
+	CASE TRUE
+
+		CHOOSE CASE iLen
+		
+			// Standard Fran$$HEX1$$e700$$ENDHEX$$ais 1234567890 -> 12 34 56 78 90
+			CASE 10
+
+				sVal = Left ( sVal, 2 ) 	+ " " + &
+						 Mid  ( sVal, 3, 2 ) + " " + &
+						 Mid  ( sVal, 5, 2 ) + " " + &
+						 Mid  ( sVal, 7, 2 ) + " " + &
+						 Right( sVal, 2 ) 
+
+		END CHOOSE
+
+	CASE ELSE
+
+		/*------------------------------------------------------------------*/
+		/* Pas d'espace pour les num$$HEX1$$e900$$ENDHEX$$ros de t$$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$phone.                      */
+		/*------------------------------------------------------------------*/
+		For lCpt = iLen To 1 Step -1
+			If Mid ( sVal, lCpt, 1 ) = " " Then 
+				sVal = Replace ( sVal, lCpt, 1, "" )
+			End If
+		Next
+
+END CHOOSE
+
+
+
+Return sVal
+end function
+

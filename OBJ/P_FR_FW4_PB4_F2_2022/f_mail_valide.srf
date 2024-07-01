@@ -1,0 +1,114 @@
+HA$PBExportHeader$f_mail_valide.srf
+global type f_mail_valide from function_object
+end type
+
+forward prototypes
+global function boolean f_mail_valide (string asmail)
+end prototypes
+
+global function boolean f_mail_valide (string asmail);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Mail_Valide 
+//* Auteur			: Fabry JF
+//* Date				: 04/10/2011
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: V$$HEX1$$e900$$ENDHEX$$rification de la validiti$$HEX2$$e9002000$$ENDHEX$$de l'adresse mail
+//* Commentaires	: 
+//*
+//* Arguments		: asMail		String		Val
+//*					  
+//*
+//* Retourne		: String
+//*
+//*-----------------------------------------------------------------
+//* MAJ   PAR      Date	     Modification
+//*       JFF    14/10/2011  [PM159].[_] Pas de "_" dans le nom de domaine
+//*-----------------------------------------------------------------
+String	sVal, sCar, sDomaine
+Int		iLen, iPoint, iAt
+Long		lVal, lCpt, lPos
+
+
+sVal = Trim ( asMail )
+iLen = Len ( Trim ( sVal ) )
+
+// A null, on laisse passer
+If IsNull ( sVal ) Then Return TRUE
+If iLen <= 0 Then Return TRUE
+
+/*------------------------------------------------------------------*/
+/* Recherche d'un espace $$HEX2$$e0002000$$ENDHEX$$remplacer par .                          */
+/*------------------------------------------------------------------*/
+DO WHILE Pos ( sVal, " ", 1 ) > 1 
+	Return False
+LOOP
+
+/*------------------------------------------------------------------*/
+/* V$$HEX1$$e900$$ENDHEX$$rification de la validit$$HEX2$$e9002000$$ENDHEX$$de l'email.                          */
+/*------------------------------------------------------------------*/
+iPoint = 0
+iAt = 0
+For lCpt = 1 To iLen 
+	sCar = Mid ( sVal, lCpt, 1 )
+
+	// @ et . impossible en premier et dernier
+	If ( lCpt = 1 Or lCpt = iLen ) And ( sCar = "@" Or sCar ="." ) Then 
+		Return False
+	End If
+
+	If sCar = "." Then 
+		iPoint++
+	End If
+
+	If sCar = "@" Then 
+		iAt++
+		iPoint = 0
+
+		// xxx@xx@xxx.xx Impossible
+		If iAt >1 Then
+			Return False
+		End If
+
+	End If
+
+Next
+
+// Pas plus d'un @ et au moins un .
+If iAt <> 1 Or iPoint < 1 Then Return False
+
+/*------------------------------------------------------------------*/
+/* Enfin il ne peut y avoir que certain caract$$HEX1$$e800$$ENDHEX$$res.                 */
+/*------------------------------------------------------------------*/
+iLen = Len ( Trim ( sVal ) )
+For lCpt = 1 To iLen
+	sCar = Mid ( sVal, lCpt, 1 )
+
+	If Not ( ( Asc ( sCar ) >= 48 And Asc ( sCar ) <= 57 ) Or &
+				( Asc ( sCar ) >= 65 And Asc ( sCar ) <= 90 ) Or &
+				( Asc ( sCar ) >= 97 And Asc ( sCar ) <= 122 ) Or &
+				sCar = "." Or & 
+				sCar = "@" Or &
+				sCar = "_" Or &
+				sCar = "-") Then
+
+		Return False
+	End If
+Next
+
+// Un point doit $$HEX1$$ea00$$ENDHEX$$tre encadr$$HEX2$$e9002000$$ENDHEX$$par deux caract$$HEX1$$e800$$ENDHEX$$res sauf l'@
+If Pos ( sVal, "..", 1 ) > 0 Or &
+   Pos ( sVal, ".@", 1 ) > 0 Or &
+	Pos ( sVal, "@.", 1 ) > 0 Then
+	
+	Return False
+End If
+
+// [PM159].[_] : Pas de "_" dansle nom de domaine
+sDomaine = Right ( sVal, Len ( sVal ) - Pos ( sVal, "@", 1 ) + 1 )
+If Pos ( sDomaine, "_",  1 ) > 0 Then
+	Return False
+End IF
+
+Return TRUE
+
+end function
+
