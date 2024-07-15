@@ -1,5 +1,7 @@
 Save Format v3.0(19990112)
 @begin Libraries
+ "OBJ\\P_FR_FW4_PB4_APPANC_2022\\p_fr_fw4_pb4_appanc_2022.pbl" "";
 @end;
 @begin Objects
+ "OBJ\\P_FR_FW4_PB4_APPANC_2022\\p_p_pb4obj_exe.srj" "OBJ\\P_FR_FW4_PB4_APPANC_2022\\p_fr_fw4_pb4_appanc_2022.pbl";
 @end;
