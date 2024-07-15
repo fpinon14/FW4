@@ -3,4 +3,5 @@ Save Format v3.0(19990112)
  0 "p_fr_fw4_appanc_2022.pbt";
 @end;
 DefaultTarget "p_fr_fw4_appanc_2022.pbt";
+DefaultExportEncode "UTF-8";
 DefaultRemoteTarget "p_fr_fw4_appanc_2022.pbt";
