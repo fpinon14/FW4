@@ -1,8 +1,6 @@
 Save Format v3.0(19990112)
-@begin Unchecked
-@end;
 @begin Targets
- 0 "..\\..\\..\\..\\..\\..\\..\\Dev\\Repository_PB\\France\\Framework4\\Trunk\\FW4\\PB_2022\\p_fr_fw4_appanc_2022.pbt";
+ 0 "p_fr_fw4_appanc_2022.pbt";
 @end;
-DefaultTarget "..\\..\\..\\..\\..\\..\\..\\Dev\\Repository_PB\\France\\Framework4\\Trunk\\FW4\\PB_2022\\p_fr_fw4_appanc_2022.pbt";
-DefaultRemoteTarget "..\\..\\..\\..\\..\\..\\..\\Dev\\Repository_PB\\France\\Framework4\\Trunk\\FW4\\PB_2022\\p_fr_fw4_appanc_2022.pbt";
+DefaultTarget "p_fr_fw4_appanc_2022.pbt";
+DefaultRemoteTarget "p_fr_fw4_appanc_2022.pbt";
