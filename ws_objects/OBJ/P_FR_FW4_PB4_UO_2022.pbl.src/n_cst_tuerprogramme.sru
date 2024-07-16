@@ -33,7 +33,6 @@ FUNCTION Long GetModuleBaseNameA ( uLong hProcess, uLong hModule, ref string szE
 
 
 end prototypes
-
 type variables
 CONSTANT Long MAX_PATH		= 260
 

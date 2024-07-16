@@ -16,7 +16,6 @@ function int PS_S01_NIVEAU_OPERATEUR_V01(int iIdUo, string sTrigramme, REF int i
 
 
 end prototypes
-
 forward prototypes
 public function boolean uf_isconnected ()
 public function integer uf_init (string as_inifile, string as_inisection)
