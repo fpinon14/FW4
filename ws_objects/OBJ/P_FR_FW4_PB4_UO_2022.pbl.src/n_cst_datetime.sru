@@ -335,39 +335,6 @@ Return dPenteCote
 
 end function
 
-public function boolean uf_isleap (integer aiyear);//*-----------------------------------------------------------------
-//*
-//* Fonction		: N_Cst_DateTime::Uf_IsLeap		(PUBLIC)
-//* Auteur			: PHG
-//* Date				: 07/10/2011
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: [I037] Migration FUNCKy
-//*
-//* Arguments		: 		  (Val)		Integer		aiYear	Ann$$HEX1$$e900$$ENDHEX$$e
-//*
-//* Retourne		: Le jour de fin de mois
-//*
-//*-----------------------------------------------------------------
-//* MAJ   PAR      Date	     Modification
-//* #..   ...   ../../....   
-//* 
-//*-----------------------------------------------------------------	
-
-int li_year
-boolean lb_null
-SetNull(lb_null)
-
-if aiYear <=1 Then return False
-
-li_year = aiYear
-
-If ( (Mod(li_year,4) = 0 And Mod(li_year,100) <> 0) Or (Mod(li_year,400) = 0) ) Then
-	Return True
-End If
-
-Return False
-end function
-
 public function boolean of_isvalid (datetime adtm_source);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_IsValid
@@ -727,6 +694,39 @@ ElseIf  ll_time_adjust < 0 then
 End If
 
 return(datetime(ld_sdate,lt_stime))
+end function
+
+public function boolean uf_isleap (integer aiyear);//*-----------------------------------------------------------------
+//*
+//* Fonction		: N_Cst_DateTime::Uf_IsLeap		(PUBLIC)
+//* Auteur			: PHG
+//* Date				: 07/10/2011
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: [I037] Migration FUNCKy
+//*
+//* Arguments		: 		  (Val)		Integer		aiYear	Ann$$HEX1$$e900$$ENDHEX$$e
+//*
+//* Retourne		: Le jour de fin de mois
+//*
+//*-----------------------------------------------------------------
+//* MAJ   PAR      Date	     Modification
+//* #..   ...   ../../....   
+//* 
+//*-----------------------------------------------------------------	
+
+int li_year
+boolean lb_null
+SetNull(lb_null)
+
+if aiYear <=1 Then return False
+
+li_year = aiYear
+
+If ( (Mod(li_year,4) = 0 And Mod(li_year,100) <> 0) Or (Mod(li_year,400) = 0) ) Then
+	Return True
+End If
+
+Return False
 end function
 
 on n_cst_datetime.create

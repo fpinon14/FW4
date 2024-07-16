@@ -17,7 +17,6 @@ string isSoapError
 // A d$$HEX1$$e900$$ENDHEX$$clarer
 // <mon_proxy> iProxy
 end variables
-
 forward prototypes
 public function integer createproxy (soapconnection asoapcnx)
 public function long uf_gestionexception (soapexception asoapex)

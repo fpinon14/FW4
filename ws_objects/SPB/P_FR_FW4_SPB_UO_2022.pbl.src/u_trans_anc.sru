@@ -109,7 +109,6 @@ function Int PS_S_RETURN_TRANCOUNT ( ) RPCFUNC ALIAS FOR "sysadm.PS_S_RETURN_TRA
 
 
 end prototypes
-
 on u_trans_anc.create
 call super::create
 TriggerEvent( this, "constructor" )

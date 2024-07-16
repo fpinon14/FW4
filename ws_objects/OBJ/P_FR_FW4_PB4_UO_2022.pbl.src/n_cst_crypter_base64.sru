@@ -15,7 +15,6 @@ byte map1[0 to 63]
 byte map2[0 to 127]
 string is_lasterror
 end variables
-
 forward prototypes
 public function integer uf_crypter (ref string aschaine, boolean abswitch)
 public function string uf_encode (blob abl_data)

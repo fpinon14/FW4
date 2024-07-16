@@ -17,7 +17,6 @@ Private :
 	constant String K_WORD95		= "Word.Basic"
 // [MIGPB11] [EMD] : Fin
 end variables
-
 forward prototypes
 public function integer uf_fichierouvertdansword (ref oleobject aoleobject, boolean abfermer, boolean abfermer_sansverifier)
 public function integer uf_fermerword ()
