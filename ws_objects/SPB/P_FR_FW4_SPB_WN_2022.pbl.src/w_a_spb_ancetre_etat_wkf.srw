@@ -1,5 +1,5 @@
-HA$PBExportHeader$w_a_spb_ancetre_etat_wkf.srw
-$PBExportComments$----} Fen$$HEX1$$ea00$$ENDHEX$$tre Anc$$HEX1$$ea00$$ENDHEX$$tre pour l'$$HEX1$$e900$$ENDHEX$$dition des $$HEX1$$e900$$ENDHEX$$tats de production journaliers. ( DCMP 990391 )
+﻿$PBExportHeader$w_a_spb_ancetre_etat_wkf.srw
+$PBExportComments$----} Fenêtre Ancêtre pour l'édition des états de production journaliers. ( DCMP 990391 )
 forward
 global type w_a_spb_ancetre_etat_wkf from w_8_accueil
 end type
@@ -24,10 +24,9 @@ end type
 end forward
 
 global type w_a_spb_ancetre_etat_wkf from w_8_accueil
-int Width=3630
-int Height=2049
-boolean TitleBar=true
-string Title="Production SIMPA2"
+integer width = 3630
+integer height = 2048
+string title = "Production SIMPA2"
 st_1 st_1
 st_2 st_2
 dw_2 dw_2
@@ -58,16 +57,16 @@ private function boolean wf_controledates (ref date addtedebut, ref date addtefi
 //* Fonction		:	wf_ControleDates ( PRIVATE )
 //* Auteur			:	DBI
 //* Date				:	19/11/98 14:16:30
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	Contr$$HEX1$$f400$$ENDHEX$$le les dates saisies 
+//* Libellé			:	Contrôle les dates saisies 
 //* Commentaires	:	
 //*
-//* Arguments		:	Date	adDteDebut (Ref)			Date de D$$HEX1$$e900$$ENDHEX$$but
+//* Arguments		:	Date	adDteDebut (Ref)			Date de Début
 //*						Date	adDteFin	  (Ref)			Date de Fin
 //*
-//* Retourne		:	Bool$$HEX1$$e900$$ENDHEX$$en 		Vrai si les dates sont correctes
+//* Retourne		:	Booléen 		Vrai si les dates sont correctes
 //*
 //*-----------------------------------------------------------------
-//* N$$HEX2$$b0002000$$ENDHEX$$Modif          Re$$HEX1$$e700$$ENDHEX$$ue Le          Effectu$$HEX1$$e900$$ENDHEX$$e Le          PAR
+//* N° Modif          Reçue Le          Effectuée Le          PAR
 //*
 //*-----------------------------------------------------------------
 
@@ -77,7 +76,7 @@ Date 			dDteDuJour 					//Date du jour
 String		sDteDebLu, sDteFinLu		// Les deux dates (Deb et Fin) lu sur les objets
 String 		sDateMiseProd				// Date de mise en production de SIMPA2
 
-stMessage.sTitre    = "Contr$$HEX1$$f400$$ENDHEX$$le des dates saisies"	
+stMessage.sTitre    = "Contrôle des dates saisies"	
 stMessage.bErreurG  = True
 sDateMiseProd 		  = ProfileString ( stGlb.sFichierIni, "DIVERS", "DATE_PRODUCTION", "01/01/1995" )
 
@@ -89,7 +88,7 @@ sDteFinLu 			  = uo_Dte_Fin.Sle_Affichage.Text
 dDteDuJour 		= 	Today ()
 
 /*----------------------------------------------------------------------------*/
-/* V$$HEX1$$e900$$ENDHEX$$rification de la validit$$HEX2$$e9002000$$ENDHEX$$de la date de d$$HEX1$$e900$$ENDHEX$$but								      */
+/* Vérification de la validité de la date de début								      */
 /*----------------------------------------------------------------------------*/
 If bRet and bSuivant and uo_Dte_Deb.Visible Then
 
@@ -97,7 +96,7 @@ If bRet and bSuivant and uo_Dte_Deb.Visible Then
 	
 		bRet = False
 		stMessage.sCode   = "EWK0006"	
-		stMessage.sVar[1]	= "de d$$HEX1$$e900$$ENDHEX$$but"
+		stMessage.sVar[1]	= "de début"
 		f_Message ( stMessage )
 
 	Else
@@ -106,7 +105,7 @@ If bRet and bSuivant and uo_Dte_Deb.Visible Then
 
 			bRet = False
 			stMessage.sCode	= "GENE002"
-			stMessage.sVar[1]	= "date de d$$HEX1$$e900$$ENDHEX$$but de traitement"
+			stMessage.sVar[1]	= "date de début de traitement"
 			f_Message ( stMessage )
 
 		Else 
@@ -122,7 +121,7 @@ End IF
 
 
 /*----------------------------------------------------------------------------*/
-/* V$$HEX1$$e900$$ENDHEX$$rification de la validit$$HEX2$$e9002000$$ENDHEX$$de la date de fin								      */
+/* Vérification de la validité de la date de fin								      */
 /*----------------------------------------------------------------------------*/
 If bRet and bSuivant Then
 
@@ -156,12 +155,12 @@ End If
 
 
 /*----------------------------------------------------------------------------*/
-/* Contr$$HEX1$$f400$$ENDHEX$$le uniquement la date de fin si la date de d$$HEX1$$e900$$ENDHEX$$but est invisible.      */
+/* Contrôle uniquement la date de fin si la date de début est invisible.      */
 /*----------------------------------------------------------------------------*/
 If bRet and bSuivant and Not uo_Dte_Deb.Visible Then
 
 	/*----------------------------------------------------------------------------*/
-	/* V$$HEX1$$e900$$ENDHEX$$rification que la date de fin soit inf$$HEX1$$e900$$ENDHEX$$rieure $$HEX2$$e0002000$$ENDHEX$$la date du jour.         */
+	/* Vérification que la date de fin soit inférieure à la date du jour.         */
 	/*----------------------------------------------------------------------------*/
 	If ( adDteFin > dDteDuJour ) Then
 
@@ -177,7 +176,7 @@ If bRet and bSuivant and Not uo_Dte_Deb.Visible Then
 
 
 	/*----------------------------------------------------------------------------*/
-	/* V$$HEX1$$e900$$ENDHEX$$rification que la date de d$$HEX1$$e900$$ENDHEX$$but soit sup$$HEX1$$e900$$ENDHEX$$rieure (ou $$HEX1$$e900$$ENDHEX$$gale) $$HEX2$$e0002000$$ENDHEX$$la date de  */
+	/* Vérification que la date de début soit supérieure (ou égale) à la date de  */
 	/* mise en prod de SIMPA2																		*/
 	/*----------------------------------------------------------------------------*/
 	If bRet and adDteFin < Date ( sDateMiseProd ) Then
@@ -196,20 +195,20 @@ End If
 
 
 /*----------------------------------------------------------------------------*/
-/* V$$HEX1$$e900$$ENDHEX$$rification que la date de d$$HEX1$$e900$$ENDHEX$$but soit inf$$HEX1$$e900$$ENDHEX$$rieure $$HEX2$$e0002000$$ENDHEX$$la date du jour.        */
+/* Vérification que la date de début soit inférieure à la date du jour.        */
 /*----------------------------------------------------------------------------*/
 If bRet and bSuivant and ( adDteDebut >= dDteDuJour ) Then
 
 	bRet = False
 	stMessage.sCode   = "EWK0004"	
-	stMessage.sVar[1] = "de d$$HEX1$$e900$$ENDHEX$$but"	
+	stMessage.sVar[1] = "de début"	
 	f_Message ( stMessage )
 
 End If
 
 
 /*----------------------------------------------------------------------------*/
-/* V$$HEX1$$e900$$ENDHEX$$rification que la date de fin soit inf$$HEX1$$e900$$ENDHEX$$rieure $$HEX2$$e0002000$$ENDHEX$$la date du jour.          */
+/* Vérification que la date de fin soit inférieure à la date du jour.          */
 /*----------------------------------------------------------------------------*/
 If bRet and bSuivant and ( adDteFin >= dDteDuJour ) Then
 
@@ -222,13 +221,13 @@ End If
 
 
 /*----------------------------------------------------------------------------*/
-/* V$$HEX1$$e900$$ENDHEX$$rification que la date de d$$HEX1$$e900$$ENDHEX$$but est inf$$HEX1$$e900$$ENDHEX$$rieure $$HEX2$$e0002000$$ENDHEX$$la date de fin.         */
+/* Vérification que la date de début est inférieure à la date de fin.         */
 /*----------------------------------------------------------------------------*/
 If bRet and bSuivant and ( adDteDebut > adDteFin ) Then
 
 	bRet = False
 	stMessage.sCode   = "EWK0008"	
-	stMessage.sVar[1] = "date de d$$HEX1$$e900$$ENDHEX$$but"	
+	stMessage.sVar[1] = "date de début"	
 	stMessage.sVar[2] = "date de fin"	
 	f_Message ( stMessage )
 	
@@ -236,14 +235,14 @@ End If
 
 
 /*----------------------------------------------------------------------------*/
-/* V$$HEX1$$e900$$ENDHEX$$rification que la date de d$$HEX1$$e900$$ENDHEX$$but soit sup$$HEX1$$e900$$ENDHEX$$rieure (ou $$HEX1$$e900$$ENDHEX$$gale) $$HEX2$$e0002000$$ENDHEX$$la date de  */
+/* Vérification que la date de début soit supérieure (ou égale) à la date de  */
 /* mise en prod de SIMPA2																		*/
 /*----------------------------------------------------------------------------*/
 If bRet and bSuivant and adDteDebut < Date ( sDateMiseProd ) Then
 
 	bRet = False
 	stMessage.sCode	= "EWK0007"
-	stMessage.sVar[1]	= "de d$$HEX1$$e900$$ENDHEX$$but"
+	stMessage.sVar[1]	= "de début"
 	stMessage.sVar[2]	= sDateMiseProd
 	f_Message ( stMessage )
 
@@ -258,7 +257,7 @@ protected subroutine wf_lancer ();//*-------------------------------------------
 //* Fonction		: Wf_Lancer ( Protected )
 //* Auteur			: DBI
 //* Date				:  12:09:52
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Chargement de la datawindow avec import des fichiers textes
+//* Libellé			: Chargement de la datawindow avec import des fichiers textes
 //* Commentaires	: 
 //*
 //* Arguments		: 
@@ -267,13 +266,13 @@ protected subroutine wf_lancer ();//*-------------------------------------------
 //*
 //*-----------------------------------------------------------------
 
-String 		sDept				// D$$HEX1$$e900$$ENDHEX$$partement Sp$$HEX1$$e900$$ENDHEX$$cifier si n$$HEX1$$e900$$ENDHEX$$cessaire
-Date			dDateDebut		// Date de d$$HEX1$$e900$$ENDHEX$$but de traitement
+String 		sDept				// Département Spécifier si nécessaire
+Date			dDateDebut		// Date de début de traitement
 Date			dDateFin			// Date de fin de traitement
-Long			lNbLig			// Nombre de lignes charg$$HEX1$$e900$$ENDHEX$$es 
+Long			lNbLig			// Nombre de lignes chargées 
 
 /*----------------------------------------------------------------------------*/
-/* Contr$$HEX1$$f400$$ENDHEX$$le des dates saisies.                                                */
+/* Contrôle des dates saisies.                                                */
 /*----------------------------------------------------------------------------*/
 If wf_ControleDates ( dDateDebut, dDateFin ) Then
 
@@ -285,7 +284,7 @@ If wf_ControleDates ( dDateDebut, dDateFin ) Then
 	dw_Etat.SetRedraw ( False )
 	SetPointer        ( HourGlass! )	
 	/*----------------------------------------------------------------------------*/
-	/* chargment de la datawindow $$HEX2$$e0002000$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$aliser dans les fen$$HEX1$$ea00$$ENDHEX$$tres descendantes       */
+	/* chargment de la datawindow à réaliser dans les fenêtres descendantes       */
 	/*----------------------------------------------------------------------------*/
 	lNbLig = wf_Retrieve ( dDateDebut, dDateFin )
 
@@ -298,11 +297,11 @@ If wf_ControleDates ( dDateDebut, dDateFin ) Then
 	pb_Excel.Enabled 		= True
 
 	/*----------------------------------------------------------------------------*/
-	/* Avertissement si aucune donn$$HEX1$$e900$$ENDHEX$$e n'a $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$trouv$$HEX1$$e900$$ENDHEX$$e.                            */
+	/* Avertissement si aucune donnée n'a été trouvée.                            */
 	/*----------------------------------------------------------------------------*/
 	If ( lNbLig = 0 ) Then	
 
-		stMessage.sTitre   = "R$$HEX1$$e900$$ENDHEX$$sultat de la recherche"
+		stMessage.sTitre   = "Résultat de la recherche"
 		stMessage.sCode    = "CTRL024"
 		stMessage.bErreurG = TRUE
 		f_Message ( stMessage )
@@ -318,18 +317,18 @@ protected function long wf_retrieve (date adDateDebut, date adDateFin);//*------
 //* Fonction		: wf_retrieve
 //* Auteur			: DBI
 //* Date				: 20/11/1998 09:07:55
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Chargement de la datawindow
+//* Libellé			: Chargement de la datawindow
 //* Commentaires	: 
 //*
-//* Arguments		: adDateDebut Date - Date de d$$HEX1$$e900$$ENDHEX$$but de traitement
+//* Arguments		: adDateDebut Date - Date de début de traitement
 //*					  adDateFin   Date - Date de fin de traitement
-//* Retourne		: Long			 Nb de lignes charg$$HEX1$$e900$$ENDHEX$$es
+//* Retourne		: Long			 Nb de lignes chargées
 //*
 //*-----------------------------------------------------------------
 
 
 /*------------------------------------------------------------------*/
-/* Cette fonction est $$HEX2$$e0002000$$ENDHEX$$surcodifier dans les descendants            */
+/* Cette fonction est à surcodifier dans les descendants            */
 /*------------------------------------------------------------------*/
 
 Return ( 0 )
@@ -341,7 +340,7 @@ on ue_initialiser;call w_8_accueil::ue_initialiser;//*--------------------------
 //* Evenement 		:	Ue_Initialiser - Extend
 //* Auteur			:	DBI
 //* Date				:	08/12/1998
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	Initialisation des objects de transaction pour Dw_2
+//* Libellé			:	Initialisation des objects de transaction pour Dw_2
 //*						et des dddw
 //* Commentaires	:	
 //*				  
@@ -359,8 +358,8 @@ dwcDept.SetTransObject ( itrTrans )
 dwcDept.Retrieve ( )
 
 /*----------------------------------------------------------------------------*/
-/* Ajout d'une ligne pour la s$$HEX1$$e900$$ENDHEX$$lection de tous les d$$HEX1$$e900$$ENDHEX$$partements               */
-/* indiff$$HEX1$$e900$$ENDHEX$$remment                                                             */
+/* Ajout d'une ligne pour la sélection de tous les départements               */
+/* indifféremment                                                             */
 /*----------------------------------------------------------------------------*/
 
 dwcDept.ImportString ( "-1~t-- TOUS --" )
@@ -374,7 +373,7 @@ end on
 
 on w_a_spb_ancetre_etat_wkf.create
 int iCurrent
-call w_8_accueil::create
+call super::create
 this.st_1=create st_1
 this.st_2=create st_2
 this.dw_2=create dw_2
@@ -385,19 +384,19 @@ this.uo_dte_fin=create uo_dte_fin
 this.cb_1=create cb_1
 this.gb_dept=create gb_dept
 iCurrent=UpperBound(this.Control)
-this.Control[iCurrent+1]=st_1
-this.Control[iCurrent+2]=st_2
-this.Control[iCurrent+3]=dw_2
-this.Control[iCurrent+4]=pb_excel
-this.Control[iCurrent+5]=dw_etat
-this.Control[iCurrent+6]=uo_dte_deb
-this.Control[iCurrent+7]=uo_dte_fin
-this.Control[iCurrent+8]=cb_1
-this.Control[iCurrent+9]=gb_dept
+this.Control[iCurrent+1]=this.st_1
+this.Control[iCurrent+2]=this.st_2
+this.Control[iCurrent+3]=this.dw_2
+this.Control[iCurrent+4]=this.pb_excel
+this.Control[iCurrent+5]=this.dw_etat
+this.Control[iCurrent+6]=this.uo_dte_deb
+this.Control[iCurrent+7]=this.uo_dte_fin
+this.Control[iCurrent+8]=this.cb_1
+this.Control[iCurrent+9]=this.gb_dept
 end on
 
 on w_a_spb_ancetre_etat_wkf.destroy
-call w_8_accueil::destroy
+call super::destroy
 if IsValid(MenuID) then destroy(MenuID)
 destroy(this.st_1)
 destroy(this.st_2)
@@ -410,19 +409,28 @@ destroy(this.cb_1)
 destroy(this.gb_dept)
 end on
 
+type cb_debug from w_8_accueil`cb_debug within w_a_spb_ancetre_etat_wkf
+end type
+
 type pb_retour from w_8_accueil`pb_retour within w_a_spb_ancetre_etat_wkf
-int TabOrder=60
+integer width = 242
+integer height = 144
+integer taborder = 60
 end type
 
 type pb_interro from w_8_accueil`pb_interro within w_a_spb_ancetre_etat_wkf
-int TabOrder=90
-boolean Visible=false
+boolean visible = false
+integer width = 242
+integer height = 144
+integer taborder = 90
 end type
 
 type pb_creer from w_8_accueil`pb_creer within w_a_spb_ancetre_etat_wkf
-int X=270
-int TabOrder=70
-string Text="&Lancer"
+integer x = 270
+integer width = 242
+integer height = 144
+integer taborder = 70
+string text = "&Lancer"
 end type
 
 on pb_creer::clicked;call w_8_accueil`pb_creer::clicked;//*-----------------------------------------------------------------
@@ -431,38 +439,42 @@ on pb_creer::clicked;call w_8_accueil`pb_creer::clicked;//*---------------------
 //* Evenement 		: Clicked
 //* Auteur			: DBI
 //* Date				: 14/08/1997 11:17:53
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Chargement de la fen$$HEX1$$ea00$$ENDHEX$$tre par l'import des fichiers
+//* Libellé			: Chargement de la fenêtre par l'import des fichiers
 //*					  de worflow 
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
 //*
-//*	VCP	  28/8/97	Param$$HEX1$$e900$$ENDHEX$$trage du r$$HEX1$$e900$$ENDHEX$$pertoire de trace $$HEX2$$e0002000$$ENDHEX$$utiliser 
-//*                     $$HEX2$$e0002000$$ENDHEX$$l'aide d'une fonction et non pas en dur.
+//*	VCP	  28/8/97	Paramétrage du répertoire de trace à utiliser 
+//*                     à l'aide d'une fonction et non pas en dur.
 //*-----------------------------------------------------------------
 
 Wf_Lancer (  ) 
 end on
 
 type dw_1 from w_8_accueil`dw_1 within w_a_spb_ancetre_etat_wkf
-int X=2090
-int Y=33
-int Width=467
-int Height=149
-int TabOrder=0
+integer x = 2089
+integer y = 32
+integer width = 466
+integer height = 148
+integer taborder = 0
 end type
 
 type pb_tri from w_8_accueil`pb_tri within w_a_spb_ancetre_etat_wkf
-int TabOrder=100
-boolean Visible=false
+boolean visible = false
+integer width = 242
+integer height = 144
+integer taborder = 100
 end type
 
 type pb_imprimer from w_8_accueil`pb_imprimer within w_a_spb_ancetre_etat_wkf
-int X=522
-int TabOrder=80
-boolean Visible=true
-boolean Enabled=true
+boolean visible = true
+integer x = 521
+integer width = 242
+integer height = 144
+integer taborder = 80
+boolean enabled = true
 end type
 
 on pb_imprimer::clicked;//*-----------------------------------------------------------------
@@ -471,7 +483,7 @@ on pb_imprimer::clicked;//*-----------------------------------------------------
 //* Evenement 		: Clicked
 //* Auteur			: DBI
 //* Date				: 14/08/1997 14:27:19
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Impression de la datawindow
+//* Libellé			: Impression de la datawindow
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
@@ -484,82 +496,82 @@ Dw_Etat.Print ()
 end on
 
 type st_1 from statictext within w_a_spb_ancetre_etat_wkf
-int X=1372
-int Y=213
-int Width=275
-int Height=73
-boolean Enabled=false
-boolean BringToTop=true
-string Text="jusqu'au"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long BackColor=12632256
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 1371
+integer y = 212
+integer width = 274
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 12632256
+boolean enabled = false
+string text = "jusqu~'au"
+alignment alignment = center!
+boolean focusrectangle = false
 end type
 
 type st_2 from statictext within w_a_spb_ancetre_etat_wkf
-int X=375
-int Y=213
-int Width=325
-int Height=73
-boolean Enabled=false
-boolean BringToTop=true
-string Text="A partir du"
-Alignment Alignment=Center!
-boolean FocusRectangle=false
-long BackColor=12632256
-int TextSize=-10
-int Weight=700
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 375
+integer y = 212
+integer width = 325
+integer height = 72
+boolean bringtotop = true
+integer textsize = -10
+integer weight = 700
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 12632256
+boolean enabled = false
+string text = "A partir du"
+alignment alignment = center!
+boolean focusrectangle = false
 end type
 
 type dw_2 from datawindow within w_a_spb_ancetre_etat_wkf
-int X=2163
-int Y=225
-int Width=1002
-int Height=177
-int TabOrder=40
-boolean BringToTop=true
-string DataObject="d_spb_choix_departement"
-boolean Border=false
-boolean LiveScroll=true
+integer x = 2162
+integer y = 224
+integer width = 1001
+integer height = 176
+integer taborder = 40
+boolean bringtotop = true
+string dataobject = "d_spb_choix_departement"
+boolean border = false
+boolean livescroll = true
 end type
 
 type pb_excel from picturebutton within w_a_spb_ancetre_etat_wkf
-int X=773
-int Y=17
-int Width=234
-int Height=137
-int TabOrder=110
-boolean BringToTop=true
-string Text="&Excel"
-string PictureName="k:\pb4obj\bmp\8_routag.bmp"
-boolean OriginalSize=true
-int TextSize=-7
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 773
+integer y = 16
+integer width = 242
+integer height = 144
+integer taborder = 110
+boolean bringtotop = true
+integer textsize = -7
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "&Excel"
+boolean originalsize = true
+string picturename = "k:\pb4obj\bmp\8_routag.bmp"
 end type
 
-on clicked;//*-----------------------------------------------------------------
+event clicked;//*-----------------------------------------------------------------
 //*
 //* Objet 			: Pb_Excel
 //* Evenement 		: Clicked!
 //* Auteur			: DBI
 //* Date				: 11/05/1998
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Sauvegarde de la datawindow au format excel
+//* Libellé			: Sauvegarde de la datawindow au format excel
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
-//*				  
+//* FPI				19/07/2024	[MIG_PB2022] Type de saveAs en Excel! remplacé par Excel8!				  
 //*-----------------------------------------------------------------
 
 String	sNomComplet, sNomFic
@@ -571,26 +583,27 @@ iRetour = GetFileSaveName( "Sauvegarde du fichier Excel", sNomComplet, sNomFic, 
 
 If iRetour = 1 Then
 
-	Dw_Etat.SaveAs ( sNomComplet, Excel!, True )
+	Dw_Etat.SaveAs ( sNomComplet, Excel8!, True ) // [MIG_PB2022] ald Excel!
 End If
 
-end on
+end event
 
 type dw_etat from u_spb_suivi_travaux within w_a_spb_ancetre_etat_wkf
-int X=55
-int Y=425
-int Width=3479
-int Height=1345
-int TabOrder=50
-BorderStyle BorderStyle=StyleLowered!
-boolean VScrollBar=true
+integer x = 55
+integer y = 424
+integer width = 3479
+integer height = 1344
+integer taborder = 50
+boolean vscrollbar = true
+borderstyle borderstyle = stylelowered!
 end type
 
 type uo_dte_deb from u_calendrier_w within w_a_spb_ancetre_etat_wkf
-int X=87
-int Y=297
-int Width=933
-int TabOrder=10
+integer x = 87
+integer y = 296
+integer width = 933
+integer height = 96
+integer taborder = 10
 end type
 
 on uo_dte_deb.destroy
@@ -598,10 +611,11 @@ call u_calendrier_w::destroy
 end on
 
 type uo_dte_fin from u_calendrier_w within w_a_spb_ancetre_etat_wkf
-int X=1057
-int Y=297
-int Width=915
-int TabOrder=20
+integer x = 1056
+integer y = 296
+integer width = 914
+integer height = 96
+integer taborder = 20
 end type
 
 on uo_dte_fin.destroy
@@ -609,18 +623,18 @@ call u_calendrier_w::destroy
 end on
 
 type cb_1 from commandbutton within w_a_spb_ancetre_etat_wkf
-int X=3201
-int Y=297
-int Width=302
-int Height=77
-int TabOrder=30
-boolean BringToTop=true
-string Text="Appliquer"
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 3200
+integer y = 296
+integer width = 302
+integer height = 76
+integer taborder = 30
+boolean bringtotop = true
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "Appliquer"
 end type
 
 on clicked;//*-----------------------------------------------------------------
@@ -629,7 +643,7 @@ on clicked;//*-----------------------------------------------------------------
 //* Evenement 		: clicked
 //* Auteur			: DBI
 //* Date				: 16/09/1999 15:21:47
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Filtre la Dw En fonction d'un d$$HEX1$$e900$$ENDHEX$$partement
+//* Libellé			: Filtre la Dw En fonction d'un département
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
@@ -649,18 +663,17 @@ End If
 end on
 
 type gb_dept from groupbox within w_a_spb_ancetre_etat_wkf
-int X=2145
-int Y=185
-int Width=1386
-int Height=225
-int TabOrder=120
-BorderStyle BorderStyle=StyleLowered!
-long TextColor=33554432
-long BackColor=12632256
-int TextSize=-8
-int Weight=400
-string FaceName="Arial"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer x = 2144
+integer y = 184
+integer width = 1385
+integer height = 224
+integer taborder = 120
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long textcolor = 33554432
+long backcolor = 12632256
 end type
 
