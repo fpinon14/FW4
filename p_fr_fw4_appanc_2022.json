@@ -27,7 +27,7 @@
             "Projects": [
                 {"Target": "C:\\GEN\\SVN\\FW4\\PB_2022\\p_fr_fw4_appanc_2022.pbt","Name": "p_p_pb4obj_exe"}
             ],
-            "PostCommand": ""
+            "PostCommand": "del /f C:\\GEN\\SVN\\FW4\\PB_2022\\OBJ\\P_FR_FW4_PB4_APPANC_2022\\p_pb4obj.exe"
         }
     },
     "Projects": {
