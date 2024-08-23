@@ -1,0 +1,28 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "fw4\\pb_2022\\ws_objects\\spb\\P_FR_FW4_SPB_UO_2022.pbl.src\\p_fr_fw4_spb_uo_2022.pbl" "";
+@end;
+@begin Objects
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\n_cst_ws_caller.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_anc.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_zn_anc.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_trans_anc.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "fw4\\pb_2022\\ws_objects\\spb\\P_FR_FW4_SPB_UO_2022.pbl.src\\soappbcookie.sru" "fw4\\pb_2022\\ws_objects\\spb\\P_FR_FW4_SPB_UO_2022.pbl.src\\p_fr_fw4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_groupe.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_police.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_zn_groupe.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "fw4\\pb_2022\\ws_objects\\spb\\P_FR_FW4_SPB_UO_2022.pbl.src\\soapconnection.sru" "fw4\\pb_2022\\ws_objects\\spb\\P_FR_FW4_SPB_UO_2022.pbl.src\\p_fr_fw4_spb_uo_2022.pbl";
+ "fw4\\pb_2022\\ws_objects\\spb\\P_FR_FW4_SPB_UO_2022.pbl.src\\soapexception.sru" "fw4\\pb_2022\\ws_objects\\spb\\P_FR_FW4_SPB_UO_2022.pbl.src\\p_fr_fw4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_cp_2000.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_code.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_trace.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_zn_code.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_ajout_courtyp.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_departement.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_paragraphe.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_zn_paragraphe.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_compagnie.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_gs_courtype.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_zn_courtype.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\u_spb_cp.sru" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_UO_2022.pbl.src\\P_FR_FW4_spb_uo_2022.pbl";
+@end;
