@@ -1,9 +1,5 @@
 Save Format v3.0(19990112)
 @begin Libraries
- "FW4\\pb_2022\\ws_objects\\OBJ\\P_FR_FW4_PB4_APPANC_2022.pbl.src\\P_FR_FW4_PB4_appanc_2022.PBL" "";
 @end;
 @begin Objects
- "FW4\\pb_2022\\ws_objects\\OBJ\\P_FR_FW4_PB4_APPANC_2022.pbl.src\\p_p_pb4obj_exe.srj" "FW4\\pb_2022\\ws_objects\\OBJ\\P_FR_FW4_PB4_APPANC_2022.pbl.src\\P_FR_FW4_PB4_appanc_2022.PBL";
- "FW4\\pb_2022\\ws_objects\\OBJ\\P_FR_FW4_PB4_APPANC_2022.pbl.src\\u_transaction.sru" "FW4\\pb_2022\\ws_objects\\OBJ\\P_FR_FW4_PB4_APPANC_2022.pbl.src\\P_FR_FW4_PB4_appanc_2022.PBL";
- "FW4\\pb_2022\\ws_objects\\OBJ\\P_FR_FW4_PB4_APPANC_2022.pbl.src\\p_pb4obj.sra" "FW4\\pb_2022\\ws_objects\\OBJ\\P_FR_FW4_PB4_APPANC_2022.pbl.src\\P_FR_FW4_PB4_appanc_2022.PBL";
 @end;
