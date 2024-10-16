@@ -1,5 +1,5 @@
-HA$PBExportHeader$n_cst_edition_courrier.sru
-$PBExportComments$------} NVUO servant $$HEX2$$e0002000$$ENDHEX$$l'$$HEX1$$e900$$ENDHEX$$dition et la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration automatique des courriers.
+﻿$PBExportHeader$n_cst_edition_courrier.sru
+$PBExportComments$------} NVUO servant à l'édition et la génération automatique des courriers.
 forward
 global type n_cst_edition_courrier from nonvisualobject
 end type
@@ -35,7 +35,7 @@ PRIVATE :
 	String      isCodeRegroupement  // [PM425-1]
 	
 //       JFF  26/04/2023 [RS5045_REF_MATP]
-	String 		isT_ModeleInter [] // Les mod$$HEX1$$e800$$ENDHEX$$les li$$HEX1$$e900$$ENDHEX$$s $$HEX2$$e0002000$$ENDHEX$$l'inter  // [RS5045_REF_MATP]
+	String 		isT_ModeleInter [] // Les modèles liés à l'inter  // [RS5045_REF_MATP]
 	Int			iiT_InterModele [] // Les inters  // [RS5045_REF_MATP]
 	String 		isModeleDefaut  // [RS5045_REF_MATP]
 	
@@ -129,13 +129,13 @@ public function integer uf_terminersession ();//*-------------------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_TerminerSession		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 05/04/2000 16:10:01
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On ferme la session d'impression.
 //*
 //* Arguments		: 
 //*
 //* Retourne		: Integer						 1 = Tout est OK
-//*														-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*														-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -143,7 +143,7 @@ public function integer uf_terminersession ();//*-------------------------------
 //*-----------------------------------------------------------------
 
 /*------------------------------------------------------------------*/
-/* On supprime le fichier INI servant $$HEX2$$e0002000$$ENDHEX$$la communication avec WORD. */
+/* On supprime le fichier INI servant à la communication avec WORD. */
 /*------------------------------------------------------------------*/
 //FileDelete ( isFicCourrierIni )
 /*------------------------------------------------------------------*/
@@ -170,14 +170,14 @@ public function integer uf_initialiser (string astypetrt);//*-------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_Initialiser	(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 15:06:20
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On initialise l'objet pour l'edition des courriers
 //*
 //* Arguments		: (Val)		String		asTypeTrt	(E)dition
 //*																	(C)onsultation
 //*
 //* Retourne		: Integer				 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -190,9 +190,9 @@ String sVarErr[]
 
 
 /*------------------------------------------------------------------*/
-/* On va cr$$HEX1$$e900$$ENDHEX$$er un fichier d'initialisation pour permettre la        */
-/* communication avec WORD. Ce fichier INI est compos$$HEX2$$e9002000$$ENDHEX$$des 6        */
-/* premiers caract$$HEX1$$e800$$ENDHEX$$res du Code de l'application + "_" + Type de     */
+/* On va créer un fichier d'initialisation pour permettre la        */
+/* communication avec WORD. Ce fichier INI est composé des 6        */
+/* premiers caractères du Code de l'application + "_" + Type de     */
 /* traitement (E)dition, (C)onsultation.                            */
 /*------------------------------------------------------------------*/
 sFicIniApp 			= stGLB.sFichierIni
@@ -204,8 +204,8 @@ sRepCourrierIni	= stGlb.sRepTempo
 isFicCourrierIni	= sRepCourrierIni + Left ( stGLB.sCodAppli, 6 ) + "_" + asTypeTrt + ".INI"
 
 /*------------------------------------------------------------------*/
-/* Si le fichier existe d$$HEX1$$e900$$ENDHEX$$j$$HEX1$$e000$$ENDHEX$$, cela signifie que la derni$$HEX1$$e800$$ENDHEX$$re         */
-/* utilisation de l'objet s'est mal termin$$HEX1$$e900$$ENDHEX$$e.                       */
+/* Si le fichier existe déjà, cela signifie que la dernière         */
+/* utilisation de l'objet s'est mal terminée.                       */
 /*------------------------------------------------------------------*/
 
 //Migration PB8-WYNIWYG-03/2006 CP
@@ -216,11 +216,11 @@ If ( f_FileExists ( isFicCourrierIni ) ) Then
 	If asTypeTrt = "C" Then
 		sVarErr[1]	= "consultation"
 	Else
-		sVarErr[1]	= "$$HEX1$$e900$$ENDHEX$$dition"
+		sVarErr[1]	= "édition"
 	End If
 /*------------------------------------------------------------------*/	
-/* On affiche un message d'erreur. On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re $$HEX1$$e900$$ENDHEX$$ventuellement les   */
-/* erreurs $$HEX1$$e900$$ENDHEX$$crites par WORD ou par l'application.                   */
+/* On affiche un message d'erreur. On récupére éventuellement les   */
+/* erreurs écrites par WORD ou par l'application.                   */
 /*------------------------------------------------------------------*/
 	sVarErr[2] = ProfileString ( isFicCourrierIni, "IMPRESSION", "ERREUR_WORD", "Aucun message Word" )
 	sVarErr[3] = ProfileString ( isFicCourrierIni, "IMPRESSION", "ERREUR_APP", "Aucun message applicatif" )
@@ -240,16 +240,16 @@ public function integer uf_initialiserword (boolean abfermer_sansverifier);//*--
 //* Fonction		: N_Cst_Edition_Courrier::uf_InitialiserWord		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 15:45:02
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On initialise certains instances, on va lancer WORD
 //*
 //* Arguments		: (Val)		Boolean		abFermer_SansVerifier
 //*
 //* Retourne		: Integer			 1 = Tout est OK
 //*											-1 = Il manque des informations dans le fichier INI
-//*											-2 = Impossible de cr$$HEX1$$e900$$ENDHEX$$er le fichier INI servant $$HEX2$$e0002000$$ENDHEX$$la communication avec WORD
-//*											-3 = La cr$$HEX1$$e900$$ENDHEX$$ation de l'objet OLE Word est impossible
-//*											-4 = Il existe des documents ouverts dans WORD et non sauvegard$$HEX1$$e900$$ENDHEX$$s
+//*											-2 = Impossible de créer le fichier INI servant à la communication avec WORD
+//*											-3 = La création de l'objet OLE Word est impossible
+//*											-4 = Il existe des documents ouverts dans WORD et non sauvegardés
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  	   Modification
@@ -266,7 +266,7 @@ Long lDeb, lFin
 sFicIniApp = stGLB.sFichierIni
 /*------------------------------------------------------------------*/
 /* On positionne une variable pour savoir si WORD est ouvert avant  */
-/* le TRAITEMENT. Une fen$$HEX1$$ea00$$ENDHEX$$tre en chair et en 'os'.                  */
+/* le TRAITEMENT. Une fenêtre en chair et en 'os'.                  */
 /*------------------------------------------------------------------*/
 F_SetVersionWord ( nvWord, TRUE )
 iulHandleWord = nvWord.uf_WordOuvert ()
@@ -277,17 +277,17 @@ Else
 End If
 
 /*------------------------------------------------------------------*/
-/* On positionne le nombre de courrier $$HEX1$$e900$$ENDHEX$$dit$$HEX1$$e900$$ENDHEX$$s $$HEX2$$e0002000$$ENDHEX$$0.                  */
+/* On positionne le nombre de courrier édités à 0.                  */
 /*------------------------------------------------------------------*/
 ilNbCourrierEdite = 0
 ilNbDocumentEdite = 0
 /*------------------------------------------------------------------*/
-/* On positionne le nombre de documents d'un courrier $$HEX2$$e0002000$$ENDHEX$$0.          */
+/* On positionne le nombre de documents d'un courrier à 0.          */
 /*------------------------------------------------------------------*/
 ilNbDocument		= 0
 /*------------------------------------------------------------------*/
-/* On arme les valeurs pour le r$$HEX1$$e900$$ENDHEX$$pertoire des courriers, le nom du  */
-/* fichier d'ent$$HEX1$$ea00$$ENDHEX$$te et le nom du mod$$HEX1$$e800$$ENDHEX$$le $$HEX2$$e0002000$$ENDHEX$$utiliser.                 */
+/* On arme les valeurs pour le répertoire des courriers, le nom du  */
+/* fichier d'entête et le nom du modèle à utiliser.                 */
 /*------------------------------------------------------------------*/
 isRepCourrier	= ProfileString ( sFicIniApp, "EDITION", "REP_COURRIER",  "" )
 isEntete			= ProfileString ( sFicIniApp, "EDITION", "ENTETE",  "" )
@@ -296,7 +296,7 @@ isModeleDefaut = isModele // [RS5045_REF_MATP]
 
 /*------------------------------------------------------------------*/
 /* S'il manque des informations, on affiche un message d'erreur et  */
-/* on arr$$HEX1$$ea00$$ENDHEX$$te tout.                                                  */
+/* on arrête tout.                                                  */
 /*------------------------------------------------------------------*/
 If	isRepCourrier = "" Or isModele = "" Or isEntete = ""	Then
 	sVarErr[1] = sFicIniApp
@@ -314,7 +314,7 @@ If	isRepCourrier = "" Or isModele = "" Or isEntete = ""	Then
 End If
 /*------------------------------------------------------------------*/
 /* Le fichier INI servant pour la communication avec WORD doit      */
-/* exister. Si ce n'est pas le cas, on proc$$HEX1$$e900$$ENDHEX$$de $$HEX2$$e0002000$$ENDHEX$$la cr$$HEX1$$e900$$ENDHEX$$ation A      */
+/* exister. Si ce n'est pas le cas, on procéde à la création A      */
 /* VIDE de ce fichier.                                              */
 /*------------------------------------------------------------------*/
 If	FileClose ( FileOpen ( isFicCourrierIni, LineMode!, Write!, LockReadWrite!, Replace! ) ) < 0	Then		
@@ -332,7 +332,7 @@ If	FileClose ( FileOpen ( isFicCourrierIni, LineMode!, Write!, LockReadWrite!, R
 	Return ( -2 )
 End IF
 /*------------------------------------------------------------------*/
-/* On initialise maintenant l'objet OLE servant $$HEX2$$e0002000$$ENDHEX$$la communication  */
+/* On initialise maintenant l'objet OLE servant à la communication  */
 /* avec WORD.                                                       */
 /*------------------------------------------------------------------*/
 If	Not IsValid ( iOleWord )	Then 
@@ -354,8 +354,8 @@ If	iRet < 0	Then
 	Return ( -3 )
 End If
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie s'il existe des documensts WORD ouverts et non        */
-/* sauvegard$$HEX1$$e900$$ENDHEX$$s.                                                     */
+/* On vérifie s'il existe des documensts WORD ouverts et non        */
+/* sauvegardés.                                                     */
 /*------------------------------------------------------------------*/
 iRet = nvWord.uf_FichierOuvertDansWord ( iOleWord, TRUE, abFermer_SansVerifier )
 If	iRet < 0	Then
@@ -374,29 +374,29 @@ private function boolean uf_verifieriddocument (long alIdDocument);//*----------
 //* Fonction		: N_Cst_Edition_Courrier::uf_VerifierIdDocument		(PRIVATE)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 17:37:48
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On v$$HEX1$$e900$$ENDHEX$$rifie si l'Id du document est valide.
+//* Libellé			: 
+//* Commentaires	: On vérifie si l'Id du document est valide.
 //*
-//* Arguments		: (Val)		Long		alIdDocument		ID du document $$HEX2$$e0002000$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$rifier
+//* Arguments		: (Val)		Long		alIdDocument		ID du document à vérifier
 //*
 //* Retourne		: Boolean					TRUE	= ID est correct
-//*													FALSE	= ID non trouv$$HEX1$$e900$$ENDHEX$$
+//*													FALSE	= ID non trouvé
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
 //* 
 //*-----------------------------------------------------------------
 /*------------------------------------------------------------------*/
-/* L'ID du document doit $$HEX1$$ea00$$ENDHEX$$tre sup$$HEX1$$e900$$ENDHEX$$rieur $$HEX2$$e0002000$$ENDHEX$$0.                        */
+/* L'ID du document doit être supérieur à 0.                        */
 /*------------------------------------------------------------------*/
 If	alIdDocument <= 0	Then	Return ( FALSE )
 /*------------------------------------------------------------------*/
-/* Si l'ID du document est sup$$HEX1$$e900$$ENDHEX$$rieur au nombre d'$$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ments du        */
-/* tableau des r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rences, il y a une erreur.                       */
+/* Si l'ID du document est supérieur au nombre d'éléments du        */
+/* tableau des références, il y a une erreur.                       */
 /*------------------------------------------------------------------*/
 If	alIdDocument > UpperBound ( isIdDocument )	Then Return ( FALSE )
 /*------------------------------------------------------------------*/
-/* Si l'$$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ment du tableau de r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence est vide, on arr$$HEX1$$ea00$$ENDHEX$$te tout.   */
+/* Si l'élément du tableau de référence est vide, on arrête tout.   */
 /*------------------------------------------------------------------*/
 If	IsNull ( isIdDocument[ alIdDocument ] ) Then Return ( FALSE )
 If	Trim ( isIdDocument[ alIdDocument ] ) = "" Then Return ( FALSE )
@@ -410,8 +410,8 @@ public function integer uf_verifier_word_avantgeneration (boolean abfermer_sansv
 //* Fonction		: N_Cst_Edition_Courrier::uf_Verifier_Word_AvantGeneration		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 15:45:02
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On v$$HEX1$$e900$$ENDHEX$$rifie si WORD est ouvert, s'il existe des documents non sauvegard$$HEX1$$e900$$ENDHEX$$s
+//* Libellé			: 
+//* Commentaires	: On vérifie si WORD est ouvert, s'il existe des documents non sauvegardés
 //*					  Si tout est OK, on ferme tous les documents
 //*
 //* Arguments		: (Val)		Boolean		abFermer_SansVerifier
@@ -431,7 +431,7 @@ OleObject		OleWord
 
 iRet = 1
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie si WORD est OUVERT ou NON.                            */
+/* On vérifie si WORD est OUVERT ou NON.                            */
 /*------------------------------------------------------------------*/
 F_SetVersionWord ( nvWord, TRUE )
 iulHandleWord = nvWord.uf_WordOuvert ()
@@ -452,8 +452,8 @@ If	iulHandleWord > 0	Then
 		iRet = -1
 	End If
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie s'il existe des documensts WORD ouverts et non        */
-/* sauvegard$$HEX1$$e900$$ENDHEX$$s.                                                     */
+/* On vérifie s'il existe des documensts WORD ouverts et non        */
+/* sauvegardés.                                                     */
 /*------------------------------------------------------------------*/
 /* On peut forcer la fermeture de tous les documents sans se poser  */
 /* de question.                                                     */
@@ -480,14 +480,14 @@ public function integer uf_fermerdocument (long aliddocument);//*---------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_FermerDocument		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 11:08:25
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On ferme le document en cours de traitement
 //*
 //* Arguments		: (Val)		Long			alIdDocument
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -503,7 +503,7 @@ SetNull ( sNull )
 
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie d'abord si l'ID est correct.                          */
+/* On vérifie d'abord si l'ID est correct.                          */
 /*------------------------------------------------------------------*/
 If	Not uf_VerifierIdDocument ( alIdDocument )	Then
 	Return ( -1 )
@@ -519,7 +519,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, sText ) < 1	Then
 	Return ( -2 )
 End If
 /*------------------------------------------------------------------*/
-/* On remet le pointeur sur le code courrier $$HEX2$$e0002000$$ENDHEX$$NULL.                */
+/* On remet le pointeur sur le code courrier à NULL.                */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "DOCUMENT_" + String ( alIdDocument )
@@ -529,7 +529,7 @@ If	invWin.uf_SetProfileString ( isFicCourrierIni, sSection, sCle, sNull ) < 1	Th
 End If
 /*------------------------------------------------------------------*/
 /* On enleve toutes les cles (ENTETE,PIEC,POST,PART,BAC,DONNEE)     */
-/* faisant r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence au document en cours. On enl$$HEX1$$e900$$ENDHEX$$ve aussi cette    */
+/* faisant référence au document en cours. On enléve aussi cette    */
 /* section.                                                         */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
@@ -557,15 +557,15 @@ ilNbDocument --
 isIdDocument[ alIdDocument ] = sNull
 
 /*------------------------------------------------------------------*/
-/* S'il s'agit du dernier document du courrier, on enl$$HEX1$$e900$$ENDHEX$$ve les       */
-/* param$$HEX1$$e800$$ENDHEX$$tres particuliers que l'on peut positionner dans le        */
+/* S'il s'agit du dernier document du courrier, on enléve les       */
+/* paramètres particuliers que l'on peut positionner dans le        */
 /* fichier INI.                                                     */
 /*------------------------------------------------------------------*/
 If	ilNbDocument = 0	Then
 	sCourrierSauve	= ProfileString ( isFicCourrierIni, "COURRIER", "FIC_SAUVE", "" )
 	If	sCourrierSauve <> ""	Then
 /*------------------------------------------------------------------*/
-/* Il peut exister plusieurs fichiers (en fonction du param$$HEX1$$e800$$ENDHEX$$tre     */
+/* Il peut exister plusieurs fichiers (en fonction du paramètre     */
 /* TYPE_SAUVE).                                                     */
 /*------------------------------------------------------------------*/
 		sTypeSauve = ProfileString ( isFicCourrierIni, "COURRIER", "TYPE_SAUVE", "" )
@@ -618,22 +618,22 @@ public function integer uf_genererdata (long aliddocument, ref blob abldata);//*
 //* Fonction		: N_Cst_Edition_Courrier::uf_Genererata		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 10:12:30
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On s'occupe de g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer le fichier des DATAS correspondants 
+//* Libellé			: 
+//* Commentaires	: On s'occupe de générer le fichier des DATAS correspondants 
 //*					  au document en cours de traitement
 //*
 //* Arguments		: (Val)		Long			alIdDocument		ID du document en cours de traitement
-//*					  (R$$HEX1$$e900$$ENDHEX$$f)		Blob			ablData				Blob $$HEX2$$e0002000$$ENDHEX$$traiter
+//*					  (Réf)		Blob			ablData				Blob à traiter
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
 //*														-2 = La cle ENTETE n'existe pas dans le fichier INI
-//*														-3 = L'$$HEX1$$e900$$ENDHEX$$criture du fichier contenant les DATAS et l'entete est impossible
-//*														-4 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-3 = L'écriture du fichier contenant les DATAS et l'entete est impossible
+//*														-4 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  			Modification
-//* #1 		 DGA      19/09/2006    Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
+//* #1 		 DGA      19/09/2006    Gestion d'un répertoire temporaire DCMP-060643
 //* 
 //*-----------------------------------------------------------------
 
@@ -643,7 +643,7 @@ Integer iFic
 Blob blData
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie d'abord si l'ID est correct.                          */
+/* On vérifie d'abord si l'ID est correct.                          */
 /*------------------------------------------------------------------*/
 If	Not uf_VerifierIdDocument ( alIdDocument )	Then
 	Return ( -1 )
@@ -653,7 +653,7 @@ bEcriture	= TRUE
 sSection		= isIdDocument[ alIdDocument ]
 sCle			= "ENTETE"
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie s'il existe bien une ENTETE de positionn$$HEX1$$e900$$ENDHEX$$e dans le    */
+/* On vérifie s'il existe bien une ENTETE de positionnée dans le    */
 /* fichier INI. Cela est normalement fait dans la fonction          */
 /* uf_OuvrirCourrier ().                                            */
 /*------------------------------------------------------------------*/
@@ -665,11 +665,11 @@ End If
 /* On positionne le blob pour les DATAS.                            */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
-/* On essaye d'$$HEX1$$e900$$ENDHEX$$crire ce blob dans un fichier sur disque.           */
+/* On essaye d'écrire ce blob dans un fichier sur disque.           */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //sFicData = stGLB.sWinDir + "\TEMP" + "\VAR_" + String ( alIdDocument ) + ".TXT"
 sFicData = stGLB.sRepTempo + "VAR_" + String ( alIdDocument ) + ".TXT"
@@ -681,7 +681,7 @@ FileClose( iFic )
 If	Not bEcriture Then	Return ( -3 )
 
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire la pr$$HEX1$$e900$$ENDHEX$$sence du Blob dans le fichier    */
+/* On va maintenant inscrire la présence du Blob dans le fichier    */
 /* INI.                                                             */
 /*------------------------------------------------------------------*/
 sCle = "DONNEE"
@@ -698,28 +698,28 @@ public function integer uf_genererblob (long aliddocument, string astypeblob, re
 //* Fonction		: N_Cst_Edition_Courrier::uf_GenererBlob			(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 10:12:30
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On s'occupe de g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer les Blobs correspondants $$HEX2$$e0002000$$ENDHEX$$
+//* Libellé			: 
+//* Commentaires	: On s'occupe de générer les Blobs correspondants à 
 //*					  AUTRE PIECE, POST SCRIPTUM, COURRIER PARTICULIER
 //*
 //* Arguments		: (Val)		Long			alIdDocument		ID du document en cours de traitement
-//*					  (Val)		String		asTypeBlob			Type du Blob $$HEX2$$e0002000$$ENDHEX$$traiter
-//*					  (R$$HEX1$$e900$$ENDHEX$$f)		Blob			ablWord				Blob $$HEX2$$e0002000$$ENDHEX$$traiter
+//*					  (Val)		String		asTypeBlob			Type du Blob à traiter
+//*					  (Réf)		Blob			ablWord				Blob à traiter
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
-//*														-2 = L'$$HEX1$$e900$$ENDHEX$$criture du blob vient d'$$HEX1$$e900$$ENDHEX$$chouer
-//*														-3 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = L'écriture du blob vient d'échouer
+//*														-3 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  			Modification
-//* #1 		 DGA      19/09/2006    Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
+//* #1 		 DGA      19/09/2006    Gestion d'un répertoire temporaire DCMP-060643
 //*-----------------------------------------------------------------
 
 String sSection, sCle, sFic
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie d'abord si l'ID est correct.                          */
+/* On vérifie d'abord si l'ID est correct.                          */
 /*------------------------------------------------------------------*/
 If	Not uf_VerifierIdDocument ( alIdDocument )	Then
 	Return ( -1 )
@@ -727,14 +727,14 @@ End If
 
 sSection = isIdDocument[ alIdDocument ]
 /*------------------------------------------------------------------*/
-/* On proc$$HEX1$$e900$$ENDHEX$$de $$HEX2$$e0002000$$ENDHEX$$l'$$HEX1$$e900$$ENDHEX$$criture du blob sur le disque.                   */
+/* On procéde à l'écriture du blob sur le disque.                   */
 /*------------------------------------------------------------------*/
 Choose Case asTypeBlob
 Case "PIEC"
 	sCle = "AUTRE PIECE"
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //	sFic = stGLB.sWinDir + "\TEMP" + "\PIEC_" + String ( alIdDocument ) + ".SPB"
 	sFic = stGLB.sRepTempo + "PIEC_" + String ( alIdDocument ) + ".SPB"	
@@ -743,7 +743,7 @@ Case "POST"
 	sCle = "POST SCRIPTUM"
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //	sFic = stGLB.sWinDir + "\TEMP" + "\POST_" + String ( alIdDocument ) + ".SPB"
 	sFic = stGLB.sRepTempo + "POST_" + String ( alIdDocument ) + ".SPB"
@@ -751,19 +751,19 @@ Case "PART"
 	sCle = "PARTICULIER"
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //	sFic = stGLB.sWinDir + "\TEMP" + "\PART_" + String ( alIdDocument ) + ".SPB"
 	sFic = stGLB.sRepTempo + "PART_" + String ( alIdDocument ) + ".SPB"
 End Choose
 /*------------------------------------------------------------------*/
-/* On proc$$HEX1$$e900$$ENDHEX$$de $$HEX2$$e0002000$$ENDHEX$$l'$$HEX1$$e900$$ENDHEX$$criture du blob. Si cette op$$HEX1$$e900$$ENDHEX$$ration $$HEX1$$e900$$ENDHEX$$choue, on   */
-/* arr$$HEX1$$ea00$$ENDHEX$$te tout.                                                     */
+/* On procéde à l'écriture du blob. Si cette opération échoue, on   */
+/* arrête tout.                                                     */
 /*------------------------------------------------------------------*/
 If	Not F_EcrireFichierBlob ( ablWord, sFic )	Then Return ( -2 )
 
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire la pr$$HEX1$$e900$$ENDHEX$$sence du Blob dans le fichier    */
+/* On va maintenant inscrire la présence du Blob dans le fichier    */
 /* INI.                                                             */
 /*------------------------------------------------------------------*/
 If	SetProfileString ( isFicCourrierIni, sSection, sCle, sFic ) < 1	Then
@@ -779,18 +779,18 @@ public function integer uf_inscrire_gestionparticuliere (long alIdDocument, stri
 //* Fonction		: N_Cst_Edition_Courrier::uf_Inscrire_GestionParticulier		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 17:33:52
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va positionner une cl$$HEX2$$e9002000$$ENDHEX$$dans le fichier INI
-//*					  On d$$HEX1$$e900$$ENDHEX$$sire une gestion particuli$$HEX1$$e900$$ENDHEX$$re. (GESTION_PART='O')
-//*					  La cl$$HEX2$$e9002000$$ENDHEX$$suivante correspond au nom du fichier $$HEX2$$e0002000$$ENDHEX$$ouvrir sans composition et sans DATA.
+//* Libellé			: 
+//* Commentaires	: On va positionner une clé dans le fichier INI
+//*					  On désire une gestion particuliére. (GESTION_PART='O')
+//*					  La clé suivante correspond au nom du fichier à ouvrir sans composition et sans DATA.
 //*
 //*
-//* Arguments		: (Val)		Long		alIdDocument		ID du document $$HEX2$$e0002000$$ENDHEX$$traiter
-//*					  (Val)		String	asComposition		Nom du fichier en dur $$HEX2$$e0002000$$ENDHEX$$ouvrir par WORD
+//* Arguments		: (Val)		Long		alIdDocument		ID du document à traiter
+//*					  (Val)		String	asComposition		Nom du fichier en dur à ouvrir par WORD
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -800,13 +800,13 @@ public function integer uf_inscrire_gestionparticuliere (long alIdDocument, stri
 String sSection, sCle, sText
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie d'abord si l'ID est correct.                          */
+/* On vérifie d'abord si l'ID est correct.                          */
 /*------------------------------------------------------------------*/
 If	Not uf_VerifierIdDocument ( alIdDocument )	Then
 	Return ( -1 )
 End If
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire la composition du document $$HEX2$$e0002000$$ENDHEX$$ouvrir    */
+/* On va maintenant inscrire la composition du document à ouvrir    */
 /* dans le fichier INI.                                             */
 /*------------------------------------------------------------------*/
 sSection = isIdDocument[ alIdDocument ]
@@ -818,7 +818,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, sText ) < 1	Then
 End If
 /*------------------------------------------------------------------*/
 /* On va maintenant inscrire qu'il s'agit d'une gestion             */
-/* particuli$$HEX1$$e900$$ENDHEX$$re.                                                    */
+/* particuliére.                                                    */
 /*------------------------------------------------------------------*/
 sCle		= "GESTION_PART"
 sText		= "O"
@@ -838,21 +838,21 @@ public function integer uf_inscrirebac (long aliddocument, string asbac, integer
 //* Fonction		: N_Cst_Edition_Courrier::uf_InscrireBac		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On va inscrire le bac dans le fichier INI
 //*
-//* Arguments		: (Val)		Long		alIdDocument		ID du document $$HEX2$$e0002000$$ENDHEX$$traiter
-//*					  (Val)		String	asBac					Bac $$HEX2$$e0002000$$ENDHEX$$utiliser
+//* Arguments		: (Val)		Long		alIdDocument		ID du document à traiter
+//*					  (Val)		String	asBac					Bac à utiliser
 //*					  (Val)		Integer	aiTypeImprimante	Type d'imprimante
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
 //* #1		PHG	13/05/2008	[SUPPORT_MFP] FONCTION OBSOLETE !!!
-//										Gard$$HEX1$$e900$$ENDHEX$$e pour Compatibilit$$HEX2$$e9002000$$ENDHEX$$SAVANE/SINDI Uniquement.
+//										Gardée pour Compatibilité SAVANE/SINDI Uniquement.
 //										Utiliser la version avec descripteur d'Imprimante :
 //		uf_InscrireBac( /*long aliddocument*/, /*string asbac*/, /*n_cst_printer_descriptor anv_printer */)
 //*-----------------------------------------------------------------
@@ -860,19 +860,19 @@ public function integer uf_inscrirebac (long aliddocument, string asbac, integer
 String sSection, sCle, sText
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie d'abord si l'ID est correct.                          */
+/* On vérifie d'abord si l'ID est correct.                          */
 /*------------------------------------------------------------------*/
 If	Not uf_VerifierIdDocument ( alIdDocument )	Then
 	Return ( -1 )
 End If
 
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire le bac $$HEX2$$e0002000$$ENDHEX$$utiliser dans le fichier INI. */
+/* On va maintenant inscrire le bac à utiliser dans le fichier INI. */
 /*------------------------------------------------------------------*/
 sSection = isIdDocument[ alIdDocument ]
 sCle		= "BAC"
 /*------------------------------------------------------------------*/
-/* Le type d'imprimante 1 fait r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence aux imprimantes Xerox      */
+/* Le type d'imprimante 1 fait référence aux imprimantes Xerox      */
 /* 4520 et Compaq PageMarq.                                         */
 /*------------------------------------------------------------------*/
 Choose Case aiTypeImprimante
@@ -900,16 +900,16 @@ public function integer uf_inscrirecomposition (long aliddocument, string ascomp
 //* Fonction		: N_Cst_Edition_Courrier::uf_InscrireComposition		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 17:33:52
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On va positionne la composition du document en cours de traitement
-//*						dans le fichier INI servant $$HEX2$$e0002000$$ENDHEX$$la communication avec WORD
+//*						dans le fichier INI servant à la communication avec WORD
 //*
-//* Arguments		: (Val)		Long		alIdDocument		ID du document $$HEX2$$e0002000$$ENDHEX$$traiter
-//*					  (Val)		String	asComposition		Composition $$HEX2$$e0002000$$ENDHEX$$inscrire
+//* Arguments		: (Val)		Long		alIdDocument		ID du document à traiter
+//*					  (Val)		String	asComposition		Composition à inscrire
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -925,13 +925,13 @@ sCheminRepCourrierLocal = stGlb.sRepTempo + "COURRIER\"
 sRepCourrier 	= ProfileString ( stGLB.sFichierIni , "EDITION" , "REP_COURRIER" 	, "" 	)
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie d'abord si l'ID est correct.                          */
+/* On vérifie d'abord si l'ID est correct.                          */
 /*------------------------------------------------------------------*/
 If	Not uf_VerifierIdDocument ( alIdDocument )	Then
 	Return ( -1 )
 End If
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire la composition du document $$HEX3$$e0002000e900$$ENDHEX$$diter    */
+/* On va maintenant inscrire la composition du document à éditer    */
 /* dans le fichier INI.                                             */
 /*------------------------------------------------------------------*/
 sSection = isIdDocument[ alIdDocument ]
@@ -939,7 +939,7 @@ sCle		= "COMPOSITION"
 sText		= asComposition
 /*------------------------------------------------------------------*/
 /* Pour les compositions un peu longues (+ de 31 paragraphes), on   */
-/* d$$HEX1$$e900$$ENDHEX$$coupe la cha$$HEX1$$ee00$$ENDHEX$$ne en deux TOPICS.                                */
+/* découpe la chaîne en deux TOPICS.                                */
 /*------------------------------------------------------------------*/
 If	Len ( sText ) > 248	Then
 	sText2	= Right ( sText, Len ( sText ) - 248 )
@@ -953,7 +953,7 @@ If	Len ( sText ) > 248	Then
 	End If
 End If
 /*------------------------------------------------------------------*/	
-/* Premi$$HEX1$$e800$$ENDHEX$$re COMPOSITION.                                            */
+/* Première COMPOSITION.                                            */
 /*------------------------------------------------------------------*/
 If	SetProfileString ( isFicCourrierIni, sSection, sCle, sText ) < 1	Then
 	Return ( -2 )
@@ -961,7 +961,7 @@ End If
 	
 
 // [PRBLE_PATCH_MS_WORD]
-// Si l'inscription de la chaine compo a r$$HEX1$$e900$$ENDHEX$$ussi, on rappatrie les paragraphes en local
+// Si l'inscription de la chaine compo a réussi, on rappatrie les paragraphes en local
 Do While Len ( sCompoWork ) > 0 
 	sPara = Left ( sCompoWork, 8 ) 
 	sCheminRepCourrierLocalPara = sCheminRepCourrierLocal + sPara
@@ -969,18 +969,18 @@ Do While Len ( sCompoWork ) > 0
 		If FileCopy ( sRepCourrier	+ sPara, sCheminRepCourrierLocalPara, TRUE )	< 0 Then
 			Return (-2)
 		End If 
-		iVal = 128 // Normal, sinon 1 pour ReadOnly. avec 128 on enl$$HEX1$$e800$$ENDHEX$$ve le ReadOnly
+		iVal = 128 // Normal, sinon 1 pour ReadOnly. avec 128 on enlève le ReadOnly
 		invWin.uf_SetFileAttributes( sCheminRepCourrierLocalPara, iVal )
 	End If 
 	sCompoWork = Right ( sCompoWork, Len ( sCompoWork ) - 8 ) 
 Loop 
 
-// Et On inscrit le chemin du R$$HEX1$$e900$$ENDHEX$$pertoire Local
+// Et On inscrit le chemin du Répertoire Local
 If	SetProfileString ( isFicCourrierIni, "COURRIER", "REP_PARA_LOCAL", sCheminRepCourrierLocal ) < 1	Then
 	Return ( -2 )
 End If
 
-// Et Une cl$$HEX2$$e9002000$$ENDHEX$$de bascule pour utilisation g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration Local ou standard (comme avant )
+// Et Une clé de bascule pour utilisation génération Local ou standard (comme avant )
 If	SetProfileString ( isFicCourrierIni, "COURRIER", "GENERATION_LOCAL", "OUI") < 1	Then
 	Return ( -2 )
 End If	
@@ -995,16 +995,16 @@ public function integer uf_inscrireparamcourrier (string ascourriersauve, string
 //* Fonction		: N_Cst_Edition_Courrier::uf_InscrireParamCourrier			(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va inscrire certains param$$HEX1$$e800$$ENDHEX$$tres pour le courrier
+//* Libellé			: 
+//* Commentaires	: On va inscrire certains paramètres pour le courrier
 //*
-//* Arguments		: (Val)		String	asCourrierSauve	Nom du fichier $$HEX2$$e0002000$$ENDHEX$$sauvegarder
+//* Arguments		: (Val)		String	asCourrierSauve	Nom du fichier à sauvegarder
 //*					  (Val)		String	asTypeSauve			Type de sauvegarde (DOC-HTM)
 //*					  (Val)		String	asEdition			Doit-on editer le courrier ?
 //*					  (Val)		String	asMiseSousPli		Doit-on positionner les marques de Mise Sous Pli ?
 //*
 //* Retourne		: Integer						 1 = Tout est OK
-//*														-1 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-1 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -1022,7 +1022,7 @@ public function integer uf_ouvrirdocument (string ascodecourrier, string asentet
 //* Fonction		: N_Cst_Edition_Courrier::uf_OuvrirDocument		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 16:34:52
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On ouvre un courrier
 //*
 //* Arguments		: (Val)		String		asCodeCourrier
@@ -1033,7 +1033,7 @@ public function integer uf_ouvrirdocument (string ascodecourrier, string asentet
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  			Modification
-//* #1 		 DGA      19/09/2006    Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
+//* #1 		 DGA      19/09/2006    Gestion d'un répertoire temporaire DCMP-060643
 //* 
 //*-----------------------------------------------------------------
 
@@ -1044,12 +1044,12 @@ lIdDocument = 0
 lTotId		= UpperBound ( isIdDocument )
 /*------------------------------------------------------------------*/
 /* On ouvre un document. Il est possible d'avoir plusieurs          */
-/* documents pour un m$$HEX1$$ea00$$ENDHEX$$me courrier. (Ex:Courrier Assur$$HEX2$$e9002000$$ENDHEX$$+ Double    */
+/* documents pour un même courrier. (Ex:Courrier Assuré + Double    */
 /* Autre Courrier )                                                 */
 /*------------------------------------------------------------------*/
 If lTotId >= 1	Then
 /*------------------------------------------------------------------*/	
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re le premier $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ment libre du tableau.                 */
+/* On récupére le premier élément libre du tableau.                 */
 /*------------------------------------------------------------------*/
 	For	lCpt = 1 To lTotId
 			If	IsNull ( isIdDocument[ lCpt ]	) Then
@@ -1058,7 +1058,7 @@ If lTotId >= 1	Then
 			End If				
 	Next
 /*------------------------------------------------------------------*/	
-/* S'il n'existe aucun $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ment libre dans le tableau des ID, on en  */
+/* S'il n'existe aucun élément libre dans le tableau des ID, on en  */
 /* ajoute 1.                                                        */
 /*------------------------------------------------------------------*/
 	If	lIdDocument = 0	Then
@@ -1073,15 +1073,15 @@ Else
 	lIdDocument = 1
 End If
 /*------------------------------------------------------------------*/
-/* On positionne dans le fichier INI, le r$$HEX1$$e900$$ENDHEX$$pertoire temporaire ou   */
-/* l'on va stocker les DOCUMENTS g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$s avant regroupement du      */
+/* On positionne dans le fichier INI, le répertoire temporaire ou   */
+/* l'on va stocker les DOCUMENTS générés avant regroupement du      */
 /* courrier. Ces documents seront sont le format DOC___NN.DOC       */
 /*------------------------------------------------------------------*/
 sSection		= "COURRIER"
 sCle			= "WINTEMP"
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //sRepWinTmp	= stGLB.sWinDir + "\TEMP" + "\DOC__"
 sRepWinTmp	= stGLB.sRepTempo + "DOC__"
@@ -1091,7 +1091,7 @@ End If
 
 /*------------------------------------------------------------------*/
 /* On positionne dans le fichier INI de communication, le nombre    */
-/* de document $$HEX3$$e0002000e900$$ENDHEX$$diter pour le courrier.                           */
+/* de document à éditer pour le courrier.                           */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "NBR_DOC"
@@ -1101,8 +1101,8 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, sText ) < 1	Then
 	Return ( -1 )
 End If
 /*------------------------------------------------------------------*/
-/* On positionne dans la section "COURRIER", le N$$HEX2$$b0002000$$ENDHEX$$du document en   */
-/* cours de traitement, ainsi que le code courrier $$HEX3$$e0002000e900$$ENDHEX$$diter.        */
+/* On positionne dans la section "COURRIER", le N° du document en   */
+/* cours de traitement, ainsi que le code courrier à éditer.        */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "DOCUMENT_" + String ( lIdDocument )
@@ -1113,15 +1113,15 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, sText ) < 1	Then
 End If
 /*------------------------------------------------------------------*/
 /* On positionne dans une section portant le nom du code courrier   */
-/* $$HEX3$$e0002000e900$$ENDHEX$$diter, l'entete des DATAS.                                    */
+/* à éditer, l'entete des DATAS.                                    */
 /*------------------------------------------------------------------*/
 sSection	= asCodeCourrier + String ( lIdDocument )
 sCle		= "ENTETE"
 /*------------------------------------------------------------------*/
-/* Il est possible d'utiliser l'ent$$HEX1$$ea00$$ENDHEX$$te STANDARD positionn$$HEX1$$e900$$ENDHEX$$e dans    */
-/* le fichier de l'application. N$$HEX1$$e900$$ENDHEX$$ammoins le script client peut     */
-/* d$$HEX1$$e900$$ENDHEX$$cider d'utiliser un fichier diff$$HEX1$$e900$$ENDHEX$$rent, il doit dans ce cas,    */
-/* passer la bonne valeur (R$$HEX1$$e900$$ENDHEX$$pertoire+Fichier) dans l'appel de la   */
+/* Il est possible d'utiliser l'entête STANDARD positionnée dans    */
+/* le fichier de l'application. Néammoins le script client peut     */
+/* décider d'utiliser un fichier différent, il doit dans ce cas,    */
+/* passer la bonne valeur (Répertoire+Fichier) dans l'appel de la   */
 /* fonction.                                                        */
 /*------------------------------------------------------------------*/
 If	asEnteteData = ""	Then
@@ -1134,7 +1134,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, sText ) < 1	Then
 	Return ( -1 )
 End If
 /*------------------------------------------------------------------*/
-/* On incr$$HEX1$$e900$$ENDHEX$$mente maintenant le nombre de document en cours pour le  */
+/* On incrémente maintenant le nombre de document en cours pour le  */
 /* courrier.                                                        */
 /*------------------------------------------------------------------*/
 ilNbDocument ++
@@ -1154,9 +1154,9 @@ public function integer uf_initialiserfichierspool ();//*-----------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_InitialiserFichierSpool 		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 16:33:21
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On initialise le nom du fichier qui sera g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$par WORD
-//*					  et envoy$$HEX2$$e9002000$$ENDHEX$$au sur le SPOOL $$HEX2$$e0002000$$ENDHEX$$la fin du traitement
+//* Libellé			: 
+//* Commentaires	: On initialise le nom du fichier qui sera généré par WORD
+//*					  et envoyé au sur le SPOOL à la fin du traitement
 //*
 //* Arguments		: Aucun
 //*
@@ -1164,7 +1164,7 @@ public function integer uf_initialiserfichierspool ();//*-----------------------
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  			Modification
-//* #1 		 DGA      19/09/2006    Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
+//* #1 		 DGA      19/09/2006    Gestion d'un répertoire temporaire DCMP-060643
 //* 
 //*-----------------------------------------------------------------
 
@@ -1178,7 +1178,7 @@ If	Not IsNull ( isFicSpool ) Or Len ( Trim ( isFicSpool ) ) > 0	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* Le nom du fichier de SPOOL est compos$$HEX2$$e9002000$$ENDHEX$$de la mani$$HEX1$$e800$$ENDHEX$$re suivante.   */
+/* Le nom du fichier de SPOOL est composé de la manière suivante.   */
 /* HH_MM_SS.XXX                                                     */
 /* HH		= Heure courante                                           */
 /* MM		= Minute courante                                          */
@@ -1189,12 +1189,12 @@ End If
 sNow			= String ( Now (), "hh_mm_ss" )
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //sRepWin		= stGLB.sWinDir + "\TEMP" + "\"
 sRepWin		= stGLB.sRepTempo
-// DCMP-060643.SPOOL Modification temporaire d$$HEX1$$e900$$ENDHEX$$sactiv$$HEX1$$e900$$ENDHEX$$es, on laissait l'ancienne methode
-// le temps que les ancetres 8 soient migr$$HEX1$$e900$$ENDHEX$$s
+// DCMP-060643.SPOOL Modification temporaire désactivées, on laissait l'ancienne methode
+// le temps que les ancetres 8 soient migrés
 //sRepWin		= stGLB.sWinDir + "\TEMP" + "\"
 isFicSpool	= sRepWin + sNow + "." + Left ( stGLB.sCodAppli, 3 )
 
@@ -1221,14 +1221,14 @@ public function integer uf_imprimer (string asnommacro);//*---------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_Imprimer		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 11:38:57
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On lance la macro d'$$HEX1$$e900$$ENDHEX$$dition pour le courrier
+//* Libellé			: 
+//* Commentaires	: On lance la macro d'édition pour le courrier
 //*
-//* Arguments		: (Val)		String	asNomMacro			Nom de macro $$HEX2$$e0002000$$ENDHEX$$utiliser
+//* Arguments		: (Val)		String	asNomMacro			Nom de macro à utiliser
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = Il n'y a aucun courrier en cours
-//*														-2 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me d'impression
+//*														-2 = Il y a un problème d'impression
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -1242,6 +1242,7 @@ Long lRep
 String sFicWinIni, sStatus, sRet
 String sVarErr[]
 N_Cst_Word	nvWord
+Int iValCleSIMPA2
 
 Boolean bSIMPA2
 Boolean bSindi
@@ -1260,41 +1261,53 @@ Long  lFile // ... [PI082]
 bSIMPA2 = Left ( Upper(SQLCA.Database), 5) = "SIMPA" 
 bSindi = Left ( Upper(SQLCA.Database), 5) = "SINDI" 
 
+If bSIMPA2 Then
+	Select valeur
+	Into :iValCleSIMPA2
+	From sysadm.cle
+	Where id_cle = "CS_USPR_ALD_WINDIR"
+	Using SQLCA ; 
+	
+	If IsNull ( iValCleSIMPA2 ) Then iValCleSIMPA2 = 0
+	
+End IF 
+
+
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie s'il existe au moins un document pour le courrier en  */
+/* On vérifie s'il existe au moins un document pour le courrier en  */
 /* cours.                                                           */
 /*------------------------------------------------------------------*/
 If	ilNbDocument = 0	Then
 	Return ( -1 )
 End If
 /*------------------------------------------------------------------*/
-/* On $$HEX1$$e900$$ENDHEX$$crit certaines indications $$HEX2$$e0002000$$ENDHEX$$WORD. (Fichier                  */
-/* d'initialisation de l'application) (Fichier des param$$HEX1$$e800$$ENDHEX$$tres du    */
-/* courrier $$HEX3$$e0002000e900$$ENDHEX$$diter). Ces informations sont $$HEX1$$e900$$ENDHEX$$crites dans le        */
+/* On écrit certaines indications à WORD. (Fichier                  */
+/* d'initialisation de l'application) (Fichier des paramètres du    */
+/* courrier à éditer). Ces informations sont écrites dans le        */
 /* fichier WIN.INI.                                                 */
 /*------------------------------------------------------------------*/
 sFicWinIni = stGLB.sWinDir + "\WIN.INI"
 
 /*---------------------------------------------------------------------------------------------*/
 /* [Pi082] FS                                                                                                                      */
-/* Constat$$HEX2$$e9002000$$ENDHEX$$sur Sindi : L'$$HEX1$$e900$$ENDHEX$$criture du win.in sur l'ancien emplacement c:\windows\win.ini renvoie 1   */
-/* alors qu'il ne fonctionne pas ... donc l'$$HEX1$$e900$$ENDHEX$$criture vers le nouvel emplacement ne se fait pas           */
+/* Constaté sur Sindi : L'écriture du win.in sur l'ancien emplacement c:\windows\win.ini renvoie 1   */
+/* alors qu'il ne fonctionne pas ... donc l'écriture vers le nouvel emplacement ne se fait pas           */
 /* Correctif:
-      D$$HEX1$$e900$$ENDHEX$$termination nouvel emplacement,
-      Cr$$HEX1$$e900$$ENDHEX$$ation d'un Win.Ini vide si non existant
-	  Tentative d'$$HEX1$$e900$$ENDHEX$$criture dedans : Ne fonctionnement pas su un poste W7
+      Détermination nouvel emplacement,
+      Création d'un Win.Ini vide si non existant
+	  Tentative d'écriture dedans : Ne fonctionnement pas su un poste W7
 	  Si ne fonctionne pas alors reprise de l'ancien stGLB.sWinDir + "\WIN.INI" */
 /*---------------------------------------------------------------------------------------------*/
 
 // [PI082] 
 If bSindi Then
 	
-		// ... 1) Lecture du USERPROFILE ex C:\Users\FS et $$HEX1$$e900$$ENDHEX$$criture du WIN.INI 
+		// ... 1) Lecture du USERPROFILE ex C:\Users\FS et écriture du WIN.INI 
 	
 		sFicWinIni =  stGlb.uoWin.uf_getenvironment("USERPROFILE") + "\Windows\WIN.INI" // TODO : revoir si le repertoire n'existe pas
 		
-		// ... 2) Le fichier C:\Users\FS\Windows\Win.INI existe t-il ? : Non cr$$HEX1$$e900$$ENDHEX$$ation $$HEX2$$e0002000$$ENDHEX$$vide ( sinon le SetProfileString ne fonctionne pas )
-		//     En windows 7 le sous r$$HEX1$$e900$$ENDHEX$$pertoire \Windows n'existe pas : Donc le code se d$$HEX1$$e900$$ENDHEX$$roulera au point 3)
+		// ... 2) Le fichier C:\Users\FS\Windows\Win.INI existe t-il ? : Non création à vide ( sinon le SetProfileString ne fonctionne pas )
+		//     En windows 7 le sous répertoire \Windows n'existe pas : Donc le code se déroulera au point 3)
 		
 		If not fileExists ( sFicWinIni ) Then
 			
@@ -1306,7 +1319,7 @@ If bSindi Then
 		
 		lRetProfile = SetProfileString ( sFicWinIni, "IMPRESSION", "APPLICATION_INI", stGLB.sFichierIni )
 		
-		// ... 3)  Echec d'$$HEX1$$e900$$ENDHEX$$criture : Ecriture sur l'ancien r$$HEX1$$e900$$ENDHEX$$pertoire 
+		// ... 3)  Echec d'écriture : Ecriture sur l'ancien répertoire 
 		
 		If lRetProfile = -1 Then 
 			sFicWinIni =  stGLB.sWinDir + "\WIN.INI"
@@ -1316,35 +1329,42 @@ If bSindi Then
 
 Else
 
-// [PI082] Code tel qu'il est pour Simpa2 laiss$$HEX4$$e9002000e0002000$$ENDHEX$$l'existant 
-	If SetProfileString ( sFicWinIni, "IMPRESSION", "APPLICATION_INI", stGLB.sFichierIni ) = -1 Then
-		sFicWinIni = stGlb.uoWin.uf_getenvironment("USERPROFILE") + "\Windows\WIN.INI" // TODO : revoir si le repertoire n'existe pas
+// [PI082] Code tel qu'il est pour Simpa2 laissé à l'existant 
+// [DBG20241015131529340][CS_USPR_ALD_WINDIR] 
+//If F_CLE_A_TRUE ( "CS_USPR_ALD_WINDIR" ) Then
+	If iValCleSIMPA2 > 0 Then
+		sFicWinIni = stGlb.uoWin.uf_getenvironment("USERPROFILE") + "\Windows\WIN.INI"
 		SetProfileString ( sFicWinIni, "IMPRESSION", "APPLICATION_INI", stGLB.sFichierIni )
-	End If
+	Else 
+		If SetProfileString ( sFicWinIni, "IMPRESSION", "APPLICATION_INI", stGLB.sFichierIni ) = -1 Then
+			sFicWinIni = stGlb.uoWin.uf_getenvironment("USERPROFILE") + "\Windows\WIN.INI" // TODO : revoir si le repertoire n'existe pas
+			SetProfileString ( sFicWinIni, "IMPRESSION", "APPLICATION_INI", stGLB.sFichierIni )
+		End If
+	End If 
 End If
 
 
 SetProfileString ( sFicWinIni, "IMPRESSION", "COURRIER_INI", isFicCourrierIni )
 /*------------------------------------------------------------------*/
-/* On arme la cl$$HEX2$$e9002000$$ENDHEX$$STATUS $$HEX2$$e0002000$$ENDHEX$$vide dans le fichier INI servant $$HEX2$$e0002000$$ENDHEX$$la    */
+/* On arme la clé STATUS à vide dans le fichier INI servant à la    */
 /* communication avec WORD.                                         */
 /*------------------------------------------------------------------*/
 SetProfileString ( isFicCourrierIni, "IMPRESSION", "STATUS", "" )
 /*------------------------------------------------------------------*/
-/* Le nom de la macro est vide, on utilise la macro par d$$HEX1$$e900$$ENDHEX$$faut.     */
+/* Le nom de la macro est vide, on utilise la macro par défaut.     */
 /*------------------------------------------------------------------*/
 If	asNomMacro = ""	Then
 	asNomMacro = "EditerCourrier"
 End If
 
 /*------------------------------------------------------------------*/
-/* On ouvre un nouveau modele dans le r$$HEX1$$e900$$ENDHEX$$pertoire pr$$HEX1$$e900$$ENDHEX$$vu $$HEX2$$e0002000$$ENDHEX$$cet effet. */
+/* On ouvre un nouveau modele dans le répertoire prévu à cet effet. */
 /*------------------------------------------------------------------*/
 F_SetVersionWord ( nvWord, TRUE )
 Yield()
 
 // [PM425-1]
-// ibModeImpression : pourquoi ce boolean ? car en fait, cette m$$HEX1$$ea00$$ENDHEX$$me fonction sert $$HEX2$$e0002000$$ENDHEX$$l'impression 
+// ibModeImpression : pourquoi ce boolean ? car en fait, cette même fonction sert à l'impression 
 If bSIMPA2 And ibModeImpression Then
 	sRet = This.Uf_EditionDecentralisee ( nvWord )
 	
@@ -1368,9 +1388,9 @@ End If
 F_SetVersionWord ( nvWord, FALSE )
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie si l'impression se d$$HEX1$$e900$$ENDHEX$$roule correctement. La macro     */
-/* WORD positionne la valeur STATUS $$HEX2$$e0002000$$ENDHEX$$OK dans le fichier INI.       */
-/* Si ce n'est pas le cas, on arme une valeur d'instance $$HEX2$$e0002000$$ENDHEX$$FALSE.   */
+/* On vérifie si l'impression se déroule correctement. La macro     */
+/* WORD positionne la valeur STATUS à OK dans le fichier INI.       */
+/* Si ce n'est pas le cas, on arme une valeur d'instance à FALSE.   */
 /*------------------------------------------------------------------*/
 DO
 	sStatus = ProfileString ( isFicCourrierIni, "IMPRESSION", "STATUS", "" )
@@ -1389,7 +1409,7 @@ LOOP UNTIL sStatus = "OK" Or sStatus = "PAS OK"
 //	ibImpressionReussie = FALSE
 //End If
 /*------------------------------------------------------------------*/
-/* Si l'impression $$HEX1$$e900$$ENDHEX$$choue, on affiche un message d'erreur.          */
+/* Si l'impression échoue, on affiche un message d'erreur.          */
 /*------------------------------------------------------------------*/
 // ibCouperMsgEDI025 
 If	Not ibImpressionReussie	Then
@@ -1414,8 +1434,8 @@ If	Not ibImpressionReussie	Then
 	End IF 
 End If
 /*------------------------------------------------------------------*/
-/* On incr$$HEX1$$e900$$ENDHEX$$mente le nombre de courriers et le nombre de documents   */
-/* $$HEX1$$e900$$ENDHEX$$dit$$HEX1$$e900$$ENDHEX$$s.                                                          */
+/* On incrémente le nombre de courriers et le nombre de documents   */
+/* édités.                                                          */
 /*------------------------------------------------------------------*/
 ilNbCourrierEdite ++
 ilNbDocumentEdite += ilNbDocument
@@ -1430,8 +1450,8 @@ public function integer uf_envoyerimpressionauspool ();//*----------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_EnvoyerImpressionAuSpool		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 16:50:55
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On envoie le fichier g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$par WORD dans le SPOOL
+//* Libellé			: 
+//* Commentaires	: On envoie le fichier généré par WORD dans le SPOOL
 //*
 //* Arguments		: Aucun
 //*					  
@@ -1441,7 +1461,7 @@ public function integer uf_envoyerimpressionauspool ();//*----------------------
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  		Modification
-//* #1 		 DGA      19/09/2006 Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
+//* #1 		 DGA      19/09/2006 Gestion d'un répertoire temporaire DCMP-060643
 //* #2		FPI		01/04/2010	[CORR_SPOOL] Augmentation du temps de timeout d'envoi au spool
 //*-----------------------------------------------------------------
 
@@ -1452,14 +1472,14 @@ Time tDeb
 boolean bRet
 n_cst_lanceretattendrecorrige nvLancerEtAttendreOK
 /*------------------------------------------------------------------*/
-/* On part du principe que le fichier g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$par WORD est ferm$$HEX1$$e900$$ENDHEX$$.    */
+/* On part du principe que le fichier généré par WORD est fermé.    */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
 /* On envoie le fichier au SPOOL.                                   */
 /*------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
-/* On va lancer un ex$$HEX1$$e900$$ENDHEX$$cutable PB7 qui permet de g$$HEX1$$e900$$ENDHEX$$rer tous les cas d'OS       */
-/* diff$$HEX1$$e900$$ENDHEX$$rents. ( WINNT/WINDOWS2000/WIN95-98).                                 */
+/* On va lancer un exécutable PB7 qui permet de gérer tous les cas d'OS       */
+/* différents. ( WINNT/WINDOWS2000/WIN95-98).                                 */
 /*----------------------------------------------------------------------------*/
 sSpoolExe	= ProfileString ( stGLB.sFichierIni, "APPLICATION", "EXE_SPOOL",  &
 				  ProfileString ( stGlb.sWinDir + "\MAJPOST.INI", "PARAM", "DESTINATION", "C:" ) + "\SPOOLPB7.EXE" )
@@ -1483,15 +1503,15 @@ If	Not f_FileExists ( sSpoolExe )	Then
 Else
 /*------------------------------------------------------------------*/
 /* On supprime les fichiers SPOOL_OK.OUI et/ou SPOOL_OK.NON qui     */
-/* peuvent exister. Ils seront cr$$HEX1$$e900$$ENDHEX$$er pas l'application de SPOOL.    */
+/* peuvent exister. Ils seront créer pas l'application de SPOOL.    */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //	sRepWin			= stGLB.sWinDir + "\TEMP" + "\"
 	sRepWin			= stGLB.sRepTempo
-// DCMP-060643.SPOOL Modif temporaire, desactiv$$HEX1$$e900$$ENDHEX$$e
+// DCMP-060643.SPOOL Modif temporaire, desactivée
 //	sRepWin			= stGLB.sWinDir + "\TEMP" + "\"
 	sFicSpoolOui	= sRepWin + "SPOOL_OK.OUI"
 	sFicSpoolNon	= sRepWin + "SPOOL_OK.NON"
@@ -1524,7 +1544,7 @@ Else
 // FIN COMMENTAIRES LBP
 
 	// LBP le 04/06/2010 : Lancement du spooleur via espionnage de fin de tache
-	// Passage du timeout de 25s $$HEX2$$e0002000$$ENDHEX$$120s
+	// Passage du timeout de 25s à 120s
 	sSpoolExe = sSpoolExe + " " + isFicSpool
 	bRet = nvLancerEtAttendreOK.uf_lanceretattendre(sSpoolExe, 120000)
 	if not bRet then return -1
@@ -1554,13 +1574,13 @@ public subroutine uf_inscrire_valeur_differentes (string asrepcourrier, string a
 //* Fonction		: N_Cst_Edition_Courrier::uf_Inscrire_Valeurs_Differentes		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 15:06:20
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va positionner des valeurs diff$$HEX1$$e900$$ENDHEX$$rentes pour isRepCourrier, isModele,
+//* Libellé			: 
+//* Commentaires	: On va positionner des valeurs différentes pour isRepCourrier, isModele,
 //*					  isEntete
 //*
-//* Arguments		: (Val)		String		asRepCourrier		R$$HEX1$$e900$$ENDHEX$$pertoire qui contient les paragraphes
-//*					  (Val)		String		asModele				Mod$$HEX1$$e900$$ENDHEX$$le $$HEX2$$e0002000$$ENDHEX$$utiliser (Sans le r$$HEX1$$e900$$ENDHEX$$pertoire)
-//*					  (Val)		String		asEntete				Fichier d'ent$$HEX1$$ea00$$ENDHEX$$te servant $$HEX2$$e0002000$$ENDHEX$$la fusion ( Sans le r$$HEX1$$e900$$ENDHEX$$pertoire )
+//* Arguments		: (Val)		String		asRepCourrier		Répertoire qui contient les paragraphes
+//*					  (Val)		String		asModele				Modéle à utiliser (Sans le répertoire)
+//*					  (Val)		String		asEntete				Fichier d'entête servant à la fusion ( Sans le répertoire )
 //*
 //* Retourne		: Rien
 //*
@@ -1579,11 +1599,11 @@ public subroutine uf_envoyer_commande (integer aitype, string asparam);//*------
 //* Fonction		: N_Cst_Edition_Courrier::uf_Imprimer		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 11:38:57
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On lance la macro d'$$HEX1$$e900$$ENDHEX$$dition pour le courrier
+//* Libellé			: 
+//* Commentaires	: On lance la macro d'édition pour le courrier
 //*
 //* Arguments		: (Val)		Integer	aiType				Type de commande
-//*					  (Val)		String	asParam				Param$$HEX1$$e800$$ENDHEX$$tre
+//*					  (Val)		String	asParam				Paramètre
 //*
 //* Retourne		: Rien
 //*
@@ -1605,10 +1625,10 @@ public function long uf_cle_edition_fichierini (string ascle);//*---------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_Cle_Edition_FichierIni		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 15:06:20
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va positionner une valeur particulere dans le fichier INI servant $$HEX2$$e0002000$$ENDHEX$$l'$$HEX1$$e900$$ENDHEX$$dition
+//* Libellé			: 
+//* Commentaires	: On va positionner une valeur particulere dans le fichier INI servant à l'édition
 //*
-//* Arguments		: (Val)		String		asCle					Valeur de la cl$$HEX1$$e900$$ENDHEX$$
+//* Arguments		: (Val)		String		asCle					Valeur de la clé
 //*
 //* Retourne		: Long						 1 = Tout est OK
 //*													-1 = Il y a une erreur
@@ -1621,11 +1641,11 @@ public function long uf_cle_edition_fichierini (string ascle);//*---------------
 String sSection, sCle, sText
 
 /*------------------------------------------------------------------*/
-/* En SIMPA2, il existe plusieurs entr$$HEX1$$e900$$ENDHEX$$es pour les valeurs          */
-/* d'$$HEX1$$e900$$ENDHEX$$dition ([EDITION], [EDITION_SIMPA1]). Or la macro utilise     */
-/* par d$$HEX1$$e900$$ENDHEX$$faut la cl$$HEX2$$e9002000$$ENDHEX$$[EDITION] du fichier INI de l'application.     */
-/* Cette fonction sert $$HEX2$$e0002000$$ENDHEX$$armer une valeur diff$$HEX1$$e900$$ENDHEX$$rente dans la        */
-/* section principale du fichier INI servant $$HEX2$$e0002000$$ENDHEX$$l'$$HEX1$$e900$$ENDHEX$$dition (Ex        */
+/* En SIMPA2, il existe plusieurs entrées pour les valeurs          */
+/* d'édition ([EDITION], [EDITION_SIMPA1]). Or la macro utilise     */
+/* par défaut la clé [EDITION] du fichier INI de l'application.     */
+/* Cette fonction sert à armer une valeur différente dans la        */
+/* section principale du fichier INI servant à l'édition (Ex        */
 /* C:\SPB\SIM2_C.INI).                                              */
 /*------------------------------------------------------------------*/
 If Not IsNull ( asCle )	And Len ( Trim ( asCle ) )	> 0	Then
@@ -1647,7 +1667,7 @@ public function string uf_getnomfichierspool ();//*-----------------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_GetNomFichierSpool		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 16:50:55
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On retourne le nom du fichier de SPOOL
 //*
 //* Arguments		: Aucun
@@ -1669,13 +1689,13 @@ public function integer uf_inscrire_dteedition_courrier (string asdteedit);//*--
 //* Fonction		: N_Cst_Edition_Courrier::uf_Inscrire_DteEdition_Duplicata		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va inscrire la date d'$$HEX1$$e900$$ENDHEX$$dition (pour un duplicata) dans le fichier INI.
+//* Libellé			: 
+//* Commentaires	: On va inscrire la date d'édition (pour un duplicata) dans le fichier INI.
 //*
-//* Arguments		: (Val)		String	asDteEdit			Date d'$$HEX1$$e900$$ENDHEX$$dition pour le duplicata
+//* Arguments		: (Val)		String	asDteEdit			Date d'édition pour le duplicata
 //*
 //* Retourne		: Integer						 1 = Tout est OK
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -1685,7 +1705,7 @@ public function integer uf_inscrire_dteedition_courrier (string asdteedit);//*--
 String sSection, sCle, sText
 
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire la date d'$$HEX1$$e900$$ENDHEX$$dition dans le fichier INI. */
+/* On va maintenant inscrire la date d'édition dans le fichier INI. */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "DTE_EDIT_COURRIER"
@@ -1704,15 +1724,15 @@ public function integer uf_inscrire_dteedition_document (long aliddocument, stri
 //* Fonction		: N_Cst_Edition_Courrier::uf_Inscrire_DteEdition_Document (PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va inscrire la date d'$$HEX1$$e900$$ENDHEX$$dition (pour un duplicata) dans le fichier INI.
+//* Libellé			: 
+//* Commentaires	: On va inscrire la date d'édition (pour un duplicata) dans le fichier INI.
 //*
-//* Arguments		: (Val)		Long		alIdDocument		ID du document $$HEX2$$e0002000$$ENDHEX$$traiter
-//*					  (Val)		String	asDteEdit			Date d'$$HEX1$$e900$$ENDHEX$$dition pour le duplicata
+//* Arguments		: (Val)		Long		alIdDocument		ID du document à traiter
+//*					  (Val)		String	asDteEdit			Date d'édition pour le duplicata
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -1722,14 +1742,14 @@ public function integer uf_inscrire_dteedition_document (long aliddocument, stri
 String sSection, sCle, sText
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie d'abord si l'ID est correct.                          */
+/* On vérifie d'abord si l'ID est correct.                          */
 /*------------------------------------------------------------------*/
 If	Not uf_VerifierIdDocument ( alIdDocument )	Then
 	Return ( -1 )
 End If
 
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire la date d'$$HEX1$$e900$$ENDHEX$$dition dans le fichier INI. */
+/* On va maintenant inscrire la date d'édition dans le fichier INI. */
 /*------------------------------------------------------------------*/
 sSection = isIdDocument[ alIdDocument ]
 sCle		= "DTE_EDIT_DOCUMENT"
@@ -1748,8 +1768,8 @@ public function long uf_ouvrirdocument_2 (string asnomfichier);//*--------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_OuvrirDocument_2		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 16:34:52
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On ouvre un courrier directement $$HEX2$$e0002000$$ENDHEX$$partir du disque
+//* Libellé			: 
+//* Commentaires	: On ouvre un courrier directement à partir du disque
 //*
 //* Arguments		: (Val)		String		asCodeCourrier
 //*
@@ -1765,7 +1785,7 @@ String sSection, sCle
 
 ilNbDocument = 1
 /*------------------------------------------------------------------*/
-/* On ouvre le document positionn$$HEX2$$e9002000$$ENDHEX$$sur disque. On va ensuite        */
+/* On ouvre le document positionné sur disque. On va ensuite        */
 /* positionner les codes de mise sous pli et editer le courrier.    */
 /*------------------------------------------------------------------*/
 sSection		= "COURRIER"
@@ -1784,11 +1804,11 @@ public subroutine uf_changermodele (string asmodele);//*------------------------
 //* Fonction      : n_cst_Edition_Courrier::uf_ChangerModele (PUBLIC)
 //* Auteur        : Fabry JF
 //* Date          : 15/01/2004 15:39:27
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: Changer dynamiquement le mod$$HEX1$$e800$$ENDHEX$$le apr$$HEX1$$e800$$ENDHEX$$s qu'il ait
-//*					  $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$affect$$HEX2$$e9002000$$ENDHEX$$dans uf_InitialiserWord
+//* Libellé       : Changer dynamiquement le modèle après qu'il ait
+//*					  été affecté dans uf_InitialiserWord
 //* Commentaires  : 
 //*
-//* Arguments     : String		asModele			Val     // Nouveau mod$$HEX1$$e800$$ENDHEX$$le $$HEX2$$e0002000$$ENDHEX$$appliquer
+//* Arguments     : String		asModele			Val     // Nouveau modèle à appliquer
 //*
 //* Retourne      : 
 //*
@@ -1810,11 +1830,11 @@ public subroutine uf_inscrire_droitsmodifcourrier (integer aidroitinter[]);//*--
 //* Fonction		: N_Cst_Edition_Courrier::uf_Inscrire_DroitsModifCourrier	(PUBLIC)
 //* Auteur			: Fabry JF
 //* Date				: 29/03/2004 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Inscription du tableau d$$HEX1$$e900$$ENDHEX$$finissant les droits de modification O/N des courriers
+//* Libellé			: Inscription du tableau définissant les droits de modification O/N des courriers
 //*					  de chaque inter, par le gestionnaire.
 //* Commentaires	: DCMP 040020 SVE
 //*
-//* Arguments		: Integer	aiDroitInter []			R$$HEX1$$e900$$ENDHEX$$f
+//* Arguments		: Integer	aiDroitInter []			Réf
 //*
 //* Retourne		: 
 //*
@@ -1833,15 +1853,15 @@ private function integer uf_appliquer_droitmodifcour (integer aiinter, string as
 //* Fonction      : n_cst_Edition_Courrier::uf_Appliquer_DroitModifCour (PRIVATE)
 //* Auteur        : Fabry JF
 //* Date          : 29/03/2004 11:48:20
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: Application des droits de modication au courrier g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration.
-//*					  Se traduit une protection/d$$HEX1$$e900$$ENDHEX$$protection du fichier Word sur disque.
+//* Libellé       : Application des droits de modication au courrier génération.
+//*					  Se traduit une protection/déprotection du fichier Word sur disque.
 //* Commentaires  : DCMP 040020 SVE
 //*
 //* Arguments     : Integer		aiInter			Val
 //*					  String			asNomFic			Val
 //*
-//* Retourne      : Integer		1 : Tout s'est pass$$HEX1$$e900$$ENDHEX$$
-//*									  -1 : Probl$$HEX1$$e800$$ENDHEX$$me
+//* Retourne      : Integer		1 : Tout s'est passé
+//*									  -1 : Problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ   PAR      Date	     Modification
@@ -1854,9 +1874,9 @@ Integer iTotDroitInter, iDroit, iRet
 iTotDroitInter = UpperBound ( iiDroitInter )
 
 /*------------------------------------------------------------------*/
-/* DCMP 040020 SVE : Utilisation du tableau d$$HEX1$$e900$$ENDHEX$$finissant les         */
+/* DCMP 040020 SVE : Utilisation du tableau définissant les         */
 /* droits de modification des courriers automatique.                */
-/* On utilise le tableau que s'il a $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$inscrit.						  */
+/* On utilise le tableau que s'il a été inscrit.						  */
 /*------------------------------------------------------------------*/
 iRet = 1
 
@@ -1878,7 +1898,7 @@ If iDroit = 1 Then
 ElseIf iDroit = -1 Then
 	iRet = invWin.uf_SetFileAttributes ( asNomFic, 1 )
 /*------------------------------------------------------------------*/
-/* Par d$$HEX1$$e900$$ENDHEX$$faut le gestionnaire peut modifier le courrier.            */
+/* Par défaut le gestionnaire peut modifier le courrier.            */
 /*------------------------------------------------------------------*/
 Else 
 	iRet = invWin.uf_SetFileAttributes ( asNomFic, 0 )
@@ -1893,13 +1913,13 @@ public function integer uf_inscrire_dteedition_document_2 (string asdteedit);//*
 //* Fonction		: N_Cst_Edition_Courrier::uf_Inscrire_DteEdition_Document_2 (PUBLIC)
 //* Auteur			: Fabry JF
 //* Date				: 28/04/2004 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va inscrire la date d'$$HEX1$$e900$$ENDHEX$$dition (pour un courrier existant sur disque (pas de fusion)) dans le fichier INI.
+//* Libellé			: 
+//* Commentaires	: On va inscrire la date d'édition (pour un courrier existant sur disque (pas de fusion)) dans le fichier INI.
 //*
-//*					  (Val)		String	asDteEdit			Date d'$$HEX1$$e900$$ENDHEX$$dition d'origine
+//*					  (Val)		String	asDteEdit			Date d'édition d'origine
 //*
 //* Retourne		: Integer						 1 = Tout est OK
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -1909,7 +1929,7 @@ public function integer uf_inscrire_dteedition_document_2 (string asdteedit);//*
 String sSection, sCle, sText
 
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire la date d'$$HEX1$$e900$$ENDHEX$$dition dans le fichier INI. */
+/* On va maintenant inscrire la date d'édition dans le fichier INI. */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "DTE_EDIT_DOCUMENT"
@@ -1928,13 +1948,13 @@ public function integer uf_fermerdocument_2 ();//*------------------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_FermerDocument_2 (PUBLIC)
 //* Auteur			: Fabry JF
 //* Date				: 28//2000 11:08:25
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On ferme le document en cours de traitement, pour un fichier pr$$HEX1$$e900$$ENDHEX$$sent sur Disque
+//* Libellé			: 
+//* Commentaires	: On ferme le document en cours de traitement, pour un fichier présent sur Disque
 //*
 //* Arguments		: Aucun
 //*
 //* Retourne		: Integer						 1 = Tout est OK
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-2 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -1960,7 +1980,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, sText ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On remet le pointeur sur le nom du fichier $$HEX2$$e0002000$$ENDHEX$$NULL.               */
+/* On remet le pointeur sur le nom du fichier à NULL.               */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "NOMFICH"
@@ -1975,15 +1995,15 @@ End If
 ilNbDocument --
 
 /*------------------------------------------------------------------*/
-/* S'il s'agit du dernier document du courrier, on enl$$HEX1$$e900$$ENDHEX$$ve les       */
-/* param$$HEX1$$e800$$ENDHEX$$tres particuliers que l'on peut positionner dans le        */
+/* S'il s'agit du dernier document du courrier, on enléve les       */
+/* paramètres particuliers que l'on peut positionner dans le        */
 /* fichier INI.                                                     */
 /*------------------------------------------------------------------*/
 If	ilNbDocument = 0	Then
 	sCourrierSauve	= ProfileString ( isFicCourrierIni, "COURRIER", "FIC_SAUVE", "" )
 	If	sCourrierSauve <> ""	Then
 /*------------------------------------------------------------------*/
-/* Il peut exister plusieurs fichiers (en fonction du param$$HEX1$$e800$$ENDHEX$$tre     */
+/* Il peut exister plusieurs fichiers (en fonction du paramètre     */
 /* TYPE_SAUVE).                                                     */
 /*------------------------------------------------------------------*/
 		sTypeSauve = ProfileString ( isFicCourrierIni, "COURRIER", "TYPE_SAUVE", "" )
@@ -2036,15 +2056,15 @@ public function integer uf_inscrireparammisesouspli (string asmsp_chrono, string
 //* Fonction		: N_Cst_Edition_Courrier::uf_InscrireParamMiseSousPli		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 04/09/2006 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va inscrire certains param$$HEX1$$e800$$ENDHEX$$tres pour le courrier
-//*					  Ces param$$HEX1$$e800$$ENDHEX$$tres sont en rapport avec la mise sous pli (Nouvelle m$$HEX1$$e900$$ENDHEX$$thode)
+//* Libellé			: 
+//* Commentaires	: On va inscrire certains paramètres pour le courrier
+//*					  Ces paramètres sont en rapport avec la mise sous pli (Nouvelle méthode)
 //*
-//* Arguments		: (Val)		String	asMsp_Chrono		N$$HEX2$$b0002000$$ENDHEX$$Chrono de mise sous pli (Applicatif,Programme,ID_DOC_EDT)
-//*					  (Val)		String	asMsp_Compteur		D$$HEX1$$e900$$ENDHEX$$but du compteur de page. (Code de contr$$HEX1$$f400$$ENDHEX$$le)
+//* Arguments		: (Val)		String	asMsp_Chrono		N° Chrono de mise sous pli (Applicatif,Programme,ID_DOC_EDT)
+//*					  (Val)		String	asMsp_Compteur		Début du compteur de page. (Code de contrôle)
 //*
 //* Retourne		: Integer						 1 = Tout est OK
-//*														-1 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-1 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -2053,9 +2073,9 @@ public function integer uf_inscrireparammisesouspli (string asmsp_chrono, string
 
 String sSection, sCle, sText
 /*------------------------------------------------------------------*/
-/* On positionne un param$$HEX1$$e800$$ENDHEX$$tre pour le N$$HEX2$$b0002000$$ENDHEX$$Chrono. Ce N$$HEX2$$b0002000$$ENDHEX$$est compos$$HEX3$$e90020002000$$ENDHEX$$*/
+/* On positionne un paramètre pour le N° Chrono. Ce N° est composé  */
 /* d'un code Applicatif, d'un code programme et d'un compteur de    */
-/* document. (Zone ID_DOC_EDT de ARCHIVE en g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ral).               */
+/* document. (Zone ID_DOC_EDT de ARCHIVE en général).               */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "MSP_CHRONO"
@@ -2064,8 +2084,8 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asMsp_Chrono ) < 1	Then
 	Return ( -2 )
 End If
 /*------------------------------------------------------------------*/
-/* Si le compteur de page pour le contr$$HEX1$$f400$$ENDHEX$$le n'est pas arm$$HEX1$$e900$$ENDHEX$$, on       */
-/* l'arme par d$$HEX1$$e900$$ENDHEX$$faut $$HEX2$$e0002000$$ENDHEX$$1.                                           */
+/* Si le compteur de page pour le contrôle n'est pas armé, on       */
+/* l'arme par défaut à 1.                                           */
 /*------------------------------------------------------------------*/
 If	IsNull ( asMsp_Compteur ) Or Len ( Trim ( asMsp_Compteur ) ) = 0	Then asMsp_Compteur = "0"
 
@@ -2082,14 +2102,14 @@ public function integer uf_recupererparammisesouspli ();//*---------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_RecupererParamMiseSousPli		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 04/09/2006 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer le nombre de pages qui viennent d'$$HEX1$$ea00$$ENDHEX$$tre mises sous pli
-//*					  Ces param$$HEX1$$e800$$ENDHEX$$tres sont en rapport avec la mise sous pli (Nouvelle m$$HEX1$$e900$$ENDHEX$$thode)
+//* Libellé			: 
+//* Commentaires	: On va récupérer le nombre de pages qui viennent d'être mises sous pli
+//*					  Ces paramètres sont en rapport avec la mise sous pli (Nouvelle méthode)
 //*
 //* Arguments		: Aucun
 //*
-//* Retourne		: Integer						 ? = Nombre de pages [0 $$HEX2$$e0002000$$ENDHEX$$N]
-//*														-1 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//* Retourne		: Integer						 ? = Nombre de pages [0 à N]
+//*														-1 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
@@ -2099,8 +2119,8 @@ public function integer uf_recupererparammisesouspli ();//*---------------------
 /*------------------------------------------------------------------*/
 /* La macro de MiseSousPli(NouvelleMethode) positionne une valeur   */
 /* dans le fichier isFicCourrierIni, Section=PAGE,                  */
-/* Cl$$HEX1$$e900$$ENDHEX$$=NbPageMiseSousPli. Cette valeur correspond au nombre de      */
-/* pages du courrier qui vient d'$$HEX1$$ea00$$ENDHEX$$tre trait$$HEX1$$e900$$ENDHEX$$.                       */
+/* Clé=NbPageMiseSousPli. Cette valeur correspond au nombre de      */
+/* pages du courrier qui vient d'être traité.                       */
 /*------------------------------------------------------------------*/
 String sSection, sCle, sNbPage, sNull
 Integer iNbPage
@@ -2116,7 +2136,7 @@ Else
 	iNbPage = Integer ( sNbPage )
 End If
 /*------------------------------------------------------------------*/
-/* On supprime la cl$$HEX2$$e9002000$$ENDHEX$$du fichier INI pour ne pas perturber la       */
+/* On supprime la clé du fichier INI pour ne pas perturber la       */
 /* suite des traitements.                                           */
 /*------------------------------------------------------------------*/
 If	invWin.uf_SetProfileString ( isFicCourrierIni, sSection, sCle, sNull ) < 1	Then
@@ -2131,21 +2151,21 @@ public function integer uf_inscrireparamcourrier2 (string ascourriersauve, strin
 //* Fonction		: N_Cst_Edition_Courrier::uf_InscrireParamCourrier2			(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Reprise de uf_InscrireParamCourrier, pour [DNTMAIL1-2]
-//* Commentaires	: On va inscrire certains param$$HEX1$$e800$$ENDHEX$$tres pour le courrier
+//* Libellé			: Reprise de uf_InscrireParamCourrier, pour [DNTMAIL1-2]
+//* Commentaires	: On va inscrire certains paramètres pour le courrier
 //*
-//* Arguments		: (Val)		String	asCourrierSauve	Nom du fichier $$HEX2$$e0002000$$ENDHEX$$sauvegarder
+//* Arguments		: (Val)		String	asCourrierSauve	Nom du fichier à sauvegarder
 //*					  (Val)		String	asTypeSauve			Type de sauvegarde (DOC-HTM)
 //*					  (Val)		String	asEdition			Doit-on editer le courrier ?
 //*					  (Val)		String	asMiseSousPli		Doit-on positionner les marques de Mise Sous Pli ?
 //*					  (Val)		String	asId_Canal			Indique le Canal ( CO=Courrier, MA=Mail )
 //*
 //* Retourne		: Integer						 1 = Tout est OK
-//*														-1 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-1 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
-//* #1		 JFF	  16/01/04 DCMP 030483 : Gestion des diff$$HEX1$$e900$$ENDHEX$$rent mod$$HEX1$$e800$$ENDHEX$$le
+//* #1		 JFF	  16/01/04 DCMP 030483 : Gestion des différent modèle
 //* #2		 PHG	  31/10/06 [DNTMAIL1-2] Surcharge de la fonction en 
 //*								  uf_InscrireParamCourrier2
 //*-----------------------------------------------------------------
@@ -2153,8 +2173,8 @@ public function integer uf_inscrireparamcourrier2 (string ascourriersauve, strin
 String sSection, sCle, sText
 String sRepPara	// #2 [DNTMAIL1-2]
 /*------------------------------------------------------------------*/
-/* On positionne un param$$HEX1$$e800$$ENDHEX$$tre pour expliquer si l'on veut           */
-/* sauvegarder le courrier g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$dans un r$$HEX1$$e900$$ENDHEX$$pertoire.               */
+/* On positionne un paramètre pour expliquer si l'on veut           */
+/* sauvegarder le courrier généré dans un répertoire.               */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "FIC_SAUVE"
@@ -2163,12 +2183,12 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asCourrierSauve ) < 1	Th
 	Return ( -2 )
 End If
 /*------------------------------------------------------------------*/
-/* On positionne le param$$HEX1$$e800$$ENDHEX$$tre qui indique le(s) type(s) de          */
+/* On positionne le paramètre qui indique le(s) type(s) de          */
 /* sauvegarde(s). (Ex: DOC->Sauvegarde d'un fichier                 */
 /* asCourrierSauve.DOC) (Ex:DOC-HTM->Sauvegarde d'un fichier        */
 /* asCourrierSauve.DOC et d'un fichier asCourrierSauve.HTM)         */
 /*------------------------------------------------------------------*/
-/* Le param$$HEX1$$e800$$ENDHEX$$tre est en correspondance avec les valeurs de           */
+/* Le paramètre est en correspondance avec les valeurs de           */
 /* sauvegarde pour les documents WORD. (0=DOC, 1=TXT)               */
 /*------------------------------------------------------------------*/
 sCle		= "TYPE_SAUVE"
@@ -2177,7 +2197,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asTypeSauve ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On positionne le param$$HEX1$$e800$$ENDHEX$$tre expliquant si l'on veut $$HEX1$$e900$$ENDHEX$$diter le     */
+/* On positionne le paramètre expliquant si l'on veut éditer le     */
 /* courrier.                                                        */
 /*------------------------------------------------------------------*/
 sCle = "EDITION"
@@ -2186,7 +2206,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asEdition ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On positionne le param$$HEX1$$e800$$ENDHEX$$tre expliquant si l'on veut mettre les    */
+/* On positionne le paramètre expliquant si l'on veut mettre les    */
 /* marques de mise sous pli.                                        */
 /*------------------------------------------------------------------*/
 sCle = "MISE SOUS PLI"
@@ -2195,8 +2215,8 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asMiseSousPli ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On positionne le param$$HEX1$$e800$$ENDHEX$$tre expliquant quelle est la cl$$HEX11$$e9002000e00020002000200020002000200020002000$$ENDHEX$$*/
-/* utiliser pour la macro. Par d$$HEX1$$e900$$ENDHEX$$faut, cette cl$$HEX2$$e9002000$$ENDHEX$$est initialis$$HEX1$$e900$$ENDHEX$$e    */
+/* On positionne le paramètre expliquant quelle est la clé à        */
+/* utiliser pour la macro. Par défaut, cette clé est initialisée    */
 /* avec CLE_EDITION=EDITION. On peut utiliser la fonction           */
 /* uf_cle_edition_fichierini pour changer cette valeur.             */
 /*------------------------------------------------------------------*/
@@ -2206,7 +2226,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, "EDITION" ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* #1 : On positionne le nom du modele $$HEX2$$e0002000$$ENDHEX$$utiliser pour ce courrier. */
+/* #1 : On positionne le nom du modele à utiliser pour ce courrier. */
 /*------------------------------------------------------------------*/
 sCle = "MODELE"
 If	SetProfileString ( isFicCourrierIni, sSection, sCle, isModele ) < 1	Then
@@ -2215,7 +2235,7 @@ End If
 
 /*------------------------------------------------------------------*/
 /*  #2 [DNTMAIL1-2] PHG 31/10/2006                                  */
-/*  Choix du r$$HEX1$$e900$$ENDHEX$$pertoire ou l'on va lire le courrier suivant le      */
+/*  Choix du répertoire ou l'on va lire le courrier suivant le      */
 /* canal                                                            */
 /*------------------------------------------------------------------*/
 choose case asId_Canal
@@ -2239,22 +2259,22 @@ public function integer uf_inscrirebac (long aliddocument, string asbac, n_cst_p
 //* Fonction		: N_Cst_Edition_Courrier::uf_InscrireBac		(PUBLIC)
 //* Auteur			: Erick John Stark/PHG
 //* Date				: 24/03/2000 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On va inscrire le bac dans le fichier INI
 //*
-//* Arguments		: (Val)		Long		alIdDocument		ID du document $$HEX2$$e0002000$$ENDHEX$$traiter
-//*					  (Val)		String	asBac					Bac $$HEX2$$e0002000$$ENDHEX$$utiliser
-//*					  (Val)		n_cst_printer_descriptor	Descripteur de l'imprimante $$HEX2$$e0002000$$ENDHEX$$utiliser
+//* Arguments		: (Val)		Long		alIdDocument		ID du document à traiter
+//*					  (Val)		String	asBac					Bac à utiliser
+//*					  (Val)		n_cst_printer_descriptor	Descripteur de l'imprimante à utiliser
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
-//*														-3 = Le descripteur d'imprimante n'a pas $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$instanci$$HEX1$$e900$$ENDHEX$$.
+//*														-2 = La mise à jour du fichier INI vient d'échouer
+//*														-3 = Le descripteur d'imprimante n'a pas été instancié.
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  		Modification
 //* #1		 PHG		13/05/2008	Surchage de la fonction pour utiliser 
-//* 										un descripteur d'imprimante au lieu d'un type d'imprimante pass$$HEX2$$e9002000$$ENDHEX$$en parametre.
+//* 										un descripteur d'imprimante au lieu d'un type d'imprimante passé en parametre.
 //*										Cette version permet d'utiliser le Descripteur d'imprimante de son choix
 //*          JFF     11/10/2023  [RS5643_BAC0]
 //*-----------------------------------------------------------------
@@ -2267,21 +2287,21 @@ bSIMPA2 = Left ( Upper(SQLCA.Database), 5) = "SIMPA"  // [RS5643_BAC0]
 iRS5643_BAC0 = 0
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie d'abord si l'ID est correct.                          */
+/* On vérifie d'abord si l'ID est correct.                          */
 /*------------------------------------------------------------------*/
 If	Not uf_VerifierIdDocument ( alIdDocument )	Then
 	Return ( -1 )
 End If
 
 /*------------------------------------------------------------------*/
-/* On va maintenant inscrire le bac $$HEX2$$e0002000$$ENDHEX$$utiliser dans le fichier INI. */
+/* On va maintenant inscrire le bac à utiliser dans le fichier INI. */
 /*------------------------------------------------------------------*/
 sSection = isIdDocument[ alIdDocument ]
 sCle		= "BAC"
 //#1 [SUPPORT_MFP]
 /*------------------------------------------------------------------*/
-/* On utilise le descritpeur d'imprimante instanci$$HEX2$$e9002000$$ENDHEX$$dans le         */
-/* constructeur pour d$$HEX1$$e900$$ENDHEX$$terminer le code Bac a mettre dans le Word   */
+/* On utilise le descritpeur d'imprimante instancié dans le         */
+/* constructeur pour déterminer le code Bac a mettre dans le Word   */
 /*------------------------------------------------------------------*/
 if Not isvalid(anv_Printer) Then Return -3
 sText = string(anv_Printer.uf_GetBac(asBac) )
@@ -2296,7 +2316,7 @@ If bSIMPA2 Then
 	
 	If IsNull ( iRS5643_BAC0 ) Then iRS5643_BAC0 = 0
 	
-	If iRS5643_BAC0 > 0 Then sText = "0"  // On force le bac $$HEX2$$e0002000$$ENDHEX$$0 dans tous les cas
+	If iRS5643_BAC0 > 0 Then sText = "0"  // On force le bac à 0 dans tous les cas
 	
 End If
 
@@ -2314,22 +2334,22 @@ public function integer uf_inscrirebac (long aliddocument, string asbac);//*----
 //* Fonction		: N_Cst_Edition_Courrier::uf_InscrireBac		(PUBLIC)
 //* Auteur			: Erick John Stark/PHG
 //* Date				: 24/03/2000 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On va inscrire le bac dans le fichier INI
 //*
-//* Arguments		: (Val)		Long		alIdDocument		ID du document $$HEX2$$e0002000$$ENDHEX$$traiter
-//*					  (Val)		String	asBac					Bac $$HEX2$$e0002000$$ENDHEX$$utiliser
+//* Arguments		: (Val)		Long		alIdDocument		ID du document à traiter
+//*					  (Val)		String	asBac					Bac à utiliser
 //*
 //* Retourne		: Integer						 1 = Tout est OK
 //*														-1 = L'Id du document n'existe pas
-//*														-2 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
-//*														-3 = Le descripteur d'imprimante n'a pas $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$instanci$$HEX1$$e900$$ENDHEX$$.
+//*														-2 = La mise à jour du fichier INI vient d'échouer
+//*														-3 = Le descripteur d'imprimante n'a pas été instancié.
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  		Modification
 //* #1		 PHG		13/05/2008	Surchage de la fonction pour utiliser 
-//* 										un descripteur d'imprimante au lieu d'un type d'imprimante pass$$HEX2$$e9002000$$ENDHEX$$en parametre.
-//*										Prends le descripteur par defaut instanci$$HEX2$$e9002000$$ENDHEX$$dans n_cst_edition_courrier
+//* 										un descripteur d'imprimante au lieu d'un type d'imprimante passé en parametre.
+//*										Prends le descripteur par defaut instancié dans n_cst_edition_courrier
 //*-----------------------------------------------------------------
 
 return uf_InscrireBac( aliddocument, asbac, invPrinter)
@@ -2340,10 +2360,10 @@ public function integer uf_inscrireparamcourrier (string ascourriersauve, string
 //* Fonction		: N_Cst_Edition_Courrier::uf_InscrireParamCourrier2			(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 24/03/2000 10:35:14
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Reprise de uf_InscrireParamCourrier, pour [DNTMAIL1-2]
-//* Commentaires	: On va inscrire certains param$$HEX1$$e800$$ENDHEX$$tres pour le courrier
+//* Libellé			: Reprise de uf_InscrireParamCourrier, pour [DNTMAIL1-2]
+//* Commentaires	: On va inscrire certains paramètres pour le courrier
 //*
-//* Arguments		: (Val)		String	asCourrierSauve	Nom du fichier $$HEX2$$e0002000$$ENDHEX$$sauvegarder
+//* Arguments		: (Val)		String	asCourrierSauve	Nom du fichier à sauvegarder
 //*					  (Val)		String	asTypeSauve			Type de sauvegarde (DOC-HTM)
 //*					  (Val)		String	asEdition			Doit-on editer le courrier ?
 //*					  (Val)		String	asMiseSousPli		Doit-on positionner les marques de Mise Sous Pli ?
@@ -2351,11 +2371,11 @@ public function integer uf_inscrireparamcourrier (string ascourriersauve, string
 //*					  (Val)		String	asId_Lang			Code Langue
 //*
 //* Retourne		: Integer						 1 = Tout est OK
-//*														-1 = La mise $$HEX2$$e0002000$$ENDHEX$$jour du fichier INI vient d'$$HEX1$$e900$$ENDHEX$$chouer
+//*														-1 = La mise à jour du fichier INI vient d'échouer
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	  Modification
-//* #1		 JFF	  16/01/04 DCMP 030483 : Gestion des diff$$HEX1$$e900$$ENDHEX$$rent mod$$HEX1$$e800$$ENDHEX$$le
+//* #1		 JFF	  16/01/04 DCMP 030483 : Gestion des différent modèle
 //* #2		 PHG	  31/10/06 [DNTMAIL1-2] Surcharge de la fonction en 
 //*								  uf_InscrireParamCourrier2
 //* #3		 PHG	  02/07/08 [SUISSE].ID_LANG Surcharge, au sens object,
@@ -2366,8 +2386,8 @@ String sSection, sCle, sText
 String sRepPara	// #2 [DNTMAIL1-2]
 
 /*------------------------------------------------------------------*/
-/* On positionne un param$$HEX1$$e800$$ENDHEX$$tre pour expliquer si l'on veut           */
-/* sauvegarder le courrier g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$dans un r$$HEX1$$e900$$ENDHEX$$pertoire.               */
+/* On positionne un paramètre pour expliquer si l'on veut           */
+/* sauvegarder le courrier généré dans un répertoire.               */
 /*------------------------------------------------------------------*/
 sSection = "COURRIER"
 sCle		= "FIC_SAUVE"
@@ -2377,12 +2397,12 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asCourrierSauve ) < 1	Th
 End If
 
 /*------------------------------------------------------------------*/
-/* On positionne le param$$HEX1$$e800$$ENDHEX$$tre qui indique le(s) type(s) de          */
+/* On positionne le paramètre qui indique le(s) type(s) de          */
 /* sauvegarde(s). (Ex: DOC->Sauvegarde d'un fichier                 */
 /* asCourrierSauve.DOC) (Ex:DOC-HTM->Sauvegarde d'un fichier        */
 /* asCourrierSauve.DOC et d'un fichier asCourrierSauve.HTM)         */
 /*------------------------------------------------------------------*/
-/* Le param$$HEX1$$e800$$ENDHEX$$tre est en correspondance avec les valeurs de           */
+/* Le paramètre est en correspondance avec les valeurs de           */
 /* sauvegarde pour les documents WORD. (0=DOC, 1=TXT)               */
 /*------------------------------------------------------------------*/
 sCle		= "TYPE_SAUVE"
@@ -2391,7 +2411,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asTypeSauve ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On positionne le param$$HEX1$$e800$$ENDHEX$$tre expliquant si l'on veut $$HEX1$$e900$$ENDHEX$$diter le     */
+/* On positionne le paramètre expliquant si l'on veut éditer le     */
 /* courrier.                                                        */
 /*------------------------------------------------------------------*/
 sCle = "EDITION"
@@ -2400,7 +2420,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asEdition ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On positionne le param$$HEX1$$e800$$ENDHEX$$tre expliquant si l'on veut mettre les    */
+/* On positionne le paramètre expliquant si l'on veut mettre les    */
 /* marques de mise sous pli.                                        */
 /*------------------------------------------------------------------*/
 sCle = "MISE SOUS PLI"
@@ -2409,8 +2429,8 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, asMiseSousPli ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On positionne le param$$HEX1$$e800$$ENDHEX$$tre expliquant quelle est la cl$$HEX11$$e9002000e00020002000200020002000200020002000$$ENDHEX$$*/
-/* utiliser pour la macro. Par d$$HEX1$$e900$$ENDHEX$$faut, cette cl$$HEX2$$e9002000$$ENDHEX$$est initialis$$HEX1$$e900$$ENDHEX$$e    */
+/* On positionne le paramètre expliquant quelle est la clé à        */
+/* utiliser pour la macro. Par défaut, cette clé est initialisée    */
 /* avec CLE_EDITION=EDITION. On peut utiliser la fonction           */
 /* uf_cle_edition_fichierini pour changer cette valeur.             */
 /*------------------------------------------------------------------*/
@@ -2420,7 +2440,7 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, "EDITION" ) < 1	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* #1 : On positionne le nom du modele $$HEX2$$e0002000$$ENDHEX$$utiliser pour ce courrier. */
+/* #1 : On positionne le nom du modele à utiliser pour ce courrier. */
 /*------------------------------------------------------------------*/
 sCle = "MODELE"
 If	SetProfileString ( isFicCourrierIni, sSection, sCle, isModele ) < 1	Then
@@ -2429,11 +2449,11 @@ End If
 
 /*------------------------------------------------------------------*/
 /*  #2 [DNTMAIL1-2] PHG 31/10/2006                                  */
-/*  Choix du r$$HEX1$$e900$$ENDHEX$$pertoire ou l'on va lire le courrier suivant le      */
+/*  Choix du répertoire ou l'on va lire le courrier suivant le      */
 /* canal                                                            */
 /*------------------------------------------------------------------*/
-/*  #3 [SUISSE].ID_LANG On ajoute un cle INI pour sp$$HEX1$$e900$$ENDHEX$$cifier l'Id_lang */
-/*  afin que la macro word puisse choisir le r$$HEX1$$e900$$ENDHEX$$pertoire correspondant $$HEX2$$e0002000$$ENDHEX$$la langue. */
+/*  #3 [SUISSE].ID_LANG On ajoute un cle INI pour spécifier l'Id_lang */
+/*  afin que la macro word puisse choisir le répertoire correspondant à la langue. */
 
 choose case asId_Canal
 	case k_canal_mail
@@ -2447,8 +2467,8 @@ If	SetProfileString ( isFicCourrierIni, sSection, sCle, sRepPara ) < 1	Then
 End If
 //
 
-/*  #3 [SUISSE].ID_LANG On ajoute un cle INI pour sp$$HEX1$$e900$$ENDHEX$$cifier l'Id_lang */
-/*  afin que la macro word puisse choisir le r$$HEX1$$e900$$ENDHEX$$pertoire correspondant $$HEX2$$e0002000$$ENDHEX$$la langue. */
+/*  #3 [SUISSE].ID_LANG On ajoute un cle INI pour spécifier l'Id_lang */
+/*  afin que la macro word puisse choisir le répertoire correspondant à la langue. */
 sCle = "ID_LANG"
 If	SetProfileString ( isFicCourrierIni, sSection, sCle, asid_lang ) < 1	Then
 	Return ( -2 )
@@ -2465,13 +2485,13 @@ public function integer uf_setidsin (string asidsin);//*------------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_setIdSin	(PUBLIC)
 //* Auteur			: FPI
 //* Date				: 08/03/2010
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: [EDT_NBPAGES]
+//* Libellé			: [EDT_NBPAGES]
 //* Commentaires	: On initialise la var d'instance ID_SIN
 //*
 //* Arguments		: (Val)		String		asidsin
 //*
 //* Retourne		: Integer				 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -2499,16 +2519,16 @@ public subroutine uf_trace (s_glb astglb, string asdescription);
 //* Fonction		:	uf_trace
 //* Auteur			:	LBP
 //* Date				:	21/05/10
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	
+//* Libellé			:	
 //* Commentaires	:	Ecrit la trace d'une impression globale.
 //*
 //* Arguments		:	s_Glb		astGlb				( Val ) 	Desc globale de l'appli
-//*						String		asDescription	( Val )	Description de l'erreur rencontr$$HEX1$$e900$$ENDHEX$$e
+//*						String		asDescription	( Val )	Description de l'erreur rencontrée
 //*
 //* Retourne		:	Rien
 //*
 //*-----------------------------------------------------------------
-//* N$$HEX2$$b0002000$$ENDHEX$$Modif          Re$$HEX1$$e700$$ENDHEX$$ue Le          Effectu$$HEX1$$e900$$ENDHEX$$e Le          PAR
+//* N° Modif          Reçue Le          Effectuée Le          PAR
 //*
 //* 1                        					  21/05/10				LBP
 //*
@@ -2543,24 +2563,24 @@ public function integer uf_generer_courrier (ref datawindow adwgencourrier, bool
 //* Fonction		: N_Cst_Generation_Courrier::uf_Generer_Courrier		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 17:37:48
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer tous les courriers contenu dans le N_DS.
+//* Libellé			: 
+//* Commentaires	: On va générer tous les courriers contenu dans le N_DS.
 //*
-//* Arguments		: (R$$HEX1$$e900$$ENDHEX$$f)		DataWindow	adwGenCourrier			DataWindow contenant les informations
-//*					  (Val)		Boolean			abVisualiserCourrier		Faut-il visualiser les courriers $$HEX2$$e0002000$$ENDHEX$$la fin de la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration ?
-//*					  (Val)		Boolean			abcountpages				Faut-il compter les pages $$HEX2$$e0002000$$ENDHEX$$la fin de la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration ?
+//* Arguments		: (Réf)		DataWindow	adwGenCourrier			DataWindow contenant les informations
+//*					  (Val)		Boolean			abVisualiserCourrier		Faut-il visualiser les courriers à la fin de la génération ?
+//*					  (Val)		Boolean			abcountpages				Faut-il compter les pages à la fin de la génération ?
 //*
 //* Retourne		: Integer					 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ     PAR      Date	  		Modification
-//* #1		DGA		11/05/2001	Ajout du param$$HEX1$$e800$$ENDHEX$$tre abVisualiserCourrier
+//* #1		DGA		11/05/2001	Ajout du paramètre abVisualiserCourrier
 //* #2		JFF		29/03/2004  DCMP 040020 SVE Gestion des droits de modifications des courriers.
-//* #3 		DGA      19/09/2006  Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
-//* #4		PHG		02/11/2006  [DNTMAIL1-2] Selection du r$$HEX1$$e900$$ENDHEX$$pertoire de paragraphe en fonction du canal
+//* #3 		DGA      19/09/2006  Gestion d'un répertoire temporaire DCMP-060643
+//* #4		PHG		02/11/2006  [DNTMAIL1-2] Selection du répertoire de paragraphe en fonction du canal
 //* #5		PHG		02/06/2008	[SUISSE].ID_LANG	Gestion, en edition uniquement, de la selection de la langue.
-//* #6         LBP        21/05/2010 [COMPTAGE_PAGES] Ajout d'un param$$HEX1$$e800$$ENDHEX$$tre pour sp$$HEX1$$e900$$ENDHEX$$cifier si la fonction lance le comptage des page
+//* #6         LBP        21/05/2010 [COMPTAGE_PAGES] Ajout d'un paramètre pour spécifier si la fonction lance le comptage des page
 //          JFF      26/04/2023  [RS5045_REF_MATP]
 //*-----------------------------------------------------------------
 
@@ -2614,12 +2634,12 @@ iRet			= 1
 
 
 /*------------------------------------------------------------------*/
-/* Il n'y a aucun courrier $$HEX2$$e0002000$$ENDHEX$$g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer, on s'arr$$HEX1$$ea00$$ENDHEX$$te.                  */
+/* Il n'y a aucun courrier à générer, on s'arrête.                  */
 /*------------------------------------------------------------------*/
 If	lTotLigne <= 0	Then Return ( -1 )
 /*------------------------------------------------------------------*/
 /* On va filtrer la DW pour savoir combient d'interlocuteur         */
-/* diff$$HEX1$$e900$$ENDHEX$$rent doivent recevoir un courrier.                          */
+/* différent doivent recevoir un courrier.                          */
 /*------------------------------------------------------------------*/
 sTri		= "ID_SIN A, ID_INTER A, ID_SEQ A"
 sFiltre	= "GetRow () = 1 Or ( GetRow () > 1 And ( ID_INTER <> ID_INTER[-1] ) )"
@@ -2632,7 +2652,7 @@ For	lCpt = 1 To lTotInter
 		lInter [ lCpt ] = adwGenCourrier.GetItemNumber ( lCpt, "ID_INTER" )
 Next
 /*------------------------------------------------------------------*/
-/* On enl$$HEX1$$e900$$ENDHEX$$ve le filtre et on tri la DW par ID_SIN, ID_INTER et      */
+/* On enléve le filtre et on tri la DW par ID_SIN, ID_INTER et      */
 /* ID_SEQ.                                                          */
 /*------------------------------------------------------------------*/
 sFiltre = ""
@@ -2641,8 +2661,8 @@ ll_ret = adwGenCourrier.Filter ()
 ll_ret = adwGenCourrier.Sort ()
 
 /*------------------------------------------------------------------*/
-/* On positionne en variable le nom du r$$HEX1$$e900$$ENDHEX$$pertoire qui contient les  */
-/* fichiers WORD et les mod$$HEX1$$e900$$ENDHEX$$les.                                    */
+/* On positionne en variable le nom du répertoire qui contient les  */
+/* fichiers WORD et les modéles.                                    */
 /*------------------------------------------------------------------*/
 sFicIniApp			= stGLB.sFichierIni
 sRepCourrier		= ProfileString ( sFicIniApp, "EDITION", "REP_COURRIER", "" )
@@ -2661,7 +2681,7 @@ For	lCpt = 1 To lTotInter
 		ll_ret = adwGenCourrier.Sort ()
 		lTotDoc = adwGenCourrier.RowCount ()
 /*------------------------------------------------------------------*/
-/* La premi$$HEX1$$e800$$ENDHEX$$ere ligne du N_Ds que l'on vient de filtre contient le  */
+/* La premièere ligne du N_Ds que l'on vient de filtre contient le  */
 /* titre du courrier. (En correspondance avec ID_SEQ = 1).          */
 /*------------------------------------------------------------------*/
 		lIdSin	= adwGenCourrier.GetItemNumber ( 1, "ID_SIN" )
@@ -2671,9 +2691,9 @@ For	lCpt = 1 To lTotInter
 		
 /*------------------------------------------------------------------*/
 /* #4 [DNTMAIL1-2] PHG 02/11/2006                                   */
-/* On sp$$HEX1$$e900$$ENDHEX$$cifie le canal, afin que uf_inscrireParamcourrier2 puisse  */
+/* On spécifie le canal, afin que uf_inscrireParamcourrier2 puisse  */
 /* choisir                                                          */
-/* le r$$HEX1$$e900$$ENDHEX$$pertoire de paragraphe $$HEX2$$e0002000$$ENDHEX$$utiliser.                          */
+/* le répertoire de paragraphe à utiliser.                          */
 /*------------------------------------------------------------------*/
 		sId_Canal = adwGenCourrier.object.id_canal[1]
 		
@@ -2685,17 +2705,17 @@ For	lCpt = 1 To lTotInter
 		//
 
 /*------------------------------------------------------------------*/
-/* Le titre du document final n'est pas arm$$HEX1$$e900$$ENDHEX$$, on arr$$HEX1$$ea00$$ENDHEX$$te tout.       */
+/* Le titre du document final n'est pas armé, on arrête tout.       */
 /*------------------------------------------------------------------*/
 		If IsNull ( sTitre ) Or Len ( Trim ( sTitre ) ) = 0	Then Return ( -1 )
 /*------------------------------------------------------------------*/		
-/* Doit-on g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer un nouveau courrier, ou simplement ouvrir un     */
+/* Doit-on générer un nouveau courrier, ou simplement ouvrir un     */
 /* fichier sur disque.                                              */
 /*------------------------------------------------------------------*/
 		If	sAltGen = "N"	Then
 /*------------------------------------------------------------------*/  
 /* #3. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //			sFicTitre = stGLB.sWinDir + "\TEMP\" + sTitre
 			sFicTitre = stGLB.sRepTempo + sTitre
@@ -2708,13 +2728,13 @@ For	lCpt = 1 To lTotInter
 			sDocOuvert[ lCpt ] = '"' + sFicTitre + '"'
 		Else			
 /*------------------------------------------------------------------*/
-/* On s'occupe des param$$HEX1$$e800$$ENDHEX$$tres particuliers du courrier. Faut-il     */
-/* $$HEX1$$e900$$ENDHEX$$diter le courrier ?. Faut-il sauvegarder le courrier et sous    */
+/* On s'occupe des paramètres particuliers du courrier. Faut-il     */
+/* éditer le courrier ?. Faut-il sauvegarder le courrier et sous    */
 /* quel nom ?. Faut-il mettre les marques de mise sous pli ?.       */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/  
 /* #3. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //			sFicSauve 		= stGLB.sWinDir + "\TEMP\" + Left (String ( lIdSin ), 6 ) + String ( lIdInter, "00" )
 			// Modification pour RIS
@@ -2733,24 +2753,24 @@ For	lCpt = 1 To lTotInter
 
 /*------------------------------------------------------------------*/
 /* #4 [DNTMAIL1-2] PHG 02/11/2006                                   */
-/* On sp$$HEX1$$e900$$ENDHEX$$cifie le canal, afin que uf_inscrireParamcourrier puisse  */
+/* On spécifie le canal, afin que uf_inscrireParamcourrier puisse  */
 /* choisir                                                          */
-/* le r$$HEX1$$e900$$ENDHEX$$pertoire de paragraphe $$HEX2$$e0002000$$ENDHEX$$utiliser.                          */
+/* le répertoire de paragraphe à utiliser.                          */
 /*------------------------------------------------------------------*/
 //			This.uf_InscrireParamCourrier ( sFicSauve, K_TYPESAUVE, "N", "N" )
-// #5 [SUISSE].ID_LANG On utilise la derni$$HEX1$$e800$$ENDHEX$$re version de uf_InscrireParamCourrier, qui g$$HEX1$$e800$$ENDHEX$$re l'id_lang
+// #5 [SUISSE].ID_LANG On utilise la dernière version de uf_InscrireParamCourrier, qui gère l'id_lang
 //			This.uf_InscrireParamCourrier2 ( sFicSauve, K_TYPESAUVE, "N", "N", sId_Canal )
-// est remplac$$HEX2$$e9002000$$ENDHEX$$par :
+// est remplacé par :
 			This.uf_InscrireParamCourrier ( sFicSauve, K_TYPESAUVE, "N", "N", sId_Canal, sId_Lang )
 
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$initialise certaines variables.                             */
+/* On réinitialise certaines variables.                             */
 /*------------------------------------------------------------------*/
 			lIdDoc = lIdNull
 	
 			For	lCptDoc = 1 To lTotDoc
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re les informations servant $$HEX2$$e0002000$$ENDHEX$$g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer les documents.    */
+/* On récupére les informations servant à générer les documents.    */
 /*------------------------------------------------------------------*/
 					lIdSeq				= adwGenCourrier.GetItemNumber ( lCptDoc, "ID_SEQ" )
 					sIdCour				= adwGenCourrier.GetItemString ( lCptDoc, "ID_COUR" )
@@ -2759,30 +2779,30 @@ For	lCpt = 1 To lTotInter
 					sTxtCompo			= adwGenCourrier.GetItemString ( lCptDoc, "TXT_COMPO" )
 					sAltGestionPart	= adwGenCourrier.GetItemString ( lCptDoc, "ALT_GESTION_PART" )
 					sData					= adwGenCourrier.GetItemString ( lCptDoc, "TXT_DATA" )
-// [MIGPB11] [EMD] : Debut Migration : Forcer la cr$$HEX1$$e900$$ENDHEX$$ation de Blob en ANSI
+// [MIGPB11] [EMD] : Debut Migration : Forcer la création de Blob en ANSI
 					//blData				= Blob ( sData )
 					blData				= Blob ( sData, EncodingANSI! )
 // [MIGPB11] [EMD] : Fin Migration					
 
 					If IsNull ( sAltGestionPart )	Then sAltGestionPart = "N"
 /*------------------------------------------------------------------*/
-/* La composition est vide, on arr$$HEX1$$ea00$$ENDHEX$$te le processus.                 */
+/* La composition est vide, on arrête le processus.                 */
 /*------------------------------------------------------------------*/
 					If Len ( Trim ( sTxtCompo ) ) = 0 Then Return ( -1 )
 /*------------------------------------------------------------------*/
-/* Le blob est vide, on arr$$HEX1$$ea00$$ENDHEX$$te le processus.                        */
+/* Le blob est vide, on arrête le processus.                        */
 /*------------------------------------------------------------------*/
 					If	Len ( blData ) = 0 And sAltGestionPart = "N" Then Return ( -1 )
 /*------------------------------------------------------------------*/
-/* Normalement, le client doit armer le fichier d'ent$$HEX1$$ea00$$ENDHEX$$te que l'on   */
+/* Normalement, le client doit armer le fichier d'entête que l'on   */
 /* doit utiliser. Si ce n'est pas le cas, on utilise le fichier     */
-/* d'ent$$HEX1$$ea00$$ENDHEX$$te par d$$HEX1$$e900$$ENDHEX$$faut dur fichier INI.                             */
+/* d'entête par défaut dur fichier INI.                             */
 /*------------------------------------------------------------------*/
 					If IsNull ( sFicEntete ) Or Len ( Trim ( sFicEntete ) ) = 0	Then
 						sFicEntete = sFicEnteteDefaut
 					End If
 /*------------------------------------------------------------------*/
-/* On g$$HEX1$$e900$$ENDHEX$$re un bac par d$$HEX1$$e900$$ENDHEX$$faut si la valeur n'est pas renseign$$HEX1$$e900$$ENDHEX$$e.     */
+/* On gére un bac par défaut si la valeur n'est pas renseignée.     */
 /*------------------------------------------------------------------*/
 					If	IsNull ( sCodBac ) Or Len ( Trim ( sCodBac ) ) = 0	Then
 						sCodBac = "BAS"
@@ -2792,30 +2812,30 @@ For	lCpt = 1 To lTotInter
 /*------------------------------------------------------------------*/
 					lIdDoc[ lCptDoc ] = This.uf_OuvrirDocument ( sIdCour, sRepCourrier + sFicEntete )
 /*------------------------------------------------------------------*/
-/* On pr$$HEX1$$e900$$ENDHEX$$pare la composition du document.                           */
+/* On prépare la composition du document.                           */
 /*------------------------------------------------------------------*/
 					If	sAltGestionPart = "N"	Then
 						This.uf_InscrireComposition ( lIdDoc[ lCptDoc ], sTxtCompo )
 /*------------------------------------------------------------------*/
-/* On pr$$HEX1$$e900$$ENDHEX$$pare les variables pour le document.                       */
+/* On prépare les variables pour le document.                       */
 /*------------------------------------------------------------------*/
 						This.uf_GenererData ( lIdDoc[ lCptDoc ], blData )
 					Else
 ///*------------------------------------------------------------------*/
 /* Il s'agit d'un document particulier. La composition correspond   */
-/* au nom du courrier WORD $$HEX2$$e0002000$$ENDHEX$$ouvrir. Il n'y a pas de DATA donc pas  */
-/* de fusion $$HEX2$$e0002000$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$aliser.                                            */
+/* au nom du courrier WORD à ouvrir. Il n'y a pas de DATA donc pas  */
+/* de fusion à réaliser.                                            */
 /*------------------------------------------------------------------*/
 						This.uf_Inscrire_GestionParticuliere ( lIdDoc[ lCptDoc ], sTxtCompo )
 					End If
 /*------------------------------------------------------------------*/
-/* Pour le moment, on g$$HEX1$$e900$$ENDHEX$$re les imprimantes COMPAQ et XEROX.         */
+/* Pour le moment, on gére les imprimantes COMPAQ et XEROX.         */
 /*------------------------------------------------------------------*/
 //					This.uf_InscrireBac ( lIdDoc[ lCptDoc ], sCodBac, 1 )
 					This.uf_InscrireBac ( lIdDoc[ lCptDoc ], sCodBac ) // [SUPPORT_MFP]
 			Next
 /*------------------------------------------------------------------*/
-/* On peut g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer le courrier qui peut contenir plusieurs          */
+/* On peut générer le courrier qui peut contenir plusieurs          */
 /* documents.                                                       */
 /*------------------------------------------------------------------*/
 /* On utilise la macro STANDARD pour le moment.                     */
@@ -2830,23 +2850,23 @@ For	lCpt = 1 To lTotInter
 /*------------------------------------------------------------------*/
 			invWin.uf_EmptyClipBoard ()
 /*------------------------------------------------------------------*/
-/* L'impression se passe mal, on arr$$HEX1$$ea00$$ENDHEX$$te tout.                       */
+/* L'impression se passe mal, on arrête tout.                       */
 /*------------------------------------------------------------------*/
 			If	iRet < 1 Then Return ( -1 )
 /*------------------------------------------------------------------*/
-/* On renomme le courrier g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$re avec le titre que le client        */
+/* On renomme le courrier génére avec le titre que le client        */
 /* positionne.                                                      */
 /*------------------------------------------------------------------*/
 			sFicSauve = sFicSauve + ".DOC"
 /*------------------------------------------------------------------*/  
 /* #3. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //			sFicTitre = stGLB.sWinDir + "\TEMP\" + sTitre			
 			sFicTitre = stGLB.sRepTempo + sTitre
 /*------------------------------------------------------------------*/
-/* On d$$HEX1$$e900$$ENDHEX$$truit le fichier pr$$HEX1$$e900$$ENDHEX$$c$$HEX1$$e900$$ENDHEX$$dent s'il existe. Le script client    */
-/* doit logiquement s'en occuper mais je pr$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$re le faire aussi $$HEX4$$e000200020002000$$ENDHEX$$*/
+/* On détruit le fichier précédent s'il existe. Le script client    */
+/* doit logiquement s'en occuper mais je préfére le faire aussi à   */
 /* cet endroit. Sinon, le rename ne pourra jamais fonctionner.      */
 /*------------------------------------------------------------------*/
 
@@ -2864,7 +2884,7 @@ For	lCpt = 1 To lTotInter
 //Fin Migration PB8-WYNIWYG-03/2006 FM
 
 /*------------------------------------------------------------------*/
-/* On construit une cha$$HEX1$$ee00$$ENDHEX$$ne pour les documents $$HEX2$$e0002000$$ENDHEX$$ouvrir $$HEX2$$e0002000$$ENDHEX$$la fin du  */
+/* On construit une chaîne pour les documents à ouvrir à la fin du  */
 /* traitement.                                                      */
 /*------------------------------------------------------------------*/
 			sDocOuvert[ lCpt ] = '"' + sFicTitre + '"'
@@ -2877,7 +2897,7 @@ For	lCpt = 1 To lTotInter
 	End If
 Next
 /*------------------------------------------------------------------*/
-/* On enl$$HEX1$$e900$$ENDHEX$$ve le filtre sur la DW.                                   */
+/* On enléve le filtre sur la DW.                                   */
 /*------------------------------------------------------------------*/
 sFiltre = ""
 ll_ret = adwGenCourrier.SetFilter ( sFiltre )
@@ -2893,12 +2913,12 @@ If	Not ibWordOuvertAvantTraitement	Then
 	If	sWord <> ""	Then 
 		For	lCpt = 1 To lTotInter
 /*------------------------------------------------------------------*/
-/* On recherche la ligne dans la DW pour v$$HEX1$$e900$$ENDHEX$$rifier s'il faut         */
-/* g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer le courrier. Si ALT_GEN = 'N', il ne faut pas            */
+/* On recherche la ligne dans la DW pour vérifier s'il faut         */
+/* générer le courrier. Si ALT_GEN = 'N', il ne faut pas            */
 /* positionner le DateTime sur le fichier.                          */
 /*------------------------------------------------------------------*/
-/* La DW est tri$$HEX1$$e900$$ENDHEX$$e sur ID_SIN, ID_INTER et ID_SEQ. La premi$$HEX1$$e800$$ENDHEX$$re      */
-/* ligne trouv$$HEX1$$e900$$ENDHEX$$e pour la valeur de ID_INTER doit contenir la bonne  */
+/* La DW est triée sur ID_SIN, ID_INTER et ID_SEQ. La première      */
+/* ligne trouvée pour la valeur de ID_INTER doit contenir la bonne  */
 /* valeur pour ALT_GEN.                                             */
 /*------------------------------------------------------------------*/
 				sRech			= "ID_INTER = " + String ( lInter [ lCpt ] )
@@ -2910,30 +2930,30 @@ If	Not ibWordOuvertAvantTraitement	Then
 				sWord = sWord + " " + sDocOuvert[ lCpt ]
 
 /*------------------------------------------------------------------*/
-/* #2 : DCMP 040020 SVE : Utilisation du tableau d$$HEX1$$e900$$ENDHEX$$finissant les    */
+/* #2 : DCMP 040020 SVE : Utilisation du tableau définissant les    */
 /* droits de modification des courriers automatique.                */
-/* On utilise le tableau que s'il a $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$inscrit.						  */
+/* On utilise le tableau que s'il a été inscrit.						  */
 /*------------------------------------------------------------------*/
 				This.uf_Appliquer_DroitModifCour ( lInter [ lCpt ],  sFicTitre )
 
 		Next
 /*------------------------------------------------------------------*/
 /* Le 11/05/2001. #1.                                               */
-/* On ouvre WORD uniquement si le client le d$$HEX1$$e900$$ENDHEX$$sire. Cas des         */
-/* r$$HEX1$$e800$$ENDHEX$$glements automatiques pour PLJ.                                */
+/* On ouvre WORD uniquement si le client le désire. Cas des         */
+/* règlements automatiques pour PLJ.                                */
 /*------------------------------------------------------------------*/
 		If	abVisualiserCourrier Then	
 				
 //			// Ajout LBP le 25-05-10 : Verif de la bonne activation des macro
 //			// pour se faire on positionne un flag a false dans le .INI, si les macros
-//			// du poste client sont actives, cette valeur passera $$HEX2$$e0002000$$ENDHEX$$TRUE
+//			// du poste client sont actives, cette valeur passera à TRUE
 //			SetProfileString( isFicCourrierIni, "EDITION", "MACRO_ACTIVES", "FALSE") 
 //			// Fin ajout LBP
 
 			F_SetVersionWord ( nvWord, TRUE )	
 
 			// MODIF LBP le 25-05-10 : Attente de la fin du lancement de Word avant de 
-			// continuer sinon; risque que Word ne soit pas enti$$HEX1$$e800$$ENDHEX$$rment ouvert avant execution 
+			// continuer sinon; risque que Word ne soit pas entièrment ouvert avant execution 
 			// de commande OLE
 			//run(sWord)
 
@@ -2945,10 +2965,10 @@ If	Not ibWordOuvertAvantTraitement	Then
 			bRet = nvWaitAndSee.uf_LancerEtAttendre (sWord , 5000 )
 			
 			if not bRet then
-				// Trace du probl$$HEX1$$e800$$ENDHEX$$me de lancement de Word
+				// Trace du problème de lancement de Word
 				uf_trace ( stGlb , "n_cst_edition_courrier - uf_generer_courrier() : Echec du 1er lancement de Word. ")
 				
-				// Erreur d'ouverture de Word : la probabilit$$HEX2$$e9002000$$ENDHEX$$la plus grande est qu'une autre instance de Word Soit Plant$$HEX1$$e900$$ENDHEX$$e et emp$$HEX1$$e800$$ENDHEX$$che 
+				// Erreur d'ouverture de Word : la probabilité la plus grande est qu'une autre instance de Word Soit Plantée et empèche 
 				// l'ouverture : On tue tous les Words ouverts
 				nKillProcess.uf_tuerprogramme(sWord )
 				
@@ -2957,7 +2977,7 @@ If	Not ibWordOuvertAvantTraitement	Then
 				
 				// Second echec : On abandonne
 				if not bRet then
-					// Trace de l'impossibilit$$HEX2$$e9002000$$ENDHEX$$de lancement de Word
+					// Trace de l'impossibilité de lancement de Word
 					uf_trace ( stGlb , "n_cst_edition_courrier - uf_generer_courrier() : Echec du 2nd lancement de Word. ")
 					return -1
 				end if				
@@ -3012,23 +3032,23 @@ Else
 			If sAltGen = "O"	Then invWin.uf_SetLastWriteDateTime ( sFicTitre, K_DATECREATION, K_TIMECREATION )
 
 /*------------------------------------------------------------------*/
-/* #2 : DCMP 040020 SVE : Utilisation du tableau d$$HEX1$$e900$$ENDHEX$$finissant les    */
+/* #2 : DCMP 040020 SVE : Utilisation du tableau définissant les    */
 /* droits de modification des courriers automatique.                */
-/* On utilise le tableau que s'il a $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$inscrit.						  */
+/* On utilise le tableau que s'il a été inscrit.						  */
 /*------------------------------------------------------------------*/
 			This.uf_Appliquer_DroitModifCour ( lInter [ lCpt ],  sFicTitre )
 
 /*------------------------------------------------------------------*/
 /* Le 11/05/2001. #1.                                               */
-/* On ouvre WORD uniquement si le client le d$$HEX1$$e900$$ENDHEX$$sire. Cas des         */
-/* r$$HEX1$$e800$$ENDHEX$$glements automatiques pour PLJ.                                */
+/* On ouvre WORD uniquement si le client le désire. Cas des         */
+/* règlements automatiques pour PLJ.                                */
 /*------------------------------------------------------------------*/
 			If	abVisualiserCourrier Then 
 				
 				
 //				// Ajout LBP le 25-05-10 : Verif de la bonne activation des macro
 //				// pour se faire on positionne un flag a false dans le .INI, si les macros
-//				// du poste client sont actives, cette valeur passera $$HEX2$$e0002000$$ENDHEX$$TRUE
+//				// du poste client sont actives, cette valeur passera à TRUE
 //				SetProfileString( isFicCourrierIni, "EDITION", "MACRO_ACTIVES", "FALSE") 
 //				// Fin ajout LBP
 
@@ -3052,13 +3072,13 @@ Else
 			end if
 	Next
 /*------------------------------------------------------------------*/
-/* On affiche la fen$$HEX1$$ea00$$ENDHEX$$tre WINWORD avec un ShowWindow. Aucune des     */
+/* On affiche la fenêtre WINWORD avec un ShowWindow. Aucune des     */
 /* commandes OLE ne semble fonctionner.                             */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
 /* Le 11/05/2001. #1.                                               */
-/* On ouvre WORD uniquement si le client le d$$HEX1$$e900$$ENDHEX$$sire. Cas des         */
-/* r$$HEX1$$e800$$ENDHEX$$glements automatiques pour PLJ.                                */
+/* On ouvre WORD uniquement si le client le désire. Cas des         */
+/* règlements automatiques pour PLJ.                                */
 /*------------------------------------------------------------------*/
 	If	abVisualiserCourrier Then 
 //		invPFC_ServiceOs.uf_ShowWindow ( iulHandleWord, 1 )
@@ -3070,7 +3090,7 @@ End If
 
 /*------------------------------------------------------------------*/
 /* On supprime l'instance WORD en cours d'utilisation, ainsi que    */
-/* le fichier INI g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$pour l'$$HEX1$$e900$$ENDHEX$$dition.                            */
+/* le fichier INI généré pour l'édition.                            */
 /*------------------------------------------------------------------*/
 uf_TerminerSession ()
 
@@ -3083,18 +3103,18 @@ public function integer uf_generer_courrier (datawindow adwgencourrier, boolean 
 //* Fonction		: N_Cst_Generation_Courrier::uf_generer_courrier		(PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 17:37:48
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Lance la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration des courriers SANS compatge des pages
+//* Libellé			: 
+//* Commentaires	: Lance la génération des courriers SANS compatge des pages
 //*
-//* Arguments		: (R$$HEX1$$e900$$ENDHEX$$f)		DataWindow	adwGenCourrier			DataWindow contenant les informations
-//*					  (Val)		Boolean			abVisualiserCourrier		Faut-il visualiser les courriers $$HEX2$$e0002000$$ENDHEX$$la fin de la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration ?
+//* Arguments		: (Réf)		DataWindow	adwGenCourrier			DataWindow contenant les informations
+//*					  (Val)		Boolean			abVisualiserCourrier		Faut-il visualiser les courriers à la fin de la génération ?
 //*
 //* Retourne		: Integer					 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ     PAR      Date	  			Modification
-//* #1       LBP       21/05/2010 	[COMPTAGE_PAGES] Fonction de redirection pour garder la compatibilit$$HEX1$$e900$$ENDHEX$$
+//* #1       LBP       21/05/2010 	[COMPTAGE_PAGES] Fonction de redirection pour garder la compatibilité
 //*-----------------------------------------------------------------
 return uf_generer_courrier( adwgencourrier, abvisualisercourrier, false)
 end function
@@ -3104,19 +3124,19 @@ public function integer uf_generer_courrier (datawindow adwgencourrier, boolean 
 //* Fonction		: N_Cst_Generation_Courrier::uf_generer_courrier		(PUBLIC)
 //* Auteur			: FPI
 //* Date				: 28/09/2011
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Lance la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration des courriers - [PM73-2]
+//* Libellé			: 
+//* Commentaires	: Lance la génération des courriers - [PM73-2]
 //*
-//* Arguments		: (R$$HEX1$$e900$$ENDHEX$$f)		DataWindow	adwGenCourrier	DataWindow contenant les informations
-//*					  (Val)		Boolean			abVisualiserCourrier		Faut-il visualiser les courriers $$HEX2$$e0002000$$ENDHEX$$la fin de la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration ?
+//* Arguments		: (Réf)		DataWindow	adwGenCourrier	DataWindow contenant les informations
+//*					  (Val)		Boolean			abVisualiserCourrier		Faut-il visualiser les courriers à la fin de la génération ?
 //*					  (Val)		Long				alIdProd						Identifiant de produit			
 //*
 //* Retourne		: Integer					 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ     PAR      Date	  			Modification
-//				FPI	27/10/2011		[PC363][LOGO_AUCHAN] Adaptation du mod$$HEX1$$e800$$ENDHEX$$le
+//				FPI	27/10/2011		[PC363][LOGO_AUCHAN] Adaptation du modèle
 //*-----------------------------------------------------------------
 String sModele
 String sListeProduits
@@ -3140,8 +3160,8 @@ private function string uf_editiondecentralisee (ref n_cst_word anvword);//*----
 //* Fonction		: N_Cst_Edition_Courrier::Uf_EditionDecentralisee		(PRIVATE)
 //* Auteur			: FABRY JF
 //* Date				: 11/06/2019 
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: [PM425-1] Edition d$$HEX1$$e900$$ENDHEX$$centralis$$HEX1$$e900$$ENDHEX$$e ($$HEX1$$e900$$ENDHEX$$criture PDF sur disque)
+//* Libellé			: 
+//* Commentaires	: [PM425-1] Edition décentralisée (écriture PDF sur disque)
 //*
 //* Arguments		: N_Cst_Word	anvWord   (Ref)
 //*
@@ -3164,7 +3184,7 @@ Int iTot, iCpt, iRet
 Boolean bSIMPA2
 
 
-// /A supprimer par la suite $$HEX2$$e0002000$$ENDHEX$$la d$$HEX1$$e900$$ENDHEX$$sact
+// /A supprimer par la suite à la désact
 // /[VDOC29832]
 
 sApplication = "SIMPA2"
@@ -3184,12 +3204,12 @@ sCodInter = Space ( 1 )
 dcIdDoc = -1 // [RS5045_REF_MATP]
 If ilIdDoc > 0 Then dcIdDoc = ilIdDoc // [RS5045_REF_MATP]
 
-// Je r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e800$$ENDHEX$$re les donn$$HEX1$$e900$$ENDHEX$$es n$$HEX1$$e900$$ENDHEX$$cessaires 
+// Je récupère les données nécessaires 
 //                            Val       Val         Val       Val         Ref => ...
 SQLCA.PS_S_PM425_RECUP_INFO ( idcIdSin, idcIdInter, iiIdArch, ilIdTypDoc, dcIdDoc, sCodInter, dcIdProd, sLibCie, sContractant, sNomDest, sAdr1, sAdr2, sAdrCP, sAdrVille, iDecentralise, sFondPage, iFormatSortie, sChemin, sChaine ) 
 
-// Si l'id_Doc avait $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$transmis $$HEX2$$e0002000$$ENDHEX$$l'appel, c'est que l'on est dans un cas tr$$HEX1$$e800$$ENDHEX$$s particulier (les relances)
-// On prends donc celui transmis $$HEX2$$e0002000$$ENDHEX$$l'appel.
+// Si l'id_Doc avait été transmis à l'appel, c'est que l'on est dans un cas très particulier (les relances)
+// On prends donc celui transmis à l'appel.
 If ilIdDoc > 0 Then dcIdDoc = ilIdDoc
 If ilIdLot < 0 Then ilIdLot = 0
 
@@ -3198,13 +3218,13 @@ If iDecentralise <= 0 Then
 	Return "HORS_PARAM"
 End If 
 
-// Gestion du regroupement (pour les relance notamment, permets de regrouper 2 PDF dans la m$$HEX1$$ea00$$ENDHEX$$me enveloppe dans un ordre pr$$HEX1$$e900$$ENDHEX$$cis)
+// Gestion du regroupement (pour les relance notamment, permets de regrouper 2 PDF dans la même enveloppe dans un ordre précis)
 If isCasTrtPM425 = "REGROUPEMENT" Then
 	If isCodeRegroupement = "" Then 
 		isCodeRegroupement = String ( idcIdSin ) + String ( idcIdInter ) + String ( dcIdDoc )
 	End If 
 Else
-	// Demand$$HEX2$$e9002000$$ENDHEX$$par Corus, m$$HEX1$$ea00$$ENDHEX$$me si rien $$HEX2$$e0002000$$ENDHEX$$regrouper, on met un code de regroupement.
+	// Demandé par Corus, même si rien à regrouper, on met un code de regroupement.
 	isCodeRegroupement = String ( idcIdSin ) + String ( idcIdInter ) + String ( dcIdDoc )
 	ilIndexPosition = 0
 End IF 
@@ -3221,7 +3241,7 @@ End CHoose
 
 sExtFichierIndex = "IDX"
 
-sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Impression d$$HEX1$$e900$$ENDHEX$$centralis$$HEX1$$e900$$ENDHEX$$e chez CORUS (" + sExtFichierSortie + ")"+ "~r~n"
+sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Impression décentralisée chez CORUS (" + sExtFichierSortie + ")"+ "~r~n"
 iMleMsg.uf_AjouterText ( sText )
 
 
@@ -3237,14 +3257,14 @@ sNomFichierSortie += isIdCour + "_"
 sNomFichierSortie += String ( Today (), "yyyymmdd" ) + "_"
 sNomFichierSortie += String ( Now (), "hhmmss")
 
-// J'arme les donn$$HEX1$$e900$$ENDHEX$$es n$$HEX1$$e900$$ENDHEX$$c$$HEX1$$e900$$ENDHEX$$ssaire $$HEX2$$e0002000$$ENDHEX$$la macro pour $$HEX1$$e900$$ENDHEX$$crire le PDF.
+// J'arme les données nécéssaire à la macro pour écrire le PDF.
 SetProfileString ( isFicCourrierIni, "EDT_DECENTRALISE", "FICHIER_SORTIE", sChemin + sNomFichierSortie )
 SetProfileString ( isFicCourrierIni, "EDT_DECENTRALISE", "FORMAT_FICHIER_SORTIE", string ( iFormatSortie ) )
 
 anvWord.uf_CommandeWord ( 1, isRepCourrier + isModele, iOleWord )
 anvWord.uf_CommandeWord ( 2, "EditionDecentralisee", iOleWord )		
 
-// On attend que l'$$HEX1$$e900$$ENDHEX$$criture du fichier soit bien termin$$HEX1$$e900$$ENDHEX$$
+// On attend que l'écriture du fichier soit bien terminé
 DO
 	sStatus = ProfileString ( isFicCourrierIni, "EDT_DECENTRALISE", "STATUS", "" )
 	sNbPageTotal = ProfileString ( isFicCourrierIni, "EDT_DECENTRALISE", "NB_PAGE_TOTAL", "" )
@@ -3253,41 +3273,41 @@ DO
 LOOP UNTIL sStatus = "OK" Or sStatus = "PAS OK"
 
 
-// Si probl$$HEX1$$e800$$ENDHEX$$me d$$HEX1$$e900$$ENDHEX$$criture, on ressort on laisse partir l'impression $$HEX2$$e0002000$$ENDHEX$$d$$HEX1$$e900$$ENDHEX$$faut
+// Si problème décriture, on ressort on laisse partir l'impression à défaut
 If Not bStatut Then
 	This.uf_setPM425 ( "RAZ", 0,0,"",0,0,0,0, iMleMsg, "", FALSE )
-	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec $$HEX1$$e900$$ENDHEX$$criture fichier " + sExtFichierSortie + "(1)" + "~r~n"
+	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec écriture fichier " + sExtFichierSortie + "(1)" + "~r~n"
 	iMleMsg.uf_AjouterText ( sText )
 	
 	This.uf_setPM425 ( "RAZ", 0,0,"",0,0,0,0, iMleMsg, "", FALSE )
 	
-	// On supprime l'$$HEX1$$e900$$ENDHEX$$ventuel fichier PDF qui a pu tout de m$$HEX1$$ea00$$ENDHEX$$me s'$$HEX1$$e900$$ENDHEX$$crire (cas d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$vu).
+	// On supprime l'éventuel fichier PDF qui a pu tout de même s'écrire (cas déjà vu).
 	FileDelete ( sChemin + sNomFichierSortie + "." + sExtFichierSortie )
 	
 	Return "PROBLEME"
 End IF 	
 
-// Si $$HEX1$$e900$$ENDHEX$$criture Ok pour la macro, je v$$HEX1$$e900$$ENDHEX$$rifie encore.
+// Si écriture Ok pour la macro, je vérifie encore.
 If Not FileExists  ( sChemin + sNomFichierSortie + "." + sExtFichierSortie ) Then
 	This.uf_setPM425 ( "RAZ", 0,0,"",0,0,0,0, iMleMsg, "", FALSE )
-	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec $$HEX1$$e900$$ENDHEX$$criture fichier " + sExtFichierSortie + "(2)" + "~r~n"
+	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec écriture fichier " + sExtFichierSortie + "(2)" + "~r~n"
 	iMleMsg.uf_AjouterText ( sText )
 	
 	This.uf_setPM425 ( "RAZ", 0,0,"",0,0,0,0, iMleMsg, "", FALSE )
 	
-	// On supprime l'$$HEX1$$e900$$ENDHEX$$ventuel fichier PDF qui a pu tout de m$$HEX1$$ea00$$ENDHEX$$me s'$$HEX1$$e900$$ENDHEX$$crire (cas d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$vu).
+	// On supprime l'éventuel fichier PDF qui a pu tout de même s'écrire (cas déjà vu).
 	FileDelete ( sChemin + sNomFichierSortie + "." + sExtFichierSortie )	
 	
 	Return "PROBLEME"
 End IF 	
 
-sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Succ$$HEX1$$e800$$ENDHEX$$s $$HEX1$$e900$$ENDHEX$$criture fichier " + sExtFichierSortie + "~r~n"
+sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Succès écriture fichier " + sExtFichierSortie + "~r~n"
 iMleMsg.uf_AjouterText ( sText )
 
 
 // [VDOC29832]
-// Si Ok on trace le fait que ce courrier fut, non pas $$HEX1$$e900$$ENDHEX$$dit$$HEX1$$e900$$ENDHEX$$, mais ecrit$$HEX2$$e9002000$$ENDHEX$$en PDF.
-// Car dans la table ARCHIVE, le visu de l'enregistrement laissera croire qu'il s'est normalement $$HEX1$$e900$$ENDHEX$$dit$$HEX1$$e900$$ENDHEX$$.
+// Si Ok on trace le fait que ce courrier fut, non pas édité, mais ecrité en PDF.
+// Car dans la table ARCHIVE, le visu de l'enregistrement laissera croire qu'il s'est normalement édité.
 sSql  = "Exec sysadm.PS_I_PM425_INSERT_TRACE_V01 "
 sSql += String ( idcIdSin ) + "., "
 sSql += String ( idcIdInter ) + "., "
@@ -3315,12 +3335,12 @@ bRet = SQLCA.SqlCode = 0 And SQLCA.SqlDBCode = 0
 F_Commit ( SQLCA, bRet ) 
 
 If Not bRet Then 
-	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec $$HEX1$$e900$$ENDHEX$$criture trace " + sExtFichierSortie + " en base" + "~r~n"
+	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec écriture trace " + sExtFichierSortie + " en base" + "~r~n"
 	iMleMsg.uf_AjouterText ( sText )
 	
 	This.uf_setPM425 ( "RAZ", 0,0,"",0,0,0,0, iMleMsg, "", FALSE )
 	
-	// On supprime l'$$HEX1$$e900$$ENDHEX$$ventuel fichier PDF qui a pu tout de m$$HEX1$$ea00$$ENDHEX$$me s'$$HEX1$$e900$$ENDHEX$$crire (cas d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$vu).
+	// On supprime l'éventuel fichier PDF qui a pu tout de même s'écrire (cas déjà vu).
 	FileDelete ( sChemin + sNomFichierSortie + "." + sExtFichierSortie )	
 	
 	Return "PROBLEME"
@@ -3331,7 +3351,7 @@ dsFichierIndex = CREATE DataStore
 dsFichierIndex.dataObject = "d_trt_fichier_index_pm425"
 
 // iTot = Integer ( sNbPageTotal ) 
-iTot = 1 // Vu avec H$$HEX1$$e900$$ENDHEX$$l$$HEX1$$e800$$ENDHEX$$ne, on ne mets pas autant de ligne que de page. un courrier = une ligne.
+iTot = 1 // Vu avec Hélène, on ne mets pas autant de ligne que de page. un courrier = une ligne.
 
 For iCpt = 1 To iTot
 
@@ -3375,28 +3395,28 @@ iRet = dsFichierIndex.SaveAs ( sChemin + sNomFichierSortie + "." + sExtFichierIn
 
 If IsValid ( dsFichierIndex ) Then Destroy dsFichierIndex
 
-// Si $$HEX1$$e900$$ENDHEX$$criture Ok pour la macro, je v$$HEX1$$e900$$ENDHEX$$rifie encore.
+// Si écriture Ok pour la macro, je vérifie encore.
 If iRet < 0 Then
 	This.uf_setPM425 ( "RAZ", 0,0,"",0,0,0, 0, iMleMsg, "", FALSE )
-	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec $$HEX1$$e900$$ENDHEX$$criture fichier index (" + sExtFichierIndex + ")" + "~r~n"
+	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec écriture fichier index (" + sExtFichierIndex + ")" + "~r~n"
 	iMleMsg.uf_AjouterText ( sText )
 	
 	This.uf_setPM425 ( "RAZ", 0,0,"",0,0,0,0, iMleMsg, "", FALSE )
 	
-	// On supprime l'$$HEX1$$e900$$ENDHEX$$ventuel fichier PDF qui a pu tout de m$$HEX1$$ea00$$ENDHEX$$me s'$$HEX1$$e900$$ENDHEX$$crire (cas d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$vu).
+	// On supprime l'éventuel fichier PDF qui a pu tout de même s'écrire (cas déjà vu).
 	FileDelete ( sChemin + sNomFichierSortie + "." + sExtFichierSortie )
-	// On supprime l'$$HEX1$$e900$$ENDHEX$$ventuel fichier IDX qui a pu tout de m$$HEX1$$ea00$$ENDHEX$$me s'$$HEX1$$e900$$ENDHEX$$crire (cas d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$vu).
+	// On supprime l'éventuel fichier IDX qui a pu tout de même s'écrire (cas déjà vu).
 	FileDelete ( sChemin + sNomFichierSortie + "." + sExtFichierIndex )	
 	
 	Return "PROBLEME"
 End IF 	
 
-sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Succ$$HEX1$$e800$$ENDHEX$$s $$HEX1$$e900$$ENDHEX$$criture fichier index (" + sExtFichierIndex + ")" + "~r~n"
+sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Succès écriture fichier index (" + sExtFichierIndex + ")" + "~r~n"
 iMleMsg.uf_AjouterText ( sText )
 
 // [VDOC29832]
 
-// Et on trace aussi l'$$HEX1$$e900$$ENDHEX$$criture de l'index
+// Et on trace aussi l'écriture de l'index
 sSql  = "Exec sysadm.PS_I_PM425_INSERT_TRACE_V01 "
 sSql += String ( idcIdSin ) + "., "
 sSql += String ( idcIdInter ) + "., "
@@ -3424,14 +3444,14 @@ bRet = SQLCA.SqlCode = 0 And SQLCA.SqlDBCode = 0
 F_Commit ( SQLCA, bRet ) 
 
 If Not bRet Then 
-	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec $$HEX1$$e900$$ENDHEX$$criture trace " + sExtFichierIndex + " en base" + "~r~n"
+	sText = "Dossier : " + String ( idcIdSin ) + ", inter " + String ( idcIdInter ) + " Echec écriture trace " + sExtFichierIndex + " en base" + "~r~n"
 	iMleMsg.uf_AjouterText ( sText )
 
 	This.uf_setPM425 ( "RAZ", 0,0,"",0,0,0,0, iMleMsg, "", FALSE )
 	
-	// On supprime l'$$HEX1$$e900$$ENDHEX$$ventuel fichier PDF qui a pu tout de m$$HEX1$$ea00$$ENDHEX$$me s'$$HEX1$$e900$$ENDHEX$$crire (cas d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$vu).
+	// On supprime l'éventuel fichier PDF qui a pu tout de même s'écrire (cas déjà vu).
 	FileDelete ( sChemin + sNomFichierSortie + "." + sExtFichierSortie )
-	// On supprime l'$$HEX1$$e900$$ENDHEX$$ventuel fichier IDX qui a pu tout de m$$HEX1$$ea00$$ENDHEX$$me s'$$HEX1$$e900$$ENDHEX$$crire (cas d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$vu).
+	// On supprime l'éventuel fichier IDX qui a pu tout de même s'écrire (cas déjà vu).
 	FileDelete ( sChemin + sNomFichierSortie + "." + sExtFichierIndex )		
 	
 	Return "PROBLEME"
@@ -3451,13 +3471,13 @@ public function integer uf_getpm425_etatedtetdecent ();//*----------------------
 //* Fonction		: N_Cst_Edition_Courrier::uf_getpm425_EtatEdtEtDecent	(PUBLIC)
 //* Auteur			: JFF
 //* Date				: 11/06/2019
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: [PM425-1] R$$HEX1$$e900$$ENDHEX$$cupar$$HEX1$$e900$$ENDHEX$$ation variable ibAMUEditionDecentralise
+//* Libellé			: 
+//* Commentaires	: [PM425-1] Récuparéation variable ibAMUEditionDecentralise
 //*
 //* Arguments		: (Val)		String		asidsin
 //*
 //* Retourne		: Integer				 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -3476,13 +3496,13 @@ public subroutine uf_setpm425_etatedtetdecent (boolean abamueditiondecent, boole
 //* Fonction		: N_Cst_Edition_Courrier::uf_setpm425_etatedtetdecent	(PUBLIC)
 //* Auteur			: JFF
 //* Date				: 11/06/2019
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: [PM425-1] On initialise les variables ibAMUEditionDecentralise et ibAMUEditionChezSPB
 //*
 //* Arguments		: (Val)		String		asidsin
 //*
 //* Retourne		: Integer				 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -3498,13 +3518,13 @@ public subroutine uf_setpm425 (string ascas, long aiidsin, long aiidinter, strin
 //* Fonction		: N_Cst_Edition_Courrier::uf_setPM425	(PUBLIC)
 //* Auteur			: JFF
 //* Date				: 11/06/2019
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: [PM425-1] On initialise la var d'instance ID_SIN
 //*
 //* Arguments		: (Val)		String		asidsin
 //*
 //* Retourne		: Integer				 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -3550,13 +3570,13 @@ public subroutine uf_set_coupermsgedi025 (boolean abcoupermsgedi025);//*--------
 //* Fonction		: N_Cst_Edition_Courrier::uf_set_CouperMsgedi025	(PUBLIC)
 //* Auteur			: JFF
 //* Date				: 11/12/2019
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: [TRACE_TS_COURRIER] 
 //*
 //* Arguments		: (Val)		String		asidsin
 //*
 //* Retourne		: Integer				 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -3577,13 +3597,13 @@ public subroutine uf_get_erreurimprimeredi025 (ref string asvarerr1, ref string 
 //* Fonction		: N_Cst_Edition_Courrier::uf_Get_ErreurImprimerEDI025	(PUBLIC)
 //* Auteur			: JFF
 //* Date				: 11/12/2019
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: [TRACE_TS_COURRIER] 
 //*
 //* Arguments		: (Val)		String		asidsin
 //*
 //* Retourne		: Integer				 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -3600,13 +3620,13 @@ public subroutine uf_setmodeleparmediaetinter (ref integer ait_intermodele[], re
 //* Fonction		: N_Cst_Edition_Courrier::uf_setModeleParMediaEtInter	(PUBLIC)
 //* Auteur			: JFF
 //* Date				: 26/04/2023
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: [RS5045_REF_MATP]
 //*
 //* Arguments		: (Val)		String		asidsin
 //*
 //* Retourne		: Integer				 1 = Tout est OK
-//*												-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*												-1 = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 //* MAJ      PAR      Date	   Modification
@@ -3623,7 +3643,7 @@ on destructor;//*---------------------------------------------------------------
 //* Evenement 		: Destructor
 //* Auteur			: Erick John Stark
 //* Date				: 23/03/2000 16:08:57
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On ferme le NVUo pour l'edition des courriers
 //*				  
 //* Arguments		: 
@@ -3659,9 +3679,9 @@ event constructor;//*-----------------------------------------------------------
 //* Evenement 		: constructor
 //* Auteur			: PHG
 //* Date				: 13/05/2008 14:07:51
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: [SUPPORT_MFP] Instanciation du descripteur d'imprimante
-//*						suivant l'imprimante sp$$HEX1$$e900$$ENDHEX$$cifi$$HEX1$$e900$$ENDHEX$$e dans le .INI
+//*						suivant l'imprimante spécifiée dans le .INI
 //*				  
 //* Arguments		: 
 //*
