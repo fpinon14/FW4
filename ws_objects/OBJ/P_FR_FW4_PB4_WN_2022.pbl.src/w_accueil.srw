@@ -1,5 +1,5 @@
-HA$PBExportHeader$w_accueil.srw
-$PBExportComments$---} Fen$$HEX1$$ea00$$ENDHEX$$tre d'acceuil
+﻿$PBExportHeader$w_accueil.srw
+$PBExportComments$---} Fenêtre d'acceuil
 forward
 global type w_accueil from w_ancetre
 end type
@@ -21,7 +21,7 @@ global type w_accueil from w_ancetre
 integer width = 2313
 integer height = 1540
 boolean titlebar = true
-string title = "Fen$$HEX1$$ea00$$ENDHEX$$tre d~'accueil"
+string title = "Fenêtre d~'accueil"
 string menuname = "m_main"
 boolean controlmenu = true
 boolean resizable = true
@@ -58,7 +58,7 @@ public function long wf_construire_chaine_tri ();//*****************************
 // Fonction            	: wf_Construire_Chaine_Tri
 //	Auteur              	: Erick John Stark
 //	Date 					 	: 22/02/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Construction de la chaine d'import pour le Tri
 //
 // Arguments				: 
@@ -103,10 +103,10 @@ protected subroutine wf_trtlstedt (ref string asval[]);//*----------------------
 //* Fonction		: Wf_TrtLstEdt ( Protected )
 //* Auteur			: Erick John Stark
 //* Date				: 19/01/1997 17:17:20
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Traitement sp$$HEX1$$e900$$ENDHEX$$cifique pour les colonnes $$HEX3$$e0002000e900$$ENDHEX$$diter
+//* Libellé			: 
+//* Commentaires	: Traitement spécifique pour les colonnes à éditer
 //*
-//* Arguments		: String			asVal[]			(R$$HEX1$$e900$$ENDHEX$$f)	Tableau des valeurs $$HEX2$$e0002000$$ENDHEX$$traiter
+//* Arguments		: String			asVal[]			(Réf)	Tableau des valeurs à traiter
 //*
 //* Retourne		: Rien
 //*
@@ -119,7 +119,7 @@ protected subroutine wf_trtlstedt (ref string asval[]);//*----------------------
 /*------------------------------------------------------------------*/
 /* Exemple de transformation d'une colonne (Data Value -> Display   */
 /* Value)                                                           */
-/* Cette colonne est la 8$$HEX1$$e900$$ENDHEX$$me du Tableau                             */
+/* Cette colonne est la 8éme du Tableau                             */
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
@@ -140,7 +140,7 @@ protected subroutine wf_trtlstedt (ref string asval[]);//*----------------------
 
 /*------------------------------------------------------------------*/
 /* Exemple de transformation d'une colonne en deux                  */
-/* Ne pas oublier l'en-t$$HEX1$$ea00$$ENDHEX$$te de colonne.                             */
+/* Ne pas oublier l'en-tête de colonne.                             */
 /* Ne pas oublier de modifier le fichier LISTE.INI                  */
 /*------------------------------------------------------------------*/
 
@@ -160,7 +160,7 @@ protected subroutine wf_trtlstedt (ref string asval[]);//*----------------------
 //// On modifie le Fichier LISTE.INI
 //
 //	SetProfileString ( "C:\WINNT\TEMP\LISTE.INI", "Liste", "Col", String ( lTot + 1 ) )
-//	asVal[ 4 ] = "Type Pr$$HEX1$$ea00$$ENDHEX$$t"
+//	asVal[ 4 ] = "Type Prêt"
 //	asVal[ 5 ] = "Ets"
 //
 //Case "62"
@@ -183,7 +183,7 @@ private subroutine wf_lst_simple ();//*-----------------------------------------
 //* Fonction		: Wf_Lst_Simple ( Private )
 //* Auteur			: Erick John Stark
 //* Date				: 21/01/1997 09:18:06
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Gestion des editions (Liste Simple)
 //*
 //* Arguments		: Aucun
@@ -194,9 +194,9 @@ private subroutine wf_lst_simple ();//*-----------------------------------------
 
 
 /*------------------------------------------------------------------*/
-/* La premi$$HEX1$$e900$$ENDHEX$$re chose est de g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rer un fichier LISTE.INI dans le    */
-/* r$$HEX1$$e900$$ENDHEX$$pertoire temporaire de Windows.                                */
-/* Ce fichier se pr$$HEX1$$e900$$ENDHEX$$sente de la mani$$HEX1$$e800$$ENDHEX$$re suivante                    */
+/* La premiére chose est de générer un fichier LISTE.INI dans le    */
+/* répertoire temporaire de Windows.                                */
+/* Ce fichier se présente de la manière suivante                    */
 /*                                                                  */
 /* [Liste]                                                          */
 /* Col=XX                                                           */
@@ -209,12 +209,26 @@ N_Cst_Word	nvWord
 String sFicIni, sFicData, sTab, sNew, sText, sLigne, sNomCol, sRep
 String sVal[], sVide[]
 Long lTotCol, lTotLig, lCpt, lCpt1, lCpt2, lNbCol
-Integer iFic, iRet
+Integer iFic, iRet, iValCleSIMPA2
+Boolean bSIMPA2 
 
 String sMacro, sModele
 
+bSIMPA2 = Left ( Upper(SQLCA.Database), 5) = "SIMPA" 
+
+If bSIMPA2 Then
+	Select valeur
+	Into :iValCleSIMPA2
+	From sysadm.cle
+	Where id_cle = "CS_USPR_ALD_WINDIR"
+	Using SQLCA ; 
+	
+	If IsNull ( iValCleSIMPA2 ) Then iValCleSIMPA2 = 0
+	
+End IF 
+
 /*------------------------------------------------------------------*/
-/* Si aucun enregistrement dans la DW d'accueil, on s'arr$$HEX1$$ea00$$ENDHEX$$te ici    */
+/* Si aucun enregistrement dans la DW d'accueil, on s'arrête ici    */
 /*------------------------------------------------------------------*/
 
 If	dw_1.RowCount () < 1 Then
@@ -222,13 +236,20 @@ If	dw_1.RowCount () < 1 Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re le nom du fichier $$HEX2$$e0002000$$ENDHEX$$cr$$HEX1$$e900$$ENDHEX$$er                            */
+/* On récupére le nom du fichier à créer                            */
 /*------------------------------------------------------------------*/
 nvWin	= stGLB.uoWin
-sRep	= nvWin.Uf_GetWindowsDirectory ()
+
+// [DBG20241015131529340][CS_USPR_ALD_WINDIR] 
+//If F_CLE_A_TRUE ( "CS_USPR_ALD_WINDIR" ) Then
+If iValCleSIMPA2 >= 2 Then
+	sRep  = stGlb.uoWin.uf_getenvironment("USERPROFILE") + "\Windows"
+Else 
+	sRep	= nvWin.Uf_GetWindowsDirectory ()
+End If 
 
 /*------------------------------------------------------------------*/
-/* On $$HEX1$$e900$$ENDHEX$$crit cette information dans le fichier WIN.INI, pour que     */
+/* On écrit cette information dans le fichier WIN.INI, pour que     */
 /* l'on puisse le relire dans WORD                                  */
 /*------------------------------------------------------------------*/
 //#1 [DCMP-060643]-19/09/2006-PHG Gestion repertoire temporaire
@@ -241,8 +262,8 @@ sFicIni 	= stGlb.sRepTempo +"LISTE.INI"
 sFicData	= stGlb.sRepTempo +"LISTE.TXT"
 
 /*------------------------------------------------------------------*/
-/* On d$$HEX1$$e900$$ENDHEX$$termine le nombre de colonne $$HEX2$$e0002000$$ENDHEX$$cr$$HEX1$$e900$$ENDHEX$$er et on construit en     */
-/* m$$HEX1$$ea00$$ENDHEX$$me temps l'en-t$$HEX1$$ea00$$ENDHEX$$te du tableau                                  */
+/* On détermine le nombre de colonne à créer et on construit en     */
+/* même temps l'en-tête du tableau                                  */
 /*------------------------------------------------------------------*/
 
 lTotCol	= UpperBound ( dw_1.istCol )
@@ -258,7 +279,7 @@ For	lCpt = 1 To lTotCol
 Next
 
 /*------------------------------------------------------------------*/
-/* Modification de l'en-t$$HEX1$$ea00$$ENDHEX$$te, si besoin                             */
+/* Modification de l'en-tête, si besoin                             */
 /*------------------------------------------------------------------*/
 
 wf_TrtLstEdt ( sVal[] )
@@ -267,7 +288,7 @@ lNbCol	= UpperBound ( sVal[] )
 sLigne	= ""
 
 /*------------------------------------------------------------------*/
-/* On traite les N-1 valeurs, puis la derni$$HEX1$$e800$$ENDHEX$$re                      */
+/* On traite les N-1 valeurs, puis la dernière                      */
 /*------------------------------------------------------------------*/
 
 For	lCpt = 1 To lNbCol - 1
@@ -278,7 +299,7 @@ sLigne	= sLigne + sVal [ lNbCol ]
 lTotLig	= dw_1.RowCount ()
 
 /*------------------------------------------------------------------*/
-/* On $$HEX1$$e900$$ENDHEX$$crit les informations dans le fichier LISTE.INI              */
+/* On écrit les informations dans le fichier LISTE.INI              */
 /*------------------------------------------------------------------*/
 
 //Migration PB8-WYNIWYG-03/2006 CP
@@ -309,8 +330,8 @@ End If
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
-/* On ouvre le fichier, et on $$HEX1$$e900$$ENDHEX$$crit l'en-t$$HEX1$$ea00$$ENDHEX$$te en laissant une ligne */
-/* $$HEX2$$e0002000$$ENDHEX$$blanc                                                          */
+/* On ouvre le fichier, et on écrit l'en-tête en laissant une ligne */
+/* à blanc                                                          */
 /*------------------------------------------------------------------*/
 
 iFic = FileOpen ( sFicData, LineMode!, Write!, LockReadWrite!, Replace! )
@@ -318,7 +339,7 @@ iFic = FileOpen ( sFicData, LineMode!, Write!, LockReadWrite!, Replace! )
 FileWrite ( iFic, sLigne )
 
 /*------------------------------------------------------------------*/
-/* En maintenant on $$HEX1$$e900$$ENDHEX$$crit toutes les donn$$HEX1$$e900$$ENDHEX$$es                        */
+/* En maintenant on écrit toutes les données                        */
 /*------------------------------------------------------------------*/
 
 For	lCpt = 1 To lTotLig
@@ -369,14 +390,14 @@ For	lCpt = 1 To lTotLig
 		Next
 
 /*------------------------------------------------------------------*/
-/* Modification des donn$$HEX1$$e900$$ENDHEX$$es, si besoin                              */
+/* Modification des données, si besoin                              */
 /*------------------------------------------------------------------*/
 
 		wf_TrtLstEdt ( sVal[] )
 
 
 /*------------------------------------------------------------------*/
-/* On traite les N-1 valeurs, puis la derni$$HEX1$$e800$$ENDHEX$$re. Pour terminer, on   */
+/* On traite les N-1 valeurs, puis la dernière. Pour terminer, on   */
 /* ecrit la ligne                                                   */
 /*------------------------------------------------------------------*/
 
@@ -395,13 +416,13 @@ Next
 FileClose ( iFic )
 
 /*------------------------------------------------------------------*/
-/* On va maintenant commencer l'$$HEX1$$e900$$ENDHEX$$dition                             */
+/* On va maintenant commencer l'édition                             */
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
-/* Il faut d'abord r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer les informations suivantes             */
-/*  Mod$$HEX1$$e900$$ENDHEX$$le $$HEX2$$e0002000$$ENDHEX$$utiliser                                               */
-/*  Macro $$HEX2$$e0002000$$ENDHEX$$lancer                                                  */
+/* Il faut d'abord récupérer les informations suivantes             */
+/*  Modéle à utiliser                                               */
+/*  Macro à lancer                                                  */
 /*  Programme Edition                                               */
 /*------------------------------------------------------------------*/
 
@@ -429,7 +450,7 @@ nvWord.uf_CommandeWord ( 2, sMacro, oleWord )
 /*------------------------------------------------------------------*/
 /* Le 23/07/1998 : Il faut une temporisation entre la fin de la     */
 /* macro Word et la fermeture de l'objet OLE. Si on ne fait pas     */
-/* cela l'$$HEX1$$e900$$ENDHEX$$dition n'a pas le temps de sortir.                       */
+/* cela l'édition n'a pas le temps de sortir.                       */
 /*------------------------------------------------------------------*/
 stMessage.sTitre		= "Edition d'une liste d'accueil (Simple)"
 stMessage.Icon			= Information!
@@ -448,8 +469,8 @@ private subroutine wf_lst_particuliere ();//*-----------------------------------
 //* Fonction		: Wf_Liste_Particuliere ( Private )
 //* Auteur			: Erick John Stark
 //* Date				: 19/01/1997 17:17:20
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Traitement des Listes particuli$$HEX1$$e900$$ENDHEX$$res
+//* Libellé			: 
+//* Commentaires	: Traitement des Listes particuliéres
 //*
 //* Arguments		: Aucun
 //*
@@ -459,28 +480,42 @@ private subroutine wf_lst_particuliere ();//*-----------------------------------
 //*-----------------------------------------------------------------
 
 /*------------------------------------------------------------------*/
-/* La premi$$HEX1$$e900$$ENDHEX$$re chose est le lire le fichier de l'application pour   */
+/* La premiére chose est le lire le fichier de l'application pour   */
 /* savoir ou trouver le fichier INI contenant les listes            */
-/* particuli$$HEX1$$e900$$ENDHEX$$res.                                                   */
-/* Ensuite, si cette liste existe, on va d$$HEX1$$e900$$ENDHEX$$coder les colonnes $$HEX6$$e00020002000200020002000$$ENDHEX$$*/
+/* particuliéres.                                                   */
+/* Ensuite, si cette liste existe, on va décoder les colonnes à     */
 /* inserer.                                                         */
 /* 0=Nbr Colonne                                                    */
-/* 1=N$$HEX2$$b0002000$$ENDHEX$$Col,En-t$$HEX1$$ea00$$ENDHEX$$te,Nbr Carac.,                                     */
+/* 1=N° Col,En-tête,Nbr Carac.,                                     */
 /*------------------------------------------------------------------*/
 
 U_DeclarationWindows	nvWin
 
 String sRep, sRepLst, sLigne, sFicIni, sFicData, sTab, sNew, sText, sNomCol
 String sVal[], sTitre[], sFormat[], sVide[]
-Integer iFic, iRet
+Integer iFic, iRet, iValCleSIMPA2
 Integer iNumCol[], iNbrC[]
 Long lNbCol, lCpt, lTotCol, lTotLig, lCpt1, lCpt2
 String sModele, sMacro
 oleObject oleWord
 N_Cst_Word	nvWord
+Boolean bSIMPA2 
+
+bSIMPA2 = Left ( Upper(SQLCA.Database), 5) = "SIMPA" 
+
+If bSIMPA2 Then
+	Select valeur
+	Into :iValCleSIMPA2
+	From sysadm.cle
+	Where id_cle = "CS_USPR_ALD_WINDIR"
+	Using SQLCA ; 
+	
+	If IsNull ( iValCleSIMPA2 ) Then iValCleSIMPA2 = 0
+	
+End IF 
 
 /*------------------------------------------------------------------*/
-/* Si aucun enregistrement dans la DW d'accueil, on s'arr$$HEX1$$ea00$$ENDHEX$$te ici    */
+/* Si aucun enregistrement dans la DW d'accueil, on s'arrête ici    */
 /*------------------------------------------------------------------*/
 
 If	dw_1.RowCount () < 1 Then
@@ -505,11 +540,11 @@ For	lCpt = 1 To lTotCol
 		f_DecomposerChaine ( sLigne, ",", sVal[] )
 
 /*------------------------------------------------------------------*/
-/* Le tableau de retour doit contenir 3 $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ments qui sont :         */
-/* 1 = Le num$$HEX1$$e900$$ENDHEX$$ro de la colonne                                      */
+/* Le tableau de retour doit contenir 3 éléments qui sont :         */
+/* 1 = Le numéro de la colonne                                      */
 /* 2 = Le titre de la colonne                                       */
 /* 3 = Le format que l'on doit utiliser pour Date,Time,DateTime     */
-/* 4 = Le nombre de caract$$HEX1$$e800$$ENDHEX$$res                                      */
+/* 4 = Le nombre de caractères                                      */
 /*------------------------------------------------------------------*/
 
 		iNumCol[ lCpt]		= Integer ( sVal[ 1 ] )
@@ -520,9 +555,9 @@ For	lCpt = 1 To lTotCol
 Next
 
 /*------------------------------------------------------------------*/
-/* Ensuite on g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$re fichier LISTE.INI dans le r$$HEX1$$e900$$ENDHEX$$pertoire           */
+/* Ensuite on génére fichier LISTE.INI dans le répertoire           */
 /* temporaire de Windows.                                           */
-/* Ce fichier se pr$$HEX1$$e900$$ENDHEX$$sente de la mani$$HEX1$$e800$$ENDHEX$$re suivante                    */
+/* Ce fichier se présente de la manière suivante                    */
 /*                                                                  */
 /* [Liste]                                                          */
 /* Col=XX                                                           */
@@ -530,15 +565,22 @@ Next
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re le nom du fichier $$HEX2$$e0002000$$ENDHEX$$cr$$HEX1$$e900$$ENDHEX$$er                            */
+/* On récupére le nom du fichier à créer                            */
 /*------------------------------------------------------------------*/
 
 nvWin	= stGLB.uoWin
 
-sRep = nvWin.Uf_GetWindowsDirectory ()
+// [DBG20241015131529340][CS_USPR_ALD_WINDIR] 
+//If F_CLE_A_TRUE ( "CS_USPR_ALD_WINDIR" ) Then
+If iValCleSIMPA2 >= 2 Then
+	sRep  = stGlb.uoWin.uf_getenvironment("USERPROFILE") + "\Windows"
+Else 
+	sRep	= nvWin.Uf_GetWindowsDirectory ()
+End If 
+
 
 /*------------------------------------------------------------------*/
-/* On $$HEX1$$e900$$ENDHEX$$crit cette information dans le fichier WIN.INI, pour que     */
+/* On écrit cette information dans le fichier WIN.INI, pour que     */
 /* l'on puisse le relire dans WORD                                  */
 /*------------------------------------------------------------------*/
 //#1 [DCMP-060643]-19/09/2006-PHG Gestion repertoire temporaire
@@ -551,7 +593,7 @@ sFicIni 	= stGlb.sRepTempo + "LISTE.INI"
 sFicData	= stGlb.sRepTempo + "LISTE.TXT"
 
 /*------------------------------------------------------------------*/
-/* Modification de l'en-t$$HEX1$$ea00$$ENDHEX$$te, si besoin                             */
+/* Modification de l'en-tête, si besoin                             */
 /*------------------------------------------------------------------*/
 
 wf_TrtLstEdt ( sTitre[] )
@@ -560,7 +602,7 @@ lNbCol = UpperBound ( sTitre[] )
 sLigne = ""
 
 /*------------------------------------------------------------------*/
-/* On traite les N-1 valeurs, puis la derni$$HEX1$$e800$$ENDHEX$$re                      */
+/* On traite les N-1 valeurs, puis la dernière                      */
 /*------------------------------------------------------------------*/
 
 For	lCpt = 1 To lNbCol - 1
@@ -571,7 +613,7 @@ sLigne	= sLigne + sTitre [ lNbCol ]
 
 
 /*------------------------------------------------------------------*/
-/* On $$HEX1$$e900$$ENDHEX$$crit les informations dans le fichier LISTE.INI              */
+/* On écrit les informations dans le fichier LISTE.INI              */
 /*------------------------------------------------------------------*/
 
 //Migration PB8-WYNIWYG-03/2006 CP
@@ -594,8 +636,8 @@ End If
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
-/* On ouvre le fichier, et on $$HEX1$$e900$$ENDHEX$$crit l'en-t$$HEX1$$ea00$$ENDHEX$$te en laissant une ligne */
-/* $$HEX2$$e0002000$$ENDHEX$$blanc                                                          */
+/* On ouvre le fichier, et on écrit l'en-tête en laissant une ligne */
+/* à blanc                                                          */
 /*------------------------------------------------------------------*/
 
 iFic = FileOpen ( sFicData, LineMode!, Write!, LockReadWrite!, Replace! )
@@ -603,7 +645,7 @@ iFic = FileOpen ( sFicData, LineMode!, Write!, LockReadWrite!, Replace! )
 FileWrite ( iFic, sLigne )
 
 /*------------------------------------------------------------------*/
-/* En maintenant on $$HEX1$$e900$$ENDHEX$$crit toutes les donn$$HEX1$$e900$$ENDHEX$$es                        */
+/* En maintenant on écrit toutes les données                        */
 /*------------------------------------------------------------------*/
 
 lTotLig	= dw_1.RowCount ()
@@ -637,14 +679,14 @@ For	lCpt = 1 To lTotLig
 		Next
 
 /*------------------------------------------------------------------*/
-/* Modification des donn$$HEX1$$e900$$ENDHEX$$es, si besoin                              */
+/* Modification des données, si besoin                              */
 /*------------------------------------------------------------------*/
 
 		wf_TrtLstEdt ( sVal[] )
 
 
 /*------------------------------------------------------------------*/
-/* On traite les N-1 valeurs, puis la derni$$HEX1$$e800$$ENDHEX$$re. Pour terminer, on   */
+/* On traite les N-1 valeurs, puis la dernière. Pour terminer, on   */
 /* ecrit la ligne                                                   */
 /*------------------------------------------------------------------*/
 
@@ -663,25 +705,25 @@ Next
 FileClose ( iFic )
 
 /*------------------------------------------------------------------*/
-/* On va maintenant commencer l'$$HEX1$$e900$$ENDHEX$$dition                             */
+/* On va maintenant commencer l'édition                             */
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
-/* Il faut d'abord r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer les informations suivantes             */
-/*  Mod$$HEX1$$e900$$ENDHEX$$le $$HEX2$$e0002000$$ENDHEX$$utiliser                                               */
-/*  Macro $$HEX2$$e0002000$$ENDHEX$$lancer ( qui peut-$$HEX1$$ea00$$ENDHEX$$tre particuli$$HEX1$$e800$$ENDHEX$$re )                   */
+/* Il faut d'abord récupérer les informations suivantes             */
+/*  Modéle à utiliser                                               */
+/*  Macro à lancer ( qui peut-être particulière )                   */
 /*  Programme Edition                                               */
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
-/* On utilise toujours le mod$$HEX1$$e900$$ENDHEX$$le par d$$HEX1$$e900$$ENDHEX$$faut                         */
+/* On utilise toujours le modéle par défaut                         */
 /*------------------------------------------------------------------*/
 
 sModele	= ProfileString ( stGLB.sFichierIni, "LISTE", "DEFAUTMODELE", "" )
 
 /*------------------------------------------------------------------*/
-/* On peut sp$$HEX1$$e900$$ENDHEX$$cifier une macro particuli$$HEX1$$e800$$ENDHEX$$re pour cette $$HEX1$$e900$$ENDHEX$$dition,     */
-/* sinon on utilise la macro par d$$HEX1$$e900$$ENDHEX$$faut.                            */
+/* On peut spécifier une macro particulière pour cette édition,     */
+/* sinon on utilise la macro par défaut.                            */
 /*------------------------------------------------------------------*/
 
 sMacro   = ProfileString ( sRepLst, isListePart, "Macro", "" )
@@ -710,9 +752,9 @@ nvWord.uf_CommandeWord ( 2, sMacro, oleWord )
 /*------------------------------------------------------------------*/
 /* Le 23/07/1998 : Il faut une temporisation entre la fin de la     */
 /* macro Word et la fermeture de l'objet OLE. Si on ne fait pas     */
-/* cela l'$$HEX1$$e900$$ENDHEX$$dition n'a pas le temps de sortir.                       */
+/* cela l'édition n'a pas le temps de sortir.                       */
 /*------------------------------------------------------------------*/
-stMessage.sTitre		= "Edition d'une liste d'accueil (Particuli$$HEX1$$e800$$ENDHEX$$re)"
+stMessage.sTitre		= "Edition d'une liste d'accueil (Particulière)"
 stMessage.Icon			= Information!
 stMessage.bErreurG	= TRUE
 stMessage.sCode		= "GENE009"
@@ -732,7 +774,7 @@ on ue_imprimer;call w_ancetre::ue_imprimer;//*----------------------------------
 //* Evenement 		: Ue_Imprimer
 //* Auteur			: Erick John Stark
 //* Date				: 22/11/1996 15:10:16
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
@@ -741,7 +783,7 @@ on ue_imprimer;call w_ancetre::ue_imprimer;//*----------------------------------
 //*-----------------------------------------------------------------
 
 /*------------------------------------------------------------------*/
-/* S'agit-il d'une liste simple ou d'une liste personnalis$$HEX1$$e900$$ENDHEX$$e        */
+/* S'agit-il d'une liste simple ou d'une liste personnalisée        */
 /*------------------------------------------------------------------*/
 
 Pointer AncienPointeur
@@ -769,8 +811,8 @@ on ue_fin_interro;call w_ancetre::ue_fin_interro;//*****************************
 // Evenement 	: UE_FIN_INTERRO
 //	Auteur		: Erick John Stark
 //	Date			: 06/03/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
-// Commentaires: Lancement du retrieve suite au retour de la fen$$HEX1$$ea00$$ENDHEX$$tre INTERRO
+// Libellé		: 
+// Commentaires: Lancement du retrieve suite au retour de la fenêtre INTERRO
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -787,10 +829,10 @@ stPass = Message.PowerObjectParm
 sClause				= stPass.sTab[1]
 isClauseFrancais	= stPass.sTab[2]
 
-// .... Si la clause where g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$e est vide on ne fait rien
+// .... Si la clause where générée est vide on ne fait rien
 // .... Il y a 2 cas pour cela
-// .... Le gestionnaire a appuy$$HEX2$$e9002000$$ENDHEX$$sur retour
-// .... Le gestionnaire n'a pas saisi de crit$$HEX1$$e800$$ENDHEX$$re d'interrogation
+// .... Le gestionnaire a appuyé sur retour
+// .... Le gestionnaire n'a pas saisi de critère d'interrogation
 
 If	sClause <> "" Then
 
@@ -810,7 +852,7 @@ If	sClause <> "" Then
 	This.TriggerEvent( "Ue_TaillerHauteur" )
 	dw_1.Visible = True
 
-// .... On s$$HEX1$$e900$$ENDHEX$$lectionne la premi$$HEX1$$e800$$ENDHEX$$re ligne
+// .... On sélectionne la première ligne
 //	dw_1.ilLigneClick = 1
 //	dw_1.SelectRow ( 0, False )
 //	dw_1.SelectRow ( dw_1.ilLigneClick, True )
@@ -826,7 +868,7 @@ on ue_enablefenetre;call w_ancetre::ue_enablefenetre;//*************************
 // Evenement 	: ue_EnableFenetre
 //	Auteur		: D.Bizien
 //	Date			: 22/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Activation de la fenetre lors de la fermeture d'une fenetre de traitement
+// Libellé		: Activation de la fenetre lors de la fermeture d'une fenetre de traitement
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -858,7 +900,7 @@ on ue_disablefenetre;call w_ancetre::ue_disablefenetre;//***********************
 // Evenement 	: ue_DisableFenetre
 //	Auteur		: D.Bizien
 //	Date			: 22/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Desactivation de la fenetre lors de l'ouverture d'une fenetre de traitement
+// Libellé		: Desactivation de la fenetre lors de l'ouverture d'une fenetre de traitement
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -886,7 +928,7 @@ on ue_interro;call w_ancetre::ue_interro;//*************************************
 // Evenement 	: UE_INTERRO
 //	Auteur		: Erick John Stark
 //	Date			: 20/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Ouverture de la fen$$HEX1$$ea00$$ENDHEX$$tre d'interrogation
+// Libellé		: Ouverture de la fenêtre d'interrogation
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -911,7 +953,7 @@ on ue_item5;call w_ancetre::ue_item5;//*****************************************
 // Evenement 	: ue_Item6
 //	Auteur		: La Recrue
 //	Date			: 16/12/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Declanchement de la recherche sur menu contextuel
+// Libellé		: Declanchement de la recherche sur menu contextuel
 // Commentaires: 
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -927,7 +969,7 @@ on ue_trier;call w_ancetre::ue_trier;//*****************************************
 // Evenement 	: UE_TRIER
 //	Auteur		: Erick John Stark
 //	Date			: 20/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Ouverture de l'objet de Tri
+// Libellé		: Ouverture de l'objet de Tri
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -949,23 +991,23 @@ OpenWithParm ( w_Tri, stTri )
 sRet = Message.StringParm
 
 // .... Deux cas possibles
-// .... sRet = NULL		-> La personne $$HEX2$$e0002000$$ENDHEX$$appuyer sur RETOUR
+// .... sRet = NULL		-> La personne à appuyer sur RETOUR
 //								-> On ne fait rien
 //
 // .... sRet <> NULL 	-> La Chaine est Vide ou Non
-//								-> On positionne la cha$$HEX1$$ee00$$ENDHEX$$ne de Tri et On Tri la DW
+//								-> On positionne la chaîne de Tri et On Tri la DW
 
 If	Not IsNull ( sRet ) Then
 
 	dw_1.isTri = sRet
 	dw_1.TriggerEvent ( "Ue_Trier" )
 
-// .... Il faut positionner le pointeur sur l'enregistrement qui $$HEX1$$e900$$ENDHEX$$tait s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX2$$e9002000$$ENDHEX$$avant le Tri
+// .... Il faut positionner le pointeur sur l'enregistrement qui était sélectionné avant le Tri
 
 	lLigne = dw_1.GetSelectedRow ( 0 )
 
 	If lLigne > 0 Then
-// .... Il faut r$$HEX1$$e900$$ENDHEX$$armer la valeur d'instance de la DW qui donne la ligne s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$e
+// .... Il faut réarmer la valeur d'instance de la DW qui donne la ligne sélectionnée
 
 		dw_1.ilLigneClick = lLigne
 
@@ -989,8 +1031,8 @@ on ue_taillerhauteur;call w_ancetre::ue_taillerhauteur;//***********************
 // Evenement 	: UE_TAILLERHAUTEUR
 //	Auteur		: Erick John Stark
 //	Date			: 20/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
-// Commentaires: Centrage de la DW d'accueil dans la hauteur de la Fen$$HEX1$$ea00$$ENDHEX$$tre
+// Libellé		: 
+// Commentaires: Centrage de la DW d'accueil dans la hauteur de la Fenêtre
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -1011,7 +1053,7 @@ on ue_initialiser;call w_ancetre::ue_initialiser;//*****************************
 // Evenement 	: Ue_Initialiser
 //	Auteur		: Erick John Stark
 //	Date			: 22/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Mettre le focus sur la DW
+// Libellé		: Mettre le focus sur la DW
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -1028,8 +1070,8 @@ on open;call w_ancetre::open;//*************************************************
 // Evenement 	: Open
 //	Auteur		: D.Bizien
 //	Date			: 22/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Ouverture de la fen$$HEX1$$ea00$$ENDHEX$$tre de d'accueil
-// Commentaires: Positionnement des $$HEX1$$e900$$ENDHEX$$lements d'appel de la structure de traitement
+// Libellé		: Ouverture de la fenêtre de d'accueil
+// Commentaires: Positionnement des élements d'appel de la structure de traitement
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -1038,7 +1080,7 @@ on open;call w_ancetre::open;//*************************************************
 
 istPass.wParent			=	This			// Fenetre appelante pour fenetre de traitment
 istPass.bEnableParent	= 	False			// Doit on rendre la fenetre appelante disable
-													// lors de l'appel d'une fen$$HEX1$$ea00$$ENDHEX$$tre de traitement
+													// lors de l'appel d'une fenêtre de traitement
 
 This.TriggerEvent ( "ue_Initialiser" )
 end on
@@ -1049,7 +1091,7 @@ on ue_majaccueil;call w_ancetre::ue_majaccueil;//*******************************
 // Evenement 	: ue_MajAccueil
 //	Auteur		: D.Bizien
 //	Date			: 18/03/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Mise $$HEX2$$e0002000$$ENDHEX$$jour de la datawindow accueil apr$$HEX1$$e800$$ENDHEX$$s modification
+// Libellé		: Mise à jour de la datawindow accueil après modification
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -1069,8 +1111,8 @@ on ue_centreracc;call w_ancetre::ue_centreracc;//*******************************
 // Evenement 	: UE_CENTRERACC
 //	Auteur		: Erick John Stark
 //	Date			: 20/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
-// Commentaires: Centrage de la DW d'accueil dans la largeur de la Fen$$HEX1$$ea00$$ENDHEX$$tre
+// Libellé		: 
+// Commentaires: Centrage de la DW d'accueil dans la largeur de la Fenêtre
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -1088,7 +1130,7 @@ on ue_modifier;call w_ancetre::ue_modifier;//***********************************
 // Evenement 	: ue_Modifier
 //	Auteur		: D.Bizien
 //	Date			: 11/03/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Modification d'un  enregistrement
+// Libellé		: Modification d'un  enregistrement
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -1105,7 +1147,7 @@ on ue_creer;call w_ancetre::ue_creer;//*****************************************
 // Evenement 	: ue_Creer
 //	Auteur		: D.Bizien
 //	Date			: 11/03/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Cr$$HEX1$$e900$$ENDHEX$$ation d'un nouvel enregistrement
+// Libellé		: Création d'un nouvel enregistrement
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -1122,7 +1164,7 @@ on ue_retour;call w_ancetre::ue_retour;//***************************************
 // Evenement 	: ue_Retour
 //	Auteur		: D.Bizien
 //	Date			: 22/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Fermeture de la fen$$HEX1$$ea00$$ENDHEX$$tre de d'accueil
+// Libellé		: Fermeture de la fenêtre de d'accueil
 // Commentaires: 
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -1162,27 +1204,30 @@ destroy(this.pb_tri)
 destroy(this.pb_imprimer)
 end on
 
+type cb_debug from w_ancetre`cb_debug within w_accueil
+end type
+
 type pb_retour from u_pbretour within w_accueil
 integer x = 18
 integer y = 16
-integer width = 265
-integer height = 152
+integer width = 274
+integer height = 160
 integer taborder = 30
 end type
 
 type pb_interro from u_pbinterro within w_accueil
 integer x = 567
 integer y = 16
-integer width = 265
-integer height = 152
+integer width = 274
+integer height = 160
 integer taborder = 50
 end type
 
 type pb_creer from u_pbcreer within w_accueil
 integer x = 293
 integer y = 16
-integer width = 265
-integer height = 152
+integer width = 274
+integer height = 160
 integer taborder = 40
 end type
 
@@ -1200,8 +1245,8 @@ end type
 type pb_tri from u_pbtrier within w_accueil
 integer x = 841
 integer y = 16
-integer width = 265
-integer height = 152
+integer width = 274
+integer height = 160
 integer taborder = 60
 end type
 
