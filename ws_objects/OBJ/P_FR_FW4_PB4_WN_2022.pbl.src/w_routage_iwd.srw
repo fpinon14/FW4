@@ -1,5 +1,5 @@
-HA$PBExportHeader$w_routage_iwd.srw
-$PBExportComments$[PM217-2] Fen$$HEX1$$ea00$$ENDHEX$$tre qui appara$$HEX1$$ee00$$ENDHEX$$t lors du routage d'un travail
+﻿$PBExportHeader$w_routage_iwd.srw
+$PBExportComments$[PM217-2] Fenêtre qui apparaît lors du routage d'un travail
 forward
 global type w_routage_iwd from w_ancetre
 end type
@@ -43,8 +43,8 @@ event open;call super::open;//*-------------------------------------------------
 //* Evenement 		: Open
 //* Auteur			: Erick John Stark
 //* Date				: 12/06/1997 11:01:21
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Ouverture de la fen$$HEX1$$ea00$$ENDHEX$$tre de routage
+//* Libellé			: 
+//* Commentaires	: Ouverture de la fenêtre de routage
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
@@ -60,7 +60,7 @@ Long lRow
 
 s_Pass stPass
 
-DataWindowChild 	dwCodOper       	// DDDW du Code Op$$HEX1$$e900$$ENDHEX$$rateur
+DataWindowChild 	dwCodOper       	// DDDW du Code Opérateur
 DataWindowChild 	dwIdCorb       	// DDDW du Code Corbeille
 
 stPass = Message.PowerObjectParm
@@ -90,7 +90,7 @@ End If
 /* Gestion des motifs de routage                                    */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
-/* R$$HEX1$$e900$$ENDHEX$$initialisation des motifs de routage et des coefficients       */
+/* Réinitialisation des motifs de routage et des coefficients       */
 /*------------------------------------------------------------------*/
 
 stPass.DwNorm[ 1 ].ShareData ( Dw_Motif )
@@ -106,13 +106,14 @@ Next
 
 Dw_Motif.Visible 	= False
 Gb_1.Visible 		= False
-This.Height			= 965
+// This.Height			= 965
+This.Height			= 965 + 40 // [PB2022_TAILLE_FEN]
 Pb_Router.Y			= 681
 Pb_1.Y				= 681
 
 /*------------------------------------------------------------------*/
 /* Le 04/06/1999.                                                   */
-/* Modif DGA: On v$$HEX1$$e900$$ENDHEX$$rifie si l'on peut ecrire dans le r$$HEX1$$e900$$ENDHEX$$pertoire de  */
+/* Modif DGA: On vérifie si l'on peut ecrire dans le répertoire de  */
 /* TRACE. Si ce n'est pas le cas, on empeche le routage.            */
 /*------------------------------------------------------------------*/
 lNbElement = UpperBound ( stPass.sTab[] )
@@ -125,7 +126,7 @@ If	lNbElement > 2	Then
 		F_Verifier_Ecriture_Trace ( sFicEssaiTrcRout ) < 0	Then
 /*------------------------------------------------------------------*/
 /* On affiche un message d'erreur que l'on ne peut tracer. On sort  */
-/* ensuite imm$$HEX1$$e900$$ENDHEX$$diatement de la fonction.                            */
+/* ensuite immédiatement de la fonction.                            */
 /*------------------------------------------------------------------*/
 		stMessage.sTitre		= "Gestion des sinistres"
 		stMessage.Icon			= StopSign!
@@ -158,7 +159,7 @@ dwCodOper.Sort ()
 
 /*------------------------------------------------------------------*/
 /* On arme les zones COD_OPER et ID_CORB avec les valeurs que l'on  */
-/* passe en param$$HEX1$$ea00$$ENDHEX$$tres.                                             */
+/* passe en paramêtres.                                             */
 /*------------------------------------------------------------------*/
 // dw_Routage.SetItem ( 1, "COD_OPER", sIdOper ) // Vu le 31/01/2014
 
@@ -181,7 +182,7 @@ on ue_retour;call w_ancetre::ue_retour;//*--------------------------------------
 //* Evenement 		: Ue_Retour
 //* Auteur			: Erick John Stark
 //* Date				: 14/06/1997 17:38:19
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: La personne ne veut plus router le dossier
 //*				  
 //*-----------------------------------------------------------------
@@ -256,7 +257,7 @@ event clicked;//*---------------------------------------------------------------
 //* Evenement 		: Clicked
 //* Auteur			: Erick John Stark
 //* Date				: 14/06/1997 17:38:19
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: La personne veut router le dossier
 //*				  
 //*-----------------------------------------------------------------
@@ -271,20 +272,20 @@ Decimal {1}	dcCoeff
 
 String sPos, sText, sAltErr
 
-String 		sCol[3]				//Nom des champs $$HEX2$$e0002000$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$rifier
-String		sErr[3]				//Erreur relative a un champ $$HEX2$$e0002000$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$rifier 
+String 		sCol[3]				//Nom des champs à vérifier
+String		sErr[3]				//Erreur relative a un champ à vérifier 
 
 If	dw_Routage.AcceptText ()  > 0 Then
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie que toutes les zones sont saisies                     */
+/* On vérifie que toutes les zones sont saisies                     */
 /*------------------------------------------------------------------*/
 
 	sCol[ 1 ]				= "COD_OPER"
 	sCol[ 2 ]				= "ID_CORB"
 	sCol[ 3 ]				= "TXT_MESS1"
 
-	sErr[ 1 ]				= " - Le code de l'op$$HEX1$$e900$$ENDHEX$$rateur"
+	sErr[ 1 ]				= " - Le code de l'opérateur"
 	sErr[ 2 ]				= " - Le code de la corbeille"
 	sErr[ 3 ]				= " - Le message du routage"
 
@@ -316,8 +317,8 @@ If	dw_Routage.AcceptText ()  > 0 Then
 		If lCpt > 0 Then 
 
 	/*------------------------------------------------------------------*/
-	/* V$$HEX1$$e900$$ENDHEX$$rification qu'un coefficient est positionn$$HEX2$$e9002000$$ENDHEX$$sur chaque motif   */
-	/* de routage coch$$HEX1$$e900$$ENDHEX$$.                                                */
+	/* Vérification qu'un coefficient est positionné sur chaque motif   */
+	/* de routage coché.                                                */
 	/*------------------------------------------------------------------*/
 			For	lCpt = 1 To lNbrCol
 
@@ -328,7 +329,7 @@ If	dw_Routage.AcceptText ()  > 0 Then
 					If isNull ( dcCoeff ) Then
 	/*------------------------------------------------------------------*/
 	/* Je repositionne le curseur sur la Dw_Routage car elle ne         */
-	/* poss$$HEX1$$e800$$ENDHEX$$de qu'une ligne                                             */
+	/* possède qu'une ligne                                             */
 	/*------------------------------------------------------------------*/
 						If ( sPos = "" ) 	Then 	sPos = sCol[ 1 ]
 						sText = sText + " - Le coefficient pour l'erreur : " + Dw_Motif.GetItemString ( lCpt, "ERREUR" )  + "~r~n"
@@ -346,13 +347,13 @@ If	dw_Routage.AcceptText ()  > 0 Then
 	End If //#1
 
 /*------------------------------------------------------------------*/
-/* Affichage de la cha$$HEX1$$ee00$$ENDHEX$$ne correspondant au message d'erreur         */
+/* Affichage de la chaîne correspondant au message d'erreur         */
 /*------------------------------------------------------------------*/
 
 	If	( sPos <> "" ) Then
 
 		stMessage.bErreurG	= True
-		stMessage.sTitre		= "Contr$$HEX1$$f400$$ENDHEX$$le de Saisie du Routage"
+		stMessage.sTitre		= "Contrôle de Saisie du Routage"
 		stMessage.Icon			= Information!
 		stMessage.sVar[1] 	= sText
 		stMessage.sCode		= "ANCE045"
@@ -389,7 +390,7 @@ event itemerror;//*-------------------------------------------------------------
 //* Evenement 		: ItemError
 //* Auteur			: Erick John Stark
 //* Date				: 14/06/1997 18:17:29
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Gestion des Erreurs 
 //*				  
 //*-----------------------------------------------------------------
@@ -419,7 +420,7 @@ Case "TXT_MESS1"
 // JCA - developpement en cours...
 Case "COD_OPER"
 	stMessage.bErreurG	= True
-	stMessage.sVar[1] 	= "op$$HEX1$$e900$$ENDHEX$$rateur"
+	stMessage.sVar[1] 	= "opérateur"
 	stMessage.sCode		= "GENE008"
 	setnull(sText)
 End Choose
@@ -442,7 +443,7 @@ event itemchanged;//*-----------------------------------------------------------
 //* Evenement 		: ItemChanged!
 //* Auteur			: Erick John Stark
 //* Date				: 10/11/1998 15:35:30
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
