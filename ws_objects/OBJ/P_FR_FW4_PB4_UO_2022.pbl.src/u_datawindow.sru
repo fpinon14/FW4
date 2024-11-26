@@ -1,5 +1,5 @@
-HA$PBExportHeader$u_datawindow.sru
-$PBExportComments$----} UserObjet Anc$$HEX1$$ea00$$ENDHEX$$tre DataWindow
+﻿$PBExportHeader$u_datawindow.sru
+$PBExportComments$----} UserObjet Ancêtre DataWindow
 forward
 global type u_datawindow from datawindow
 end type
@@ -47,6 +47,7 @@ Integer            iiErreur,     &
 Integer	        iiStopTab
 
 Boolean          ibErreur 
+Boolean          ibPasDeMessage // [KSV649_ORREUCARA]
 
 Long              ilMaxLig , &
                      ilNbrLig
@@ -61,7 +62,7 @@ u_datawindow_detail	iudwDetailSource
 Long			ilLigneDetailSource
 
 // [SUISSE].ID_LANG
-n_cst_dwsrv_itemmanager invIm // SErvice de gestion am$$HEX1$$e900$$ENDHEX$$lior$$HEX1$$e900$$ENDHEX$$e des tiem d'un dw
+n_cst_dwsrv_itemmanager invIm // SErvice de gestion améliorée des tiem d'un dw
 
 end variables
 
@@ -104,7 +105,7 @@ event ue_trier;//***************************************************************
 // Evenement 	: Ue_Trier
 //	Auteur		: Erick John Stark
 //	Date			: 24/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Libellé		: 
 // Commentaires: Tri de la DW 
 //					  
 // ----------------------------------------------------------------------------
@@ -127,9 +128,9 @@ event we_touche;//**************************************************************
 // Evenement 	: we_Touche
 //	Auteur		: D.Bizien
 //	Date			: 13/03/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Controle de la touche press$$HEX1$$e900$$ENDHEX$$e
-// Commentaires: iiStopTab = 1 on fait tab et on est sur la derni$$HEX1$$e800$$ENDHEX$$re colonne 
-//					  iiStopTab = 2 on fait shift-tab et on est sur la premi$$HEX1$$e800$$ENDHEX$$re colonne 
+// Libellé		: Controle de la touche pressée
+// Commentaires: iiStopTab = 1 on fait tab et on est sur la dernière colonne 
+//					  iiStopTab = 2 on fait shift-tab et on est sur la première colonne 
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -172,9 +173,9 @@ event ue_boucleenr;//***********************************************************
 // Evenement 	: ue_BoucleEnr
 //	Auteur		: D.Bizien
 //	Date			: 13/03/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Repositionnement pour bouclage sur la datawindow
-// Commentaires: iiStopTab = 1 on fait tab et on est sur la derni$$HEX1$$e800$$ENDHEX$$re colonne 
-//					  iiStopTab = 2 on fait shift-tab et on est sur la premi$$HEX1$$e800$$ENDHEX$$re colonne 
+// Libellé		: Repositionnement pour bouclage sur la datawindow
+// Commentaires: iiStopTab = 1 on fait tab et on est sur la dernière colonne 
+//					  iiStopTab = 2 on fait shift-tab et on est sur la première colonne 
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -205,9 +206,9 @@ event ue_dropdown;//*-----------------------------------------------------------
 //* Evenement 		: ue_DropDown
 //* Auteur			: Erick John Stark
 //* Date				: 02/12/1996 15:29:32
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Appel de la construction d'un calendrier,
-//*					  ou d'une fen$$HEX1$$ea00$$ENDHEX$$tre de saisie en Euro
+//*					  ou d'une fenêtre de saisie en Euro
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
@@ -223,7 +224,7 @@ long	ll_ret
 If	This.Describe ( This.GetColumnName () + ".ColType" ) = "date" Then
 	This.Uf_ddCalendrier ()
 //Migration PB8-WYNIWYG-03/2006 FM
-	//This.SetActionCode ( 1 )		// Emp$$HEX1$$ea00$$ENDHEX$$che la DDLB d'appara$$HEX1$$ee00$$ENDHEX$$tre
+	//This.SetActionCode ( 1 )		// Empêche la DDLB d'apparaître
 	ll_ret = 1
 //Fin Migration PB8-WYNIWYG-03/2006 FM
 End If
@@ -232,20 +233,20 @@ End If
 If	This.Describe ( This.GetColumnName () + ".ColType" ) = "datetime" and This.Describe ( This.GetColumnName () + ".Format") = "dd/mm/yyyy" Then
 	This.Uf_ddCalendrier ()
 //Migration PB8-WYNIWYG-03/2006 FM
-	//This.SetActionCode ( 1 )		// Emp$$HEX1$$ea00$$ENDHEX$$che la DDLB d'appara$$HEX1$$ee00$$ENDHEX$$tre
+	//This.SetActionCode ( 1 )		// Empêche la DDLB d'apparaître
 	ll_ret = 1
 //Fin Migration PB8-WYNIWYG-03/2006 FM
 End If
 // :[PI056]
 
 /*------------------------------------------------------------------*/
-/* Si la colonne est de type DECIMAL {2}, on affiche une aide $$HEX2$$e0002000$$ENDHEX$$la  */
+/* Si la colonne est de type DECIMAL {2}, on affiche une aide à la  */
 /* saisie en EUROS.                                                 */
 /*------------------------------------------------------------------*/
 If	This.Describe ( This.GetColumnName () + ".ColType" ) = "decimal(2)" Then
 	This.Uf_ddSaisieEuro ()
 //Migration PB8-WYNIWYG-03/2006 FM
-//	This.SetActionCode ( 1 )		// Emp$$HEX1$$ea00$$ENDHEX$$che la DDLB d'appara$$HEX1$$ee00$$ENDHEX$$tre
+//	This.SetActionCode ( 1 )		// Empêche la DDLB d'apparaître
 	ll_ret = 1
 //Fin Migration PB8-WYNIWYG-03/2006 FM
 End If
@@ -278,12 +279,12 @@ public function boolean uf_update ();//*****************************************
 // Fonction            	: u_DataWindow::uf_Update
 //	Auteur              	: D.Bizien
 //	Date 					 	: 11/03/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Update sur la datawindow
+//	Libellé					: Update sur la datawindow
 // Commentaires			: 
 //
 // Arguments				: Aucun
 //
-// Retourne					: Bool$$HEX1$$e900$$ENDHEX$$en - Vrai si l'update s'est bien pass$$HEX1$$e900$$ENDHEX$$
+// Retourne					: Booléen - Vrai si l'update s'est bien passé
 //								  
 //*******************************************************************************************
 
@@ -294,8 +295,8 @@ public subroutine uf_initialisercouleur (string ascolonne[]);//*****************
 // Fonction            	: u_DataWindow::uf_InitialiserCouleur
 //	Auteur              	: D.Bizien
 //	Date 					 	: 13/03/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Positionnement des attributs conditionnels de couleur des colonnes
-// Commentaires			: si l'attribut protect de la colonne est $$HEX2$$e0002000$$ENDHEX$$1 on met la colonne en
+//	Libellé					: Positionnement des attributs conditionnels de couleur des colonnes
+// Commentaires			: si l'attribut protect de la colonne est à 1 on met la colonne en
 //								  3dRaised - fond gris sinon 3dLowered - fond Blanc
 //									sBlanc		= "16777215",	&
 //									sVert			= "32768",		&
@@ -303,7 +304,7 @@ public subroutine uf_initialisercouleur (string ascolonne[]);//*****************
 //									sGris			= "12632256",	&
 //									s3DRaised	= "6",			&
 //									s3DLowered	= "5",			&
-// Arguments				: asColonne [] - String - tableau contenant la liste des colonnes $$HEX2$$e0002000$$ENDHEX$$initialiser
+// Arguments				: asColonne [] - String - tableau contenant la liste des colonnes à initialiser
 //
 // Retourne					: Rien
 //								  
@@ -343,15 +344,15 @@ public subroutine uf_proteger (string ascolonne[], string asprotection);//******
 // Fonction            	: u_DataWindow::uf_Proteger
 //	Auteur              	: D.Bizien
 //	Date 					 	: 13/03/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Protection, deprotection de colonnes
+//	Libellé					: Protection, deprotection de colonnes
 // Commentaires			: 
-// Arguments				: asColonne [] - String - tableau contenant la liste des colonnes $$HEX2$$e0002000$$ENDHEX$$initialiser
+// Arguments				: asColonne [] - String - tableau contenant la liste des colonnes à initialiser
 //								  asProtection - String - 0 pour deprotection, 1 pour protection
 //
 // Retourne					: Rien
 //		
 //*******************************************************************************************
-// JFF   13/10/2022  J'envoie le modify $$HEX2$$e0002000$$ENDHEX$$chaque fois car la chaine est trop longue et n'est pas totalement interpr$$HEX1$$e900$$ENDHEX$$t$$HEX1$$e900$$ENDHEX$$
+// JFF   13/10/2022  J'envoie le modify à chaque fois car la chaine est trop longue et n'est pas totalement interprété
 //*******************************************************************************************
 
 
@@ -380,10 +381,10 @@ public subroutine uf_filtrer (string asfiltre);//*******************************
 // Fonction            	: u_DataWindow::uf_Filtrer
 //	Auteur              	: D.Bizien
 //	Date 					 	: 27/03/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Filtre de la datawindow en fonction d'un crit$$HEX1$$e800$$ENDHEX$$re
-// Commentaires			: Mettre le filtre $$HEX2$$e0002000$$ENDHEX$$"" pour annuler tous les filtres ou $$HEX2$$e0002000$$ENDHEX$$null pour 
-//								  permettre $$HEX2$$e0002000$$ENDHEX$$l'op$$HEX1$$e900$$ENDHEX$$rateur de choisir
-// Arguments				: asFiltre - String - filtre $$HEX2$$e0002000$$ENDHEX$$utiliser
+//	Libellé					: Filtre de la datawindow en fonction d'un critère
+// Commentaires			: Mettre le filtre à "" pour annuler tous les filtres ou à null pour 
+//								  permettre à l'opérateur de choisir
+// Arguments				: asFiltre - String - filtre à utiliser
 //
 // Retourne					: Rien
 //								  
@@ -398,11 +399,11 @@ public subroutine uf_desactiver (long alLigneDebut, long alLigneFin);//*********
 // Fonction            	: u_Datawindow::uf_Desactiver
 //	Auteur              	: D.Bizien
 //	Date 					 	: 27/03/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: D$$HEX1$$e900$$ENDHEX$$truit certaines lignes d'une datawindow sans cons$$HEX1$$e900$$ENDHEX$$quence pour la base
+//	Libellé					: Détruit certaines lignes d'une datawindow sans conséquence pour la base
 // Commentaires			:
 //
-// Arguments				: alLigneDebut - Long - Premier ligne $$HEX2$$e0002000$$ENDHEX$$d$$HEX1$$e900$$ENDHEX$$truire
-//								  alLigneFin   - Long - Derni$$HEX1$$e800$$ENDHEX$$re ligne $$HEX2$$e0002000$$ENDHEX$$d$$HEX1$$e900$$ENDHEX$$truire
+// Arguments				: alLigneDebut - Long - Premier ligne à détruire
+//								  alLigneFin   - Long - Dernière ligne à détruire
 // Retourne					: 
 //								  
 //*******************************************************************************************
@@ -416,10 +417,10 @@ public function long uf_modify (ref string asmod);//****************************
 // Fonction            	: Uf_Modify
 //	Auteur              	: Erick John Stark
 //	Date 					 	: 22/02/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Modification de la DW
 //
-// Arguments				: asMod			String			(R$$HEX1$$e900$$ENDHEX$$f)	Chaine de modification
+// Arguments				: asMod			String			(Réf)	Chaine de modification
 //
 // Retourne					: Long			 1 = Ok
 //													-1 = Pas Ok
@@ -443,10 +444,10 @@ public subroutine uf_indicator (ref picture apIndicator);//*********************
 // Fonction            	: Uf_Indicator
 //	Auteur              	: Erick John Stark
 //	Date 					 	: 22/02/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Positionnement d'un Indicator sur la DW
 //
-// Arguments				: apIndicator	String			(R$$HEX1$$e900$$ENDHEX$$f)	Picture Name $$HEX2$$e0002000$$ENDHEX$$assigner
+// Arguments				: apIndicator	String			(Réf)	Picture Name à assigner
 //
 // Retourne					: Rien
 //								  
@@ -462,13 +463,13 @@ public function boolean uf_copierligne ();//************************************
 // Fonction            	: u_DataWindow::uf_CopierLigne
 //	Auteur              	: La Recrue
 //	Date 					 	: 12/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Copie de ligne
+//	Libellé					: Copie de ligne
 // Commentaires			: copie la ligne courrante du Detail affecter sur elle meme.
-//								  la ligne est ajout$$HEX1$$e900$$ENDHEX$$e a la fin de la DW.
+//								  la ligne est ajoutée a la fin de la DW.
 //
 // Arguments				: Aucun
 //
-// Retourne					: Bool$$HEX1$$e900$$ENDHEX$$en - Vrai si la copie s'est bien pass$$HEX1$$e900$$ENDHEX$$e								  
+// Retourne					: Booléen - Vrai si la copie s'est bien passée								  
 //*******************************************************************************************
 
 Long				lI, lColCount, lRet
@@ -515,14 +516,14 @@ public function boolean uf_validerligne (boolean abinsert);//*******************
 // Fonction            	: u_DataWindow::uf_ValiderLigne
 //	Auteur              	: La Recrue
 //	Date 					 	: 12/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Validation de ligne
-// Commentaires			: Recopie la ligne modifi$$HEX1$$e900$$ENDHEX$$e sur le detail source
+//	Libellé					: Validation de ligne
+// Commentaires			: Recopie la ligne modifiée sur le detail source
 //	
 // Arguments				: abInsert	Boolean	( val ) Indique s'il sagit d'une insertion ou pas
 //
-// Retourne					: Bool$$HEX1$$e900$$ENDHEX$$en - Vrai si la copie s'est bien pass$$HEX1$$e900$$ENDHEX$$e								  
+// Retourne					: Booléen - Vrai si la copie s'est bien passée								  
 //*******************************************************************************************
-//* N$$HEX2$$b0002000$$ENDHEX$$Modif          Re$$HEX1$$e700$$ENDHEX$$ue Le          Effectu$$HEX1$$e900$$ENDHEX$$e Le          PAR
+//* N° Modif          Reçue Le          Effectuée Le          PAR
 //*
 //* MOD-0001          18/03/97            19/03/97				La Recrue
 //*
@@ -551,7 +552,7 @@ If ( isValid ( iudwDetailSource ) ) Then
 		If ( This.RowsCopy( 1, 1, Primary!, iudwDetailSource, ilLigneDetailSource + 1 , Primary! ) > 0 ) Then
 
 /*------------------------------------------------------------------*/
-/* R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration de l'$$HEX1$$e900$$ENDHEX$$tat de la ligne avant la suppression. Si      */
+/* Récupération de l'état de la ligne avant la suppression. Si      */
 /* elle est en NewModified! alors il est inutile d'effectuer un     */
 /* RowDiscard sur le buffer Deleted! car le DeleteRow ne transfert  */
 /* pas la ligne dans ce buffer.                                     */
@@ -581,7 +582,7 @@ If ( isValid ( iudwDetailSource ) ) Then
 //			iudwDetailSource.TriggerEvent( RowFocusChanged! )
 /*------------------------------------------------------------------*/
 /* Le 11/10/2006 - Modif DGA.                                       */
-/* Probl$$HEX1$$e800$$ENDHEX$$me sur le SetRow qui ne d$$HEX1$$e900$$ENDHEX$$clenche plus le RowFocusChanged  */
+/* Problème sur le SetRow qui ne déclenche plus le RowFocusChanged  */
 /* de U_DataWindow_Detail.                                          */
 /*------------------------------------------------------------------*/
 			iudwDetailSource.Event RowFocusChanged(lg_selected_line)
@@ -600,7 +601,7 @@ If ( isValid ( iudwDetailSource ) ) Then
 			ilLigneDetailSource = iudwDetailSource.GetRow()
 /*------------------------------------------------------------------*/
 /* Le 11/10/2006 - Modif DGA.                                       */
-/* Probl$$HEX1$$e800$$ENDHEX$$me sur le SetRow qui ne d$$HEX1$$e900$$ENDHEX$$clenche plus le RowFocusChanged  */
+/* Problème sur le SetRow qui ne déclenche plus le RowFocusChanged  */
 /* de U_DataWindow_Detail.                                          */
 /*------------------------------------------------------------------*/
 			iudwDetailSource.Event RowFocusChanged(iudwDetailSource.Rowcount())
@@ -638,13 +639,13 @@ public function boolean uf_detailparent (u_datawindow_detail audwdetail);
 // Fonction            	: u_DataWindow::uf_DetailParent
 //	Auteur              	: La Recrue
 //	Date 					 	: 12/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Affectaition du Detail source
-// Commentaires			: Permet d'affecter un d$$HEX1$$e900$$ENDHEX$$tail source a la datawindow pour la copie
+//	Libellé					: Affectaition du Detail source
+// Commentaires			: Permet d'affecter un détail source a la datawindow pour la copie
 //								  de ligne et la validation de ligne
 //
 // Arguments				: u_datawindow_detail	audwDetail	( DataWindow )
 //
-// Retourne					: Bool$$HEX1$$e900$$ENDHEX$$en -  Vrai si l'affectation s'est bien pass$$HEX1$$e900$$ENDHEX$$e
+// Retourne					: Booléen -  Vrai si l'affectation s'est bien passée
 //								  
 //*******************************************************************************************
 
@@ -664,12 +665,12 @@ public function boolean uf_supprimerligne ();//*********************************
 // Fonction            	: u_DataWindow::uf_SupprimerLigne
 //	Auteur              	: La Recrue
 //	Date 					 	: 12/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Suppression d'une ligne sur un d$$HEX1$$e900$$ENDHEX$$tail source
+//	Libellé					: Suppression d'une ligne sur un détail source
 // Commentaires			: 
 //	
 // Arguments				: Aucun
 //
-// Retourne					: Bool$$HEX1$$e900$$ENDHEX$$en - Vrai si la copie s'est bien pass$$HEX1$$e900$$ENDHEX$$e								  
+// Retourne					: Booléen - Vrai si la copie s'est bien passée								  
 //*******************************************************************************************
 
 Boolean bOk
@@ -704,12 +705,12 @@ public function boolean uf_mnu_interdiritem (integer ainumitem);//**************
 // Fonction            	: Uf_Mnu_InterdirItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Interdit l'acces a un item du menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item dont l'acc$$HEX1$$e800$$ENDHEX$$s doit $$HEX1$$ea00$$ENDHEX$$tre
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item dont l'accès doit être
 //																			Interdit
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -728,12 +729,12 @@ public function boolean uf_mnu_autoriseritem (integer ainumitem);//*************
 // Fonction            	: Uf_Mnu_AutoriserItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Autorise l'acces a un item du menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item dont l'acc$$HEX1$$e800$$ENDHEX$$s doit $$HEX1$$ea00$$ENDHEX$$tre
-//																			Autoris$$HEX1$$e900$$ENDHEX$$
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item dont l'accès doit être
+//																			Autorisé
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -752,12 +753,12 @@ public function boolean uf_mnu_montreritem (integer ainumitem);//***************
 // Fonction            	: Uf_Mnu_MontrerItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Autorise l'acces a un item du menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item dont l'acc$$HEX1$$e800$$ENDHEX$$s doit $$HEX1$$ea00$$ENDHEX$$tre
-//																			Autoris$$HEX1$$e900$$ENDHEX$$
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item dont l'accès doit être
+//																			Autorisé
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -776,12 +777,12 @@ public function boolean uf_mnu_cacheritem (integer ainumitem);//****************
 // Fonction            	: Uf_Mnu_CacherItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: permet de Chcher un item du menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item qui doit $$HEX1$$ea00$$ENDHEX$$tre Cacher
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item qui doit être Cacher
 //																			
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -800,12 +801,12 @@ public function boolean uf_mnu_checkitem (integer ainumitem);//*****************
 // Fonction            	: Uf_Mnu_CheckItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Check un item du menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item qui doit $$HEX1$$ea00$$ENDHEX$$tre "check$$HEX1$$e900$$ENDHEX$$"
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item qui doit être "checké"
 //
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -824,12 +825,12 @@ public function boolean uf_mnu_uncheckitem (integer ainumitem);//***************
 // Fonction            	: Uf_Mnu_UncheckItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Uncheck un item du menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item qui doit $$HEX1$$ea00$$ENDHEX$$tre "d$$HEX1$$e900$$ENDHEX$$check$$HEX1$$e900$$ENDHEX$$"
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item qui doit être "déchecké"
 //
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -848,13 +849,13 @@ public function boolean uf_mnu_ischecked (integer ainumitem);//*****************
 // Fonction            	: Uf_Mnu_IsChecked
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
-// Commentaires			: Determine si un menu est "check$$HEX1$$e900$$ENDHEX$$" ou pas
+//	Libellé					: 
+// Commentaires			: Determine si un menu est "checké" ou pas
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item qui doit $$HEX1$$ea00$$ENDHEX$$tre teste
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item qui doit être teste
 //
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max) ou que l'item est "check$$HEX1$$e900$$ENDHEX$$"
-//								  					False si l'indice d$$HEX1$$e900$$ENDHEX$$borde, ou que l'item nest pas "check$$HEX1$$e900$$ENDHEX$$"
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max) ou que l'item est "checké"
+//								  					False si l'indice déborde, ou que l'item nest pas "checké"
 //*******************************************************************************************
 
 If ( aiNumItem > 15 ) Then
@@ -872,12 +873,12 @@ public function boolean uf_mnu_supprimeritem (integer ainumitem);//*************
 // Fonction            	: Uf_Mnu_SupprimerItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Permet de supprimer un Item au menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item Voulu
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item Voulu
 //													
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -898,12 +899,12 @@ public function boolean uf_mnu_changertext (integer ainumitem, string astext);//
 // Fonction            	: Uf_Mnu_AjouterItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Permet d'ajouter un Item au menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item Voulu
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item Voulu
 //													asText		(Val) Texte de l'item
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -924,12 +925,12 @@ public function string uf_mnu_liretext (integer ainumitem);//*******************
 // Fonction            	: Uf_Mnu_LireText
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Permet de connaitre le text d'un item
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item Voulu
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item Voulu
 //													
-// Retourne					: String			"" si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max) 
+// Retourne					: String			"" si l'indice ne déborde pas (15 item max) 
 //								  					le text de l'item voulu sinon
 //*******************************************************************************************
 
@@ -948,12 +949,12 @@ public function boolean uf_mnu_ajouteritem (integer ainumitem, string astext);//
 // Fonction            	: Uf_Mnu_AjouterItem
 //	Auteur              	: La Recrue
 //	Date 					 	: 16/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+//	Libellé					: 
 // Commentaires			: Permet d'ajouter un Item au menu contextuel
 //
-// Arguments				: Integer		aiNumItem	(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'item Voulu
+// Arguments				: Integer		aiNumItem	(Val)	N° de l'item Voulu
 //													asText		(Val) Texte de l'item
-// Retourne					: Boolean		True si l'indice ne d$$HEX1$$e900$$ENDHEX$$borde pas (15 item max).
+// Retourne					: Boolean		True si l'indice ne déborde pas (15 item max).
 //								  
 //*******************************************************************************************
 
@@ -976,8 +977,8 @@ public subroutine uf_activer_menu (boolean abActivation);//*********************
 // Fonction            	: Uf_Activer_Menu
 //	Auteur              	: La Recrue
 //	Date 					 	: 05/12/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
-// Commentaires			: Permet d'activer ou de d$$HEX1$$e900$$ENDHEX$$sactiver le menu contextuel
+//	Libellé					: 
+// Commentaires			: Permet d'activer ou de désactiver le menu contextuel
 //
 // Arguments				: Boolean		abActivation	(Val)	Choix d'activation ou non
 //
@@ -995,7 +996,7 @@ private subroutine uf_ddcalendrier ();//*---------------------------------------
 //* Fonction		: Uf_ddCalendrier ( Private )
 //* Auteur			: Erick John Stark
 //* Date				: 02/12/1996 15:32:35
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Affichage d'un calendrier
 //*
 //* Arguments		: Aucun
@@ -1041,7 +1042,7 @@ iCalendrierHauteur = 695
 GetEnvironment ( stEnv )
 
 /*------------------------------------------------------------------*/
-/* Je populise expr$$HEX1$$e900$$ENDHEX$$s une structure bas$$HEX1$$e900$$ENDHEX$$e sur l'environnement,      */
+/* Je populise exprés une structure basée sur l'environnement,      */
 /* bien que celle-ci puisse exister dans stGLB                      */
 /*------------------------------------------------------------------*/
 
@@ -1064,12 +1065,12 @@ public function boolean uf_settransobject (ref u_transaction atrtrans);//*------
 //* Fonction		: Uf_SetTransObject
 //* Auteur			: Erick John Stark
 //* Date				: 09/08/1996 14:41:42
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Positionnement de l'objet de transaction de la datawindow
 //*
 //* Arguments		: 
 //*
-//* Retourne		: Bool$$HEX1$$e900$$ENDHEX$$en
+//* Retourne		: Booléen
 //*								
 //*-----------------------------------------------------------------
 
@@ -1094,7 +1095,7 @@ private subroutine uf_ddsaisieeuro ();//*---------------------------------------
 //* Fonction		: Uf_ddSaisieEuro ( Private )
 //* Auteur			: Erick John Stark
 //* Date				: 02/12/1996 15:32:35
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Affichage d'une saisie en EURO
 //*
 //* Arguments		: Aucun
@@ -1114,7 +1115,7 @@ SetPointer ( HourGlass! )
 
 /*------------------------------------------------------------------*/
 /* Si le montant n'est pas positif, ou si la zone ne correspond pas */
-/* $$HEX2$$e0002000$$ENDHEX$$un nombre on ressort tout de suite.                            */
+/* à un nombre on ressort tout de suite.                            */
 /*------------------------------------------------------------------*/
 sText = This.GetText ()
 
@@ -1140,7 +1141,7 @@ iEuroHauteur = 160
 GetEnvironment ( stEnv )
 
 /*------------------------------------------------------------------*/
-/* Je populise expr$$HEX1$$e900$$ENDHEX$$s une structure bas$$HEX1$$e900$$ENDHEX$$e sur l'environnement,      */
+/* Je populise exprés une structure basée sur l'environnement,      */
 /* bien que celle-ci puisse exister dans stGLB                      */
 /*------------------------------------------------------------------*/
 
@@ -1162,7 +1163,7 @@ public subroutine uf_modifier_choix_monnaie (long alChoixMonnaie);//*-----------
 //* Fonction		: U_DataWindow::Uf_Modifier_Choix_Monnaie (PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 31/03/1999 15:43:30
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Modification de la valeur d'instance PRIVATE ilChoixMonnaie
 //*
 //* Arguments		: Long			alChoixMonnaie			(Val)	Valeur de la zone
@@ -1172,9 +1173,9 @@ public subroutine uf_modifier_choix_monnaie (long alChoixMonnaie);//*-----------
 //*-----------------------------------------------------------------
 
 /*------------------------------------------------------------------*/
-/* Cette fonction sert $$HEX2$$e0002000$$ENDHEX$$armer la valeur d'insance ilChoixMonnaie.  */
-/* Par d$$HEX1$$e900$$ENDHEX$$faut, cette valeur est initialis$$HEX1$$e900$$ENDHEX$$e $$HEX2$$e0002000$$ENDHEX$$2 dans le             */
-/* constructor de la DW. Cette valeur d$$HEX1$$e900$$ENDHEX$$pent du param$$HEX1$$e800$$ENDHEX$$trage du      */
+/* Cette fonction sert à armer la valeur d'insance ilChoixMonnaie.  */
+/* Par défaut, cette valeur est initialisée à 2 dans le             */
+/* constructor de la DW. Cette valeur dépent du paramètrage du      */
 /* produit.                                                         */
 /*------------------------------------------------------------------*/
 
@@ -1186,11 +1187,11 @@ public function long uf_reinitialiser ();//*************************************
 // Fonction            	: Uf_Reinitialiser ()
 //	Auteur              	: D.Bizien
 //	Date 					 	: 15/03/1996
-//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: R$$HEX1$$e900$$ENDHEX$$initialisation d'une zone apr$$HEX1$$e800$$ENDHEX$$s traitement d'erreur sur itemError 
+//	Libellé					: Réinitialisation d'une zone après traitement d'erreur sur itemError 
 // Commentaires			: iiReset = 0 : on remet la valeur initiale.
-//								  iiReset = 1 : on repositionne la zone $$HEX2$$e0002000$$ENDHEX$$nul.
+//								  iiReset = 1 : on repositionne la zone à nul.
 //								  iiReset = 2 : on garde la valeur saisie.
-//								  iiReset et iiErreur sont r$$HEX1$$e900$$ENDHEX$$initialiser pour la fois suivante
+//								  iiReset et iiErreur sont réinitialiser pour la fois suivante
 // Arguments				: Aucun
 //
 // Retourne					: Rien
@@ -1223,7 +1224,7 @@ Choose Case Left ( sType, 4 )
 
 		End Choose
 
-	Case "numb"					// Variable num$$HEX1$$e900$$ENDHEX$$rique
+	Case "numb"					// Variable numérique
 
 		Choose Case iiReset
 
@@ -1242,7 +1243,7 @@ Choose Case Left ( sType, 4 )
 
 		End Choose
 
-	Case "deci"					// Type d$$HEX1$$e900$$ENDHEX$$cimal
+	Case "deci"					// Type décimal
 
 		Choose Case iiReset
 
@@ -1325,7 +1326,7 @@ Choose Case Left ( sType, 4 )
 
 End Choose
 
-iiErreur		= 0					//	R$$HEX1$$e900$$ENDHEX$$init des variables d'instance
+iiErreur		= 0					//	Réinit des variables d'instance
 iiReset		= 0
 iiStopTab	= 0
 //Migration PB8-WYNIWYG-03/2006 FM
@@ -1376,7 +1377,7 @@ event itemerror;//**************************************************************
 // Evenement 	: ItemError
 //	Auteur		: Erick John Stark
 //	Date			: 24/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Libellé		: 
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -1402,10 +1403,10 @@ If	sText = "" Then
 	sVal	= This.GetColumnName () + ".ColType"
 	sType	= This.Describe ( sVal )
 
-// Interrogation sur l'utilit$$HEX2$$e9002000$$ENDHEX$$du code - JCA - 11/04/2006
+// Interrogation sur l'utilité du code - JCA - 11/04/2006
 
 //Migration PB8-WYNIWYG-03/2006 FM
-//$$HEX1$$e900$$ENDHEX$$vite de vider le champ d'une DropDownListBox en cas d'utilisation des fl$$HEX1$$e800$$ENDHEX$$ches haut et bas
+//évite de vider le champ d'une DropDownListBox en cas d'utilisation des flèches haut et bas
 //	Boolean Lb_ddlb
 //	Lb_ddlb = (Len(This.Describe(This.GetColumnName ()+".ddlb.allowedit")) > 1)
 //	if Lb_ddlb and sText = "" and ( Left ( sType, 4 ) = "deci" ) then 
@@ -1455,7 +1456,7 @@ event constructor;//************************************************************
 // Evenement 	: Constructor
 //	Auteur		: Erick John Stark
 //	Date			: 24/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Libellé		: 
 // Commentaires: Initialisation des variables d'instances
 //					  
 // ----------------------------------------------------------------------------
@@ -1474,9 +1475,9 @@ imContext	= CREATE m_Context
 /*------------------------------------------------------------------*/
 /* Le 02/06/1998.                                                   */
 /* La gestion du scrolling sur les colonnes de la DW pose un        */
-/* probl$$HEX1$$e800$$ENDHEX$$me.                                                        */
+/* problème.                                                        */
 /*------------------------------------------------------------------*/
-/* On est positionn$$HEX2$$e9002000$$ENDHEX$$sur l'objet U_DataWindow, on prend en compte   */
+/* On est positionné sur l'objet U_DataWindow, on prend en compte   */
 /* la gestion de We_Touche.                                         */
 /*------------------------------------------------------------------*/
 ibGestionTouche = True
@@ -1487,8 +1488,8 @@ ibGestionTouche = True
 /* Ajout d'une variable d'instance. ( ilChoixMonnaie ).             */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
-/* On initialise cette valeur $$HEX2$$e0002000$$ENDHEX$$4. E XXXX.XX ( FRF XXX.XX )         */
-/* Depuis le passage $$HEX2$$e0002000$$ENDHEX$$l'Euro                                       */
+/* On initialise cette valeur à 4. E XXXX.XX ( FRF XXX.XX )         */
+/* Depuis le passage à l'Euro                                       */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
 /* Il existe une fonction pour modifier cette instance.             */
@@ -1508,14 +1509,14 @@ event rbuttondown;//************************************************************
 // Evenement 	: RboutonDonw
 //	Auteur		: La Recrue
 //	Date			: 12/12/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: Gestion du menu contextuel
+// Libellé		: Gestion du menu contextuel
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
 // #1 FS       02/08/2001 : Modif pour visualiser les mt euro en francs sur clic droit
-// #2 WYNIWYG	21/06/2004 : F. Musso modifi$$HEX2$$e9002000$$ENDHEX$$pour r$$HEX1$$e900$$ENDHEX$$soudre le probl$$HEX1$$e800$$ENDHEX$$me du menu 
-//									contextuel sur les fen$$HEX1$$ea00$$ENDHEX$$tres avec une titlebar suite $$HEX2$$e0002000$$ENDHEX$$la
+// #2 WYNIWYG	21/06/2004 : F. Musso modifié pour résoudre le problème du menu 
+//									contextuel sur les fenêtres avec une titlebar suite à la
 //									Migration PB8-WYNIWYG-03/2004
 // #3 PHG		22/02/2008 : [SUISSE].LOT3 : Desactivation PopupMenu Conversion Euro
 //*****************************************************************************
@@ -1581,8 +1582,8 @@ Else
 /* Ajout d'une variable d'instance. ( ilChoixMonnaie ).             */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
-/* Si la colonne est de type DECIMAL{2}, et qu'elle poss$$HEX1$$e900$$ENDHEX$$de un      */
-/* pointeur K:\PB4OBJ\BMP\EURO.CUR, on affiche une fen$$HEX1$$ea00$$ENDHEX$$tre avec le  */
+/* Si la colonne est de type DECIMAL{2}, et qu'elle posséde un      */
+/* pointeur K:\PB4OBJ\BMP\EURO.CUR, on affiche une fenêtre avec le  */
 /* montant en euros en consultation.                                */
 /*------------------------------------------------------------------*/
 	sText = This.GetObjectAtPointer ()
@@ -1598,20 +1599,20 @@ Else
 //		If	sType = "decimal(2)"	And sPointeur = "K:\PB4OBJ\BMP\EURO.CUR"	Then
 //			dcMontant = This.GetItemNumber ( lLig, sNomCol )
 ///*------------------------------------------------------------------*/
-///* Si le montant est NULL, on positionne la valeur $$HEX2$$e0002000$$ENDHEX$$0.             */
+///* Si le montant est NULL, on positionne la valeur à 0.             */
 ///*------------------------------------------------------------------*/
 //			If	IsNull ( dcMontant )	Then dcMontant = 0.00
 ///*------------------------------------------------------------------*/
-///* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re la chaine format$$HEX1$$e900$$ENDHEX$$e pour la monnaie.                  */
+///* On récupére la chaine formatée pour la monnaie.                  */
 ///*------------------------------------------------------------------*/
 //			sMontant = F_Monnaie ( dcMontant, ilChoixMonnaie, " " )
 //
 ///*------------------------------------------------------------------*/
-///* On arme tous les $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ments de la structure de passage pour        */
-///* pouvoir ouvrir le fen$$HEX1$$ea00$$ENDHEX$$tre.                                       */
+///* On arme tous les éléments de la structure de passage pour        */
+///* pouvoir ouvrir le fenêtre.                                       */
 ///*------------------------------------------------------------------*/
 //
-//         // ... #1 D$$HEX1$$e900$$ENDHEX$$but de modification
+//         // ... #1 Début de modification
 //
 //         If stGLB.sMonnaieFormatDesire = "EURO" Then
 //				stEuroLuc.dcMontantEuro 		= dcMontant * stGLB.Tx_Euro
@@ -1636,7 +1637,7 @@ Else
 //			iEuroHauteur = 160
 //			GetEnvironment ( stEnv )
 ///*------------------------------------------------------------------*/
-///* Je populise expr$$HEX1$$e900$$ENDHEX$$s une structure bas$$HEX1$$e900$$ENDHEX$$e sur l'environnement,      */
+///* Je populise exprés une structure basée sur l'environnement,      */
 ///* bien que celle-ci puisse exister dans stGLB                      */
 ///*------------------------------------------------------------------*/
 //			If	stEuroLuc.iY + iEuroHauteur > PixelsToUnits ( stEnv.ScreenHeight, YPixelsToUnits! ) Then
@@ -1691,18 +1692,18 @@ event itemchanged;//************************************************************
 // Evenement 	: ItemChanged
 //	Auteur		: Erick John Stark
 //	Date			: 24/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Libellé		: 
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
-//	DBI			03/03/98	D$$HEX1$$e900$$ENDHEX$$clenchement itemerror si chaine vide permettant la gestion du null 
+//	DBI			03/03/98	Déclenchement itemerror si chaine vide permettant la gestion du null 
 //*****************************************************************************
 //Migration PB8-WYNIWYG-03/2006 FM
 long	ll_ret = 0
 //Fin Migration PB8-WYNIWYG-03/2006 FM
 
-// Modif DBI : D$$HEX1$$e900$$ENDHEX$$clenchement ItemError si text vide ( fonctionnement standard pb3 )
+// Modif DBI : Déclenchement ItemError si text vide ( fonctionnement standard pb3 )
 
 //Migration PB8-WYNIWYG-03/2006 FM
 //If	This.GetText () = "" Then
@@ -1733,8 +1734,8 @@ event dberror;//*---------------------------------------------------------------
 //* Evenement 		: DbError
 //* Auteur			: Erick John Stark
 //* Date				: 09/08/1996 11:40:16
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: G$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration des messages d'erreurs 
+//* Libellé			: 
+//* Commentaires	: Génération des messages d'erreurs 
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
@@ -1757,8 +1758,8 @@ event destructor;//*************************************************************
 // Evenement 	: Destructor
 //	Auteur		: La Recrue
 //	Date			: 13/12/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
-// Commentaires: Destruction des objets instanci$$HEX1$$e900$$ENDHEX$$s
+// Libellé		: 
+// Commentaires: Destruction des objets instanciés
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -1780,8 +1781,8 @@ event retrievestart;//**********************************************************
 // Evenement 	: RetrieveStart
 //	Auteur		: Erick John Stark
 //	Date			: 24/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
-// Commentaires: D$$HEX1$$e900$$ENDHEX$$but du Retrieve
+// Libellé		: 
+// Commentaires: Début du Retrieve
 //					  
 // ----------------------------------------------------------------------------
 // MAJ PAR		Date		Modification
@@ -1802,7 +1803,7 @@ event itemfocuschanged;//*******************************************************
 // Evenement 	: ItemFocusChanged
 //	Auteur		: Erick John Stark
 //	Date			: 24/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Libellé		: 
 // Commentaires: 
 //					  
 // ----------------------------------------------------------------------------
@@ -1825,7 +1826,7 @@ event retrieveend;//************************************************************
 // Evenement 	: RetrieveEnd
 //	Auteur		: Erick John Stark
 //	Date			: 24/02/1996
-// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Libellé		: 
 // Commentaires: Fin du Retrieve
 //					  
 // ----------------------------------------------------------------------------
