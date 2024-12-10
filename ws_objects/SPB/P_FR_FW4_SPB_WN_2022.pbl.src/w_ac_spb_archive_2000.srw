@@ -1,5 +1,5 @@
-HA$PBExportHeader$w_ac_spb_archive_2000.srw
-$PBExportComments$---} Fen$$HEX1$$ea00$$ENDHEX$$tre anc$$HEX1$$ea00$$ENDHEX$$tre d'accueil de consultation sinistre, comprenant la gestion archive.
+﻿$PBExportHeader$w_ac_spb_archive_2000.srw
+$PBExportComments$---} Fenêtre ancêtre d'accueil de consultation sinistre, comprenant la gestion archive.
 forward
 global type w_ac_spb_archive_2000 from w_8_accueil_consultation
 end type
@@ -40,15 +40,15 @@ on ue_word;call w_8_accueil_consultation::ue_word;//*---------------------------
 //* Evenement 		: Ue_Word
 //* Auteur			: PLJ
 //* Date				: 09/06/1998
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: D$$HEX1$$e900$$ENDHEX$$clenche la consultation du courrier s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$.
+//* Libellé			: Déclenche la consultation du courrier sélectionné.
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
-//* JFF			29/10/98 On ne Teste plus la pr$$HEX1$$e900$$ENDHEX$$sence d'un Word ouvert.
+//* JFF			29/10/98 On ne Teste plus la présence d'un Word ouvert.
 //*-----------------------------------------------------------------
 
-Long		lNumlig			// N$$HEX2$$b0002000$$ENDHEX$$de ligne s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$e.
+Long		lNumlig			// N° de ligne sélectionnée.
 
 
 lNumLig = Dw_3.GetRow ( )
@@ -59,17 +59,17 @@ If lNumLig >  0 And Dw_3.RowCount ( ) > 0 Then
 
 
 	/*----------------------------------------------------------------------------*/
-	/* On ne Teste plus la pr$$HEX1$$e900$$ENDHEX$$sence d'un WORD ouvert, car de toutes    				*/
-	/* fa$$HEX1$$e700$$ENDHEX$$ons, la Cr$$HEX1$$e900$$ENDHEX$$ation de l'objet WordBasic (et sa connexion), ouvrira un WORD*/
+	/* On ne Teste plus la présence d'un WORD ouvert, car de toutes    				*/
+	/* façons, la Création de l'objet WordBasic (et sa connexion), ouvrira un WORD*/
 	/* s'il n'y en a pas d'ouvert, ou on utilisera le WORD ouvert s'il y en a un. */
-	/* De cette fa$$HEX1$$e700$$ENDHEX$$ons, nous n'executons plus la macro "Aper$$HEX1$$e700$$ENDHEX$$uOff", qui ne s'exe- */
-	/* cutait que si le mod$$HEX1$$e800$$ENDHEX$$le COURRIER.DOT $$HEX1$$e900$$ENDHEX$$tait pr$$HEX1$$e900$$ENDHEX$$sent .								*/
-	/* Ainsi l'utilisateur peut fermer le mod$$HEX1$$e800$$ENDHEX$$le sans fermer WORD, cela n'aura    */
+	/* De cette façons, nous n'executons plus la macro "AperçuOff", qui ne s'exe- */
+	/* cutait que si le modèle COURRIER.DOT était présent .								*/
+	/* Ainsi l'utilisateur peut fermer le modèle sans fermer WORD, cela n'aura    */
 	/* aucune incidence.																				*/
-	/* ATTENTION : Si l'utilisateur laisse un document ouvert en mode APERCU, l$$HEX2$$e0000900$$ENDHEX$$*/
+	/* ATTENTION : Si l'utilisateur laisse un document ouvert en mode APERCU, là	*/
 	/* il y aura plantage lors de l'ouverture d'un prochain courrier, mais on ne	*/
-	/* peut pas tester cela sans faire appel $$HEX2$$e0002000$$ENDHEX$$une macro, dont le mod$$HEX1$$e800$$ENDHEX$$le o$$HEX2$$f9002000$$ENDHEX$$elle	*/
-	/* se trouve, pourrait $$HEX1$$e900$$ENDHEX$$ventuellement ne pas $$HEX1$$ea00$$ENDHEX$$tre ouvert. 							*/
+	/* peut pas tester cela sans faire appel à une macro, dont le modèle où elle	*/
+	/* se trouve, pourrait éventuellement ne pas être ouvert. 							*/
 	/*																						JFF			*/
 	/*----------------------------------------------------------------------------*/
 
@@ -97,9 +97,9 @@ private subroutine wf_positionnerobjets ();//*----------------------------------
 //* Fonction		: W_ac_si_dossier::Wf_PositionnerObjets (PRIVATE)
 //* Auteur			: PLJ
 //* Date				: 29/04/1998
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On positionne et on taille tous les objets
-//*                 sauf uo_1 qui est positionn$$HEX2$$e9002000$$ENDHEX$$et taill$$HEX1$$e900$$ENDHEX$$
+//*                 sauf uo_1 qui est positionné et taillé
 //*                 par son constructor
 //*
 //* Arguments		: Aucun
@@ -109,15 +109,15 @@ private subroutine wf_positionnerobjets ();//*----------------------------------
 //*-----------------------------------------------------------------
 
 /*------------------------------------------------------------------*/
-/* On positionne tous les objets n$$HEX1$$e900$$ENDHEX$$cessaires $$HEX2$$e0002000$$ENDHEX$$la gestion, pour     */
-/* faciliter le d$$HEX1$$e900$$ENDHEX$$veloppement. (On peut bouger les objets).         */
+/* On positionne tous les objets nécessaires à la gestion, pour     */
+/* faciliter le développement. (On peut bouger les objets).         */
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
 /* Barre Onglet                                                     */
 /*------------------------------------------------------------------*/
 Uo_Onglet.X			=   19
-Uo_Onglet.Y			=  197
+Uo_Onglet.Y			=  197 + 1
 Uo_Onglet.Height	=  109
 
 /*------------------------------------------------------------------*/
@@ -153,13 +153,13 @@ private function boolean wf_gestion_filenet (long alligne);//*------------------
 //* Fonction		: Wf_Gestion_FileNet	(PRIVATE)
 //* Auteur			: Erick John Stark
 //* Date				: 06/07/1999 11:33:12
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On va lire les BLOBS sur FileNet
 //*
-//* Arguments		: Long			alLigne				(Val)	N$$HEX2$$b0002000$$ENDHEX$$de la ligne en cours de traitement
+//* Arguments		: Long			alLigne				(Val)	N° de la ligne en cours de traitement
 //*
 //* Retourne		: Boolean		Vrai = Tout se passe bien
-//*										Faux = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*										Faux = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 
@@ -182,7 +182,7 @@ sFicIniFileNet = ProfileString ( stGLB.sFichierIni, "FileNet", "REP_INI", "" )
 iuoFn.FN_Lw_SetEnviron ( sFicIniFileNet )
 
 /*------------------------------------------------------------------*/
-/* On se connecte sur le syst$$HEX1$$e800$$ENDHEX$$me FileNet en tant que SysAdmin.      */
+/* On se connecte sur le système FileNet en tant que SysAdmin.      */
 /*------------------------------------------------------------------*/
 lRet = iuoFn.FN_Logon ( "SysAdmin", "SysAdmin" )
 
@@ -193,7 +193,7 @@ Next
 If	lRet >= 0	Then
 /*------------------------------------------------------------------*/
 /* On arme le tableau pour les fichiers que l'on va lire sur        */
-/* FileNet $$HEX2$$e0002000$$ENDHEX$$NULL.                                                  */
+/* FileNet à NULL.                                                  */
 /*------------------------------------------------------------------*/
 	For	lCpt = 1 To 4
 			SetNull ( isFic[lCpt] )
@@ -218,13 +218,13 @@ private function boolean wf_gestion_blob_lire (long alligne);//*----------------
 //* Fonction		: Uf_Lire_Blob (PRIVATE)
 //* Auteur			: Erick John Stark
 //* Date				: 07/01/1998 10:49:34
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Gestion des diff$$HEX1$$e900$$ENDHEX$$rents BLOBS
+//* Libellé			: 
+//* Commentaires	: Gestion des différents BLOBS
 //*
-//* Arguments		: Long			alLigne			(Val) N$$HEX2$$b0002000$$ENDHEX$$de la ligne en cours de traitement
+//* Arguments		: Long			alLigne			(Val) N° de la ligne en cours de traitement
 //*
 //* Retourne		: Boolean			Vrai = Tout est OK
-//*											Faux = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*											Faux = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 
@@ -233,7 +233,7 @@ String sAltPart, sAltPce, sAltPs
 Long lDocId
 
 /*------------------------------------------------------------------*/
-/* R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration syst$$HEX1$$e900$$ENDHEX$$matique du blob des DATA.                      */
+/* Récupération systématique du blob des DATA.                      */
 /*------------------------------------------------------------------*/
 lDocId = dw_3.GetItemNumber ( alLigne, "REF_DOC_DT" )
 bRet = wf_Lire_Blob ( lDocId, "DT", alLigne )
@@ -243,7 +243,7 @@ If	Not bRet	Then
 End If
 
 /*------------------------------------------------------------------*/
-/* R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration $$HEX1$$e900$$ENDHEX$$ventuelle d'un COURRIER PARTICULIER.               */
+/* Récupération éventuelle d'un COURRIER PARTICULIER.               */
 /*------------------------------------------------------------------*/
 sAltPart = dw_3.GetItemString ( alLigne, "ALT_PART" )
 If	sAltPart = "O"	And bRet Then
@@ -256,7 +256,7 @@ If	sAltPart = "O"	And bRet Then
 End If
 
 /*------------------------------------------------------------------*/
-/* R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration $$HEX1$$e900$$ENDHEX$$ventuelle d'une AUTRE PIECE.                       */
+/* Récupération éventuelle d'une AUTRE PIECE.                       */
 /*------------------------------------------------------------------*/
 sAltPce = dw_3.GetItemString ( alLigne, "ALT_PCE" )
 If	sAltPce = "O" And bRet Then
@@ -269,7 +269,7 @@ If	sAltPce = "O" And bRet Then
 End If
 
 /*------------------------------------------------------------------*/
-/* R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration $$HEX1$$e900$$ENDHEX$$ventuelle du POST-SCRIPTUM.                        */
+/* Récupération éventuelle du POST-SCRIPTUM.                        */
 /*------------------------------------------------------------------*/
 sAltPs = dw_3.GetItemString ( alLigne, "ALT_PS" )
 If	sAltPs = "O" And bRet Then
@@ -289,15 +289,15 @@ private function boolean wf_lire_blob (long aldocid, string astypblob, long alli
 //* Fonction		: Uf_Lire_Blob	(PRIVATE)
 //* Auteur			: Erick John Stark
 //* Date				: 29/06/1999 17:16:51
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Lecture du Blob dans FileNet
 //*
-//* Arguments		: Long			alDocId				(Val)	N$$HEX2$$b0002000$$ENDHEX$$du DOC_ID
+//* Arguments		: Long			alDocId				(Val)	N° du DOC_ID
 //* 					: String			asTypBlob			(Val)	Type du Blob (DT/PS/PC/CP)
-//* 					: Long			alLigne				(Val)	N$$HEX2$$b0002000$$ENDHEX$$de la ligne en cours de traitement
+//* 					: Long			alLigne				(Val)	N° de la ligne en cours de traitement
 //*
-//* Retourne		: Boolean		Vrai	= L'$$HEX1$$e900$$ENDHEX$$criture est OK
-//*										Faux	= L'$$HEX1$$e900$$ENDHEX$$criture pose probl$$HEX1$$e800$$ENDHEX$$me
+//* Retourne		: Boolean		Vrai	= L'écriture est OK
+//*										Faux	= L'écriture pose problème
 //*
 //*-----------------------------------------------------------------
 
@@ -309,7 +309,7 @@ Boolean bRet
 bRet	= False
 
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re le BLOB de FileNet grace au DOC_ID.                  */
+/* On récupére le BLOB de FileNet grace au DOC_ID.                  */
 /*------------------------------------------------------------------*/
 lRet = iuoFn.Fn_Recupere_Fichier ( alDocId, sFic )
 
@@ -354,14 +354,14 @@ private function boolean wf_lire_fichier_fob (string asnomfic, ref blob ablBlob)
 //* Fonction		: Wf_Lire_Fichier_Fob	(PRIVATE)
 //* Auteur			: Erick John Stark
 //* Date				: 06/07/1999 17:26:04
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Lecture du fichier pour le transformer en BLOB
 //*
 //* Arguments		: String			asNomFic				(Val)	Nom du fichier
-//* 					: Blob			ablBlob				(R$$HEX1$$e900$$ENDHEX$$f)	BLOB en retour
+//* 					: Blob			ablBlob				(Réf)	BLOB en retour
 //*
 //* Retourne		: Boolean		Vrai = La lecture se passe bien
-//*										Faux = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*										Faux = Il y a un problème
 //*
 //*-----------------------------------------------------------------
 
@@ -377,14 +377,14 @@ iNbLec		= 1
 If	iFic > 0	Then
 	bRet = True
 /*------------------------------------------------------------------*/
-/* On d$$HEX1$$e900$$ENDHEX$$termine la longueur du FICHIER FOB.                         */
+/* On détermine la longueur du FICHIER FOB.                         */
 /*------------------------------------------------------------------*/
 	lLngTot 		= FileLength ( asNomFic )
 	If	lLngTot	> 32765	Then
 
 /*------------------------------------------------------------------*/
-/* Si cette longueur d$$HEX1$$e900$$ENDHEX$$passe 32765, on d$$HEX1$$e900$$ENDHEX$$termine le nombre          */
-/* de lecture n$$HEX1$$e900$$ENDHEX$$cessaires dans le fichier.                          */
+/* Si cette longueur dépasse 32765, on détermine le nombre          */
+/* de lecture nécessaires dans le fichier.                          */
 /*------------------------------------------------------------------*/
 		If	Mod ( lLngTot, 32765 ) = 0	Then
 			iNbLec = lLngTot / 32765
@@ -426,18 +426,18 @@ private subroutine wf_gestion_erreur (integer aitype, long alligne, long aldocid
 //* Fonction		: Wf_Gestion_Erreur	(PRIVATE)
 //* Auteur			: Erick John Stark
 //* Date				: 29/06/1999 17:32:36
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On g$$HEX1$$e900$$ENDHEX$$re l'affichage des les diff$$HEX1$$e900$$ENDHEX$$rentes erreurs
+//* Libellé			: 
+//* Commentaires	: On gére l'affichage des les différentes erreurs
 //*
 //* Arguments		: Integer		aiType				(Val)	Type d'erreur
-//* 					: Long			alLigne				(Val)	N$$HEX2$$b0002000$$ENDHEX$$de la ligne en cours de traitement
-//* 					: Long			alDocId				(Val)	N$$HEX2$$b0002000$$ENDHEX$$du DOCID
+//* 					: Long			alLigne				(Val)	N° de la ligne en cours de traitement
+//* 					: Long			alDocId				(Val)	N° du DOCID
 //*
 //* Retourne		: Rien
 //*
 //*-----------------------------------------------------------------
 
-stMessage.sTitre		= "Consultation sur le syst$$HEX1$$e800$$ENDHEX$$me FileNet"
+stMessage.sTitre		= "Consultation sur le système FileNet"
 stMessage.Icon			= Information!
 stMessage.Bouton		= OK!
 stMessage.bErreurG	= TRUE
@@ -448,7 +448,7 @@ Case 1					// Erreur sur la lecture des BLOBS
 	stMessage.sCode	= "FN0005"
 	stMessage.sVar[1] = String ( alDocId )
 
-Case 2					// Impossible de se connecter sur le syst$$HEX1$$e800$$ENDHEX$$me
+Case 2					// Impossible de se connecter sur le système
 
 	stMessage.sCode	= "FN0006"
 
@@ -464,11 +464,11 @@ private subroutine wf_ecrire_trace_fn (boolean abret, long alligne);//*---------
 //* Fonction		: Wf_Ecrire_Trace_FN ( Private )
 //* Auteur			: Erick John Stark
 //* Date				: 04/28/97 14:57:25
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*
-//* Arguments		: Boolean		abRet				(Val) Les op$$HEX1$$e900$$ENDHEX$$rations FileNet se sont-elles bien pass$$HEX1$$e900$$ENDHEX$$es ?
-//* 					: Long			alLigne			(Val) N$$HEX2$$b0002000$$ENDHEX$$de la ligne en cours de traitement
+//* Arguments		: Boolean		abRet				(Val) Les opérations FileNet se sont-elles bien passées ?
+//* 					: Long			alLigne			(Val) N° de la ligne en cours de traitement
 //*
 //* Retourne		: Rien
 //*
@@ -485,7 +485,7 @@ String sLigne, sTab, sNomMachine, sRep, sFicTrace
 /* Cette trace contient dans l'ordre                                */
 /*                                                                  */
 /* COD_APPLI						01                                    */
-/* N$$HEX2$$b0002000$$ENDHEX$$Machine						02                                    */
+/* N° Machine						02                                    */
 /* COD_SERVICE						03                                    */
 /* ID_SIN							04                                    */
 /* ETAT FN							05                                    */
@@ -495,8 +495,8 @@ sTab = "~t"
 lTot = UpperBound ( sTrace )
 
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re maintenant le nom de la machine. On part du principe */
-/* que ce nom est positionn$$HEX2$$e9002000$$ENDHEX$$dans la valeur Dos (SQL=XXX)           */
+/* On récupére maintenant le nom de la machine. On part du principe */
+/* que ce nom est positionné dans la valeur Dos (SQL=XXX)           */
 /*------------------------------------------------------------------*/
 //uoDeclarationFuncky = Create u_DeclarationFuncky
 //[I037] Migration FUNCKy
@@ -507,7 +507,7 @@ sNomMachine = stGlb.uoWin.uf_getenvironment("SQL")
 /*------------------------------------------------------------------*/
 /* On initialise maintenant le nom du fichier de TRACE au format    */
 /* JJMMAAAA.App (App correspond au code de l'application).          */
-/* Pour connaitre le r$$HEX1$$e900$$ENDHEX$$pertoire qui contient le fichier de TRACE,   */
+/* Pour connaitre le répertoire qui contient le fichier de TRACE,   */
 /* il faut lire la section TRACE du fichier INI de l'application.   */
 /*------------------------------------------------------------------*/
 sRep 			= ProfileString ( stGLB.sFichierIni, "TRACE", "REP_TRACE_FN", "" )
@@ -525,7 +525,7 @@ End If
 
 sLigne	= ""
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie qu'il n'y ait plus de cha$$HEX1$$ee00$$ENDHEX$$ne nulle.                   */
+/* On vérifie qu'il n'y ait plus de chaîne nulle.                   */
 /*------------------------------------------------------------------*/
 For	lCpt = 1 To lTot
 		If	IsNull ( sTrace[ lCpt ] ) Or sTrace[ lCpt ] = "''" Then
@@ -534,7 +534,7 @@ For	lCpt = 1 To lTot
 Next
 
 /*------------------------------------------------------------------*/
-/* On traite les N-1 valeurs, puis la derni$$HEX1$$e800$$ENDHEX$$re. Pour terminer, on   */
+/* On traite les N-1 valeurs, puis la dernière. Pour terminer, on   */
 /* ecrit la ligne                                                   */
 /*------------------------------------------------------------------*/
 For	lCpt = 1 To lTot - 1
@@ -552,34 +552,34 @@ protected subroutine wf_consultercourrier (string asrepcourrier, string asmodele
 //* Fonction		: wf_ConsulterCourrier
 //* Auteur			: PLJ
 //* Date				: 09/06/1998 
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Permet de consulter le courrier s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX2$$e9002000$$ENDHEX$$dans dw_3 (datawindow des sinistres).
+//* Libellé			: Permet de consulter le courrier sélectionné dans dw_3 (datawindow des sinistres).
 //* Commentaires	: 
 //*
-//* Arguments		: String			asRepCourrier		R$$HEX1$$e900$$ENDHEX$$pertoire $$HEX2$$e0002000$$ENDHEX$$utiliser pour les courriers
-//*					  String			asModele				Mod$$HEX1$$e800$$ENDHEX$$le $$HEX2$$e0002000$$ENDHEX$$utiliser pour les courriers
-//*					  String			asEntete				Entete $$HEX2$$e0002000$$ENDHEX$$utiliser pour les courriers
-//*					  String			asCleEdition		Valeur de la CLE pour l'$$HEX1$$e900$$ENDHEX$$dition
+//* Arguments		: String			asRepCourrier		Répertoire à utiliser pour les courriers
+//*					  String			asModele				Modèle à utiliser pour les courriers
+//*					  String			asEntete				Entete à utiliser pour les courriers
+//*					  String			asCleEdition		Valeur de la CLE pour l'édition
 //*
 //* Retourne		: Integer			 1	= Tout est OK
-//*											-1	= Il y a un probl$$HEX1$$e900$$ENDHEX$$me
+//*											-1	= Il y a un probléme
 //*
 //*-----------------------------------------------------------------
-//* N$$HEX2$$b0002000$$ENDHEX$$Modif          Re$$HEX1$$e700$$ENDHEX$$ue Le          Effectu$$HEX1$$e900$$ENDHEX$$e Le          PAR
+//* N° Modif          Reçue Le          Effectuée Le          PAR
 //* [PI087] FS le 08/04/2020 Ecriture de la trace de consultation
 //*	
 //*-----------------------------------------------------------------
  
-String	sIdCour			// Identifiant du courrier compos$$HEX1$$e900$$ENDHEX$$.
+String	sIdCour			// Identifiant du courrier composé.
 String	sAltPart			// Indique s'il s'agit d'un courrier divers ou particulier.
 String	sAltPce			// Indique s'il y a une autre piece.
 String	sAltPs			// Indique s'il y a un post scriptum.
 Long		lIdSin			// Identifiant du sinistre
 Long		lIdInter			// Identifiant interlocuteur
-Long		lIdDoc			// Identifiant du document archiv$$HEX1$$e900$$ENDHEX$$.
+Long		lIdDoc			// Identifiant du document archivé.
 String	sTxtCompo		// Composition.
-String	sTxtCompo1		// Premi$$HEX1$$e800$$ENDHEX$$re partie de la composition.
-String	sTxtCompo2		// Deuxi$$HEX1$$e800$$ENDHEX$$me partie de la composition.
-String	sDteEdit			// Date d'$$HEX1$$e900$$ENDHEX$$dition du courrier.
+String	sTxtCompo1		// Première partie de la composition.
+String	sTxtCompo2		// Deuxième partie de la composition.
+String	sDteEdit			// Date d'édition du courrier.
 Blob		bTxtblob			// Blob contenant le texte des variables.
 Long		lDocPrincipal, lCpt
 String	sFic
@@ -591,7 +591,7 @@ Boolean bRet
 boolean	lb_ac
 //Fin Migration PB8-WYNIWYG-03/2006 FM
 
-Long		lNumlig			// N$$HEX2$$b0002000$$ENDHEX$$de ligne s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$e.
+Long		lNumlig			// N° de ligne sélectionnée.
 
 N_Cst_Edition_Courrier	nvEditionCourrier
 
@@ -600,7 +600,7 @@ nvEditionCourrier = CREATE N_Cst_Edition_Courrier
 lNumLig = Dw_3.GetRow ( )
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie s'il existe des documents ouverts dans WORD.          */
+/* On vérifie s'il existe des documents ouverts dans WORD.          */
 /*------------------------------------------------------------------*/
 If	nvEditionCourrier.uf_Verifier_Word_AvantGeneration ( FALSE ) < 0	Then
 //Migration PB8-WYNIWYG-03/2006 FM
@@ -615,15 +615,15 @@ End If
 /*------------------------------------------------------------------*/
 nvEditionCourrier.uf_Initialiser ( "C" )
 /*------------------------------------------------------------------*/
-/* On se connecte $$HEX2$$e0002000$$ENDHEX$$WORD.                                           */
+/* On se connecte à WORD.                                           */
 /*------------------------------------------------------------------*/
 nvEditionCourrier.uf_InitialiserWord ( FALSE )
 /*------------------------------------------------------------------*/
-/* On supprime le dernier fichier consult$$HEX1$$e900$$ENDHEX$$.                         */
+/* On supprime le dernier fichier consulté.                         */
 /*------------------------------------------------------------------*/
 FileDelete ( isFicConsult )
 /*------------------------------------------------------------------*/
-/* Si le dernier fichier consult$$HEX2$$e9002000$$ENDHEX$$existe toujours, on arr$$HEX1$$ea00$$ENDHEX$$te tout.  */
+/* Si le dernier fichier consulté existe toujours, on arrête tout.  */
 /*------------------------------------------------------------------*/
 
 //Migration PB8-WYNIWYG-03/2006 CP
@@ -638,18 +638,18 @@ If	f_FileExists ( isFicConsult ) Then
 	Return
 End If
 /*------------------------------------------------------------------*/
-/* On s'occupe des valeurs particuli$$HEX1$$e800$$ENDHEX$$res du courrier. Faut-il       */
-/* sauvegarder le courrier ?. Faut-il $$HEX1$$e900$$ENDHEX$$diter le courrier ?.         */
+/* On s'occupe des valeurs particulières du courrier. Faut-il       */
+/* sauvegarder le courrier ?. Faut-il éditer le courrier ?.         */
 /* Faut-il positionner la mise souspli ?.                           */
 /*------------------------------------------------------------------*/
 nvEditionCourrier.uf_InscrireParamCourrier ( isFicConsult, "O", "N", "N" )
 /*------------------------------------------------------------------*/
-/* On initialise les valeurs particuli$$HEX1$$e800$$ENDHEX$$res pour RepCourrier,        */
+/* On initialise les valeurs particulières pour RepCourrier,        */
 /* Modele et Entete.                                                */
 /*------------------------------------------------------------------*/
 nvEditionCourrier.uf_Inscrire_Valeur_Differentes ( asRepCourrier, asModele, asEntete )
 /*------------------------------------------------------------------*/
-/* On arme la valeur pour la cle d'$$HEX1$$e900$$ENDHEX$$dition.                         */
+/* On arme la valeur pour la cle d'édition.                         */
 /*------------------------------------------------------------------*/
 If IsNull ( asCleEdition ) Or Len ( Trim ( asCleEdition ) ) = 0	Then asCleEdition = "EDITION"
 nvEditionCourrier.uf_Cle_Edition_FichierIni ( asCleEdition )
@@ -677,7 +677,7 @@ If lNumLig >  0 And Dw_3.RowCount ( ) > 0 Then
 	sTxtCompo2	=	Dw_3.GetitemString ( lNumLig, "TXT_COMPO2" )
 
 /*------------------------------------------------------------------*/
-/* On ouvre le document principal. Ce document utilise l'ent$$HEX1$$ea00$$ENDHEX$$te     */
+/* On ouvre le document principal. Ce document utilise l'entête     */
 /* standard pour les datas.                                         */
 /*------------------------------------------------------------------*/
 	lDocPrincipal = nvEditionCourrier.uf_OuvrirDocument ( sIdCour, isFicEntete )
@@ -837,7 +837,7 @@ If lNumLig >  0 And Dw_3.RowCount ( ) > 0 Then
 	End If
 
 	/*------------------------------------------------------------------*/
-	/* On pr$$HEX1$$e900$$ENDHEX$$pare les variables.                                        */
+	/* On prépare les variables.                                        */
 	/*------------------------------------------------------------------*/
 	If	IsNull ( isFic[1]	) Then
 
@@ -880,12 +880,12 @@ If lNumLig >  0 And Dw_3.RowCount ( ) > 0 Then
 
 	Else
 /*------------------------------------------------------------------*/
-/* On pr$$HEX1$$e900$$ENDHEX$$pare les varaiables.                                       */
+/* On prépare les varaiables.                                       */
 /*------------------------------------------------------------------*/
 		nvEditionCourrier.uf_GenererData ( lDocPrincipal, bTxtBlob )
 
 /*------------------------------------------------------------------*/
-/* On positionne la date d'$$HEX1$$e900$$ENDHEX$$dition du courrier dans le fichier      */
+/* On positionne la date d'édition du courrier dans le fichier      */
 /* INI. Section=[COURRIER], Cle=DTE_EDIT.                           */
 /*------------------------------------------------------------------*/
 		nvEditionCourrier.Uf_Inscrire_DteEdition_Courrier ( sDteEdit )
@@ -894,8 +894,8 @@ If lNumLig >  0 And Dw_3.RowCount ( ) > 0 Then
 /*------------------------------------------------------------------*/
 		nvEditionCourrier.uf_Imprimer ( "" )
 /*------------------------------------------------------------------*/
-/* On attend la cr$$HEX1$$e900$$ENDHEX$$ation du fichier isFicConsult (CONSUULT.DOC)     */
-/* dans le r$$HEX1$$e900$$ENDHEX$$pertoire temporaire de WINDOWS.                        */
+/* On attend la création du fichier isFicConsult (CONSUULT.DOC)     */
+/* dans le répertoire temporaire de WINDOWS.                        */
 /*------------------------------------------------------------------*/
 
 //Migration PB8-WYNIWYG-03/2006 CP		
@@ -921,7 +921,7 @@ If lNumLig >  0 And Dw_3.RowCount ( ) > 0 Then
 			F_LireFichierBlob ( blFicConsult, isFicConsult )
 			F_EcrireFichierBlob ( blFicConsult, isFicConsultFinal )
 /*------------------------------------------------------------------*/
-/* On ouvre le fichier et on agrandit la fen$$HEX1$$ea00$$ENDHEX$$tre WORD.              */
+/* On ouvre le fichier et on agrandit la fenêtre WORD.              */
 /*------------------------------------------------------------------*/
 			nvEditionCourrier.uf_Envoyer_Commande ( 9, isFicConsultFinal )
 		End If
@@ -947,7 +947,7 @@ event ue_modifier;call super::ue_modifier;//*-----------------------------------
 //* Evenement 		: ue_modifier
 //* Auteur			: PLJ
 //* Date				: 09/06/1998
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Appel des fen$$HEX1$$ea00$$ENDHEX$$tres de consultation
+//* Libellé			: Appel des fenêtres de consultation
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
@@ -988,7 +988,7 @@ Choose Case iuAccueilCourrant
 				sDteAnonymisation = Trim ( sDteAnonymisation )
 				If Not IsNull ( sDteAnonymisation ) And Len ( sDteAnonymisation ) > 0 Then
 					
-					stMessage.sTitre	=	"PM260 : Dossier anonymis$$HEX1$$e900$$ENDHEX$$"
+					stMessage.sTitre	=	"PM260 : Dossier anonymisé"
 					stMessage.icon		=	Information!
 					stMessage.sCode	=	"COUR009"
 					stMessage.sVar[1] = sDteAnonymisation
@@ -1027,7 +1027,7 @@ Choose Case iuAccueilCourrant
 					sDteAnonymisation = Trim ( sDteAnonymisation )
 					If Not IsNull ( sDteAnonymisation ) And Len ( sDteAnonymisation ) > 0 Then
 						
-						stMessage.sTitre	=	"PM260 : Dossier anonymis$$HEX1$$e900$$ENDHEX$$"
+						stMessage.sTitre	=	"PM260 : Dossier anonymisé"
 						stMessage.icon		=	Information!
 						stMessage.sCode	=	"COUR009"
 						stMessage.sVar[1] = sDteAnonymisation
@@ -1041,7 +1041,7 @@ Choose Case iuAccueilCourrant
 				// :[PM260]
 
 /*------------------------------------------------------------------*/
-/* Il faut mettre $$HEX2$$e0002000$$ENDHEX$$NULL le tableau pour les fichiers. Il faudra    */
+/* Il faut mettre à NULL le tableau pour les fichiers. Il faudra    */
 /* enlever ces commentaires dans le futur.                          */
 /*------------------------------------------------------------------*/
 				For	lCpt = 1 To 4
@@ -1054,13 +1054,13 @@ Choose Case iuAccueilCourrant
 /*------------------------------------------------------------------*/
 /* Le 16/03/2003.                                                   */
 /* Pour la base SIMPA2, les courriers 2001 et 2002 sont             */
-/* positionn$$HEX1$$e900$$ENDHEX$$s dans une base SIMPA2BLOB_PRO. La zone DTE_ARCHIV de  */
-/* la table ARCHIVE est positionn$$HEX1$$e900$$ENDHEX$$e avec la valeur 01/06/2003. La   */
-/* zone REF_DOC_DT est positionn$$HEX1$$e900$$ENDHEX$$e $$HEX2$$e0002000$$ENDHEX$$1 dans la table ARCHIVE.       */
-/* On va appeler la proc$$HEX1$$e900$$ENDHEX$$dure stock$$HEX1$$e900$$ENDHEX$$e qui va ins$$HEX1$$e900$$ENDHEX$$rer les lignes     */
+/* positionnés dans une base SIMPA2BLOB_PRO. La zone DTE_ARCHIV de  */
+/* la table ARCHIVE est positionnée avec la valeur 01/06/2003. La   */
+/* zone REF_DOC_DT est positionnée à 1 dans la table ARCHIVE.       */
+/* On va appeler la procédure stockée qui va insérer les lignes     */
 /* (DT,PS,PC,CP) correspondantes de la base SIMPA2BLOB_PRO(Table    */
 /* archive_blob) dans la base SIMPA2_PRO(Table archive_blob). De    */
-/* plus, un trace sera positionn$$HEX1$$e900$$ENDHEX$$e dans la table                    */
+/* plus, un trace sera positionnée dans la table                    */
 /* W_TRC_ARCHIVE_RECUP. (Base SIMPA2_PRO)                           */
 /*------------------------------------------------------------------*/
 				//dDteArchiv	= dw_3.GetItemDate ( dw_3.ilLigneClick, "DTE_ARCHIV" ) // [PI056] Mis en commentaire - var inutile
@@ -1088,8 +1088,8 @@ Choose Case iuAccueilCourrant
 				
 /*------------------------------------------------------------------*/
 /* Le 10/10/2007.                                                   */
-/* Ajout d'une nouvelle proc$$HEX1$$e900$$ENDHEX$$dure PS_I01_RECUPERER_ARCHIVE_V01 pour */
-/* traiter les nouveaux courriers archiv$$HEX1$$e900$$ENDHEX$$s.                         */
+/* Ajout d'une nouvelle procédure PS_I01_RECUPERER_ARCHIVE_V01 pour */
+/* traiter les nouveaux courriers archivés.                         */
 /*------------------------------------------------------------------*/
 				If	lRefDocDt > 1	Then
 					sIdSin	= String ( dw_3.GetItemNumber ( dw_3.ilLigneClick, "ID_SIN" ) )
@@ -1105,7 +1105,7 @@ Choose Case iuAccueilCourrant
 
 //				bRet = Wf_Gestion_FileNet ( dw_3.ilLigneClick )
 ///*------------------------------------------------------------------*/
-///* On g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$re une TRACE du passage sous FileNet.                     */
+///* On génére une TRACE du passage sous FileNet.                     */
 ///*------------------------------------------------------------------*/
 //				Wf_Ecrire_Trace_FN ( bRet, dw_3.ilLigneClick )
 //
@@ -1115,8 +1115,8 @@ Choose Case iuAccueilCourrant
 
 
 /*------------------------------------------------------------------*/
-/* On n'affiche pas le message si la r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration du courrier       */
-/* vient de r$$HEX1$$e900$$ENDHEX$$ussir. Et on appelle la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration 'normale' du       */
+/* On n'affiche pas le message si la récupération du courrier       */
+/* vient de réussir. Et on appelle la génération 'normale' du       */
 /* courrier.                                                        */
 /*------------------------------------------------------------------*/
 				If	Not bRet	Then			
@@ -1128,7 +1128,7 @@ Choose Case iuAccueilCourrant
 				Else
 /*------------------------------------------------------------------*/
 /* Il ne faut pas oublier de positionner la valeur actuelle de la   */
-/* zone DTE_ARCHIV $$HEX2$$e0002000$$ENDHEX$$NULL, au cas ou le gestionnaire clique $$HEX8$$e0002000200020002000200020002000$$ENDHEX$$*/
+/* zone DTE_ARCHIV à NULL, au cas ou le gestionnaire clique à       */
 /* nouveau sur le courrier.                                         */
 /*------------------------------------------------------------------*/
 					dw_3.SetItem ( dw_3.ilLigneClick, "DTE_ARCHIV", stNul.dat )
@@ -1154,8 +1154,8 @@ on close;call w_8_accueil_consultation::close;//*-------------------------------
 //* Evenement 		:	Close
 //* Auteur			:	PLJ
 //* Date				:	12/06/1998
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	Op$$HEX1$$e900$$ENDHEX$$rations $$HEX2$$e0002000$$ENDHEX$$effectuer $$HEX2$$e0002000$$ENDHEX$$la fermeture de la 
-//*					 	fen$$HEX1$$ea00$$ENDHEX$$tre 
+//* Libellé			:	Opérations à effectuer à la fermeture de la 
+//*					 	fenêtre 
 //* Commentaires	:
 //*				  
 //*-----------------------------------------------------------------
@@ -1167,7 +1167,7 @@ on close;call w_8_accueil_consultation::close;//*-------------------------------
 N_Cst_Edition_Courrier	nvEditionCourrier
 
 /*------------------------------------------------------------------*/
-/* On supprime la r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence au NVUO FileNet si elle existe.         */
+/* On supprime la référence au NVUO FileNet si elle existe.         */
 /*------------------------------------------------------------------*/
 If	IsValid ( iuoFn )						Then Destroy 	iuoFn
 
@@ -1178,7 +1178,7 @@ If	IsValid ( iuoFn )						Then Destroy 	iuoFn
 nvEditionCourrier = CREATE N_Cst_Edition_Courrier
 
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie s'il existe des documents ouverts dans WORD.          */
+/* On vérifie s'il existe des documents ouverts dans WORD.          */
 /*------------------------------------------------------------------*/
 nvEditionCourrier.uf_Verifier_Word_AvantGeneration ( FALSE )  //#1
 
@@ -1191,24 +1191,24 @@ event ue_initialiser;call super::ue_initialiser;//*-----------------------------
 //* Evenement 		: ue_initialiser - Extend
 //* Auteur			: PLJ
 //* Date				: 09/06/1998
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Ouverture de la fen$$HEX1$$ea00$$ENDHEX$$tre d'accueil
+//* Libellé			: Ouverture de la fenêtre d'accueil
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
-//* #1  JFF		06/07/99 Modification du tri suite $$HEX2$$e0002000$$ENDHEX$$la demande de Denis.
+//* #1  JFF		06/07/99 Modification du tri suite à la demande de Denis.
 //* #2 [DCMP-060643]-19/09/2006-PHG Gestion repertoire temporaire
-//* #3  PHG		14/11/2006 [DNTMAIL1-2] Point 8 sp$$HEX1$$e900$$ENDHEX$$cification Focntionelle				  
+//* #3  PHG		14/11/2006 [DNTMAIL1-2] Point 8 spécification Focntionelle				  
 //*-----------------------------------------------------------------
 
 
 String sRepCourrier, sEntete
 
 String sTables [ ]			// Tables du SELECT
-String sBmpMail = ''			// #3 [DNTMAIL1-2] Point 8 sp$$HEX1$$e900$$ENDHEX$$cification Focntionelle
-String sbmpWord = ''			// #3 [DNTMAIL1-2] Point 8 sp$$HEX1$$e900$$ENDHEX$$cification Focntionelle
+String sBmpMail = ''			// #3 [DNTMAIL1-2] Point 8 spécification Focntionelle
+String sbmpWord = ''			// #3 [DNTMAIL1-2] Point 8 spécification Focntionelle
 /*------------------------------------------------------------------*/
-/*   Positionnement des objets sur la fen$$HEX1$$ea00$$ENDHEX$$tre d'accueil             */
+/*   Positionnement des objets sur la fenêtre d'accueil             */
 /*------------------------------------------------------------------*/
 
 wf_PositionnerObjets()
@@ -1253,7 +1253,7 @@ dw_3.istCol[3].sInvisible		= 	"O"
 dw_3.istCol[4].sDbName		=	"RTrim ( sysadm.personne.nom ) + ' ' + sysadm.personne.prenom"
 dw_3.istCol[4].sResultSet	=	"Assure"
 dw_3.istCol[4].sType			=	"char(70)"
-dw_3.istCol[4].sHeaderName	=	"Assur$$HEX1$$e900$$ENDHEX$$"
+dw_3.istCol[4].sHeaderName	=	"Assuré"
 dw_3.istCol[4].ilargeur		=	20
 dw_3.istCol[4].sAlignement	=	"0"
 dw_3.istCol[4].sInvisible	= 	"N"
@@ -1277,7 +1277,7 @@ dw_3.istCol[6].sInvisible		= 	"O"
 dw_3.istCol[7].sDbName			=	"sysadm.archive.nom"
 dw_3.istCol[7].sResultSet		=	"nom"
 dw_3.istCol[7].sType				=	"char(71)"
-dw_3.istCol[7].sHeaderName		=	"Courrier adress$$HEX3$$e9002000e000$$ENDHEX$$"
+dw_3.istCol[7].sHeaderName		=	"Courrier adressé à"
 dw_3.istCol[7].ilargeur			=	21
 dw_3.istCol[7].sAlignement		=	"0"
 dw_3.istCol[7].sInvisible		= 	"N"
@@ -1285,7 +1285,7 @@ dw_3.istCol[7].sInvisible		= 	"N"
 dw_3.istCol[8].sDbName			=	"sysadm.archive.dte_edit"
 dw_3.istCol[8].sResultSet		=	"dte_edit"
 dw_3.istCol[8].sType				=	"datetime" // [PI056] date=> datetime
-dw_3.istCol[8].sHeaderName		=	"Edit$$HEX2$$e9002000$$ENDHEX$$le"
+dw_3.istCol[8].sHeaderName		=	"Edité le"
 dw_3.istCol[8].sFormat			=	"dd/mm/yyyy"
 dw_3.istCol[8].ilargeur			=	12
 dw_3.istCol[8].sAlignement		=	"2"
@@ -1305,7 +1305,7 @@ dw_3.istCol[10].sType			=	"char(1)"
 dw_3.istCol[10].sHeaderName	=	"Part."
 dw_3.istCol[10].ilargeur		=	3
 dw_3.istCol[10].sAlignement	=	"2"
-dw_3.istCol[10].sValues 		=	"$$HEX2$$fc000900$$ENDHEX$$O/	N"
+dw_3.istCol[10].sValues 		=	"ü	O/	N"
 dw_3.istCol[10].sInvisible		= 	"O"
 
 dw_3.istCol[11].sDbName			=	"sysadm.archive.alt_pce"
@@ -1314,7 +1314,7 @@ dw_3.istCol[11].sType			=	"char(1)"
 dw_3.istCol[11].sHeaderName	=	"Pce"
 dw_3.istCol[11].ilargeur		=	3
 dw_3.istCol[11].sAlignement	=	"2"
-dw_3.istCol[11].sValues 		=	"$$HEX2$$fc000900$$ENDHEX$$O/	N"
+dw_3.istCol[11].sValues 		=	"ü	O/	N"
 dw_3.istCol[11].sInvisible		= 	"O"
 
 dw_3.istCol[12].sDbName			=	"sysadm.archive.alt_ps"
@@ -1323,7 +1323,7 @@ dw_3.istCol[12].sType			=	"char(1)"
 dw_3.istCol[12].sHeaderName	=	"PS."
 dw_3.istCol[12].ilargeur		=	3
 dw_3.istCol[12].sAlignement	=	"2"
-dw_3.istCol[12].sValues 		=	"$$HEX2$$fc000900$$ENDHEX$$O/	N"													
+dw_3.istCol[12].sValues 		=	"ü	O/	N"													
 dw_3.istCol[12].sInvisible		= 	"O"
 
 dw_3.istCol[13].sDbName			=	"sysadm.archive.alt_rep"
@@ -1332,7 +1332,7 @@ dw_3.istCol[13].sType			=	"char(1)"
 dw_3.istCol[13].sHeaderName	=	"Rep."
 dw_3.istCol[13].ilargeur		=	3
 dw_3.istCol[13].sAlignement	=	"2"
-dw_3.istCol[13].sValues 		=	"$$HEX2$$fc000900$$ENDHEX$$O/	N"													
+dw_3.istCol[13].sValues 		=	"ü	O/	N"													
 dw_3.istCol[13].sInvisible		= 	"O"
 
 dw_3.istCol[14].sDbName			=	"sysadm.archive.txt_compo1"
@@ -1416,14 +1416,14 @@ Dw_3.isJointure = " And sysadm.archive.id_ordre   = sysadm.personne.id_ordre" +&
 
 
 /*------------------------------------------------------------------*/
-/* Tri par d$$HEX1$$e900$$ENDHEX$$faut de la Data Window d'accueil.                      */
+/* Tri par défaut de la Data Window d'accueil.                      */
 /*------------------------------------------------------------------*/
 // #1
 dw_3.isTri = "#2 A, #8 D, #7 A"
 
 
 /*------------------------------------------------------------------*/
-/* Cr$$HEX1$$e900$$ENDHEX$$ation de la Data Window d'Accueil                             */
+/* Création de la Data Window d'Accueil                             */
 /*------------------------------------------------------------------*/
 dw_3.Uf_Creer_Tout( dw_3.istCol, sTables, iTrTrans )
 
@@ -1460,15 +1460,15 @@ dw_3.Uf_Creer_Tout( dw_3.istCol, sTables, iTrTrans )
 iuAccueilCourrant = dw_1
 
 /*------------------------------------------------------------------*/
-/* Initialisation de la structure pour le passage des param$$HEX1$$e800$$ENDHEX$$tres    */
+/* Initialisation de la structure pour le passage des paramètres    */
 /*------------------------------------------------------------------*/
 istPass.trTrans 	= iTrTrans
 istPass.bControl	= TRUE		// Utilisation du bouton CONTROLER
 
 
 /*------------------------------------------------------------------*/
-/* On initialise une instance  qui indique le r$$HEX1$$e900$$ENDHEX$$pertoire et le nom  */
-/* du fichier d'ent$$HEX1$$ea00$$ENDHEX$$te $$HEX2$$e0002000$$ENDHEX$$utiliser par d$$HEX1$$e900$$ENDHEX$$faut.                       */
+/* On initialise une instance  qui indique le répertoire et le nom  */
+/* du fichier d'entête à utiliser par défaut.                       */
 /*------------------------------------------------------------------*/
 sRepCourrier	= ProfileString ( stGLB.sFichierIni, "EDITION", "REP_COURRIER", "" )
 sEntete			= ProfileString ( stGLB.sFichierIni, "EDITION", "ENTETE", "" )
@@ -1494,7 +1494,7 @@ on open;call w_8_accueil_consultation::open;//*---------------------------------
 //* Evenement 		: open - Extend
 //* Auteur			: FS
 //* Date				: 29/04/1998
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Ouverture de la fen$$HEX1$$ea00$$ENDHEX$$tre d'accueil
+//* Libellé			: Ouverture de la fenêtre d'accueil
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
@@ -1507,10 +1507,10 @@ on open;call w_8_accueil_consultation::open;//*---------------------------------
 /* Initialisation des onglets.                                      */
 /*------------------------------------------------------------------*/
 
-wf_Creer_Onglet( 3, 1, { "Instruction", "Sinistre", "Archive" } )			/* Sera ex$$HEX1$$e900$$ENDHEX$$cut$$HEX2$$e9002000$$ENDHEX$$apr$$HEX1$$e800$$ENDHEX$$s l'appel de tous les ue_initialiser */
-																								/* que ce soit les ue_initialiser de cette fen$$HEX1$$ea00$$ENDHEX$$tre ou    */
-																								/* ceux des fen$$HEX1$$ea00$$ENDHEX$$tres descendantes                        */	
-																								/* donc la cr$$HEX1$$e900$$ENDHEX$$ation des 3 onglets se fera apr$$HEX1$$e800$$ENDHEX$$s la       */
+wf_Creer_Onglet( 3, 1, { "Instruction", "Sinistre", "Archive" } )			/* Sera exécuté après l'appel de tous les ue_initialiser */
+																								/* que ce soit les ue_initialiser de cette fenêtre ou    */
+																								/* ceux des fenêtres descendantes                        */	
+																								/* donc la création des 3 onglets se fera après la       */
 																								/* construction dynamique des 3 datawindows composant    */ 
 																								/* ces trois onglets.											   */
 
@@ -1605,7 +1605,7 @@ on uo_1::constructor;//*--------------------------------------------------------
 //* Evenement 		: Constructor
 //* Auteur			: PLJ
 //* Date				: 29/04/1998 
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Positionnement de de l'objet uo_1
+//* Libellé			: Positionnement de de l'objet uo_1
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
