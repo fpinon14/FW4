@@ -1,5 +1,5 @@
-HA$PBExportHeader$w_message_reponse.srw
-$PBExportComments$Saisie d'une r$$HEX1$$e900$$ENDHEX$$ponse
+﻿$PBExportHeader$w_message_reponse.srw
+$PBExportComments$Saisie d'une réponse
 forward
 global type w_message_reponse from window
 end type
@@ -47,7 +47,7 @@ private function string wf_serialiser ();//*------------------------------------
 //* Fonction		: w_message_reponse::wf_serialiser
 //* Auteur			: 
 //* Date				: 25/06/2008 16:41:36
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*
 //* Arguments		: 
@@ -57,7 +57,7 @@ private function string wf_serialiser ();//*------------------------------------
 //*-----------------------------------------------------------------
 //* MAJ   PAR      Date	     Modification
 //* #..   ...   ../../....   
-//* #1	 FPI	 17/08/2009	  [DCMP090404] On g$$HEX1$$e800$$ENDHEX$$re plusieurs lignes 
+//* #1	 FPI	 17/08/2009	  [DCMP090404] On gère plusieurs lignes 
 //			FPI 	07/12/2012		[ITSM138130] Retour de l'accepttext
 //*-----------------------------------------------------------------
 
@@ -108,13 +108,13 @@ private function boolean wf_initialiser_defaut (string asparam, long alnbrows);/
 //* Fonction		: w_message_reponse::wf_initialiser_defaut
 //* Auteur			: FS
 //* Date				: 31/07/2008 08:40:57
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Initialisation des valeurs par d$$HEX1$$e900$$ENDHEX$$faut
+//* Libellé			: Initialisation des valeurs par défaut
 //* Commentaires	: 
 //*
 //* Arguments		: value string asparam	Chaine du type "ID_COLX=valeur;..."
 //*						Si +ieurs lignes, il faut renseigner toutes les colonnes
 //*
-//* Retourne		: boolean	True  au moins une colonne initialis$$HEX1$$e900$$ENDHEX$$e 
+//* Retourne		: boolean	True  au moins une colonne initialisée 
 //*                           False
 //*
 //*-----------------------------------------------------------------
@@ -225,7 +225,7 @@ public subroutine uf_initialiser (n_cst_spb_params auparams);//*----------------
 //* Fonction		: w_message_reponse::uf_initialiser
 //* Auteur			: F. Pinon
 //* Date				: 18/08/2009 10:50:33
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*
 //* Arguments		: value n_cst_spb_params auparams	 */
@@ -241,7 +241,7 @@ Long lNbRows
 
 /*------------------------------------------------------------------*/
 /* isvaleurstr[1] = Le titre                                               */
-/* isvaleurstr[2] = Le data object $$HEX2$$e0002000$$ENDHEX$$mettre                                */
+/* isvaleurstr[2] = Le data object à mettre                                */
 /* isvaleurstr[3] = La chaine d'initialisation des colonnes                */
 /*           Format : "ID_COLX=val;ID_COLY=val;"                    */
 /*------------------------------------------------------------------*/
@@ -269,8 +269,8 @@ private subroutine wf_serialiser2 ();//*----------------------------------------
 //* Fonction		: w_message_reponse::wf_serialiser2
 //* Auteur			: 
 //* Date				: 18/08/2009
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	:  [DCMP090404] On g$$HEX1$$e800$$ENDHEX$$re plusieurs lignes 
+//* Libellé			: 
+//* Commentaires	:  [DCMP090404] On gère plusieurs lignes 
 //*
 //* Arguments		: 
 //*
@@ -320,8 +320,8 @@ private function boolean wf_serialiser3 ();//*----------------------------------
 //* Fonction		: w_message_reponse::wf_serialiser2
 //* Auteur			: 
 //* Date				: 18/08/2009
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	:  [ITSM138130] On g$$HEX1$$e800$$ENDHEX$$re plusieurs lignes + retour si accepttext=-1
+//* Libellé			: 
+//* Commentaires	:  [ITSM138130] On gère plusieurs lignes + retour si accepttext=-1
 //*
 //* Arguments		: 
 //*
@@ -373,13 +373,13 @@ protected subroutine wf_initialiser_defaut (n_cst_spb_params auparams, long alnb
 //* Fonction		: w_message_reponse::wf_initialiser_defaut
 //* Auteur			: FS
 //* Date				: 31/07/2008 08:40:57
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Initialisation des valeurs par d$$HEX1$$e900$$ENDHEX$$faut
+//* Libellé			: Initialisation des valeurs par défaut
 //* Commentaires	: 
 //*
 //* Arguments		: value string asparam	Chaine du type "ID_COLX=valeur;..."
 //*						Si +ieurs lignes, il faut renseigner toutes les colonnes
 //*
-//* Retourne		: boolean	True  au moins une colonne initialis$$HEX1$$e900$$ENDHEX$$e 
+//* Retourne		: boolean	True  au moins une colonne initialisée 
 //*                           False
 //*
 //*-----------------------------------------------------------------
@@ -488,7 +488,7 @@ event open;//*-----------------------------------------------------------------
 //* Evenement 		: open
 //* Auteur			: 
 //* Date				: 24/06/2008 07:50:27
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Initialisation des objets
+//* Libellé			: Initialisation des objets
 //* Commentaires	: 
 //*				   
 //* Arguments		: 
@@ -528,7 +528,7 @@ Else
 	
 	/*------------------------------------------------------------------*/
 	/* isvaleurstr[1] = Le titre                                               */
-	/* isvaleurstr[2] = Le data object $$HEX2$$e0002000$$ENDHEX$$mettre                                */
+	/* isvaleurstr[2] = Le data object à mettre                                */
 	/* isvaleurstr[3] = La chaine d'initialisation des colonnes                */
 	/*           Format : "ID_COLX=val;ID_COLY=val;"                    */
 	/*------------------------------------------------------------------*/
@@ -561,11 +561,11 @@ Else
 End if // #1
 
 /*------------------------------------------------------------------*/
-/* Calcul de la hauteur de la fen$$HEX1$$ea00$$ENDHEX$$tre                               */
+/* Calcul de la hauteur de la fenêtre                               */
 /*------------------------------------------------------------------*/
 lHeight	= Long ( dw_1.Describe ( "Evaluate ( 'Sum ( RowHeight() for all )', 0  )" ) ) +5
 		
-// #1 - Ajout de l'ent$$HEX1$$ea00$$ENDHEX$$te
+// #1 - Ajout de l'entête
 lHeight += Long (dw_1.Describe ( "DataWindow.Header.Height"))
 
 dw_1.y = 115
@@ -579,7 +579,7 @@ This.Height = 115 + lHeight + 115 + 115 + 115 + 80
 
 // #1
 if lLargeur > 0 Then
-	// Calcul de la largeur de la fen$$HEX1$$ea00$$ENDHEX$$tre
+	// Calcul de la largeur de la fenêtre
 	dw_1.width = lLargeur
 	This.width = lLargeur + 128
 	cb_ok.x = (this.Width - 1234 ) / 2
@@ -616,6 +616,9 @@ f_message(stMessage)
 Return 1
 end event
 
+event rbuttondown;// over script ancetre 
+end event
+
 type cb_cancel from commandbutton within w_message_reponse
 integer x = 1189
 integer y = 1104
@@ -638,7 +641,7 @@ event clicked;//*---------------------------------------------------------------
 //* Evenement 		: clicked
 //* Auteur			: 
 //* Date				: 24/06/2008 08:46:10
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Annuler
+//* Libellé			: Annuler
 //* Commentaires	: 
 //*				  
 //* Arguments		: 
@@ -676,7 +679,7 @@ event clicked;//*---------------------------------------------------------------
 //* Fonction		: w_message_reponse::clicked
 //* Auteur			: 
 //* Date				: 25/06/2008 16:44:11
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*
 //* Arguments		: 
