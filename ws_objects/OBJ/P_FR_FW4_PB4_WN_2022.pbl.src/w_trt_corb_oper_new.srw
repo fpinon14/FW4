@@ -1,5 +1,5 @@
-HA$PBExportHeader$w_trt_corb_oper_new.srw
-$PBExportComments$-----} Fen$$HEX1$$ea00$$ENDHEX$$tre de traitement pour la gestion des Corbeilles/Op$$HEX1$$e900$$ENDHEX$$rateurs (W_TRT_CORB_OPER)
+﻿$PBExportHeader$w_trt_corb_oper_new.srw
+$PBExportComments$-----} Fenêtre de traitement pour la gestion des Corbeilles/Opérateurs (W_TRT_CORB_OPER)
 forward
 global type w_trt_corb_oper_new from w_traitement
 end type
@@ -22,7 +22,8 @@ integer x = 0
 integer y = 0
 integer width = 3589
 integer height = 1744
-string title = "Assignation des Op$$HEX1$$e900$$ENDHEX$$rateurs/Corbeilles (Nouvelle M$$HEX1$$e900$$ENDHEX$$thode)"
+string title = "Assignation des Opérateurs/Corbeilles (Nouvelle Méthode)"
+event ue_retaillefenetre ( )
 u_ajout_corbeille u_ajout_corbeille
 dw_corbtmp dw_corbtmp
 dw_operappli dw_operappli
@@ -42,13 +43,18 @@ forward prototypes
 private subroutine wf_positionnerobjet ()
 end prototypes
 
+event ue_retaillefenetre();This.width = 3650
+This.height= 1850
+
+end event
+
 private subroutine wf_positionnerobjet ();//*-----------------------------------------------------------------
 //*
 //* Objet			: W_Trt_Corb_Oper
 //* Evenement 		: SPB_PositionnerObjet
 //* Auteur			: Erick John Stark
 //* Date				: 30/11/1999 11:46:15
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On va positionner les objets
 //*				  
 //* Arguments		: Aucun
@@ -60,8 +66,9 @@ private subroutine wf_positionnerobjet ();//*-----------------------------------
 //* 
 //*-----------------------------------------------------------------
 
+
 /*------------------------------------------------------------------*/
-/* Liste des op$$HEX1$$e900$$ENDHEX$$rateurs.                                            */
+/* Liste des opérateurs.                                            */
 /*------------------------------------------------------------------*/
 Dw_Acc.X					=   14
 Dw_Acc.Y					=  177
@@ -83,7 +90,7 @@ on ue_initialiser;call w_traitement::ue_initialiser;//*-------------------------
 //* Evenement 		: Ue_Initialiser
 //* Auteur			: Erick John Stark
 //* Date				: 30/11/2002 11:46:15
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Initialisation des NVUO
 //*				  
 //* Arguments		: Aucun
@@ -102,7 +109,7 @@ dw_1.Uf_SetTransObject ( itrTrans )
 Wf_PositionnerObjet ()
 
 /*------------------------------------------------------------------*/
-/* On va retailler les boutons et positionner une police ad$$HEX1$$e900$$ENDHEX$$quate.  */
+/* On va retailler les boutons et positionner une police adéquate.  */
 /*------------------------------------------------------------------*/
 pb_Retour.PictureName	= "K:\PB4OBJ\BMP\8_QUIT.BMP"
 pb_Retour.TextSize		= -7
@@ -124,7 +131,7 @@ on show;call w_traitement::show;//*---------------------------------------------
 //* Fonction		: W_Trt_Corb_Oper::Show (EXTEND)
 //* Auteur			: Erick John Stark
 //* Date				: 22/10/1999 10:39:29
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*
 //* Arguments		: 
@@ -139,8 +146,8 @@ on show;call w_traitement::show;//*---------------------------------------------
 invCorbOper.Uf_Preparer ()
 
 /*------------------------------------------------------------------*/
-/* On positionne le premier op$$HEX1$$e900$$ENDHEX$$rateur. Le positionnement            */
-/* s'effectuera ensuite sur l'$$HEX1$$e900$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$nement RowFocusChanged de          */
+/* On positionne le premier opérateur. Le positionnement            */
+/* s'effectuera ensuite sur l'événement RowFocusChanged de          */
 /* dw_Acc_Oper.                                                     */
 /*------------------------------------------------------------------*/
 invCorbOper.Uf_Traiter_Operateur ( 1 )
@@ -157,8 +164,8 @@ on we_childactivate;call w_traitement::we_childactivate;//*---------------------
 //* Evenement 		: We_ChildActivate
 //* Auteur			: Erick John Stark
 //* Date				: 30/11/2002 11:13:35
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Si on d$$HEX1$$e900$$ENDHEX$$place la fen$$HEX1$$ea00$$ENDHEX$$tre, elle revient au m$$HEX1$$ea00$$ENDHEX$$me endroit. 
+//* Libellé			: 
+//* Commentaires	: Si on déplace la fenêtre, elle revient au même endroit. 
 //*				  
 //* Arguments		: Aucun
 //*
@@ -181,8 +188,8 @@ on close;call w_traitement::close;//*-------------------------------------------
 //* Evenement 		: Close
 //* Auteur			: Erick John Stark
 //* Date				: 30/11/2002 11:13:35
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Fermerture de la fen$$HEX1$$ea00$$ENDHEX$$tre de traitement
+//* Libellé			: 
+//* Commentaires	: Fermerture de la fenêtre de traitement
 //*				  
 //* Arguments		: Aucun
 //*
@@ -225,6 +232,14 @@ destroy(this.dw_acc)
 destroy(this.cbx_sortie)
 end on
 
+event open;call super::open;
+
+PostEvent ( "ue_RetailleFenetre" ) 
+end event
+
+type cb_debug from w_traitement`cb_debug within w_trt_corb_oper_new
+end type
+
 type dw_1 from w_traitement`dw_1 within w_trt_corb_oper_new
 boolean visible = false
 integer x = 14
@@ -246,6 +261,8 @@ end type
 type pb_retour from w_traitement`pb_retour within w_trt_corb_oper_new
 integer x = 14
 integer y = 12
+integer width = 274
+integer height = 160
 integer taborder = 60
 end type
 
@@ -255,7 +272,7 @@ on pb_retour::clicked;call w_traitement`pb_retour::clicked;//*------------------
 //* Evenement 		: Clicked
 //* Auteur			: Erick John Stark
 //* Date				: 26/09/1997 17:36:28
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
@@ -269,6 +286,8 @@ end on
 type pb_valider from w_traitement`pb_valider within w_trt_corb_oper_new
 integer x = 293
 integer y = 12
+integer width = 274
+integer height = 160
 integer taborder = 70
 alignment htextalign = left!
 end type
@@ -278,8 +297,8 @@ on pb_valider::clicked;//*------------------------------------------------------
 //* Fonction		: W_Trt_Corb_Oper::Cb_Valider::Clicked (OVERRIDE)
 //* Auteur			: Erick John Stark
 //* Date				: 28/12/1999 16:01:00
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On d$$HEX1$$e900$$ENDHEX$$clenche la validation
+//* Libellé			: 
+//* Commentaires	: On déclenche la validation
 //*
 //* Arguments		: Aucun
 //*
@@ -337,7 +356,7 @@ on ue_trt_part;call u_ajout::ue_trt_part;//*------------------------------------
 //* Evenement 		: Ue_Trt_Part
 //* Auteur			: Erick John Stark
 //* Date				: 25/10/2000 16:06:43
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On vient de modifier la zone ALT_VALIDE
 //*				  
 //* Arguments		: 
@@ -372,8 +391,8 @@ on ue_dwsource_supprime;call u_ajout::ue_dwsource_supprime;//*------------------
 //* Evenement 		: Ue_DwSource_Supprime
 //* Auteur			: Erick John Stark
 //* Date				: 28/12/1999 11:22:28
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va proc$$HEX1$$e900$$ENDHEX$$der $$HEX2$$e0002000$$ENDHEX$$la gestion des corbeilles
+//* Libellé			: 
+//* Commentaires	: On va procéder à la gestion des corbeilles
 //*				  
 //* Arguments		: 
 //*
@@ -400,7 +419,7 @@ sAltValideApr	= "N"
 sRech = "ID_OPER = '" + sIdOper + "' And ID_CORB = " + String ( lIdCorb )
 
 /*------------------------------------------------------------------*/
-/* On doit forc$$HEX1$$e900$$ENDHEX$$ment trouver la ligne dans la DW de Recherche.      */
+/* On doit forcément trouver la ligne dans la DW de Recherche.      */
 /*------------------------------------------------------------------*/
 lTotRech = This.dw_Recherche.RowCount ()
 lLig = dw_Recherche.Find ( sRech, 0, lTotRech )
@@ -416,8 +435,8 @@ on ue_dwcible_supprime;call u_ajout::ue_dwcible_supprime;//*--------------------
 //* Evenement 		: Ue_DwCible_Supprime
 //* Auteur			: Erick John Stark
 //* Date				: 28/12/1999 11:22:28
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: On va proc$$HEX1$$e900$$ENDHEX$$der $$HEX2$$e0002000$$ENDHEX$$la gestion des corbeilles
+//* Libellé			: 
+//* Commentaires	: On va procéder à la gestion des corbeilles
 //*				  
 //* Arguments		: 
 //*
@@ -445,7 +464,7 @@ This.dw_Cible.SetItem ( lLigSupp, "ALT_VALIDE_APRES", "N" )
 sRech = "ID_OPER = '" + sIdOper + "' And ID_CORB = " + String ( lIdCorb )
 
 /*------------------------------------------------------------------*/
-/* On doit forc$$HEX1$$e900$$ENDHEX$$ment trouver la ligne dans la DW de Recherche.      */
+/* On doit forcément trouver la ligne dans la DW de Recherche.      */
 /*------------------------------------------------------------------*/
 lTotRech = This.dw_Recherche.RowCount ()
 lLig = dw_Recherche.Find ( sRech, 0, lTotRech )
@@ -461,7 +480,7 @@ on ue_dwsource_itemchanged;call u_ajout::ue_dwsource_itemchanged;//*------------
 //* Evenement 		: Ue_DwSource_ItemChanged
 //* Auteur			: Erick John Stark
 //* Date				: 25/10/2000 16:06:43
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On vient de modifier la zone ALT_VALIDE
 //*				  
 //* Arguments		: (Val)		Long			Row
@@ -480,15 +499,15 @@ Long lIdCorb, lTotRech, lLig, lRow, lRow2
 String sIdOper, sAltValideApr, sRech
 
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re le N$$HEX2$$b0002000$$ENDHEX$$de la ligne en cours de traitement.            */
+/* On récupére le N° de la ligne en cours de traitement.            */
 /*------------------------------------------------------------------*/
 lRow	= This.dw_Source.GetRow ()
 lRow2 = This.dw_Source.GetSelectedRow ( 0 )
 
 /*------------------------------------------------------------------*/
-/* Il peut exister un probl$$HEX1$$e800$$ENDHEX$$me de d$$HEX1$$e900$$ENDHEX$$calage entre la ligne courante  */
-/* et la ligne s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$e. Dans ce cas, j'effectue un traitement  */
-/* particulier sur un $$HEX1$$e900$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$nement du UserObjet.                       */
+/* Il peut exister un problème de décalage entre la ligne courante  */
+/* et la ligne sélectionnée. Dans ce cas, j'effectue un traitement  */
+/* particulier sur un événement du UserObjet.                       */
 /*------------------------------------------------------------------*/
 If	lRow <> lRow2 Then
 	This.dw_Source.SetRedraw ( FALSE )
@@ -506,7 +525,7 @@ sAltValideApr	= This.dw_Source.GetText ()
 sRech = "ID_OPER = '" + sIdOper + "' And ID_CORB = " + String ( lIdCorb )
 
 /*------------------------------------------------------------------*/
-/* On doit forc$$HEX1$$e900$$ENDHEX$$ment trouver la ligne dans la DW de Recherche.      */
+/* On doit forcément trouver la ligne dans la DW de Recherche.      */
 /*------------------------------------------------------------------*/
 lTotRech = This.dw_Recherche.RowCount ()
 lLig = dw_Recherche.Find ( sRech, 0, lTotRech )
@@ -521,7 +540,7 @@ on ue_dimensionner;call u_ajout::ue_dimensionner;//*----------------------------
 //* Evenement 		: Ue_Dimensionner
 //* Auteur			: Erick John Stark
 //* Date				: 22/01/1998 11:51:31
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On rend invisible les boutons permettant de supprimer ou d'ajouter tout
 //*				  
 //*-----------------------------------------------------------------
@@ -540,7 +559,7 @@ on constructor;call u_ajout::constructor;//*------------------------------------
 //* Evenement 		: Constructor
 //* Auteur			: Erick John Stark
 //* Date				: 09/01/1998 14:57:30
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*				  
 //*-----------------------------------------------------------------
@@ -549,12 +568,12 @@ on constructor;call u_ajout::constructor;//*------------------------------------
 //*-----------------------------------------------------------------
 
 /*------------------------------------------------------------------*/
-/* Les DataWindows sont plac$$HEX1$$e900$$ENDHEX$$es de mani$$HEX1$$e900$$ENDHEX$$re horizontale.             */
+/* Les DataWindows sont placées de maniére horizontale.             */
 /*------------------------------------------------------------------*/
 ibHorizontal	= True
 
 /*------------------------------------------------------------------*/
-/* L'objet ne poss$$HEX1$$e900$$ENDHEX$$de pas de titre.                                 */
+/* L'objet ne posséde pas de titre.                                 */
 /*------------------------------------------------------------------*/
 ibTitre			= False
 
@@ -569,7 +588,7 @@ isTaille			= "8_"
 ibIndicateur	= False
 
 /*------------------------------------------------------------------*/
-/* On ne veut pas de s$$HEX1$$e900$$ENDHEX$$lection multiple dans la source.             */
+/* On ne veut pas de sélection multiple dans la source.             */
 /*------------------------------------------------------------------*/
 ibSourceSelMul	= False
 
@@ -579,8 +598,8 @@ ibSourceSelMul	= False
 ibEffet3D		= False
 
 /*------------------------------------------------------------------*/
-/* On enl$$HEX1$$e900$$ENDHEX$$ve la bordure, qui permet de mieux voir l'objet pendant   */
-/* le d$$HEX1$$e900$$ENDHEX$$veloppement.                                                */
+/* On enléve la bordure, qui permet de mieux voir l'objet pendant   */
+/* le développement.                                                */
 /*------------------------------------------------------------------*/
 This.Border = False
 
@@ -638,7 +657,7 @@ on ue_modifiermenu;call u_datawindow_accueil::ue_modifiermenu;//*---------------
 //* Evenement 		: Ue_ModifierMenu
 //* Auteur			: Erick John Stark
 //* Date				: 16/12/1999 15:33:13
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*				  
 //* Arguments		: Aucun
@@ -664,7 +683,7 @@ event rowfocuschanged;call super::rowfocuschanged;//*---------------------------
 //* Evenement 		: RowFocusChanged
 //* Auteur			: Erick John Stark
 //* Date				: 16/12/1999 15:33:13
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: On s'occupe de populiser la liste des corbeilles
 //*				  
 //* Arguments		: Aucun
@@ -688,7 +707,7 @@ bRet		= TRUE
 
 If	lLigne > 0	Then
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie si le traitement de gestion a d$$HEX1$$e900$$ENDHEX$$j$$HEX3$$e0002000e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$effectu$$HEX1$$e900$$ENDHEX$$.      */
+/* On vérifie si le traitement de gestion a déjà été effectué.      */
 /*------------------------------------------------------------------*/
 	If	IsNull ( This.GetItemString ( lLigne, "ALT_TRT" ) ) Then
 		bRet = invCorbOper.Uf_Traiter_Operateur ( lLigne )
@@ -698,16 +717,16 @@ If	lLigne > 0	Then
 /*------------------------------------------------------------------*/
 	If	bRet Then invCorbOper.Uf_Traiter_Ajout_Corbeille ()
 /*------------------------------------------------------------------*/
-/* On modifie le titre de la fen$$HEX1$$ea00$$ENDHEX$$tre pour faire apparaitre MAJ_PAR  */
+/* On modifie le titre de la fenêtre pour faire apparaitre MAJ_PAR  */
 /* et MAJ_LE, pour les applis de type 1280*1024.                    */
 /*------------------------------------------------------------------*/
 //	If	Not Wf_Is800_600 ()	Then
 //		sMajPar	= This.GetItemString ( lLigne, "MAJ_PAR" )
 //		If IsNull ( sMajPar )	Then 
-//			sTitre	= "Assignation des Op$$HEX1$$e900$$ENDHEX$$rateurs/Corbeilles "
+//			sTitre	= "Assignation des Opérateurs/Corbeilles "
 //		Else
 //			sMajLe	= String ( This.GetItemDateTime ( lLigne, "MAJ_LE" ), "dd/mm/yyyy hh:mm:ss;''" )
-//			sTitre 	= "Assignation des Op$$HEX1$$e900$$ENDHEX$$rateurs/Corbeilles - Maj Par : " + sMajPar + " Le : " + sMajLe
+//			sTitre 	= "Assignation des Opérateurs/Corbeilles - Maj Par : " + sMajPar + " Le : " + sMajLe
 //		End If
 //		
 //		Parent.Title = sTitre
@@ -742,7 +761,7 @@ fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 33554432
 long backcolor = 12632256
-string text = "V$$HEX1$$e900$$ENDHEX$$rification de toutes les lignes en sortie ?"
+string text = "Vérification de toutes les lignes en sortie ?"
 boolean lefttext = true
 end type
 
@@ -751,8 +770,8 @@ on clicked;//*-----------------------------------------------------------------
 //* Fonction		: W_Trt_Corb_Oper::Cbx_Sortie::Clicked (EXTEND)
 //* Auteur			: Erick John Stark
 //* Date				: 28/12/1999 16:01:00
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Cette option est r$$HEX1$$e900$$ENDHEX$$serv$$HEX1$$e900$$ENDHEX$$e $$HEX2$$e0002000$$ENDHEX$$DGA pour le moment.
+//* Libellé			: 
+//* Commentaires	: Cette option est réservée à DGA pour le moment.
 //*
 //* Arguments		: Aucun
 //*
