@@ -2280,11 +2280,11 @@ public function integer uf_inscrirebac (long aliddocument, string asbac, n_cst_p
 //*-----------------------------------------------------------------
 
 String sSection, sCle, sText
-Boolean bSIMPA2  //  [RS5643_BAC0]
-Int iRS5643_BAC0 // [RS5643_BAC0]
+Boolean bSIMPA2  // [RS5643_BAC0]
+// Int iRS5643_BAC0 // [RS5643_BAC0]
 
 bSIMPA2 = Left ( Upper(SQLCA.Database), 5) = "SIMPA"  // [RS5643_BAC0]
-iRS5643_BAC0 = 0
+// iRS5643_BAC0 = 0
 
 /*------------------------------------------------------------------*/
 /* On vérifie d'abord si l'ID est correct.                          */
@@ -2308,6 +2308,11 @@ sText = string(anv_Printer.uf_GetBac(asBac) )
 
 // [RS5643_BAC0]
 If bSIMPA2 Then
+	sText = "0"  // On force le bac à 0 dans tous les cas
+End If 
+
+/* Je garde besoin un jour de refaire avec un clé sur les ancêtre
+If bSIMPA2 Then
 	SELECT valeur
 	INTO :iRS5643_BAC0
 	FROM sysadm.cle 
@@ -2319,7 +2324,7 @@ If bSIMPA2 Then
 	If iRS5643_BAC0 > 0 Then sText = "0"  // On force le bac à 0 dans tous les cas
 	
 End If
-
+*/
 
 If	SetProfileString ( isFicCourrierIni, sSection, sCle, sText ) < 1	Then
 	Return ( -2 )
