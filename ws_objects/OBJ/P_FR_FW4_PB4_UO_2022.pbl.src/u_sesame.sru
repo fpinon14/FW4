@@ -1,5 +1,5 @@
-HA$PBExportHeader$u_sesame.sru
-$PBExportComments$----} UserObjet servant $$HEX2$$e0002000$$ENDHEX$$toutes les fonctionnalit$$HEX1$$e900$$ENDHEX$$s de connexion et de lancement de l'application
+﻿$PBExportHeader$u_sesame.sru
+$PBExportComments$----} UserObjet servant à toutes les fonctionnalités de connexion et de lancement de l'application
 forward
 global type u_sesame from nonvisualobject
 end type
@@ -41,41 +41,46 @@ public function boolean uf_initialisation (application apapplication, ref s_glb 
 //* Fonction		: Uf_Initialisation (Public)
 //* Auteur			: Erick John Stark
 //* Date				: 02/09/1997 12:02:43
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Initialisation de la structure GLB
 //*
 //* Arguments		: Application	apApplication		(Val) Application Courante
-//*					  astGLB			s_GLB					(R$$HEX1$$e900$$ENDHEX$$f) Objet global $$HEX2$$e0002000$$ENDHEX$$renseigner
-//*					  astMessage	s_Message			(R$$HEX1$$e900$$ENDHEX$$f) Structure Message
+//*					  astGLB			s_GLB					(Réf) Objet global à renseigner
+//*					  astMessage	s_Message			(Réf) Structure Message
 //*
-//* Retourne		: Bool$$HEX1$$e900$$ENDHEX$$en		True	= Tout est OK
+//* Retourne		: Booléen		True	= Tout est OK
 //*										False = L'initialisation ne se passe pas bien
 //*
 //*-----------------------------------------------------------------
 //* MAJ 		PAR		Date				Modification
 //* 			DGA		18/11/1996		Initialisation de la structure environnement
-//* 			DGA		01/09/1997		Gestion d'une trace dans un fichier diff$$HEX1$$e900$$ENDHEX$$rent
-//* 	#1 	DGA		19/09/2006		Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
-//* 	#2 	PHG		17/10/2006		[DCMP060445] Controle de Coh$$HEX1$$e900$$ENDHEX$$rence Commune Identique Simpa2/Sherpa
-//* 	#3		PHG		15/02/2008		[SUISSE].LOT3 : Lecture des cl$$HEX1$$e900$$ENDHEX$$s de d$$HEX1$$e900$$ENDHEX$$finiton de monnaie
+//* 			DGA		01/09/1997		Gestion d'une trace dans un fichier différent
+//* 	#1 	DGA		19/09/2006		Gestion d'un répertoire temporaire DCMP-060643
+//* 	#2 	PHG		17/10/2006		[DCMP060445] Controle de Cohérence Commune Identique Simpa2/Sherpa
+//* 	#3		PHG		15/02/2008		[SUISSE].LOT3 : Lecture des clés de définiton de monnaie
 //* 	#4 	PHG		15/02/2008		[SUISSE].LOT9 : Lecture de l'objet de gestion de commune
 //*	#5		LBP		24/06/2010		[Recup vers SVN] : Ajout de la recup de la rev SVN
 //*	#6		LBP		09/07/2010		[MAP2UNC] : Log en BD de la rev de connexion
+//          JFF      24/04/2025     [LGY53_EQU_CNX]
 //*-----------------------------------------------------------------
 
 Boolean 			bRet, bMess					
 
-Integer 			iRet, iSaisie				
+Integer 			iRet, iSaisie, iValCleSESAME_LGY53_EQU_CNX
 
 us_Parametre	stParametre				
 Boolean bModeCnx
 String sNomMachine, sRep, sFicTrace, sVal, sTab, sMaintenant, sLigne, sFicEssaiTrc
 String sHeureMiniConnexion, sHeureMaxConnexion, sCommande, sMicroHelpDefaut		
 
+ContextKeyword Cnx_KeyWord  // [LGY53_EQU_CNX]
+String sRetContextKeyWords[] // [LGY53_EQU_CNX]
+String sTsVmCnx // [LGY53_EQU_CNX]
+
 String			sJourSemaine [7] = { "Dimanche ", "Lundi ", "Mardi ", "Mercredi ", "Jeudi ", "Vendredi ", "Samedi " }
-String			sMois [12] = { " Janvier ", " F$$HEX1$$e900$$ENDHEX$$vrier ", " Mars ", &
-										" Avril ", " Mai ", " Juin ", " Juillet ", " Ao$$HEX1$$fb00$$ENDHEX$$t ", " Septembre ", " Octobre ", &
-										" Novembre ", " D$$HEX1$$e900$$ENDHEX$$cembre " }
+String			sMois [12] = { " Janvier ", " Février ", " Mars ", &
+										" Avril ", " Mai ", " Juin ", " Juillet ", " Août ", " Septembre ", " Octobre ", &
+										" Novembre ", " Décembre " }
 n_cst_getFileInfo nFileInfo
 String sObjClassName			// [SUISSE].LOT9 : Classe Name variable de stockage de classname pour instanciation dynamique
 // [MIGPB11] [EMD] : Debut : [DETECTEAPPLI].REPTEMPO
@@ -91,7 +96,7 @@ stMessage.sCode					= ""
 
 
 /*------------------------------------------------------------------*/
-/* Lecture des param$$HEX1$$e800$$ENDHEX$$tres                                           */
+/* Lecture des paramètres                                           */
 /*------------------------------------------------------------------*/
 //[Recup vers SVN] : Ajout de la recup modeCnx ou non pour affichage ds la barre de statut
 bRet = Uf_LitParametre ( 	apApplication.AppName, CommandParm (), stParametre, bModeCnx )
@@ -106,7 +111,7 @@ If bRet Then
 	astGLB.sFichierErreur			= ProfileString ( stParametre.sFichierIni, "APPLICATION", "FICHIER_ERREUR", "")
 	astGLB.sFichierErreurG		= ProfileString ( stParametre.sFichierIni, "APPLICATION", "FICHIER_ERREUR_G", "")
 /*------------------------------------------------------------------*/
-/* Cr$$HEX1$$e900$$ENDHEX$$ation du pointeur pour les API Windows                        */
+/* Création du pointeur pour les API Windows                        */
 /*------------------------------------------------------------------*/
 	astGLB.uoWin		= F_InitDeclarationWindows ( astGLB )
 	astGLB.sWinDir 	= astGLB.uoWin.uf_GetWindowsDirectory ()
@@ -116,46 +121,46 @@ If bRet Then
 	astMessage.sFichierG			=	stGLB.sFichierErreurG
 /*------------------------------------------------------------------*/	
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
-/* Le r$$HEX1$$e900$$ENDHEX$$pertoire final est au format                                */
+/* Le répertoire final est au format                                */
 /* C:\Temp\%USERNAME%\%CODEAPPLICATION%\                            */
 /*------------------------------------------------------------------*/
-/* [DETECTAPPLI].REPTEMPO On ne supprime les r$$HEX1$$e900$$ENDHEX$$pertoire temporaire  */
-/* si une seule instance d'application est d$$HEX1$$e900$$ENDHEX$$tect$$HEX1$$e900$$ENDHEX$$e. 					  */
-/* => Le code de D$$HEX1$$e900$$ENDHEX$$tection des instances d'application est ici      */
-/* il $$HEX1$$e900$$ENDHEX$$tait apr$$HEX1$$e800$$ENDHEX$$s la suppression des r$$HEX1$$e900$$ENDHEX$$pertoire temporaires         */
+/* [DETECTAPPLI].REPTEMPO On ne supprime les répertoire temporaire  */
+/* si une seule instance d'application est détectée. 					  */
+/* => Le code de Détection des instances d'application est ici      */
+/* il était après la suppression des répertoire temporaires         */
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
-/* On v$$HEX1$$e900$$ENDHEX$$rifie le nombre de fois ou l'application peut-$$HEX1$$ea00$$ENDHEX$$tre lanc$$HEX1$$e900$$ENDHEX$$e.  */
+/* On vérifie le nombre de fois ou l'application peut-être lancée.  */
 /*------------------------------------------------------------------*/
 	iNbCnxOk = ProfileInt ( astGLB.sFichierIni, "APPLICATION", "NB_CONNEXIONS", 1 )
 	Choose Case iNbCnxOk
 	Case 0
 /*------------------------------------------------------------------*/
-/* Aucune connexion n'est autoris$$HEX1$$e900$$ENDHEX$$e.                                */
+/* Aucune connexion n'est autorisée.                                */
 /*------------------------------------------------------------------*/
 
 		//stMessage.sCode		= "APPLI01"
-		stMessage.sCode		= "" // Pas de popup d'erreur $$HEX2$$e0002000$$ENDHEX$$la fin de la fonction
-										  // Msg affich$$HEX2$$e9002000$$ENDHEX$$par msgbox enable non instancie
+		stMessage.sCode		= "" // Pas de popup d'erreur à la fin de la fonction
+										  // Msg affiché par msgbox enable non instancie
 		Messagebox( "APPLI01 - Lancement du logiciel", &
-						"Le lancement du logiciel~r~nn'est pas autoris$$HEX1$$e900$$ENDHEX$$." &
+						"Le lancement du logiciel~r~nn'est pas autorisé." &
 						, StopSign!, Ok!, 1)
 
 		bRet = False      
 
 	Case IS>0
 /*------------------------------------------------------------------*/
-/* Une connexion par poste est autoris$$HEX1$$e900$$ENDHEX$$e.                           */
+/* Une connexion par poste est autorisée.                           */
 /*------------------------------------------------------------------*/
 		// [DETECTEAPPLI].REPTEMPO
 		bInstanceMultiple = (uf_ApplicationDejaLance(Upper ( apApplication.AppName )) < 0 )
 		if bInstanceMultiple and iNbCnxOk = 1 THen
 			//stMessage.sCode		= "APPLI02"
-			stMessage.sCode		= "" // Pas de popup d'erreur $$HEX2$$e0002000$$ENDHEX$$la fin de la fonction
-											  // Msg affich$$HEX2$$e9002000$$ENDHEX$$par msgbox enable non instancie
-			Messagebox( "APPLI02 - Lancement du logiciel", "Le logiciel est d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$lanc$$HEX1$$e900$$ENDHEX$$.", StopSign!, Ok!, 1)
+			stMessage.sCode		= "" // Pas de popup d'erreur à la fin de la fonction
+											  // Msg affiché par msgbox enable non instancie
+			Messagebox( "APPLI02 - Lancement du logiciel", "Le logiciel est déjà lancé.", StopSign!, Ok!, 1)
 			bRet = False		
 		End If
 	End Choose
@@ -165,17 +170,17 @@ If bRet Then
 		// [DETECTEAPPLI].REPTEMPO On initialise le repertoire temporaire que si
 		// une seule instance
 		// OU
-		// (Nombre de connexion autoris$$HEX2$$e9002000$$ENDHEX$$> 1 et instance multiple detect$$HEX1$$e900$$ENDHEX$$e et que le repertoire n'existe pas )
+		// (Nombre de connexion autorisé > 1 et instance multiple detectée et que le repertoire n'existe pas )
 		if (Not bInstanceMultiple) or &
 			(	bInstanceMultiple and &
 				iNbCnxOk > 1 		and &
 				Not DirectoryExists ( left(astGLB.sRepTempo, len(astGLB.sRepTempo)-1) ) &
 			)	Then 
-			bRet = (F_initdirectory(astGLB.sRepTempo) = 1) // On Cr$$HEX1$$e900$$ENDHEX$$e l'arborescence si elle n'existe pas
+			bRet = (F_initdirectory(astGLB.sRepTempo) = 1) // On Crée l'arborescence si elle n'existe pas
 		End If
 		
 		if Not bRet then
-			stMessage.sTitre		= "Erreur dans U_Sesame - Initialisation R$$HEX1$$e900$$ENDHEX$$pertoire Temporaire"
+			stMessage.sTitre		= "Erreur dans U_Sesame - Initialisation Répertoire Temporaire"
 			stMessage.Icon			= StopSign!
 			stMessage.bErreurG	= TRUE
 			stMessage.sCode		= "APPLI10"
@@ -193,15 +198,15 @@ If bRet Then
 	/*------------------------------------------------------------------*/
 	/*------------------------------------------------------------------*/
 	/* Chargement du format d'affichage pour la monnaie. Cette valeur   */
-	/* est utilis$$HEX2$$e9002000$$ENDHEX$$dans N_Cst_Passage_Euro et U_Consultation_Euro.      */
+	/* est utilisé dans N_Cst_Passage_Euro et U_Consultation_Euro.      */
 	/*------------------------------------------------------------------*/
-	/* #3 [SUISSE].LOT3 : Lecture du Symbole D$$HEX1$$e900$$ENDHEX$$sir$$HEX2$$e9002000$$ENDHEX$$et du Format/symbole   */
+	/* #3 [SUISSE].LOT3 : Lecture du Symbole Désiré et du Format/symbole   */
 	/* actuel                                                           */
 		astGLB.sMonnaieFormatDesire	= ProfileString ( stParametre.sFichierIni, "MONNAIE", "Format_Desire", "EURO" )
-		astGLB.sMonnaieSymboleDesire	= ProfileString ( stParametre.sFichierIni, "MONNAIE", "Symbole_Desire", "$$HEX1$$ac20$$ENDHEX$$" )
+		astGLB.sMonnaieSymboleDesire	= ProfileString ( stParametre.sFichierIni, "MONNAIE", "Symbole_Desire", "€" )
 		astGLB.sMonnaieLitteralDesire	= ProfileString ( stParametre.sFichierIni, "MONNAIE", "Litteral_Desire", "Euro" )
 		astGLB.sMonnaieFormatActuel	= ProfileString ( stParametre.sFichierIni, "MONNAIE", "Format_Actuel", "EURO" )
-		astGLB.sMonnaieSymboleActuel	= ProfileString ( stParametre.sFichierIni, "MONNAIE", "Symbole_Actuel", "$$HEX1$$ac20$$ENDHEX$$" )
+		astGLB.sMonnaieSymboleActuel	= ProfileString ( stParametre.sFichierIni, "MONNAIE", "Symbole_Actuel", "€" )
 		astGLB.sMonnaieLitteralActuel	= ProfileString ( stParametre.sFichierIni, "MONNAIE", "Litteral_Actuel", "Euro" )
 	//
 	
@@ -222,7 +227,7 @@ If bRet Then
 		F_LireEnvironnement ( astGLB )
 	
 	/*------------------------------------------------------------------*/
-	/* On continue $$HEX2$$e0002000$$ENDHEX$$renseigner la structure s_GLB                      */
+	/* On continue à renseigner la structure s_GLB                      */
 	/*------------------------------------------------------------------*/
 	
 		astGLB.sLibAppli						= Upper ( apApplication.AppName ) + " - "
@@ -230,13 +235,13 @@ If bRet Then
 		apApplication.ToolBarUserControl = Upper ( ProfileString ( stParametre.sFichierIni, "APPLICATION", "TOOLBARUSERCONTROL", "FALSE" ) ) = "TRUE"
 	
 //	/*------------------------------------------------------------------*/
-//	/* On v$$HEX1$$e900$$ENDHEX$$rifie le nombre de fois ou l'application peut-$$HEX1$$ea00$$ENDHEX$$tre lanc$$HEX1$$e900$$ENDHEX$$e.  */
+//	/* On vérifie le nombre de fois ou l'application peut-être lancée.  */
 //	/*------------------------------------------------------------------*/
 //	
 //		Choose Case ProfileInt ( astGLB.sFichierIni, "APPLICATION", "NB_CONNEXIONS", 1 )
 //		Case 0
 //	/*------------------------------------------------------------------*/
-//	/* Aucune connexion n'est autoris$$HEX1$$e900$$ENDHEX$$e.                                */
+//	/* Aucune connexion n'est autorisée.                                */
 //	/*------------------------------------------------------------------*/
 //	
 //			stMessage.sCode		= "APPLI01"
@@ -245,7 +250,7 @@ If bRet Then
 //	
 //		Case 1
 //	/*------------------------------------------------------------------*/
-//	/* Une connexion par poste est autoris$$HEX1$$e900$$ENDHEX$$e.                           */
+//	/* Une connexion par poste est autorisée.                           */
 //	/*------------------------------------------------------------------*/
 //	// [DETECTEAPPLI]
 //	//		IF Handle ( apApplication, True ) > 0 Then
@@ -253,7 +258,7 @@ If bRet Then
 //	//			stMessage.sCode		= "APPLI02"
 //	//			bRet = False		
 //	//		End If
-//	// remplac$$HEX2$$e9002000$$ENDHEX$$par
+//	// remplacé par
 //		IF uf_ApplicationDejaLance(Upper ( apApplication.AppName )) < 0 Then
 //				stMessage.sCode		= "APPLI02"
 //				bRet = False		
@@ -262,7 +267,7 @@ If bRet Then
 //		End Choose
 	
 	/*------------------------------------------------------------------*/
-	/* On v$$HEX1$$e900$$ENDHEX$$rifie ensuite la plage horaire de lancement.                */
+	/* On vérifie ensuite la plage horaire de lancement.                */
 	/*------------------------------------------------------------------*/
 	
 		sHeureMiniConnexion = ProfileString ( astGLB.sFichierIni, "APPLICATION", "H_MIN_CONNECT", "00:00")
@@ -278,7 +283,7 @@ If bRet Then
 	End If // Fin test creation repertoire tempo
 
 /*------------------------------------------------------------------*/
-/* Chargement de tout l'environnement $$HEX2$$e0002000$$ENDHEX$$partir d'ENVSPB.            */
+/* Chargement de tout l'environnement à partir d'ENVSPB.            */
 /*------------------------------------------------------------------*/
 	If bRet Then
 
@@ -288,9 +293,9 @@ If bRet Then
 
 /*------------------------------------------------------------------*/
 /* Deux cas                                                         */
-/* Soit la connexion a $$HEX1$$e900$$ENDHEX$$chou$$HEX2$$e9002000$$ENDHEX$$et il faut renseigner les valeurs de  */
+/* Soit la connexion a échoué et il faut renseigner les valeurs de  */
 /* l'objet de transaction.                                          */
-/* Soit le select ne renvoie rien pour l'op$$HEX1$$e900$$ENDHEX$$rateur sp$$HEX1$$e900$$ENDHEX$$cifi$$HEX1$$e900$$ENDHEX$$, et     */
+/* Soit le select ne renvoie rien pour l'opérateur spécifié, et     */
 /* dans ce cas on ne fait rien.                                     */
 /*------------------------------------------------------------------*/
 
@@ -307,19 +312,19 @@ If bRet Then
 		Else
 
 /*------------------------------------------------------------------*/
-/* On initialise la MicroHelp avec une valeur par d$$HEX1$$e900$$ENDHEX$$faut.           */
+/* On initialise la MicroHelp avec une valeur par défaut.           */
 /*------------------------------------------------------------------*/
 			If bRet Then
-				//[Recup vers SVN] -> R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration de la revision Svn Du fichier
+				//[Recup vers SVN] -> Récupération de la revision Svn Du fichier
 				astGLB.sRevisionSvn = ""
 				
 				//bRet = nFileInfo.getStringVariableInfo( astGLB.sNomApplication, "Revision SVN", astGLB.sRevisionSvn)
 				
 				if not bModeCnx then
-					// On utilise le nom de l'appli obtnu $$HEX2$$e0002000$$ENDHEX$$partir de sesame (Vu PHG le 25/06/10)
+					// On utilise le nom de l'appli obtnu à partir de sesame (Vu PHG le 25/06/10)
 					bRet = nFileInfo.getStringVariableInfo( astGLB.sNomApplication, "Revision SVN", astGLB.sRevisionSvn)
 				else
-					// On utilise le nom de l'application obtneue $$HEX2$$e0002000$$ENDHEX$$partir de GetProcessName (ne fonctionne pas
+					// On utilise le nom de l'application obtneue à partir de GetProcessName (ne fonctionne pas
 					// en mode Deug  (Vu PHG le 25/06/10)
 					bRet = nFileInfo.getStringVariableInfo( "", "Revision SVN", astGLB.sRevisionSvn)
 				end if
@@ -356,8 +361,8 @@ If bRet Then
 			If iRet <> -32 Then
 
 /*------------------------------------------------------------------*/
-/* Dans le cas ou la connexion FileNet $$HEX1$$e900$$ENDHEX$$choue, on n'arr$$HEX1$$e900$$ENDHEX$$te pas le   */
-/* chargement de l'application. Seul un message d'erreur appara$$HEX1$$ee00$$ENDHEX$$t.  */
+/* Dans le cas ou la connexion FileNet échoue, on n'arréte pas le   */
+/* chargement de l'application. Seul un message d'erreur apparaît.  */
 /*------------------------------------------------------------------*/
 				stMessage.sCode		= "APPLI06"
 				stMessage.sVar[1]		= String ( iRet )
@@ -372,7 +377,7 @@ If bRet Then
 				astGLB.uocommune.uf_chargecommune( itrEnvSpb, stParametre.sFichierIni )
 			End If
 
-			// #5 [SUISSE].LOT9 Chargement du fournisseur de fonction globale sp$$HEX1$$e900$$ENDHEX$$cifique au pays
+			// #5 [SUISSE].LOT9 Chargement du fournisseur de fonction globale spécifique au pays
 			sObjClassName = ProfileString ( stGlb.sFichierIni, "APPLICATION", "OBJ_GFP_CLASSNAME","n_cst_gfp_standard" )
 			astGLB.uoGFP = CREATE USING sObjClassName
 			
@@ -381,10 +386,10 @@ If bRet Then
 Else
 
 /*------------------------------------------------------------------*/
-/* La lecture des param$$HEX1$$e800$$ENDHEX$$tres a $$HEX1$$e900$$ENDHEX$$chou$$HEX1$$e900$$ENDHEX$$. Aucune initialisation n'est  */
+/* La lecture des paramètres a échoué. Aucune initialisation n'est  */
 /* possible. On affiche directement un MessageBox ()                */
 /*------------------------------------------------------------------*/
-	astGLB.sMessageErreur	= "Erreur de Chargement des param$$HEX1$$e800$$ENDHEX$$tres de l'application"
+	astGLB.sMessageErreur	= "Erreur de Chargement des paramètres de l'application"
 	bMess							= False
 
 End If
@@ -392,7 +397,7 @@ End If
 If bRet Then
 
 /*------------------------------------------------------------------*/
-/* Tout c'est bien pass$$HEX1$$e900$$ENDHEX$$, on met $$HEX2$$e0002000$$ENDHEX$$jour le suivi des connexions.    */
+/* Tout c'est bien passé, on met à jour le suivi des connexions.    */
 /*------------------------------------------------------------------*/
 	// [MAP2UNC] : Ajout LBP le 09/07/10 -> Log en BD de la rev de connexion
 	If isnumber(astGLB.sRevisionSvn) Then
@@ -401,9 +406,35 @@ If bRet Then
 		iNumRev = -1
 	End if
 	
-	//sCommande = "EXECUTE sysadm.IM_U01_CONNEXION CNX, '" + astGLB.sCodOper + "'," +  astGLB.sCodAppli
-	sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V01 CNX, '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) 
-	// [MAP2UNC]
+	// [LGY53_EQU_CNX]
+	Select valeur
+	Into :iValCleSESAME_LGY53_EQU_CNX
+	From sysadm.cle
+	Where id_cle = "LGY53_EQU_CNX"
+	Using itrEnvSpb ; 
+	
+	If IsNull ( iValCleSESAME_LGY53_EQU_CNX ) Then iValCleSESAME_LGY53_EQU_CNX = 0
+	
+	IF  iValCleSESAME_LGY53_EQU_CNX > 0 Then
+	
+		GetContextService ( "Keyword", Cnx_KeyWord )
+		Cnx_KeyWord.GetContextKeyWords ( "SQL", sRetContextKeyWords )
+		
+		if UpperBound ( sRetContextKeyWords ) = 1 Then
+			If	IsNull ( sRetContextKeyWords[1] ) Or Len ( Trim ( sRetContextKeyWords[1] ) ) = 0	Then
+				sRetContextKeyWords[1] = ""
+			End If
+			
+			sTsVmCnx=Trim ( sRetContextKeyWords[1] )
+
+		End if
+
+		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V02 'CNX', '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) + ", '" + sTsVmCnx + "'"
+		
+	Else 
+		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V01 CNX, '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) 
+	End IF 
+	// [LGY53_EQU_CNX]
 	
 	If Not f_Execute ( sCommande, itrEnvSpb ) Then
 
@@ -432,7 +463,7 @@ If	bMess Then
 /*------------------------------------------------------------------*/
 /* On initialise maintenant le nom du fichier de TRACE au format    */
 /* JJMMAAAA.App (App correspond au code de l'application).          */
-/* Pour connaitre le r$$HEX1$$e900$$ENDHEX$$pertoire qui contient le fichier de TRACE,   */
+/* Pour connaitre le répertoire qui contient le fichier de TRACE,   */
 /* il faut lire la section TRACE du fichier INI de l'application.   */
 /*------------------------------------------------------------------*/
 	sNomMachine 	= astGLB.uoWin.uf_GetEnvironment ( "SQL" )
@@ -461,8 +492,8 @@ If	bMess Then
 
 /*------------------------------------------------------------------*/
 /* Le 27/05/1999.                                                   */
-/* Modif DGA. On v$$HEX1$$e900$$ENDHEX$$rifie si la personne poss$$HEX1$$e900$$ENDHEX$$de les droits          */
-/* n$$HEX1$$e900$$ENDHEX$$cessaires pour ecrire la TRACE.	Si ce n'est pas le cas, on   */
+/* Modif DGA. On vérifie si la personne posséde les droits          */
+/* nécessaires pour ecrire la TRACE.	Si ce n'est pas le cas, on   */
 /* arrete tout.                                                     */
 /*------------------------------------------------------------------*/
 
@@ -490,7 +521,7 @@ If	bMess Then
 /* Si on veut afficher un message d'erreur, on le fait maintenant.  */
 /* On ne peut pas tester la valeur bRet a cause du chargement de    */
 /* FileNet qui n'est pas une erreur. Donc on utilise                */
-/* stMessage.sCode, qui est initialis$$HEX2$$e9002000$$ENDHEX$$au d$$HEX1$$e900$$ENDHEX$$but de la fonction.     */
+/* stMessage.sCode, qui est initialisé au début de la fonction.     */
 /*------------------------------------------------------------------*/
 
 	If	stMessage.sCode <> "" Then
@@ -512,14 +543,14 @@ private function boolean uf_charge_env (ref s_glb astglb);//*-------------------
 //* Fonction		: Uf_Charge_Env (Private)
 //* Auteur			: Erick John Stark
 //* Date				: 02/09/1997 15:17:07
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Chargement de toutes les $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ments n$$HEX1$$e900$$ENDHEX$$cessaires 
-//*					  $$HEX2$$e0002000$$ENDHEX$$la personnalisation de l'environnement par utilisateur
+//* Libellé			: 
+//* Commentaires	: Chargement de toutes les éléments nécessaires 
+//*					  à la personnalisation de l'environnement par utilisateur
 //*
-//* Arguments		: s_GLB			astGLB				(R$$HEX1$$e900$$ENDHEX$$f)	Structure globale
+//* Arguments		: s_GLB			astGLB				(Réf)	Structure globale
 //*
-//* Retourne		: Bool$$HEX1$$e900$$ENDHEX$$en		True	= Tout est OK
-//*										False = Probl$$HEX1$$e800$$ENDHEX$$me
+//* Retourne		: Booléen		True	= Tout est OK
+//*										False = Problème
 //*-----------------------------------------------------------------
 //* MAJ 		PAR		Date				Modification
 //*	#1		LBP		24/06/2010		[Recup vers SVN] : Ajout de la recup de la rev SVN
@@ -530,7 +561,7 @@ Long	  	lRet
 Int		iIdDept
 
 /*------------------------------------------------------------------*/
-/* Connexion $$HEX2$$e0002000$$ENDHEX$$la base de param$$HEX1$$e800$$ENDHEX$$tre.                                */
+/* Connexion à la base de paramètre.                                */
 /*------------------------------------------------------------------*/
 
 If F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMessageErreur, "SESAME", astGlb.sCodOper ) Then
@@ -542,7 +573,7 @@ If F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMe
 	w_Invisible.dw_Data.Uf_SetTransObject ( itrEnvSpb )
 
 /*------------------------------------------------------------------*/
-/* Chargement du libelle service et du type op$$HEX1$$e900$$ENDHEX$$rateur pour          */
+/* Chargement du libelle service et du type opérateur pour          */
 /* l'application.                                                   */
 /*------------------------------------------------------------------*/
 
@@ -560,7 +591,7 @@ If F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMe
 		astGLB.sNomOper			= w_Invisible.dw_Data.GetItemString ( 8, "lib_libelle" )
 		astGLB.sPrenomOper		= w_Invisible.dw_Data.GetItemString ( 9, "lib_libelle" )
 		
-		//[Recup vers SVN] : Si on tourne avec nouvelle PS de connexion on r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e800$$ENDHEX$$re nom appli et code env
+		//[Recup vers SVN] : Si on tourne avec nouvelle PS de connexion on récupère nom appli et code env
 		if lRet = 11 then
 			//[Recup vers SVN]
 			astGLB.sNomApplication		= w_Invisible.dw_Data.GetItemString ( 10, "lib_libelle" )
@@ -574,8 +605,8 @@ If F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMe
 Else
 
 /*------------------------------------------------------------------*/
-/* Cas ou la base n'est pas install$$HEX1$$e900$$ENDHEX$$e ou autre probl$$HEX1$$e800$$ENDHEX$$me. Faire      */
-/* appara$$HEX1$$ee00$$ENDHEX$$tre le message d'erreur de la Base.                       */
+/* Cas ou la base n'est pas installée ou autre problème. Faire      */
+/* apparaître le message d'erreur de la Base.                       */
 /*------------------------------------------------------------------*/
 	astGLB.sMessageErreur = "APPLI07"
 End If 
@@ -588,34 +619,34 @@ private function integer uf_chargefilenet (ref s_glb astglb);//*----------------
 //* Fonction		: Uf_ChargeFileNet (Private)
 //* Auteur			: Erick John Stark
 //* Date				: 02/09/1997 15:33:27
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Lancement de la couche de communication FileNet
 //*
-//* Arguments		: s_GLB			astGLB				(R$$HEX1$$e900$$ENDHEX$$f)	Structure globale
+//* Arguments		: s_GLB			astGLB				(Réf)	Structure globale
 //*
 //* Retourne		: Integer			 -32 	= Tout est OK.
-//*											 -33 	= L'ex$$HEX1$$e900$$ENDHEX$$cutable FileNet n'existe pas.
-//*										0 $$HEX2$$e0002000$$ENDHEX$$-31	= Erreur sur WinExec.
-//*											 -34	= La connexion $$HEX2$$e0002000$$ENDHEX$$l'IMS $$HEX1$$e900$$ENDHEX$$choue.
+//*											 -33 	= L'exécutable FileNet n'existe pas.
+//*										0 à -31	= Erreur sur WinExec.
+//*											 -34	= La connexion à l'IMS échoue.
 //*
 //*-----------------------------------------------------------------
-//* #1 DGA		19/09/2006		Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
+//* #1 DGA		19/09/2006		Gestion d'un répertoire temporaire DCMP-060643
 //*-----------------------------------------------------------------
 
 Integer			iRet = 1					// Valeur de retour
 
-uInt				uiHandleFileNet_Exe	// -- Handle du Filenet.exe si il est lanc$$HEX1$$e900$$ENDHEX$$
+uInt				uiHandleFileNet_Exe	// -- Handle du Filenet.exe si il est lancé
 uInt				uiRetExec				// -- Retour du la fonction Winexec
 
-Time				tMaintenant				// -- Sert $$HEX2$$e0002000$$ENDHEX$$tester l'heure actuelle
-Time				tFin						// -- Sert $$HEX2$$e0002000$$ENDHEX$$tester l'heure de fin de boucle pour la connexion IMS
+Time				tMaintenant				// -- Sert à tester l'heure actuelle
+Time				tFin						// -- Sert à tester l'heure de fin de boucle pour la connexion IMS
 String			sFileNetExe				// -- Executable Filenet
 String			sEnvFileNet				// -- Fichier d'environnement Filenet
-String			sVisible					// -- Fen$$HEX1$$ea00$$ENDHEX$$tre de Logon Visible 1, Invisible 0
+String			sVisible					// -- Fenêtre de Logon Visible 1, Invisible 0
 
 Boolean			bOk = True
 
-// -- R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration de la localisation du filenet.exe suivi du .ini dans 
+// -- Récupération de la localisation du filenet.exe suivi du .ini dans 
 // -- le .ini de l'application 
 // -- ex : F:\APPLI\FILENET\FILENET.EXE F:\APPLI\FILENET\FILENET.INI
 
@@ -632,8 +663,8 @@ ElseIf sEnvFileNet = "Pas trouve" Then
 	iRet	=	-33
 
 Else
-											// -- La fonction FindWindow permet de r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer le handle d'une tache
-											// -- Windows. Elle sert pour d$$HEX1$$e900$$ENDHEX$$terminer si Filenet.exe est d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$lanc$$HEX1$$e900$$ENDHEX$$
+											// -- La fonction FindWindow permet de récupérer le handle d'une tache
+											// -- Windows. Elle sert pour déterminer si Filenet.exe est déjà lancé
 
 	uiHandleFileNet_Exe = astGLB.uoWin.Uf_FindWindow ( "FNWND040", "Connexion Filenet" )
 
@@ -642,25 +673,25 @@ Else
 		// .... Destruction des flag
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 		FileDelete( astGLB.sRepTempo + "FILENET.OK" )
 		FileDelete( astGLB.sRepTempo + "FILENET.NOK" )
 //		FileDelete( astGLB.sWinDir + "\TEMP\FILENET.OK" )
 //		FileDelete( astGLB.sWinDir + "\TEMP\FILENET.NOK")
 
-		// .... Activation de la fen$$HEX1$$ea00$$ENDHEX$$tre de connexion
+		// .... Activation de la fenêtre de connexion
 
 		uiRetExec = astGLB.uoWin.Uf_WinExec ( sFileNetExe + " " + sEnvFileNet, Integer( sVisible ) )
 
 											// -- la fonction WinExec lance un exe Windows et 
-											// -- retourne le handle de tache ( num$$HEX1$$e900$$ENDHEX$$ro de process )
-											// -- qui lui est assign$$HEX1$$e900$$ENDHEX$$
-											// -- Si la valeur est inf$$HEX1$$e900$$ENDHEX$$rieure $$HEX2$$e0002000$$ENDHEX$$32 une Erreur est intervenue
+											// -- retourne le handle de tache ( numéro de process )
+											// -- qui lui est assigné
+											// -- Si la valeur est inférieure à 32 une Erreur est intervenue
 
 		If uiRetExec < 32 Then
 
-			// .... Erreur dans la fen$$HEX1$$ea00$$ENDHEX$$tre de connexion
+			// .... Erreur dans la fenêtre de connexion
 
 			iRet = uiRetExec * -1
 
@@ -677,14 +708,14 @@ Else
 			
 
 //Migration PB8-WYNIWYG-03/2006 CP				
-//				If FileExists( astGLB.sWinDir + "\TEMP\FILENET.OK" )	Then		// .... Connexion IMS Termin$$HEX1$$e900$$ENDHEX$$e
-//				If f_FileExists( astGLB.sWinDir + "\TEMP\FILENET.OK" )	Then		// .... Connexion IMS Termin$$HEX1$$e900$$ENDHEX$$e				
+//				If FileExists( astGLB.sWinDir + "\TEMP\FILENET.OK" )	Then		// .... Connexion IMS Terminée
+//				If f_FileExists( astGLB.sWinDir + "\TEMP\FILENET.OK" )	Then		// .... Connexion IMS Terminée				
 //Fin Migration PB8-WYNIWYG-03/2006 CP				
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
-				If	f_FileExists( astGLB.sRepTempo + "FILENET.OK" )	Then		// .... Connexion IMS Termin$$HEX1$$e900$$ENDHEX$$e				
+				If	f_FileExists( astGLB.sRepTempo + "FILENET.OK" )	Then		// .... Connexion IMS Terminée				
 					Exit
 				End If
 
@@ -694,7 +725,7 @@ Else
 //Fin Migration PB8-WYNIWYG-03/2006 CP
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 				If f_FileExists( astGLB.sRepTempo + "FILENET.NOK")	Then 		// .... Connexion IMS en Erreur
 					bOk = False
@@ -705,7 +736,7 @@ Else
 			Loop
 /*------------------------------------------------------------------*/  
 /* #1. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //			FileDelete( astGLB.sWinDir + "\TEMP\FILENET.OK" )
 //			FileDelete( astGLB.sWinDir + "\TEMP\FILENET.NOK")
@@ -715,16 +746,16 @@ Else
 			If bOk Then
 				iRet = -32
 			Else
-				iRet = -34					// -- La connexion $$HEX2$$e0002000$$ENDHEX$$l'IMS a $$HEX1$$e900$$ENDHEX$$chou$$HEX1$$e900$$ENDHEX$$e
+				iRet = -34					// -- La connexion à l'IMS a échouée
 			End If
 
 		End If
 	
 	Else
-			// -- Le message pbm_custom74 dans FileNet.exe correspond $$HEX2$$e0002000$$ENDHEX$$
-			// -- l'incr$$HEX1$$e900$$ENDHEX$$mentation du nombre d'application utilisant la connexion
-			// -- le n$$HEX2$$b0002000$$ENDHEX$$message windows est calcul$$HEX2$$e9002000$$ENDHEX$$en ajoutant 1023 au 
-			// -- n$$HEX2$$b0002000$$ENDHEX$$message pbm_customXX de PowerBuilder
+			// -- Le message pbm_custom74 dans FileNet.exe correspond à 
+			// -- l'incrémentation du nombre d'application utilisant la connexion
+			// -- le n° message windows est calculé en ajoutant 1023 au 
+			// -- n° message pbm_customXX de PowerBuilder
 			// -- pbm_custom74 = 1023 + 74 = 1097
 							
 		Post ( uiHandleFileNet_Exe, 1097, 0, 0 )
@@ -742,13 +773,13 @@ public function boolean uf_fin_connexion (ref s_glb astglb);//*-----------------
 //* Fonction		: Uf_FinConnexion (Public)
 //* Auteur			: Erick John Stark
 //* Date				: 03/09/1997 11:46:03
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Enregistrement de la date et heure de sortie de l'application 
 //*
-//* Arguments		: s_GLB			astGLB			(R$$HEX1$$e900$$ENDHEX$$f)	Structure globale
+//* Arguments		: s_GLB			astGLB			(Réf)	Structure globale
 //*
 //* Retourne		: Boleean		True	= Sortie Ok
-//*										False = Probl$$HEX1$$e800$$ENDHEX$$me en sortie
+//*										False = Problème en sortie
 //*
 //*-----------------------------------------------------------------
 
@@ -760,12 +791,12 @@ String		sNomMachine, sRep, sFicTrace, sTab, sMaintenant, sVal, sLigne
 U_DeclarationWindows	nvWin
 
 /*------------------------------------------------------------------*/
-/* Cette fonction est appel$$HEX1$$e900$$ENDHEX$$e par F_FermeMdi () lors de la          */
+/* Cette fonction est appelée par F_FermeMdi () lors de la          */
 /* fermeture de l'application.                                      */
 /*------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------*/
-/* Connexion $$HEX2$$e0002000$$ENDHEX$$la base de param$$HEX1$$e800$$ENDHEX$$tre et mise $$HEX2$$e0002000$$ENDHEX$$jour de la date et    */
+/* Connexion à la base de paramètre et mise à jour de la date et    */
 /* heure de sortie.                                                 */
 /*------------------------------------------------------------------*/
 
@@ -797,7 +828,7 @@ End If
 /*------------------------------------------------------------------*/
 /* On initialise maintenant le nom du fichier de TRACE au format    */
 /* JJMMAAAA.App (App correspond au code de l'application).          */
-/* Pour connaitre le r$$HEX1$$e900$$ENDHEX$$pertoire qui contient le fichier de TRACE,   */
+/* Pour connaitre le répertoire qui contient le fichier de TRACE,   */
 /* il faut lire la section TRACE du fichier INI de l'application.   */
 /*------------------------------------------------------------------*/
 nvWin			= stGLB.uoWin
@@ -816,7 +847,7 @@ Else
 End If
 
 /*------------------------------------------------------------------*/
-/* On $$HEX1$$e900$$ENDHEX$$crit la d$$HEX1$$e900$$ENDHEX$$connexion dans un fichier de trace s'il existe.    */
+/* On écrit la déconnexion dans un fichier de trace s'il existe.    */
 /*------------------------------------------------------------------*/
 
 If	sRep <> "" Then
@@ -833,12 +864,12 @@ If	sRep <> "" Then
 End If
 
 /*------------------------------------------------------------------*/
-/* On affiche maintenant le message d'erreur si la d$$HEX1$$e900$$ENDHEX$$connexion se   */
-/* passe mal. (Erreur de base en g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ral). Cette erreur est trac$$HEX1$$e900$$ENDHEX$$e. */
+/* On affiche maintenant le message d'erreur si la déconnexion se   */
+/* passe mal. (Erreur de base en général). Cette erreur est tracée. */
 /*------------------------------------------------------------------*/
 
 If	Not bRet Then
-	stMessage.sTitre		= "Erreur dans U_EnvSpb - D$$HEX1$$e900$$ENDHEX$$connexion"
+	stMessage.sTitre		= "Erreur dans U_EnvSpb - Déconnexion"
 	stMessage.Icon			= StopSign!
 	stMessage.bErreurG	= True
 	stMessage.bTrace		= True
@@ -855,23 +886,23 @@ public subroutine uf_popmenu (w_mdi awmdi, ref s_glb astglb);//*----------------
 //* Fonction		: Uf_PopMenu (Public)
 //* Auteur			: Erick John Stark
 //* Date				: 03/09/1997 14:09:10
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: Chargement dans la structure astGLB.stModule[] des informations 
-//*					  relatives aux diff$$HEX1$$e900$$ENDHEX$$rents menus.
+//*					  relatives aux différents menus.
 //*
-//* Arguments		: W_Mdi			awMdi				(Val)	Fen$$HEX1$$ea00$$ENDHEX$$tre MDI de l'application
-//*					  s_GLB			astGLB			(R$$HEX1$$e900$$ENDHEX$$f) Structure globale
+//* Arguments		: W_Mdi			awMdi				(Val)	Fenêtre MDI de l'application
+//*					  s_GLB			astGLB			(Réf) Structure globale
 //*
 //* Retourne		: Rien
 //*
 //*-----------------------------------------------------------------
 
 /*------------------------------------------------------------------*/
-/* Cette fonction est appel$$HEX1$$e900$$ENDHEX$$e sur l'open de la fen$$HEX1$$ea00$$ENDHEX$$tre MDI de       */
+/* Cette fonction est appelée sur l'open de la fenêtre MDI de       */
 /* l'application. L'instanciation de U_EnvSpb est encore active,    */
-/* donc la fen$$HEX1$$ea00$$ENDHEX$$tre W_Invisible est toujours ouverte. De plus, si    */
-/* on arrive $$HEX2$$e0002000$$ENDHEX$$cet endroit c'est que la structure stGLB est         */
-/* correctement initialis$$HEX1$$e900$$ENDHEX$$e. (stMessage particuli$$HEX1$$e800$$ENDHEX$$rement)           */
+/* donc la fenêtre W_Invisible est toujours ouverte. De plus, si    */
+/* on arrive à cet endroit c'est que la structure stGLB est         */
+/* correctement initialisée. (stMessage particulièrement)           */
 /*------------------------------------------------------------------*/
 
 Long		lCpt, lCpt1, lLig, lNbLig, lNbLig1, lTotModule, lTotMenu
@@ -896,9 +927,9 @@ W_Invisible.dw_Data2.Uf_SetTransObject ( itrEnvSpb )
 /*------------------------------------------------------------------*/
 /* Chargement du Code module,                                       */
 /*               Libelle du module,(Apparait sur le bouton)         */
-/*               Niveau d'acc$$HEX1$$e900$$ENDHEX$$s,                                    */
-/*               D$$HEX1$$e900$$ENDHEX$$signation module (Libelle long)                  */
-/* en fonction de l'op$$HEX1$$e900$$ENDHEX$$rateur et de l'application.                  */
+/*               Niveau d'accés,                                    */
+/*               Désignation module (Libelle long)                  */
+/* en fonction de l'opérateur et de l'application.                  */
 /*------------------------------------------------------------------*/
 
 W_Invisible.dw_Data.Retrieve ( astGLB.sCodAppli, astGLB.sCodOper )
@@ -909,7 +940,7 @@ iUpBound		=	UpperBound ( awMdi.MenuId.Item )
 
 For	iCpt = 1 To iUpBound
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re la liste des menus pr$$HEX1$$e900$$ENDHEX$$sents dans l'application et    */
+/* On récupére la liste des menus présents dans l'application et    */
 /* on les rend invisibles.                                          */
 /*------------------------------------------------------------------*/
 		awMdi.MenuId.Item[ iCpt ].Visible	=	False
@@ -917,7 +948,7 @@ For	iCpt = 1 To iUpBound
 /*------------------------------------------------------------------*/
 /* On cherche le module correspondant dans la DataWindow. Si on le  */
 /* trouve, on va rendre le module visible, et on va populiser les   */
-/* menus associ$$HEX1$$e900$$ENDHEX$$s en fonction du niveau d'acc$$HEX1$$e900$$ENDHEX$$s de l'op$$HEX1$$e900$$ENDHEX$$rateur $$HEX5$$e0002000200020002000$$ENDHEX$$*/
+/* menus associés en fonction du niveau d'accés de l'opérateur à    */
 /* ce module.                                                       */
 /*------------------------------------------------------------------*/
 
@@ -926,9 +957,9 @@ For	iCpt = 1 To iUpBound
 		lLig	=	W_Invisible.dw_Data.Find ( "id_mod = '" + sNomModule + "'", 0, lNbLig )
 
 /*------------------------------------------------------------------*/
-/* Si le nom du module est $$HEX1$$e900$$ENDHEX$$gal $$HEX2$$e0002000$$ENDHEX$$'QUITTER', on l'affiche dans      */
-/* tous les cas. Ce module n'est pas g$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$dans la gestion des       */
-/* acc$$HEX1$$e900$$ENDHEX$$s.                                                           */
+/* Si le nom du module est égal à 'QUITTER', on l'affiche dans      */
+/* tous les cas. Ce module n'est pas géré dans la gestion des       */
+/* accés.                                                           */
 /*------------------------------------------------------------------*/
 
 		If sNomModule = "QUITTER" Or sNomModule = "&QUITTER" Then
@@ -937,10 +968,10 @@ For	iCpt = 1 To iUpBound
 
 			If	lLig > 0 Then
 /*------------------------------------------------------------------*/
-/* On assigne au module, le nom sp$$HEX1$$e900$$ENDHEX$$cifi$$HEX2$$e9002000$$ENDHEX$$dans la gestion des        */
-/* acc$$HEX1$$e900$$ENDHEX$$s.                                                           */
+/* On assigne au module, le nom spécifié dans la gestion des        */
+/* accés.                                                           */
 /* On populise la structure globale, et on recherche les menus du   */
-/* module en fonction du niveau d'acc$$HEX1$$e900$$ENDHEX$$s.                            */
+/* module en fonction du niveau d'accés.                            */
 /*------------------------------------------------------------------*/
 
 				awMdi.MenuId.Item[ iCpt ].ToolBarItemVisible	=	True
@@ -951,9 +982,9 @@ For	iCpt = 1 To iUpBound
 				astGLB.stModule[ lCpt ].sLibModule	=	W_Invisible.dw_Data.GetItemString ( lLig, "LIB_MOD" )
 
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re la liste des menus auxquels l'op$$HEX1$$e900$$ENDHEX$$rateur n'a pas      */
-/* acc$$HEX1$$e900$$ENDHEX$$s. Ces menus seront rendus invisibles dans la fonction       */
-/* wf_PopMenu (), $$HEX1$$e900$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$nement Open de W_MAIN.                         */
+/* On récupére la liste des menus auxquels l'opérateur n'a pas      */
+/* accés. Ces menus seront rendus invisibles dans la fonction       */
+/* wf_PopMenu (), événement Open de W_MAIN.                         */
 /*------------------------------------------------------------------*/
 
 				lNbLig1	=	W_Invisible.dw_Data2.Retrieve ( astGLB.sCodAppli, sNomModule, iAcces )
@@ -967,9 +998,9 @@ For	iCpt = 1 To iUpBound
 				lCpt ++
 			Else
 /*------------------------------------------------------------------*/
-/* Dans le cas ou le module n'est pas trouv$$HEX1$$e900$$ENDHEX$$, on emp$$HEX1$$ea00$$ENDHEX$$che            */
-/* l'apparition du bouton. (Ce module est inaccessible $$HEX13$$e000200020002000200020002000200020002000200020002000$$ENDHEX$$*/
-/* l'op$$HEX1$$e900$$ENDHEX$$rateur).                                                    */
+/* Dans le cas ou le module n'est pas trouvé, on empêche            */
+/* l'apparition du bouton. (Ce module est inaccessible à            */
+/* l'opérateur).                                                    */
 /* Le simple fait de rendre l'Item invisible n'est pas suffisant.   */
 /*------------------------------------------------------------------*/
 				awMdi.MenuId.Item[ iCpt ].ToolBarItemVisible	=	False
@@ -1116,19 +1147,19 @@ public subroutine uf_charger_corb_oper (ref u_transaction atrtrans);//*---------
 //* Fonction		: Uf_Charger_Corb_Oper::U_EnvSpb (PUBLIC)
 //* Auteur			: Erick John Stark
 //* Date				: 10/11/1998 09:55:03
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Libellé			: 
 //* Commentaires	: 
 //*
-//* Arguments		: U_Transaction		atrTrans		(R$$HEX1$$e900$$ENDHEX$$f)	Moteur ou se trouve la table CORB_OPER
+//* Arguments		: U_Transaction		atrTrans		(Réf)	Moteur ou se trouve la table CORB_OPER
 //*
 //* Retourne		: Rien
 //*
 //*-----------------------------------------------------------------
 //* MAJ	PAR      Date			Modification
-//* #2	JFF   11/09/2003		Pour PLJ, $$HEX1$$e900$$ENDHEX$$criture d'un fichier Text sur C:\Winnt\Temp
+//* #2	JFF   11/09/2003		Pour PLJ, écriture d'un fichier Text sur C:\Winnt\Temp
 //*								   contenant tous les users de l'appli en cours.
-//* #3	DGA	19/09/2006		Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire DCMP-060643
-//*		 PHG	06/04/2011		[I027].BUG2 : Correction d$$HEX1$$e900$$ENDHEX$$tection application Savane
+//* #3	DGA	19/09/2006		Gestion d'un répertoire temporaire DCMP-060643
+//*		 PHG	06/04/2011		[I027].BUG2 : Correction détection application Savane
 //*									pour le chargement des corbeille.
 //*-----------------------------------------------------------------
 
@@ -1139,25 +1170,25 @@ Long lTotData3, lTotData4, lCpt, lLig
 U_DeclarationWindows	nvWin
 
 /*------------------------------------------------------------------*/
-/* Le but de cette fonction est de cr$$HEX1$$e900$$ENDHEX$$er deux fichiers dans le      */
-/* r$$HEX1$$e900$$ENDHEX$$pertoire temporaire de WINDOWS. Le premier fichier contient    */
-/* la liste de toutes les corbeilles accessibles pour l'op$$HEX1$$e900$$ENDHEX$$rateur   */
-/* en cours. Le second contient la liste de tous les op$$HEX1$$e900$$ENDHEX$$rateurs     */
-/* pouvant acc$$HEX1$$e900$$ENDHEX$$der aux corbeilles que l'on vient de r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer.      */
+/* Le but de cette fonction est de créer deux fichiers dans le      */
+/* répertoire temporaire de WINDOWS. Le premier fichier contient    */
+/* la liste de toutes les corbeilles accessibles pour l'opérateur   */
+/* en cours. Le second contient la liste de tous les opérateurs     */
+/* pouvant accéder aux corbeilles que l'on vient de récupérer.      */
 /*------------------------------------------------------------------*/
 sMoteur		= Left ( Upper ( atrTrans.DBMS ), 3 )
 
 // [MIGPB11] [EMD] : Debut Migration : support du DBMS SNC
 //If sMoteur = "SNC" Then sMoteur = "MSS" 
-If sMoteur <> "GUP" Then sMoteur = "MSS" // [PI056] Moteur MSS par d$$HEX1$$e900$$ENDHEX$$faut
+If sMoteur <> "GUP" Then sMoteur = "MSS" // [PI056] Moteur MSS par défaut
 // [MIGPB11] [EMD] : Fin Migration
 
-// ... #1 D$$HEX1$$e900$$ENDHEX$$but de modification
-//     Pour l'application SAVANE on force GUP pour continuer $$HEX2$$e0002000$$ENDHEX$$utiliser
+// ... #1 Début de modification
+//     Pour l'application SAVANE on force GUP pour continuer à utiliser
 //     les anciens data objets
 
 
-//[I027].BUG2 - D$$HEX1$$e900$$ENDHEX$$tetection de l'application savane par le classname et non plus
+//[I027].BUG2 - Détetection de l'application savane par le classname et non plus
 // par le code appli...
 //If Left( stGlb.sCodAppli , 2 ) = 'SA' And sMoteur = "MSS" Then sMoteur = 'GUP'
 If f_IsApplication('savane') And sMoteur = "MSS" Then sMoteur = 'GUP'
@@ -1172,7 +1203,7 @@ sCodOper		= stGLB.sCodOper
 sCodAppli	= stGLB.sCodAppli
 
 /*------------------------------------------------------------------*/
-/* Le nom des fichiers se d$$HEX1$$e900$$ENDHEX$$compose de la mani$$HEX1$$e800$$ENDHEX$$re suivante.         */
+/* Le nom des fichiers se décompose de la manière suivante.         */
 /* CORB + stGLB.sCodAppli + ".TXT"                                  */
 /* OPER + stGLB.sCodAppli + ".TXT"                                  */
 /*------------------------------------------------------------------*/
@@ -1181,7 +1212,7 @@ sRepWin	= nvWin.Uf_GetWindowsDirectory ()
 
 /*------------------------------------------------------------------*/  
 /* #3. DCMP-060643                                                  */
-/* Le 19/09/2006. Gestion d'un r$$HEX1$$e900$$ENDHEX$$pertoire temporaire parametrable.  */
+/* Le 19/09/2006. Gestion d'un répertoire temporaire parametrable.  */
 /*------------------------------------------------------------------*/
 //sFicCorb	= sRepWin + "\TEMP\" + "CORB" + stGLB.sCodAppli + ".TXT"
 //sFicOper	= sRepWin + "\TEMP\" + "OPER" + stGLB.sCodAppli + ".TXT"
@@ -1216,7 +1247,7 @@ End Choose
 /*------------------------------------------------------------------*/
 /* #1																					  */
 /* On traite le fichier des Operateur ARCHIVE							  */
-/* J'utilse Data3 pour cela, je pense que $$HEX1$$e700$$ENDHEX$$a ne g$$HEX1$$ea00$$ENDHEX$$ne pas, puisque   */
+/* J'utilse Data3 pour cela, je pense que ça ne gêne pas, puisque   */
 /* au final DATA3 contiendra bien les corbeille, voir tout suivant  */
 /*------------------------------------------------------------------*/
 w_Invisible.dw_Data3.DataObject = sDataOpar
@@ -1236,14 +1267,14 @@ w_Invisible.dw_Data3.Retrieve ( sCodOper )
 w_Invisible.dw_Data3.SaveAs ( sFicCorb, TEXT!, False )
 
 /*------------------------------------------------------------------*/
-/* On traite le fichier des op$$HEX1$$e900$$ENDHEX$$rateurs.                             */
+/* On traite le fichier des opérateurs.                             */
 /*------------------------------------------------------------------*/
 w_Invisible.dw_Data3.DataObject = sDataOper
 w_Invisible.dw_Data3.SetTransObject ( atrTrans )
 w_Invisible.dw_Data3.Retrieve ( sCodOper )
 
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re le nom de tous les op$$HEX1$$e900$$ENDHEX$$rateurs ayant acc$$HEX1$$e900$$ENDHEX$$s $$HEX2$$e0002000$$ENDHEX$$ce       */
+/* On récupére le nom de tous les opérateurs ayant accés à ce       */
 /* produit sur ENVSPB.                                              */
 /*------------------------------------------------------------------*/
 w_Invisible.dw_Data4.DataObject = "d_Routage_Nom_MSS"
@@ -1251,8 +1282,8 @@ w_Invisible.dw_Data4.SetTransObject ( itrEnvSpb )
 w_Invisible.dw_Data4.Retrieve ( stGLB.sCodAppli )
 
 /*------------------------------------------------------------------*/
-/* On positionne le nom r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$r$$HEX2$$e9002000$$ENDHEX$$de ENVSPB dans la DW sur les       */
-/* op$$HEX1$$e900$$ENDHEX$$rateurs.                                                      */
+/* On positionne le nom récupéré de ENVSPB dans la DW sur les       */
+/* opérateurs.                                                      */
 /*------------------------------------------------------------------*/
 lTotData3 = w_Invisible.dw_Data3.RowCount ()
 lTotData4 = w_Invisible.dw_Data4.RowCount ()
@@ -1274,7 +1305,7 @@ For	lCpt = 1 To lTotData3
 Next
 
 /*------------------------------------------------------------------*/
-/* On sauvegarde le fichier des op$$HEX1$$e900$$ENDHEX$$rateurs.                         */
+/* On sauvegarde le fichier des opérateurs.                         */
 /*------------------------------------------------------------------*/
 w_Invisible.dw_Data3.SaveAs ( sFicOper, TEXT!, False )
 
@@ -1289,13 +1320,13 @@ public function integer uf_applicationdejalance (string asnomapplication);//*---
 //* Fonction		: u_sesame::uf_ApplicationDejaLance
 //* Auteur			: PHG
 //* Date				: 05/04/2006
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: On detecte si le Mutex correspondant $$HEX2$$e0002000$$ENDHEX$$l'application a d$$HEX1$$e900$$ENDHEX$$ja et$$HEX2$$e9002000$$ENDHEX$$lanc$$HEX1$$e900$$ENDHEX$$e
+//* Libellé			: On detecte si le Mutex correspondant à l'application a déja eté lancée
 //* Commentaires	: [DETECTEAPPLI]
 //*
 //* Arguments		: string asNomApplication
 //*
 //* Retourne		: -1 l'application tourne deja
-//*					: Pas d'instance pr$$HEX1$$e900$$ENDHEX$$c$$HEX1$$e900$$ENDHEX$$dente de l'application
+//*					: Pas d'instance précédente de l'application
 //*
 //*-----------------------------------------------------------------
 
@@ -1306,13 +1337,13 @@ Integer iRet
 bInitial = FALSE
 
 /*------------------------------------------------------------------*/
-/* Cr$$HEX1$$e900$$ENDHEX$$ation du Mutex ( Mutually Exclusive ) (Voir Document          */
+/* Création du Mutex ( Mutually Exclusive ) (Voir Document          */
 /* ID:47615)                                                        */
 /*------------------------------------------------------------------*/
 ulResult1 = stGLB.uoWin.uf_CreateMutex ( bInitial, asNomApplication )
 stGLB.uoWin.uf_SetMutexRef(ulResult1)
 /*------------------------------------------------------------------*/
-/* On r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re la derni$$HEX1$$e800$$ENDHEX$$re erreur survenue.                         */
+/* On récupére la dernière erreur survenue.                         */
 /*------------------------------------------------------------------*/
 ulResult2 = stGLB.uoWin.uf_GetLastError ()
 If	ulResult2 = 183	Then
@@ -1323,8 +1354,8 @@ If	ulResult2 = 183	Then
 	stGLB.uoWin.uf_CloseHandle ( ulResult1 )
 Else
 /*------------------------------------------------------------------*/
-/* A priori, la fermeture de l'application PB, d$$HEX1$$e900$$ENDHEX$$truira             */
-/* automatiqement l'objet MUTEX. (A Suivre et $$HEX2$$e0002000$$ENDHEX$$v$$HEX1$$e900$$ENDHEX$$rifier)           */
+/* A priori, la fermeture de l'application PB, détruira             */
+/* automatiqement l'objet MUTEX. (A Suivre et à vérifier)           */
 /*------------------------------------------------------------------*/
 	iRet = 1
 End If
@@ -1337,16 +1368,16 @@ private function boolean uf_litparametre (string asnomapplication, string aslign
 //* Fonction		: Uf_LitParametre (Private)
 //* Auteur			: Erick John Stark
 //* Date				: 02/09/1997 14:15:42
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Chargement des param$$HEX1$$e800$$ENDHEX$$tres pass$$HEX1$$e900$$ENDHEX$$s par l'objet de connexion
+//* Libellé			: 
+//* Commentaires	: Chargement des paramètres passés par l'objet de connexion
 //*
 //* Arguments		: 	String				asNomApplication		(Val)	Nom de l'application appelante
-//*					  	String				asLigneCommande	(Val) Param$$HEX1$$e800$$ENDHEX$$tres pass$$HEX1$$e900$$ENDHEX$$s $$HEX2$$e0002000$$ENDHEX$$l'application
-//*					  	us_Parametre	astParametre			(R$$HEX1$$e900$$ENDHEX$$f) Structure de stockage
-//*						Boolean			abmodecnx				(R$$HEX1$$e900$$ENDHEX$$f) Retourne si un CNX est present ou non
+//*					  	String				asLigneCommande	(Val) Paramètres passés à l'application
+//*					  	us_Parametre	astParametre			(Réf) Structure de stockage
+//*						Boolean			abmodecnx				(Réf) Retourne si un CNX est present ou non
 //*
-//* Retourne		: Bool$$HEX1$$e900$$ENDHEX$$en		True	= Tout est OK
-//*										False = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//* Retourne		: Booléen		True	= Tout est OK
+//*										False = Il y a un problème
 //*
 //* MAJ 		PAR		Date				Modification
 //* 			LBP		24/06/2010		[Recup vers SVN] -> Renvoi si l'appli tourne avec un CNX
@@ -1370,7 +1401,7 @@ If IsValid(nvWin) Then DESTROY nvWin
 //Fin Migration PB8-WYNIWYG-03/2006 FM
 
 /*------------------------------------------------------------------*/
-/* Si le fichier CNX existe, ce sont les param$$HEX1$$e800$$ENDHEX$$tres qu'il contient  */
+/* Si le fichier CNX existe, ce sont les paramètres qu'il contient  */
 /* qui seront pris en compte                                        */
 /*------------------------------------------------------------------*/
 abmodecnx = false
@@ -1388,8 +1419,8 @@ If f_FileExists ( sFichierCNX ) Then
 Else
 
 /*------------------------------------------------------------------*/
-/* On d$$HEX1$$e900$$ENDHEX$$coupe la ligne de commande. Chaque $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ment est s$$HEX1$$e900$$ENDHEX$$par$$HEX2$$e9002000$$ENDHEX$$par   */
-/* un espace dans la chaine compos$$HEX1$$e900$$ENDHEX$$e par le lanceur SPB.            */
+/* On découpe la ligne de commande. Chaque élément est séparé par   */
+/* un espace dans la chaine composée par le lanceur SPB.            */
 /*------------------------------------------------------------------*/
 
 	iCpt	=	 1
@@ -1419,7 +1450,7 @@ Else
 End If
 
 /*------------------------------------------------------------------*/
-/* Si toutes les valeurs sont bien reseign$$HEX1$$e900$$ENDHEX$$es, dans ce cas tout     */
+/* Si toutes les valeurs sont bien reseignées, dans ce cas tout     */
 /* est OK.                                                          */
 /*------------------------------------------------------------------*/
 
@@ -1438,8 +1469,8 @@ on constructor;//*--------------------------------------------------------------
 //* Evenement 		: Constructor
 //* Auteur			: Erick John Stark
 //* Date				: 02/09/1997 12:00:06
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Cr$$HEX1$$e900$$ENDHEX$$ation des objets n$$HEX1$$e900$$ENDHEX$$cessaires $$HEX2$$e0002000$$ENDHEX$$ENVSPB
+//* Libellé			: 
+//* Commentaires	: Création des objets nécessaires à ENVSPB
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
@@ -1449,7 +1480,7 @@ on constructor;//*--------------------------------------------------------------
 itrEnvSpb					= CREATE u_Transaction
 
 /*------------------------------------------------------------------*/
-/* Ouverture de la fen$$HEX1$$ea00$$ENDHEX$$tre qui contient les DataWindows pour        */
+/* Ouverture de la fenêtre qui contient les DataWindows pour        */
 /* populiser les menus.                                             */
 /*------------------------------------------------------------------*/
 
@@ -1464,8 +1495,8 @@ on destructor;//*---------------------------------------------------------------
 //* Evenement 		: Destructor
 //* Auteur			: Erick John Stark
 //* Date				: 02/09/1997 11:58:53
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
-//* Commentaires	: Destruction des objets relatifs $$HEX2$$e0002000$$ENDHEX$$ENVSPB
+//* Libellé			: 
+//* Commentaires	: Destruction des objets relatifs à ENVSPB
 //*				  
 //*-----------------------------------------------------------------
 //* MAJ PAR		Date		Modification
