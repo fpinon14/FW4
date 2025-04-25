@@ -1,4 +1,4 @@
-HA$PBExportHeader$w_rech_commune.srw
+﻿$PBExportHeader$w_rech_commune.srw
 $PBExportComments$Recherche des communes et codes postaux
 forward
 global type w_rech_commune from window
@@ -54,7 +54,7 @@ event ue_charger;//*------------------------------------------------------------
 //* Evenement     : RowFocusChanged
 //* Auteur        : Fabry JF
 //* Date          : 20/08/2003 17:35:25
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: Chargement apr$$HEX1$$e800$$ENDHEX$$s l'ouvertue de la fen$$HEX1$$ea00$$ENDHEX$$tre (POSTEVENT)
+//* Libellé       : Chargement après l'ouvertue de la fenêtre (POSTEVENT)
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -85,33 +85,33 @@ public subroutine wf_gestion_fleches (string assens);//*------------------------
 //* Fonction		: Wf_Gestion_Fleches (Public)
 //* Auteur			: Fabry JF
 //* Date				: 21/08/2003 11:37:16
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Gestion du d$$HEX1$$e900$$ENDHEX$$placement par les fl$$HEX1$$e800$$ENDHEX$$ches
+//* Libellé			: Gestion du déplacement par les flèches
 //* Commentaires	: 
 //*
-//* Arguments		: String			asSens				(Val)	Indique le sens de la fl$$HEX1$$e900$$ENDHEX$$che (Haut, Bas)
+//* Arguments		: String			asSens				(Val)	Indique le sens de la fléche (Haut, Bas)
 //*
 //* Retourne		: 
 //*
 //*-----------------------------------------------------------------
 
-Long 		lRow				// Row courant et s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$
-Long 		lNbreRow			// Nbre de Row s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX2$$e9002000$$ENDHEX$$dans le m$$HEX1$$ea00$$ENDHEX$$me tour
-Boolean  bSel 				// True si, apr$$HEX1$$e800$$ENDHEX$$s contr$$HEX1$$f400$$ENDHEX$$le, la ligne reste bien s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$e
+Long 		lRow				// Row courant et sélectionné
+Long 		lNbreRow			// Nbre de Row sélectionné dans le même tour
+Boolean  bSel 				// True si, après contrôle, la ligne reste bien sélectionnée
 
 
 lRow = Dw_Commune.GetSelectedRow ( 0 )
 
-// ... Afin que l'on puisse toujours reprendre la main par les fl$$HEX1$$e800$$ENDHEX$$ches
+// ... Afin que l'on puisse toujours reprendre la main par les flèches
 If lRow = 0 Then 
 	lRow = 1
 End IF
 
 /*------------------------------------------------------------------*/
-/* Gestion du sens de d$$HEX1$$e900$$ENDHEX$$filement des fl$$HEX1$$e800$$ENDHEX$$ches                        */
+/* Gestion du sens de défilement des flèches                        */
 /*------------------------------------------------------------------*/
 CHOOSE CASE upper ( asSens )
 
-	//... Fl$$HEX1$$e900$$ENDHEX$$che vers le bas
+	//... Fléche vers le bas
 	CASE "BAS"
 
 		Dw_Commune.SelectRow ( 0, False )
@@ -126,7 +126,7 @@ CHOOSE CASE upper ( asSens )
 
 		lNbreRow = 1
 
-	//... Fl$$HEX1$$e900$$ENDHEX$$che vers le Haut
+	//... Fléche vers le Haut
 	CASE "HAUT"
 
 		Dw_Commune.SelectRow ( 0, False 		  )
@@ -155,7 +155,7 @@ private subroutine wf_positionnerobjets ();//*----------------------------------
 //* Fonction      : wf_PositionnerObjets (PRIVATE)
 //* Auteur        : Fabry JF
 //* Date          : 21/08/2003 14:49:51
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: 
+//* Libellé       : 
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -170,8 +170,8 @@ private subroutine wf_positionnerobjets ();//*----------------------------------
 
 This.x = 1189
 This.y = 553
-This.width = 2204
-This.Height = 1165
+This.width = 2204 + 30 // [20250425132807117][RETAILLE_FEN]
+This.Height = 1165 + 30 // [20250425132807117][RETAILLE_FEN]
 
 cb_Retour.x = 28
 cb_Retour.y = 25
@@ -208,7 +208,7 @@ on open;//*-----------------------------------------------------------------
 //* Evenement     : Open
 //* Auteur        : Fabry JF
 //* Date          : 20/08/2003 17:11:02
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: 
+//* Libellé       : 
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -231,10 +231,10 @@ istCom.bValider = FALSE
 st_patienter.Show ()
 st_patienter.BringToTop = TRUE
 
-st_Mess.text = 		"Le nom de la commune doit $$HEX1$$ea00$$ENDHEX$$tre $$HEX1$$e900$$ENDHEX$$crit sans" + char(13) + &
-						"accentuation ($$HEX1$$e900$$ENDHEX$$,$$HEX1$$e800$$ENDHEX$$,$$HEX1$$e700$$ENDHEX$$,$$HEX1$$e000$$ENDHEX$$,etc.) ni ponctuation" + Char(13) + "(, - ' etc.)." + &
-						"Les noms ~"SAINT~" et ~"SAINTE~""  + Char(13) + "doivent $$HEX1$$ea00$$ENDHEX$$tre $$HEX1$$e900$$ENDHEX$$crits" + &
-						"~"ST~" et ~"STE~" $$HEX2$$e0002000$$ENDHEX$$l'exception" + Char(13) + "de ~"SAINTES~" et ~"SAINTS~"." 
+st_Mess.text = 		"Le nom de la commune doit être écrit sans" + char(13) + &
+						"accentuation (é,è,ç,à,etc.) ni ponctuation" + Char(13) + "(, - ' etc.)." + &
+						"Les noms ~"SAINT~" et ~"SAINTE~""  + Char(13) + "doivent être écrits" + &
+						"~"ST~" et ~"STE~" à l'exception" + Char(13) + "de ~"SAINTES~" et ~"SAINTS~"." 
 
 
 PostEvent ("UE_CHARGER") 
@@ -252,7 +252,7 @@ on close;//*-----------------------------------------------------------------
 //* Evenement     : Close
 //* Auteur        : Fabry JF
 //* Date          : 20/08/2003 17:14:47
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: 
+//* Libellé       : 
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -347,7 +347,7 @@ on itemfocuschanged;//*---------------------------------------------------------
 //* Evenement     : ItemFocusChanged
 //* Auteur        : Fabry JF
 //* Date          : 21/08/2003 09:58:55
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: 
+//* Libellé       : 
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -387,7 +387,7 @@ event editchanged;//*-----------------------------------------------------------
 //* Evenement     : EditChanged
 //* Auteur        : FABRY JF
 //* Date          : 21/08/2003 11:45:32
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: 
+//* Libellé       : 
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -442,7 +442,7 @@ event clicked;//*---------------------------------------------------------------
 //* Evenement     : RowFocusChanged
 //* Auteur        : Fabry JF
 //* Date          : 21/08/2003 09:33:09
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: 
+//* Libellé       : 
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -462,7 +462,7 @@ This.Enabled = FALSE
 lRow = dw_Commune.GetSelectedRow ( 0 )
 
 /*------------------------------------------------------------------*/
-/* Une commune doit $$HEX1$$ea00$$ENDHEX$$tre s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$e                               */
+/* Une commune doit être sélectionnée                               */
 /*------------------------------------------------------------------*/
 If lRow <=0 Then
 		// #1 On utilise un messagebox standard
@@ -472,14 +472,14 @@ If lRow <=0 Then
 //		stMessage.Bouton		= Ok!
 //		stMessage.sCode		= "COMM01"
 //		F_Message ( stMessage )
-//		remplac$$HEX2$$e9002000$$ENDHEX$$par
-		messagebox("Recherche des communes", "Vous devez s$$HEX1$$e900$$ENDHEX$$lectionner une commune",&
+//		remplacé par
+		messagebox("Recherche des communes", "Vous devez sélectionner une commune",&
 					  Information!, Ok! )
 		This.Enabled = True
 		Return
 
 /*------------------------------------------------------------------*/
-/* Si une commune est s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$, on charge la structure, et on    */
+/* Si une commune est sélectionné, on charge la structure, et on    */
 /* ferme.                                                           */
 /*------------------------------------------------------------------*/
 Else	
@@ -514,7 +514,7 @@ on clicked;//*-----------------------------------------------------------------
 //* Evenement     : RowFocusChanged
 //* Auteur        : Fabry JF
 //* Date          : 21/08/2003 09:33:09
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: 
+//* Libellé       : 
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -551,7 +551,7 @@ on we_touche;//*----------------------------------------------------------------
 //* Evenement		: we_Touche
 //* Auteur			: JFF
 //* Date				: 20/08/2003 16:16:55
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Gestion de la touche press$$HEX1$$e900$$ENDHEX$$e
+//* Libellé			: Gestion de la touche pressée
 //* Commentaires	: 
 //*
 //* Arguments		: 
@@ -582,7 +582,7 @@ on doubleclicked;//*------------------------------------------------------------
 //* Evenement     : DoubleCliked
 //* Auteur        : Fabry JF
 //* Date          : 21/08/2003 11:17:55
-//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: 
+//* Libellé       : 
 //* Commentaires  : 
 //*
 //* Arguments     : 
@@ -604,7 +604,7 @@ on clicked;//*-----------------------------------------------------------------
 //* Evenement		: Clicked
 //* Auteur			: JFF
 //* Date				: 20/08/2003 16:16:55
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Gestion du click 
+//* Libellé			: Gestion du click 
 //* Commentaires	: 
 //*
 //* Arguments		: 
