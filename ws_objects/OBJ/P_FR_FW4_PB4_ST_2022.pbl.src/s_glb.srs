@@ -1,4 +1,4 @@
-HA$PBExportHeader$s_glb.srs
+﻿$PBExportHeader$s_glb.srs
 $PBExportComments$----} Structure globale application
 global type s_glb from structure
 	string		scodoper
@@ -48,5 +48,6 @@ global type s_glb from structure
 	boolean		bmodecnx
 	string		swordversion
 	string		swordpath
+	string		slibniveauoper
 end type
 
