@@ -101,7 +101,7 @@ stMessage.sCode					= ""
 //[Recup vers SVN] : Ajout de la recup modeCnx ou non pour affichage ds la barre de statut
 bRet = Uf_LitParametre ( 	apApplication.AppName, CommandParm (), stParametre, bModeCnx )
 
-If bRet Then
+If  bRet Then
 
 	astGLB.sCodOper				= stParametre.sCodOper
 	astGLB.sCodserv				= stParametre.sCodService
@@ -315,6 +315,34 @@ If bRet Then
 /* On initialise la MicroHelp avec une valeur par défaut.           */
 /*------------------------------------------------------------------*/
 			If bRet Then
+				
+				// [LGY53_EQU_CNX]
+				Select valeur
+				Into :iValCleSESAME_LGY53_EQU_CNX
+				From sysadm.cle
+				Where id_cle = "LGY53_EQU_CNX"
+				Using itrEnvSpb ; 
+				
+				If IsNull ( iValCleSESAME_LGY53_EQU_CNX ) Then iValCleSESAME_LGY53_EQU_CNX = 0
+				
+				IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
+				
+					GetContextService ( "Keyword", Cnx_KeyWord )
+					Cnx_KeyWord.GetContextKeyWords ( "SQL", sRetContextKeyWords )
+					
+					if UpperBound ( sRetContextKeyWords ) = 1 Then
+						If	IsNull ( sRetContextKeyWords[1] ) Or Len ( Trim ( sRetContextKeyWords[1] ) ) = 0	Then
+							sRetContextKeyWords[1] = ""
+						End If
+						
+						sTsVmCnx=Trim ( sRetContextKeyWords[1] )
+			
+					End if
+				End If 
+				// [LGY53_EQU_CNX]	
+							
+				
+				
 				//[Recup vers SVN] -> Récupération de la revision Svn Du fichier
 				astGLB.sRevisionSvn = ""
 				
@@ -341,13 +369,30 @@ If bRet Then
 												  astGLB.sVersionAppli + " - " + sJourSemaine[ DayNumber ( Today () )] + &
 												  String ( Day ( Today () ) ) + sMois [ Month ( Today () ) ] + String ( Year ( Today ()) )
 			*/
-			sMicroHelpDefaut	=  astGLB.sLibCourtAppli &
-										+ " - " + sJourSemaine[ DayNumber ( Today () )]  &
-										+ String ( Day ( Today () ) ) + sMois [ Month ( Today () ) ] + String ( Year ( Today ()) )  &
-										+ " - Version : " + astGLB.sRevisionSvn &
-										+ " - Env : " + astGLB.sCodEnv
+			// [LGY53_EQU_CNX]
+			IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
+				sMicroHelpDefaut	=  astGLB.sLibCourtAppli + " (" + astGLB.scodappli + ")" + &
+											+ " - " + sJourSemaine[ DayNumber ( Today () )]  &
+											+ String ( Day ( Today () ) ) + sMois [ Month ( Today () ) ] + String ( Year ( Today ()) )  &
+											+ " - Version : " + astGLB.sRevisionSvn &
+											+ " - TS : " + sTsVmCnx + &
+											+ " - Env : " + astGLB.sCodEnv + &
+											+ " - Oper : " + astGLB.sCodOper + &
+											+ " - Niv : " + astGLB.sLibNiveauOper
+			Else 
+
+				sMicroHelpDefaut	=  astGLB.sLibCourtAppli &
+											+ " - " + sJourSemaine[ DayNumber ( Today () )]  &
+											+ String ( Day ( Today () ) ) + sMois [ Month ( Today () ) ] + String ( Year ( Today ()) )  &
+											+ " - Version : " + astGLB.sRevisionSvn &
+											+ " - Env : " + astGLB.sCodEnv
+			End IF 
+			
 			if bModeCnx then
-				sMicroHelpDefaut = sMicroHelpDefaut + " - CNX : " + astGLB.sFichierIni
+				// [LGY53_EQU_CNX]
+				IF NOT ( iValCleSESAME_LGY53_EQU_CNX > 0 ) Then
+					sMicroHelpDefaut = sMicroHelpDefaut + " - CNX : " + astGLB.sFichierIni
+				End If 
 			end if
 			
 			
@@ -406,29 +451,10 @@ If bRet Then
 		iNumRev = -1
 	End if
 	
+
 	// [LGY53_EQU_CNX]
-	Select valeur
-	Into :iValCleSESAME_LGY53_EQU_CNX
-	From sysadm.cle
-	Where id_cle = "LGY53_EQU_CNX"
-	Using itrEnvSpb ; 
-	
-	If IsNull ( iValCleSESAME_LGY53_EQU_CNX ) Then iValCleSESAME_LGY53_EQU_CNX = 0
-	
-	IF  iValCleSESAME_LGY53_EQU_CNX > 0 Then
-	
-		GetContextService ( "Keyword", Cnx_KeyWord )
-		Cnx_KeyWord.GetContextKeyWords ( "SQL", sRetContextKeyWords )
+	IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
 		
-		if UpperBound ( sRetContextKeyWords ) = 1 Then
-			If	IsNull ( sRetContextKeyWords[1] ) Or Len ( Trim ( sRetContextKeyWords[1] ) ) = 0	Then
-				sRetContextKeyWords[1] = ""
-			End If
-			
-			sTsVmCnx=Trim ( sRetContextKeyWords[1] )
-
-		End if
-
 		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V02 'CNX', '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) + ", '" + sTsVmCnx + "'"
 		
 	Else 
@@ -554,11 +580,12 @@ private function boolean uf_charge_env (ref s_glb astglb);//*-------------------
 //*-----------------------------------------------------------------
 //* MAJ 		PAR		Date				Modification
 //*	#1		LBP		24/06/2010		[Recup vers SVN] : Ajout de la recup de la rev SVN
+//          JFF      24/04/2025     [LGY53_EQU_CNX]
 //*-----------------------------------------------------------------
 
 Boolean	bRet	= False	
 Long	  	lRet				
-Int		iIdDept
+Int		iIdDept, iValCleSESAME_LGY53_EQU_CNX
 
 /*------------------------------------------------------------------*/
 /* Connexion à la base de paramètre.                                */
@@ -571,6 +598,15 @@ If F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMe
 /*------------------------------------------------------------------*/
 	w_Invisible.dw_Data.Uf_DataObject ( "d_sesame_libelle" )			
 	w_Invisible.dw_Data.Uf_SetTransObject ( itrEnvSpb )
+
+	// [LGY53_EQU_CNX]
+	Select valeur
+	Into :iValCleSESAME_LGY53_EQU_CNX
+	From sysadm.cle
+	Where id_cle = "LGY53_EQU_CNX"
+	Using itrEnvSpb ; 
+	
+	If IsNull ( iValCleSESAME_LGY53_EQU_CNX ) Then iValCleSESAME_LGY53_EQU_CNX = 0
 
 /*------------------------------------------------------------------*/
 /* Chargement du libelle service et du type opérateur pour          */
@@ -592,12 +628,17 @@ If F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMe
 		astGLB.sPrenomOper		= w_Invisible.dw_Data.GetItemString ( 9, "lib_libelle" )
 		
 		//[Recup vers SVN] : Si on tourne avec nouvelle PS de connexion on récupère nom appli et code env
-		if lRet = 11 then
-			//[Recup vers SVN]
+		// if lRet = 11 then  [LGY53_EQU_CNX]
+			//[Recup vers SVN] 
 			astGLB.sNomApplication		= w_Invisible.dw_Data.GetItemString ( 10, "lib_libelle" )
 			astGLB.sCodEnv		= w_Invisible.dw_Data.GetItemString ( 11, "lib_libelle" )
-		end if
+		// end if [LGY53_EQU_CNX]
 		
+		// [LGY53_EQU_CNX]
+		IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
+			astGLB.slibniveauoper = w_Invisible.dw_Data.GetItemString ( 12, "lib_libelle" )
+		End IF 
+	
 		bRet = True
 	Else
 		astGLB.sMessageErreur = "APPLI04"
