@@ -49,5 +49,7 @@ global type s_glb from structure
 	string		swordversion
 	string		swordpath
 	string		slibniveauoper
+	long		lidcnx
+	string		ts_vm_cnx
 end type
 

@@ -75,7 +75,6 @@ String sHeureMiniConnexion, sHeureMaxConnexion, sCommande, sMicroHelpDefaut
 
 ContextKeyword Cnx_KeyWord  // [LGY53_EQU_CNX]
 String sRetContextKeyWords[] // [LGY53_EQU_CNX]
-String sTsVmCnx // [LGY53_EQU_CNX]
 
 String			sJourSemaine [7] = { "Dimanche ", "Lundi ", "Mardi ", "Mercredi ", "Jeudi ", "Vendredi ", "Samedi " }
 String			sMois [12] = { " Janvier ", " Février ", " Mars ", &
@@ -335,7 +334,7 @@ If  bRet Then
 							sRetContextKeyWords[1] = ""
 						End If
 						
-						sTsVmCnx=Trim ( sRetContextKeyWords[1] )
+						astglb.ts_vm_cnx =Trim ( sRetContextKeyWords[1] )
 			
 					End if
 				End If 
@@ -375,7 +374,7 @@ If  bRet Then
 											+ " - " + sJourSemaine[ DayNumber ( Today () )]  &
 											+ String ( Day ( Today () ) ) + sMois [ Month ( Today () ) ] + String ( Year ( Today ()) )  &
 											+ " - Version : " + astGLB.sRevisionSvn &
-											+ " - TS : " + sTsVmCnx + &
+											+ " - TS : " + astglb.ts_vm_cnx + &
 											+ " - Env : " + astGLB.sCodEnv + &
 											+ " - Oper : " + astGLB.sCodOper + &
 											+ " - Niv : " + astGLB.sLibNiveauOper
@@ -455,7 +454,10 @@ If bRet Then
 	// [LGY53_EQU_CNX]
 	IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
 		
-		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V02 'CNX', '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) + ", '" + sTsVmCnx + "'"
+		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V02 'CNX', '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) + ", '" + astglb.ts_vm_cnx + "'"
+		
+		// [LGY53_EQU_CNX] astGLB.lIdCnx obtenu en retour par réf
+//		itrEnvSpb.PS_IU_EQUI_TS_CNX ( "CNX", stGLB.sCodOper, astGLB.sCodAppli, iNumRev, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
 		
 	Else 
 		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V01 CNX, '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) 
@@ -811,7 +813,7 @@ end function
 
 public function boolean uf_fin_connexion (ref s_glb astglb);//*-----------------------------------------------------------------
 //*
-//* Fonction		: Uf_FinConnexion (Public)
+//* Fonction		: Uf_Fin_Connexion (Public)
 //* Auteur			: Erick John Stark
 //* Date				: 03/09/1997 11:46:03
 //* Libellé			: 
@@ -823,11 +825,14 @@ public function boolean uf_fin_connexion (ref s_glb astglb);//*-----------------
 //*										False = Problème en sortie
 //*
 //*-----------------------------------------------------------------
+//       JFF   24/04/2025 [LGY53_EQU_CNX]
+//*-----------------------------------------------------------------
 
 Boolean 		bRet = False	
 
 String		sCommande
 String		sNomMachine, sRep, sFicTrace, sTab, sMaintenant, sVal, sLigne
+Integer 		iValCleSESAME_LGY53_EQU_CNX
 
 U_DeclarationWindows	nvWin
 
@@ -845,6 +850,21 @@ If	F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMe
 
 	//sCommande = "EXECUTE sysadm.IM_U01_CONNEXION SOR, '" + astGLB.sCodOper + "'," +  astGLB.sCodAppli
 	sCommande = "EXECUTE sysadm.IM_U01_CONNEXION 'SOR', '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'" // [PI037]
+
+	// [LGY53_EQU_CNX]
+	Select valeur
+	Into :iValCleSESAME_LGY53_EQU_CNX
+	From sysadm.cle
+	Where id_cle = "LGY53_EQU_CNX"
+	Using itrEnvSpb ; 
+	
+	If IsNull ( iValCleSESAME_LGY53_EQU_CNX ) Then iValCleSESAME_LGY53_EQU_CNX = 0
+	
+	IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
+		// [LGY53_EQU_CNX] astGLB.lIdCnx obtenu en retour par réf
+//		itrEnvSpb.PS_IU_EQUI_TS_CNX ( "SOR", "", "", 0, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
+	End If 
+	// [LGY53_EQU_CNX]
 
 	If f_Execute ( sCommande, itrEnvSpb ) Then
 
@@ -1366,7 +1386,7 @@ public function integer uf_applicationdejalance (string asnomapplication);//*---
 //*
 //* Arguments		: string asNomApplication
 //*
-//* Retourne		: -1 l'application tourne deja
+//* Retourne		: -1 l'ap plication tourne deja
 //*					: Pas d'instance précédente de l'application
 //*
 //*-----------------------------------------------------------------
