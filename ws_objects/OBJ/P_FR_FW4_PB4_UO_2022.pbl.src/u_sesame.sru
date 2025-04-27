@@ -335,7 +335,7 @@ If  bRet Then
 						End If
 						
 						astglb.ts_vm_cnx =Trim ( sRetContextKeyWords[1] )
-			
+//						astglb.ts_vm_cnx = "TS2016DE" // [TODO]
 					End if
 				End If 
 				// [LGY53_EQU_CNX]	
@@ -370,7 +370,11 @@ If  bRet Then
 			*/
 			// [LGY53_EQU_CNX]
 			IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
-				sMicroHelpDefaut	=  astGLB.sLibCourtAppli + " (" + astGLB.scodappli + ")" + &
+/*
+*/											
+
+
+				sMicroHelpDefaut	=  astGLB.sLibCourtAppli + " (" + astGLB.scodappli + ")" &
 											+ " - " + sJourSemaine[ DayNumber ( Today () )]  &
 											+ String ( Day ( Today () ) ) + sMois [ Month ( Today () ) ] + String ( Year ( Today ()) )  &
 											+ " - Version : " + astGLB.sRevisionSvn &
@@ -457,7 +461,7 @@ If bRet Then
 		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V02 'CNX', '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) + ", '" + astglb.ts_vm_cnx + "'"
 		
 		// [LGY53_EQU_CNX] astGLB.lIdCnx obtenu en retour par réf
-//		itrEnvSpb.PS_IU_EQUI_TS_CNX ( "CNX", stGLB.sCodOper, astGLB.sCodAppli, iNumRev, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
+		itrEnvSpb.PS_IU_EQUI_TS_CNX ( "CNX", stGLB.sCodOper, astGLB.sCodAppli, iNumRev, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
 		
 	Else 
 		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V01 CNX, '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) 
@@ -862,7 +866,7 @@ If	F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMe
 	
 	IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
 		// [LGY53_EQU_CNX] astGLB.lIdCnx obtenu en retour par réf
-//		itrEnvSpb.PS_IU_EQUI_TS_CNX ( "SOR", "", "", 0, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
+		itrEnvSpb.PS_IU_EQUI_TS_CNX ( "SOR", "", "", 0, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
 	End If 
 	// [LGY53_EQU_CNX]
 
@@ -1386,7 +1390,7 @@ public function integer uf_applicationdejalance (string asnomapplication);//*---
 //*
 //* Arguments		: string asNomApplication
 //*
-//* Retourne		: -1 l'ap plication tourne deja
+//* Retourne		: -1 l'application tourne deja
 //*					: Pas d'instance précédente de l'application
 //*
 //*-----------------------------------------------------------------
