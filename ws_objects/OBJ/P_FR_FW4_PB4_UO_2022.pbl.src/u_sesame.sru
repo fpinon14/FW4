@@ -371,12 +371,12 @@ If  bRet Then
 			// [LGY53_EQU_CNX]
 			IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
 /*
+											+ " - " + sJourSemaine[ DayNumber ( Today () )]  &
+											+ String ( Day ( Today () ) ) + sMois [ Month ( Today () ) ] + String ( Year ( Today ()) )  &
 */											
 
 
 				sMicroHelpDefaut	=  astGLB.sLibCourtAppli + " (" + astGLB.scodappli + ")" &
-											+ " - " + sJourSemaine[ DayNumber ( Today () )]  &
-											+ String ( Day ( Today () ) ) + sMois [ Month ( Today () ) ] + String ( Year ( Today ()) )  &
 											+ " - Version : " + astGLB.sRevisionSvn &
 											+ " - TS : " + astglb.ts_vm_cnx + &
 											+ " - Env : " + astGLB.sCodEnv + &
