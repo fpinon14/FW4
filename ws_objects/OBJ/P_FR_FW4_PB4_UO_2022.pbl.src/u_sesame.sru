@@ -22,7 +22,10 @@ type variables
 Public :
      u_Transaction                 itrEnvSpb	
 
-	
+Private :
+  	  String   isUserProfile   // Variable d'environnement USERPROFILE [LGY45][20250613150541643]
+
+CONSTANT String	K_USERPROFILE = "USERPROFILE" // Variable DOS à lire  [LGY45][20250613150541643]
 end variables
 
 forward prototypes
@@ -62,6 +65,7 @@ public function boolean uf_initialisation (application apapplication, ref s_glb 
 //*	#5		LBP		24/06/2010		[Recup vers SVN] : Ajout de la recup de la rev SVN
 //*	#6		LBP		09/07/2010		[MAP2UNC] : Log en BD de la rev de connexion
 //          JFF      24/04/2025     [LGY53_EQU_CNX]
+//				JFF      13/06/2025     [LGY45][20250613150541643]
 //*-----------------------------------------------------------------
 
 Boolean 			bRet, bMess					
@@ -74,7 +78,7 @@ String sNomMachine, sRep, sFicTrace, sVal, sTab, sMaintenant, sLigne, sFicEssaiT
 String sHeureMiniConnexion, sHeureMaxConnexion, sCommande, sMicroHelpDefaut		
 
 ContextKeyword Cnx_KeyWord  // [LGY53_EQU_CNX]
-String sRetContextKeyWords[] // [LGY53_EQU_CNX]
+String sRetContextKeyWords[], sNul[] // [LGY53_EQU_CNX]
 
 String			sJourSemaine [7] = { "Dimanche ", "Lundi ", "Mardi ", "Mercredi ", "Jeudi ", "Vendredi ", "Samedi " }
 String			sMois [12] = { " Janvier ", " Février ", " Mars ", &
@@ -92,6 +96,22 @@ integer iNumRev
 astGLB.sMessageErreur			=	""
 bMess									= True
 stMessage.sCode					= ""
+
+
+// [LGY45][20250613150541643]
+GetContextService ( "Keyword", Cnx_KeyWord )
+Cnx_KeyWord.GetContextKeyWords ( K_USERPROFILE, sRetContextKeyWords )
+
+if UpperBound ( sRetContextKeyWords ) = 1 Then
+	If	IsNull ( sRetContextKeyWords[1] ) Or Len ( Trim ( sRetContextKeyWords[1] ) ) = 0	Then
+		sRetContextKeyWords[1] = "*UNDEFINED*"
+	End If
+	
+	isUserProfile =Trim ( sRetContextKeyWords[1] ) + "\"
+
+End if
+sRetContextKeyWords = sNul
+// /[LGY45][20250613150541643]
 
 
 /*------------------------------------------------------------------*/
@@ -1448,6 +1468,8 @@ private function boolean uf_litparametre (string asnomapplication, string aslign
 //* 			LBP		24/06/2010		[Recup vers SVN] -> Renvoi si l'appli tourne avec un CNX
 //*
 //*-----------------------------------------------------------------
+//*			JFF      13/06/2025     [LGY45][20250613150541643]
+//*-----------------------------------------------------------------
 
 Boolean	bRet			= False			// Valeur de retour de la fonction
 
@@ -1457,6 +1479,7 @@ String	sFichierCNX						// Fichier CNX si il existe
 Integer	iCpt								// Compteur de boucle
 Integer	iPos								// Indice pour la lecture de la ligne de commande
 
+/* [LGY45][20250613150541643]
 U_DeclarationWindows	nvWin
 nvWin 		= F_InitDeclarationWindows ( stGLB )
 sFichierCNX	=	nvWin.uf_GetWindowsDirectory() + "\TEMP\" + asNomApplication + ".CNX"
@@ -1464,6 +1487,10 @@ sFichierCNX	=	nvWin.uf_GetWindowsDirectory() + "\TEMP\" + asNomApplication + ".C
 //DESTROY nvWin
 If IsValid(nvWin) Then DESTROY nvWin
 //Fin Migration PB8-WYNIWYG-03/2006 FM
+*/
+
+// [LGY45][20250613150541643]
+sFichierCNX	= isUserProfile + "\WINDOWS\TEMP\" + asNomApplication + ".CNX"
 
 /*------------------------------------------------------------------*/
 /* Si le fichier CNX existe, ce sont les paramètres qu'il contient  */
