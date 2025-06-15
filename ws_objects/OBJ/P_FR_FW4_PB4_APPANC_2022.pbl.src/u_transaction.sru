@@ -215,8 +215,6 @@ subroutine DW_U01_PIECE(long dcIdProd,long dcIdRev,long dcIdGti,long dcIdPce,str
 //Procédure et fonction de gestion des refus associés à une garantie pour une révision
 subroutine DW_U01_MOTIF(long dcIdProd,long dcIdRev,long dcIdGti,long dcIdMotif,string sIdPara,string sCodTypMotif,string sCodNatMotif,datetime dtMajLe,string sMajPar, long dcCptTri) RPCFUNC ALIAS FOR "sysadm.DW_U01_MOTIF"
 
-//   JFF   24/04/2025 [LGY53_EQU_CNX] sur SESAME
-subroutine PS_IU_EQUI_TS_CNX ( String asCas, String asIdOper, String asIdAppli, Long alNumRevCnx, String asTsVmCnx, Ref Long alIdCnx )  RPCFUNC ALIAS FOR "sysadm.PS_IU_EQUI_TS_CNX"
 
 
 end prototypes
