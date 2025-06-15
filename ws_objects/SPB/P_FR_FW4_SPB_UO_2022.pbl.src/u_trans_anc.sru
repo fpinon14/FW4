@@ -1,4 +1,4 @@
-HA$PBExportHeader$u_trans_anc.sru
+﻿$PBExportHeader$u_trans_anc.sru
 $PBExportComments$---} Objet de transaction avec RPC de gestion communes
 forward
 global type u_trans_anc from transaction
@@ -91,13 +91,13 @@ function long DW_S01_MAIL_SVN_SEND()  rpcfunc alias for "sysadm.DW_S01_MAIL_SVN_
 function long PS_X_MAJ_BORNES_SVN(string sIdCodeApp, long iRevMax)  rpcfunc alias for "sysadm.PS_X_MAJ_BORNES_SVN"
 
 
-// ... Table de R$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence des IBAN, sur F4T.SESAME_PRO.sysadm.REF_IBAN
-// [MIGPB11] [EMD] : Debut Migration : suppression de l'appel PS sur un serveur li$$HEX1$$e900$$ENDHEX$$
+// ... Table de Référence des IBAN, sur F4T.SESAME_PRO.sysadm.REF_IBAN
+// [MIGPB11] [EMD] : Debut Migration : suppression de l'appel PS sur un serveur lié
 //function long SPB_FN_IBAN (string sIban, string sAction)  RPCFUNC ALIAS FOR "[F4T].[SESAME_PRO].[sysadm].[SPB_FN_IBAN]" 
 function long SPB_FN_IBAN (string sIban, string sAction)  RPCFUNC ALIAS FOR "sysadm.SPB_FN_IBAN"
 // [MIGPB11] [EMD] : Fin Migration
 
-// [MIGPB11] [EMD] : Debut Migration : ajout de la PS utilis$$HEX1$$e900$$ENDHEX$$e par f_execute()
+// [MIGPB11] [EMD] : Debut Migration : ajout de la PS utilisée par f_execute()
 function long PS_EXECUTE_SQL_CMDE (string asCmde)  RPCFUNC ALIAS FOR "sysadm.PS_EXECUTE_SQL_CMDE" 
 // [MIGPB11] [EMD] : Fin Migration
 
@@ -107,6 +107,8 @@ subroutine PS_S_PM425_RECUP_INFO ( Long adcIdSin, Long adcIdInter, Long aiIdArch
 // [PI056][TRANCOUNT][JFF][24/01/2020]
 function Int PS_S_RETURN_TRANCOUNT ( ) RPCFUNC ALIAS FOR "sysadm.PS_S_RETURN_TRANCOUNT"
 
+//   JFF   24/04/2025 [LGY53_EQU_CNX] sur SESAME
+subroutine PS_IU_EQUI_TS_CNX ( String asCas, String asIdOper, String asIdAppli, Long alNumRevCnx, String asTsVmCnx, Ref Long alIdCnx )  RPCFUNC ALIAS FOR "sysadm.PS_IU_EQUI_TS_CNX"
 
 end prototypes
 on u_trans_anc.create
