@@ -481,7 +481,13 @@ If bRet Then
 		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V02 'CNX', '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) + ", '" + astglb.ts_vm_cnx + "'"
 		
 		// [LGY53_EQU_CNX] astGLB.lIdCnx obtenu en retour par réf
-		itrEnvSpb.PS_IU_EQUI_TS_CNX ( "CNX", stGLB.sCodOper, astGLB.sCodAppli, iNumRev, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
+		Choose Case astGLB.sCodAppli
+			Case "SA8P", "SA82", "SA85", "SA8S" , "SA8T"
+				// On passe pour SAVANE
+				
+			Case Else
+				itrEnvSpb.PS_IU_EQUI_TS_CNX ( "CNX", stGLB.sCodOper, astGLB.sCodAppli, iNumRev, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
+		End Choose
 		
 	Else 
 		sCommande = "EXECUTE sysadm.IM_U01_CONNEXION_V01 CNX, '" + astGLB.sCodOper + "','" +  astGLB.sCodAppli + "'," +  string(iNumRev) 
@@ -886,7 +892,16 @@ If	F_ConnectSqlServer ( astGLB.sFichierIni, "SESAME BASE", itrEnvSpb, astGLB.sMe
 	
 	IF iValCleSESAME_LGY53_EQU_CNX > 0 Then
 		// [LGY53_EQU_CNX] astGLB.lIdCnx obtenu en retour par réf
-		itrEnvSpb.PS_IU_EQUI_TS_CNX ( "SOR", "", "", 0, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
+		
+		Choose Case astGLB.sCodAppli
+			Case "SA8P", "SA82", "SA85", "SA8S" , "SA8T"
+				// On passe pour SAVANE
+				
+			Case Else 
+				itrEnvSpb.PS_IU_EQUI_TS_CNX ( "SOR", "", "", 0, astglb.ts_vm_cnx, astGLB.lIdCnx ) 
+		End Choose
+		
+		
 	End If 
 	// [LGY53_EQU_CNX]
 
@@ -1490,7 +1505,7 @@ If IsValid(nvWin) Then DESTROY nvWin
 */
 
 // [LGY45][20250613150541643]
-sFichierCNX	= isUserProfile + "\WINDOWS\TEMP\" + asNomApplication + ".CNX"
+sFichierCNX	= isUserProfile + "WINDOWS\TEMP\" + asNomApplication + ".CNX"
 
 /*------------------------------------------------------------------*/
 /* Si le fichier CNX existe, ce sont les paramètres qu'il contient  */
