@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_euro_luc.srs
+global type s_euro_luc from structure
+    string smontantclipboard
+    decimal {2} dcMontantEuro
+    integer ix
+    integer iy
+    w_ancetre wparent
+    integer iw
+end type
+

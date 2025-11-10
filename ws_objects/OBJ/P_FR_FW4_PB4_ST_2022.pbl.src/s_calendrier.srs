@@ -1,0 +1,16 @@
+HA$PBExportHeader$s_calendrier.srs
+$PBExportComments$------} Structure servant $$HEX2$$e0002000$$ENDHEX$$l'affichage de la fen$$HEX1$$ea00$$ENDHEX$$tre W_CALENDRIER
+global type s_calendrier from structure
+    date dinit
+    integer ix
+    integer iy
+    window wparent
+    datawindow dwtrt
+    string scol
+    long llig
+    integer itypedate
+    singlelineedit sle_dte
+    singlelineedit sle_affichage
+    integer ichoix
+end type
+

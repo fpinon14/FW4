@@ -1,0 +1,45 @@
+HA$PBExportHeader$f_generer_mdp.srf
+global type f_generer_mdp from function_object
+end type
+
+forward prototypes
+global function string f_generer_mdp (integer alnbrecarmax)
+end prototypes
+
+global function string f_generer_mdp (integer alnbrecarmax);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Generer_Mdp
+//* Auteur			: FABRY JF
+//* Date				: 12/02/2007
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Retourne un mdp alphanum$$HEX1$$e900$$ENDHEX$$rique
+//* Commentaires	: [SITE_CMDE]
+//*
+//* Arguments		: Integer			alNbreCarMax   (Val)	
+//*
+//* Retourne		: String		 	
+//*
+//*-----------------------------------------------------------------
+
+String	sPasswd, sCar[34]
+Long		lCpt, lCar, lRet
+
+sPasswd = ""
+
+If IsNull ( alNbreCarMax ) Or alNbreCarMax <= 0 Then alNbreCarMax = 8
+
+sCar = {  "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",&
+			 "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U",&
+			 "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5",&
+			 "6", "7", "8", "9" }
+
+Randomize ( 0 )
+
+For lCpt = 1 To alNbreCarMax
+	lCar = Rand ( 34 )
+	sPasswd = sPasswd + sCar[ lCar ]
+Next
+
+Return sPasswd
+
+end function
+

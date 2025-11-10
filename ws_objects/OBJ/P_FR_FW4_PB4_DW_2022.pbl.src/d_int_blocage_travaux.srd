@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_int_blocage_travaux.srd
+$PBExportComments$------} Datawindow external pour l'interrogation des travaux $$HEX2$$e0002000$$ENDHEX$$d$$HEX1$$e900$$ENDHEX$$bloquer
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=461 color="536870912" )
+table(column=(type=char(1) name=alt_occupe dbname="alt_occupe" initial="O" values="Travaux rest$$HEX1$$e900$$ENDHEX$$s bloqu$$HEX1$$e900$$ENDHEX$$s suite incidents	O/Travaux impossible $$HEX3$$e0002000e900$$ENDHEX$$diter	N/" )
+ column=(type=char(1) name=saisie dbname="saisie" initial="1" values="En Saisie	1/En Saisie	0" )
+ column=(type=char(1) name=validation dbname="validation" initial="0" values="En Validation	5/En Validation	0" )
+ )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="266" y="16" height="433" width="1153" format="[general]"  name=alt_occupe radiobuttons.columns=1 radiobuttons.lefttext=yes radiobuttons.scale=yes radiobuttons.3d=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="458" y="168" height="57" width="481" format="[general]"  name=saisie checkbox.text="En Saisie" checkbox.on="1" checkbox.off="0" checkbox.lefttext=yes checkbox.scale=no checkbox.3d=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="458" y="236" height="57" width="481" format="[general]"  name=validation checkbox.text="En Validation" checkbox.on="5" checkbox.off="0" checkbox.lefttext=yes checkbox.scale=no checkbox.3d=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )

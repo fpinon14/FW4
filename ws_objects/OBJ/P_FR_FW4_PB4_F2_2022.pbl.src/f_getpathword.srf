@@ -1,0 +1,39 @@
+HA$PBExportHeader$f_getpathword.srf
+global type f_getpathword from function_object
+end type
+
+forward prototypes
+global function string f_getpathword ()
+end prototypes
+
+global function string f_getpathword ();//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_GetPathWord  (PUBLIC)
+//* Auteur			: Fabry JF
+//* Date				: 12/06/2014
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: [PI052]
+//*
+//* Arguments		: Aucun
+//*
+//* Retourne		: Integer						 1 = Tout est OK
+//*														-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*
+//*-----------------------------------------------------------------
+//* MAJ      PAR      Date	   Modification
+//*-----------------------------------------------------------------
+
+String sPathExe, sClassePdf
+Ulong ulWnd
+
+// #1
+if RegistryGet( "HKEY_CLASSES_ROOT\.doc", "", sClassePdf) = -1 Then return "Impossible $$HEX2$$e0002000$$ENDHEX$$d$$HEX1$$e900$$ENDHEX$$terminer" // pas d$$HEX1$$e900$$ENDHEX$$fini
+if RegistryGet( "HKEY_CLASSES_ROOT\"+sClassePdf + "\shell\open\command", "", sPathExe) = -1 Then return "Impossible $$HEX2$$e0002000$$ENDHEX$$d$$HEX1$$e900$$ENDHEX$$terminer" // pas d$$HEX1$$e900$$ENDHEX$$fini
+
+// Remplacer ensuite la chaine %1 par le nom du fichier et son chemin 
+Return sPathExe
+
+
+
+end function
+

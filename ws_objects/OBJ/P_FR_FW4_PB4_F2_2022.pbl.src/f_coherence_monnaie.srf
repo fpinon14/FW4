@@ -1,0 +1,110 @@
+HA$PBExportHeader$f_coherence_monnaie.srf
+$PBExportComments$Teste la coherence entre la monnaie du fichier Ini et la monnaie de la base.
+global type f_coherence_monnaie from function_object
+end type
+
+forward prototypes
+global function boolean f_coherence_monnaie ()
+end prototypes
+
+global function boolean f_coherence_monnaie ();//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Coherence_Monnaie_Base
+//* Auteur			: FABRY JF
+//* Date				: 02/07/2001
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Teste la coh$$HEX1$$e900$$ENDHEX$$rence entre la monnaie de l'application
+//*						  dans le fichier Ini et la monnaie de la base de donn$$HEX1$$e900$$ENDHEX$$e.
+//* Commentaires	: 
+//*
+//* Arguments		: Boolean	TRUE : Les deux monnaies sont coh$$HEX1$$e900$$ENDHEX$$rentes
+//*
+//* Retourne		: String		 	
+//*
+//*-----------------------------------------------------------------
+//* #1 PHG	18/02/2008	[SUISSE].LOT3 : 
+//* 		Gestion Monnaie Dynamique : refonte de la fonction
+//*          voir ancien code en fin de fonction pour les changement
+
+Boolean 	bRet, bBaseEuro, bFicIniEuro
+Integer	iTot
+
+// [SUISSE].LOT3 DEBUG
+//return TRUE
+
+/*----------------------------------------------------------------------------*/
+/* On compare la Monnaie d$$HEX1$$e900$$ENDHEX$$finie dans le fichier Ini avec celle definie dans  */
+/* la table parametre                                                         */
+/*----------------------------------------------------------------------------*/
+
+iTot = 0
+
+Select count (*)
+Into   :iTot
+From   sysadm.parametre
+Where  ref_cpt = :stGlb.sMonnaieFormatDesire
+Using  SQLCA;
+
+/*----------------------------------------------------------------------------*/
+/* Y a t-il Coh$$HEX1$$e900$$ENDHEX$$rence																			*/
+/*----------------------------------------------------------------------------*/
+bRet = iTot > 0
+
+/*----------------------------------------------------------------------------*/
+/* Les monnaies sont diff$$HEX1$$e900$$ENDHEX$$rentes, on ne lance pas l'application.              */
+/*----------------------------------------------------------------------------*/
+If Not bRet Then
+	stMessage.sCode = "ANCE014"
+	stMessage.sTitre = "Coh$$HEX1$$e900$$ENDHEX$$rence des monnaies"
+	stMessage.Icon = Exclamation!
+	stMessage.bErreurG = True
+	F_Message ( stMessage )
+	
+End If
+
+Return bRet
+
+
+// Ancienne Version
+//
+//Boolean 	bRet, bBaseEuro, bFicIniEuro
+//Integer	iTot
+
+///*----------------------------------------------------------------------------*/
+///* Le fichier Ini est-il en Euro ?                                            */
+///*----------------------------------------------------------------------------*/
+//bFicIniEuro = stGlb.sMonnaieFormatDesire = "E"
+//
+//iTot = 0
+//
+//Select count (*)
+//Into   :iTot
+//From   sysadm.parametre
+//Where  ref_cpt = 'EURO'
+//Using  SQLCA;
+//
+///*----------------------------------------------------------------------------*/
+///* La base de donn$$HEX1$$e900$$ENDHEX$$e est-elle en Euro ?                                       */
+///*----------------------------------------------------------------------------*/
+//bBaseEuro = iTot > 0
+//
+///*----------------------------------------------------------------------------*/
+///* Les deux monnaies sont-elles les m$$HEX1$$ea00$$ENDHEX$$mes ?                                   */
+///*----------------------------------------------------------------------------*/
+//bRet = bBaseEuro = bFicIniEuro
+//
+///*----------------------------------------------------------------------------*/
+///* Les monnaies sont diff$$HEX1$$e900$$ENDHEX$$rentes, on ne lance pas l'application.              */
+///*----------------------------------------------------------------------------*/
+//If Not bRet Then
+//	stMessage.sCode = "ANCE014"
+//	stMessage.sTitre = "Coh$$HEX1$$e900$$ENDHEX$$rence des monnaies"
+//	stMessage.Icon = Exclamation!
+//	stMessage.bErreurG = True
+//	F_Message ( stMessage )
+//	
+//End If
+//
+//
+//Return bRet
+end function
+

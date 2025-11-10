@@ -1,0 +1,17 @@
+HA$PBExportHeader$s_creer_dw.srs
+$PBExportComments$------} Structure servant pour la construction des datawindows dynamiques
+global type s_creer_dw from structure
+    string sdbname
+    string sresultset
+    string sheadername
+    integer ilargeur
+    string salignement
+    string sinvisible
+    string sformat
+    string stype
+    string svalues
+    string supdate
+    string scle
+    string sbitmap
+end type
+

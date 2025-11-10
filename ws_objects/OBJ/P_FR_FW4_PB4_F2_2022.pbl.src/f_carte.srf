@@ -1,0 +1,85 @@
+HA$PBExportHeader$f_carte.srf
+$PBExportComments$------} Contr$$HEX1$$f400$$ENDHEX$$le de N$$HEX2$$b0002000$$ENDHEX$$de Carte
+global type f_carte from function_object
+end type
+
+forward prototypes
+global function boolean f_carte (string asnum, string aslongueurcarte)
+end prototypes
+
+global function boolean f_carte (string asnum, string aslongueurcarte);//*******************************************************************************************
+//	Fonction          	: F_Carte
+//	Auteur            	: FS 
+//	Date 					 	: 16/06/1994 adapt$$HEX2$$e9002000$$ENDHEX$$en 4 le 27/04/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Controle du numero de carte : M$$HEX1$$e900$$ENDHEX$$thode luhn
+//	Commentaires			:
+//...........................................................................................
+// Num$$HEX1$$e900$$ENDHEX$$ro = n-1 premiers caract$$HEX1$$e800$$ENDHEX$$res
+// Cle    = dernier caract$$HEX1$$e800$$ENDHEX$$re
+//
+// ( 1 ) Multiplier x 2 1 chiffre sur 2 du num$$HEX1$$e900$$ENDHEX$$ro ( en partant du 1er )
+// ( 2 ) Entre Chaque r$$HEX1$$e900$$ENDHEX$$sultat intercaller le chiffre non multipli$$HEX1$$e900$$ENDHEX$$
+// ( 3 ) Addtitionner tous les chiffres entre eux
+// ( 4 ) le compl$$HEX1$$e900$$ENDHEX$$ment $$HEX2$$e0002000$$ENDHEX$$10 de (3) = Cl$$HEX1$$e900$$ENDHEX$$
+//...........................................................................................
+//
+//	Arguments				: asNum : Num$$HEX1$$e900$$ENDHEX$$ro de carte $$HEX2$$e0002000$$ENDHEX$$contr$$HEX1$$f400$$ENDHEX$$ler
+//								: asLongueurCarte
+//	Retourne				: True / False
+//								  
+//*******************************************************************************************
+
+
+Boolean bOk = True
+String  sCarte, sRes, sRes2
+Integer i = 0, iRes = 0, iCle = 0
+
+// ... V$$HEX1$$e900$$ENDHEX$$rif de forme
+
+asNum = Trim ( asNum )			// on enl$$HEX1$$e800$$ENDHEX$$ve les blancs $$HEX2$$e0002000$$ENDHEX$$droite
+
+If ( Len( asnum ) = 14 And Mid ( asLongueurCarte, 1, 1) = '1' ) Or         &
+   ( Len( asnum ) = 16 And Mid ( asLongueurCarte, 2, 1) = '1' ) Or         &
+   ( Len( asnum ) = 19 And Mid ( asLongueurCarte, 3, 1) = '1' ) Then
+
+
+	bOk = Isnumber(  asnum )
+Else
+
+   bOk = False
+End If
+
+
+// ... Contr$$HEX1$$f400$$ENDHEX$$le du num$$HEX1$$e900$$ENDHEX$$ro
+
+If bOk Then
+
+	
+	sCarte = Left ( asnum , Len( asnum ) -1 )
+	iCle   = Integer ( Right( asnum , 1) )
+
+	For i = Len( sCarte ) To 1 Step -2
+
+		sRes2 = sRes2 + String( Integer( Mid( sCarte, i, 1 ) ) * 2 )
+	Next
+
+	For i = Len( sCarte ) - 1 To 1 Step -2
+
+		sRes = sRes + Mid( sCarte, i , 1 )
+	Next
+
+
+	sRes = sRes + sRes2
+
+	For i = 1 To Len( sRes )
+
+		iRes = iRes + Integer( mid( sRes, i, 1 ) )
+	Next 
+
+	bOk = ( Mod( iRes + iCle, 10 ) = 0 )
+End If
+
+Return bOk
+
+end function
+

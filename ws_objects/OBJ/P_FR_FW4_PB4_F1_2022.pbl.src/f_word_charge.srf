@@ -1,0 +1,64 @@
+HA$PBExportHeader$f_word_charge.srf
+global type f_word_charge from function_object
+end type
+
+forward prototypes
+global function boolean f_word_charge (integer aietat, string asservertopic, string asclienttopic)
+end prototypes
+
+global function boolean f_word_charge (integer aietat, string asservertopic, string asclienttopic);//============================================================================================
+// F_WORD_CHARGE : Chargement de Microsoft Word + d$$HEX1$$e900$$ENDHEX$$marrage de PB en tant que serveur DDE
+//
+// Auteur  FS Le 03/08/94   
+//         FS le 29/09/94 Utilisation De WinExec, Param$$HEX1$$e900$$ENDHEX$$tre Etat
+//	
+// --> aietat : Etat de la fen$$HEX1$$ea00$$ENDHEX$$tre Word  ( 1 Normal, 6 Minimis$$HEX1$$e900$$ENDHEX$$, 3 Maximis$$HEX2$$e9002000$$ENDHEX$$)
+//
+// <-- True si chargement Ok
+//
+//============================================================================================
+
+Uint		uiRet
+String  	sChemin
+String	sItem
+
+SetPointer(Hourglass!)
+
+If ( asServerTopic = "" ) Then  asServerTopic = "System" 
+If ( asClientTopic = "" ) Then  asClientTopic = "System" 
+
+sItem	= asServerTopic
+
+If  stGLB.uoWin.Uf_GetModuleHandle( "WINWORD.EXE" ) <= 0  Then
+
+	//	----------	Microsoft Word non charg$$HEX1$$e900$$ENDHEX$$
+
+// [Office2010] [FMU] : Debut : 
+	//sChemin = ProfileString( stGLB.sFichierIni,"EDITION","REP_WORD","*" ) + "WINWORD.EXE"
+	sChemin = f_GetWordExe()
+// [Office2010] [FMU] : Fin
+	If ( Left( sChemin, 1 ) = "*" ) Then
+		Return ( False )
+	End If
+	
+	uiRet = stGLB.uoWin.Uf_WinExec( sChemin, aietat )
+	If  uiRet < 32	 Then // .... Lancement de Word 
+		Return ( False )
+	End If
+
+End If
+
+//	----------	Lancer le serveur DDE
+//				Appli, rubrique, $$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$ments de rubrique ( 1 seul ici )
+
+StartServerDDE ( "SPB", asServerTopic, sItem )
+
+//	----------	Fermer les fen$$HEX1$$ea00$$ENDHEX$$tres
+
+ExecRemote( "[If Fen$$HEX1$$ea00$$ENDHEX$$tre() > 0 Then FichierFermerTout 2]", "WinWord",asClientTopic )
+Yield()
+
+Return( True )
+
+end function
+

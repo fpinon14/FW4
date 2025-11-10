@@ -1,0 +1,17 @@
+HA$PBExportHeader$d_routage_oper_mss.srd
+$PBExportComments$------} MSS Liste des op$$HEX1$$e900$$ENDHEX$$rateurs ayant acc$$HEX1$$e800$$ENDHEX$$s aux m$$HEX1$$ea00$$ENDHEX$$mes corbeilles qu'un op$$HEX1$$e900$$ENDHEX$$rateur. (Fen$$HEX1$$ea00$$ENDHEX$$tre ROUTAGE)
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=decimal(0) name=id_corb dbname="id_corb" )
+ column=(type=char(4) name=id_oper dbname="id_oper" )
+ column=(type=char(35) name=nom dbname="nom" )
+ procedure="1 execute sysadm.DW_S04_CORB_OPER;1 @sCodOper = :sCodOper" arguments=(("sCodOper", string))  sort="id_oper A id_corb A " )
+text(band=header alignment="2" text="Id Corb"border="0" color="0" x="5" y="4" height="65" width="330"  name=id_corb_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Id Oper"border="0" color="0" x="339" y="4" height="65" width="193"  name=id_oper_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="531" y="4" height="57" width="805" format="[general]"  name=nom edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="339" y="4" height="57" width="138" format="[general]"  name=id_oper edit.limit=4 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="5" y="4" height="57" width="247" format="[general]"  name=id_corb edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

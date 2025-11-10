@@ -1,0 +1,9 @@
+HA$PBExportHeader$st_processinformation.srs
+$PBExportComments$------} Structure utilis$$HEX1$$e900$$ENDHEX$$e dans N_Cst_LancerEtAttendre.
+global type st_processinformation from structure
+	unsignedlong		ulProcess
+	unsignedlong		ulThread
+	long		lProcessId
+	long		lThreadId
+end type
+

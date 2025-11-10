@@ -1,0 +1,48 @@
+HA$PBExportHeader$f_commit.srf
+$PBExportComments$------} Fonction g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rique de commit sur un objet de transaction
+global type f_commit from function_object
+end type
+
+forward prototypes
+global subroutine f_commit (ref u_transaction atrtrans, boolean abcommit)
+end prototypes
+
+global subroutine f_commit (ref u_transaction atrtrans, boolean abcommit);//*******************************************************************************************
+// Fonction            	: f_Commit 
+//	Auteur              	: D.Bizien
+//	Date 					 	: 22/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Envoi du commit ou du rollback sur un objet de transaction
+// Commentaires			:
+//
+// Arguments				: atrTrans - U_Transaction - objet de transaction concern$$HEX1$$e900$$ENDHEX$$
+//								  abCommit - Boolean - Valeur de commit ( True=Commit, False=Rollback )
+// Retourne					: 
+//				
+//*******************************************************************************************
+// [PI056][TRANCOUNT][JFF][24/01/2020]
+//*******************************************************************************************
+
+Int iVal
+
+// [PI056][TRANCOUNT][JFF][24/01/2020]
+/*
+Migration 2008=>2014 [PI056]
+Situation inexplicable. je suis oblig$$HEX2$$e9002000$$ENDHEX$$de faire un SELECT en PB pour que dans certains cas
+la table sysadm.w_queue ne reste pas bloqu$$HEX1$$e900$$ENDHEX$$. Sans ce select bidon, le COMMIT derri$$HEX1$$e800$$ENDHEX$$re ne commit pas la transaction.
+*/
+Select cpt_val
+Into   :iVal
+From   sysadm.parametre with (nolock)
+Where  ref_cpt = 'EURO'
+Using SQLCA;
+
+If (abCommit) Then
+	COMMIT USING atrTrans ;
+Else
+	ROLLBACK USING atrTrans ;
+End If
+
+
+
+end subroutine
+

@@ -1,0 +1,207 @@
+HA$PBExportHeader$f_libelle_old.srf
+$PBExportComments$---} Fonction de regroupement des r$$HEX1$$e800$$ENDHEX$$gles de validation
+global type f_libelle_old from function_object
+end type
+
+forward prototypes
+global function boolean f_libelle_old (string astexte, integer airegle)
+end prototypes
+
+global function boolean f_libelle_old (string astexte, integer airegle);//*-----------------------------------------------------------------
+//*
+//* Fonction		:	f_Libelle
+//* Auteur			:	N$$HEX1$$b000$$ENDHEX$$6
+//* Date				:	09/06/1997 15:26:02
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	Fonction de regroupement des r$$HEX1$$e800$$ENDHEX$$gles de validation
+//*					   des diff$$HEX1$$e900$$ENDHEX$$rents champs.
+//* Commentaires	:	[^ ] permet de refuser qu'un champ commence par un
+//*					 	espace.
+//*
+//* Arguments		:	String		asTexte	-->	Valeur saisie pour le champ
+//*					 	Integer		aiRegle  -->	Type de r$$HEX1$$e800$$ENDHEX$$gle de validation
+//*															que valeur doit respecter   	
+//*
+//* Retourne		:	 Bool$$HEX1$$e900$$ENDHEX$$en		Vrai 		-->	La valeur saisie pour le
+//*															respecte la r$$HEX1$$e800$$ENDHEX$$gle de 
+//*															validation correspondant 
+//*															au champ
+//*
+//*										Faux		-->	La r$$HEX1$$e800$$ENDHEX$$gle de validation du 
+//*															champ n'est pas respect$$HEX1$$e900$$ENDHEX$$e 	
+//*										
+//*
+//*-----------------------------------------------------------------
+
+Boolean	bRet = False		//Valeur de retour de la fonction
+
+
+If isNull ( asTexte ) Or asTexte = "" Then 
+
+	bRet = True
+
+Else
+
+	Choose Case aiRegle
+
+
+	/*------------------------------------------------------------------*/
+	/* Lettres et chiffres minuscules et/ou majuscules avec caract$$HEX1$$e800$$ENDHEX$$res  */
+	/* sp$$HEX1$$e900$$ENDHEX$$ciaux                                                         */
+	/*------------------------------------------------------------------*/
+	Case 1	
+		
+		bRet = Match ( asTexte , "^[A-Za-z0-9$$HEX9$$e900e800e000f900fb00e200f400ea00ee00$$ENDHEX$$#(){}$$HEX1$$e700$$ENDHEX$$=\+\-\*/%\$$$HEX1$$a300$$ENDHEX$$&@\.:;!\?<>][A-Za-z0-9$$HEX9$$e900e800e000f900fb00e200f400ea00ee00$$ENDHEX$$#(){}$$HEX1$$e700$$ENDHEX$$=\+\-\*/%\$$$HEX1$$a300$$ENDHEX$$&@\.:;!\?<> ]*$" )
+
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules et chiffres avec blanc et tiret               */
+	/*------------------------------------------------------------------*/
+	Case 2
+		
+		bRet = Match ( asTexte , "^[A-Z0-9\-\_\.][A-Z0-9\- \_\.]*$" )
+
+
+	/*------------------------------------------------------------------*/
+	/* Lettres minuscules et chiffres avec caract$$HEX1$$e800$$ENDHEX$$res sp$$HEX1$$e900$$ENDHEX$$ciaux          */
+	/*------------------------------------------------------------------*/
+	Case 3
+		
+		bRet = Match ( asTexte , "^[a-z0-9$$HEX9$$e900e800e000f900fb00e200f400ea00ee00$$ENDHEX$$#(){}$$HEX1$$e700$$ENDHEX$$=\+\-\*/%\$$$HEX1$$a300$$ENDHEX$$&@\.:;!\?<>][a-z0-9$$HEX9$$e900e800e000f900fb00e200f400ea00ee00$$ENDHEX$$#(){}$$HEX1$$e700$$ENDHEX$$=\+\-\*/%\$$$HEX1$$a300$$ENDHEX$$&@\.:;!\?<> ]*$" )
+
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules                                               */
+	/*------------------------------------------------------------------*/
+	Case 4
+		
+		bRet = Match ( asTexte , "^[A-Z]+$" )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres minuscules                                               */
+	/*------------------------------------------------------------------*/
+	Case 5
+		
+		bRet = Match ( asTexte , "^[a-z]+$" )
+
+	/*------------------------------------------------------------------*/
+	/* Chiffres                                                         */
+	/*------------------------------------------------------------------*/
+	Case 6
+		
+		bRet = Match ( asTexte , "^[0-9]+$" )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres et Chiffres sans caract$$HEX1$$e800$$ENDHEX$$res sp$$HEX1$$e900$$ENDHEX$$ciaux                     */
+	/*------------------------------------------------------------------*/
+	Case 7
+		
+		bRet = Match ( asTexte , "^[A-Za-z0-9]+$" )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules et Chiffres                                   */
+	/*------------------------------------------------------------------*/
+	Case 8
+		
+		bRet = Match ( asTexte , "^[A-Z0-9]+$" )
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules et Tiret et +                                 */
+	/*------------------------------------------------------------------*/
+	Case 9
+		
+		bRet = Match ( asTexte , "^[A-Z\-\+]+$" )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules et Chiffres et - et . et blanc                */
+	/*------------------------------------------------------------------*/
+	Case 10
+		
+		bRet = Match ( asTexte , "^[A-Z0-9\-\.\][A-Z0-9\-\.\ ]*$" )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules et - et . et blanc                            */
+	/*------------------------------------------------------------------*/
+	Case 11
+		
+		bRet = Match ( asTexte , "^[A-Z\-\.][A-Z\-\.\ ]*$" )
+
+	/*------------------------------------------------------------------*/
+	/* Tout sauf c$$HEX1$$f400$$ENDHEX$$te.                                                  */
+	/*------------------------------------------------------------------*/
+	Case 12
+		
+		bRet = Not ( Match ( asTexte , "[\']" ) )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules et chiffres avec blanc et tiret               */
+	/*------------------------------------------------------------------*/
+	Case 13
+		
+		bRet = Match ( asTexte , "^[A-Za-z0-9\- \_\.][A-Za-z0-9\- \_\.]*$" )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres et chiffres minuscules et/ou majuscules avec caract$$HEX1$$e800$$ENDHEX$$res  */
+	/* sp$$HEX1$$e900$$ENDHEX$$ciaux dont la c$$HEX1$$f400$$ENDHEX$$te : '                                        */
+	/*------------------------------------------------------------------*/
+	Case 14
+		
+		bRet = Match ( asTexte , "^[A-Za-z0-9$$HEX9$$e900e800e000f900fb00e200f400ea00ee00$$ENDHEX$$#(){}$$HEX1$$e700$$ENDHEX$$=\'\+\-\*/%\$$$HEX1$$a300$$ENDHEX$$&@\.:;!\?<>][A-Za-z0-9$$HEX9$$e900e800e000f900fb00e200f400ea00ee00$$ENDHEX$$#(){}$$HEX1$$e700$$ENDHEX$$=\'\+\-\*/%\$$$HEX1$$a300$$ENDHEX$$&@\.:;!\?<> ]*$" )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules et chiffres et blanc et '-.                   */
+	/*------------------------------------------------------------------*/
+	Case 15
+		
+		bRet = Match ( asTexte , "^[A-Z0-9\'\-\.][A-Z0-9\'\-\. ]*$" )
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules, chiffres . : \ _                             */
+	/*------------------------------------------------------------------*/
+	Case 16
+		
+		bRet = Match ( asTexte , "^[A-Z0-9\:\\\_\.][A-Z0-9\:\\\_\. ]*$" )
+
+	/*------------------------------------------------------------------*/
+	/* Valeur strictement positive                                      */
+	/*------------------------------------------------------------------*/
+	Case 17
+		
+	   bRet = Integer ( asTexte ) > 0
+
+	/*------------------------------------------------------------------*/
+	/* Valeur positive ou nulle                                         */
+	/*------------------------------------------------------------------*/
+	Case 18
+		
+	   bRet = Integer ( asTexte ) >= 0
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules, espace, -, _, ., et \                        */
+	/*------------------------------------------------------------------*/
+	Case 19
+		
+		bRet = Match ( asTexte , "^[A-Z0-9\-\_\.\/][A-Z0-9\- \_\.\/]*$" )
+
+	/*------------------------------------------------------------------*/
+	/* Valeur enti$$HEX1$$e800$$ENDHEX$$re                                                   */
+	/*------------------------------------------------------------------*/
+	Case 20
+
+		Double dTemp
+
+		dtemp = Double( asTexte )
+		bRet =  ( dTemp / Ceiling( dTemp ) ) = 1
+
+	/*------------------------------------------------------------------*/
+	/* Lettres majuscules et - et blanc                                 */
+	/*------------------------------------------------------------------*/
+	Case 21
+		
+		bRet = Match ( asTexte , "^[A-Z\-][A-Z\-\ ]*$" )
+
+	End Choose
+
+End If
+
+Return ( bRet ) 
+end function
+

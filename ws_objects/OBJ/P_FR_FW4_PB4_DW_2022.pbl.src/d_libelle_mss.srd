@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_libelle_mss.srd
+$PBExportComments$------} Datawindow de utilis$$HEX1$$e900$$ENDHEX$$e par u_libelle pour la g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ration des courriers (SqlServer)
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=1 color="536870912" )
+table(column=(type=char(6) update=yes key=yes name=cod_lib dbname="cod_lib" )
+ column=(type=char(35) update=yes name=lib dbname="lib" )
+ column=(type=char(3) update=yes name=cod_type dbname="cod_type" )
+ column=(type=datetime update=yes name=cree_le dbname="cree_le" )
+ column=(type=datetime update=yes key=yes name=maj_le dbname="maj_le" )
+ column=(type=char(4) update=yes key=yes name=maj_par dbname="maj_par" )
+ procedure="1 execute sysadm.DW_S01_CODE_CAR @sIdTypCode = :sIdTypCode" update="sysadm.libelle" updatewhere=0 updatekeyinplace=yes arguments=(("sIdTypCode", string))  sort="cod_type A cod_lib A " )

@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_rech_commune.srd
+$PBExportComments$Dataobject de saisie pour la recherche d'une commune
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=5 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=181 color="536870912" )
+table(column=(type=char(35) name=commune dbname="COMMUNE" )
+ column=(type=char(5) name=cp dbname="CP" )
+ )
+text(band=detail alignment="1" text="Commune"border="0" color="0" x="78" y="16" height="57" width="215"  name=commune_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="16711680" x="330" y="16" height="57" width="842" format="[general]"  name=commune edit.limit=35 edit.case=upper edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Code Postal"border="0" color="0" x="33" y="100" height="57" width="261"  name=cp_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=20 border="5" color="16711680" x="330" y="100" height="57" width="330" format="[general]"  name=cp edit.limit=5 edit.case=upper edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

@@ -1,0 +1,14 @@
+HA$PBExportHeader$dddw_spb_courtype.srd
+$PBExportComments$---} DropDownDatawindow pour les courriers type
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(6) name=id_cour dbname="id_cour" )
+ column=(type=char(35) name=lib_cour dbname="lib_cour" )
+ procedure="1 execute sysadm.DD_S01_COUR_TYPE;1 " )
+compute(band=detail alignment="0" expression=" id_cour + ~" ~" + lib_cour "border="0" color="16711680" x="1061" y="172" height="57" width="1226" format="[GENERAL]"  name=libelle  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="16711680" x="10" y="8" height="57" width="183" format="[general]"  name=id_cour edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="16711680" x="225" y="8" height="57" width="942" format="[general]"  name=lib_cour edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

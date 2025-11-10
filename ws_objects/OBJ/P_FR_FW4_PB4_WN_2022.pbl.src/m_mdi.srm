@@ -1,0 +1,63 @@
+HA$PBExportHeader$m_mdi.srm
+$PBExportComments$-----} Menu par d$$HEX1$$e900$$ENDHEX$$faut de la fen$$HEX1$$ea00$$ENDHEX$$tre MDI  application
+forward
+global type m_mdi from menu
+end type
+type m_quitter from menu within m_mdi
+end type
+type m_quitter from menu within m_mdi
+end type
+type m_a_propos from menu within m_mdi
+end type
+type m_a_propos from menu within m_mdi
+end type
+end forward
+
+global type m_mdi from menu
+m_quitter m_quitter
+m_a_propos m_a_propos
+end type
+global m_mdi m_mdi
+
+on m_mdi.create
+m_mdi=this
+this.m_quitter=create m_quitter
+this.m_a_propos=create m_a_propos
+this.Item[]={this.m_quitter, &
+this.m_a_propos}
+end on
+
+on m_mdi.destroy
+destroy(this.m_quitter)
+destroy(this.m_a_propos)
+end on
+
+type m_quitter from menu within m_mdi
+end type
+
+on clicked;Close ( ParentWindow )
+end on
+
+on m_quitter.create
+this.Text="quitter"
+this.ToolBarItemName="AddWatch!"
+this.ToolBarItemText="&Quitter"
+this.Visible=false
+this.MergeOption=WindowMenu!
+end on
+
+on m_quitter.destroy
+end on
+
+type m_a_propos from menu within m_mdi
+end type
+
+on m_a_propos.create
+this.Text="?"
+this.Visible=false
+this.MergeOption=HelpMenu!
+end on
+
+on m_a_propos.destroy
+end on
+

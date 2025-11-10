@@ -1,0 +1,58 @@
+HA$PBExportHeader$f_verifier_ecriture_trace.srf
+global type f_verifier_ecriture_trace from function_object
+end type
+
+forward prototypes
+global function integer f_verifier_ecriture_trace (string asnomfic)
+end prototypes
+
+global function integer f_verifier_ecriture_trace (string asnomfic);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Verifier_Ecriture_Trace
+//* Auteur			: Erick John Stark
+//* Date				: 25/05/1999 14:35:09
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Verification pour l'ecriture de la TRACE
+//*
+//* Arguments		: String			asNomFic			(Val)	Nom du Fichier
+//*
+//* Retourne		: Integer		 1 = L'$$HEX1$$e900$$ENDHEX$$criture de la trace OK
+//*										-1 = L'$$HEX1$$e900$$ENDHEX$$criture de la trace pose un probl$$HEX1$$e800$$ENDHEX$$me
+//*
+//*-----------------------------------------------------------------
+
+Integer iFic
+String sText
+
+/*------------------------------------------------------------------*/
+/* La toute premi$$HEX1$$e800$$ENDHEX$$re chose $$HEX2$$e0002000$$ENDHEX$$faire est de supprimer un fichier      */
+/* existant.                                                        */
+/*------------------------------------------------------------------*/
+
+//Migration PB8-WYNIWYG-03/2006 CP
+//If	FileExists ( asNomFic )	Then	FileDelete ( asNomFic )
+If	f_FileExists ( asNomFic )	Then	FileDelete ( asNomFic )
+//Fin Migration PB8-WYNIWYG-03/2006 CP
+
+/*------------------------------------------------------------------*/
+/* On va v$$HEX1$$e900$$ENDHEX$$rifier si l'on peut ouvrir un fichier, $$HEX1$$e900$$ENDHEX$$crire dedans et  */
+/* le supprimer ensuite.                                            */
+/*------------------------------------------------------------------*/
+iFic	= FileOpen ( asNomFic, LineMode!, Write!, LockReadWrite!, Append! )
+
+If	iFic < 0 Then Return ( -1 )
+
+sText = "Essai Trace"
+
+If FileWrite ( iFic, sText ) < 0 Then
+	FileClose ( iFic )
+	Return ( -1 ) 
+Else
+	FileClose ( iFic )
+	If	Not FileDelete ( asNomFic )	Then Return ( -1 )
+End If
+
+Return ( 1 )
+
+end function
+

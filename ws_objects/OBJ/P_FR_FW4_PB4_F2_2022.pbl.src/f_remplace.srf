@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_remplace.srf
+$PBExportComments$Cherche/Remplace dans une Chaine
+global type f_remplace from function_object
+end type
+
+forward prototypes
+global function string f_remplace (string asChaine, string asCherche, string asRemplace)
+end prototypes
+
+global function string f_remplace (string asChaine, string asCherche, string asRemplace);// ========================================================================
+// F_REMPLACE :	Remplace Acherche par Aremplace dans la chaine Achaine
+//
+//	--->	asChaine	 : Chaine $$HEX2$$e0002000$$ENDHEX$$traiter
+//			asCherche : Sous chaine $$HEX2$$e0002000$$ENDHEX$$rechercher
+//			asRemplace: Sous chaine de substitution 
+//
+// ---> 	Retourne la chaine modifi$$HEX1$$e900$$ENDHEX$$e
+// ========================================================================
+
+Integer i, iLg
+
+i = Pos( asChaine, asCherche )
+ilg = Len( asCherche )
+
+Do While i <> 0
+	asChaine = Replace( asChaine, i, iLg, asRemplace )
+	i = Pos( asChaine, asCherche, i + Len( asRemplace ) )
+Loop
+
+Return asChaine
+
+ 
+end function
+

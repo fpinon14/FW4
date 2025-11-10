@@ -1,0 +1,41 @@
+HA$PBExportHeader$f_getitem3.srf
+$PBExportComments$( Sql ) Fonction f_getitem mais avec les formats date time compatibles SqlServer
+global type f_getitem3 from function_object
+end type
+
+forward prototypes
+global function string f_getitem3 (ref datawindow adw, long allig, string ascol)
+end prototypes
+
+global function string f_getitem3 (ref datawindow adw, long allig, string ascol);//*******************************************************************************************
+// Fonction          	: F_GetItem3
+//	Auteur            	: JFF
+//	Date 					 	: 13/11/2006
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Variante de F_GetItem2
+// Commentaires			: 
+//
+// Arguments				:	adw   * Data Window source pour le GetItem x
+//									alLig : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									asCol : Nom de la colonne
+//
+// Retourne				:	Valeur sous forme de chaine
+//								  
+//*******************************************************************************************
+
+
+String sGet, sType
+
+sGet = F_GetItem2 ( adw, allig, asCol )
+
+If sGet = "null" Then 
+	sGet = ""
+ElseIf Left ( sGet, 1 ) = "'" And Right ( sGet, 1 ) = "'" Then
+	sGet = Mid ( sGet, 2, Len ( sGet ) - 2 )
+End If
+
+Return ( sGet )
+
+
+
+end function
+

@@ -1,0 +1,23 @@
+HA$PBExportHeader$st_startupinfo.srs
+$PBExportComments$------} Structure utilis$$HEX1$$e900$$ENDHEX$$e dans N_Cst_LancerEtAttendre.
+global type st_startupinfo from structure
+	long		lCb
+	string		sReserved
+	string		sDesktop
+	string		sTitre
+	long		lX
+	long		lY
+	long		lXSize
+	long		llYsize
+	long		lXCountChars
+	long		lYCountChars
+	long		lFillAttribute
+	long		lFlags
+	long		lShowWindow
+	long		lcbReserved2
+	long		lReserved2
+	long		lStdInput
+	long		lStdOutput
+	long		lStdError
+end type
+

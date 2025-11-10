@@ -1,0 +1,126 @@
+HA$PBExportHeader$f_imei.srf
+$PBExportComments$Contr$$HEX1$$f400$$ENDHEX$$le d'un n$$HEX1$$b000$$ENDHEX$$IMEI
+global type f_imei from function_object
+end type
+
+forward prototypes
+global function boolean f_imei (string asimeiorig, ref string asimeicorrige)
+end prototypes
+
+global function boolean f_imei (string asimeiorig, ref string asimeicorrige);//*-----------------------------------------------------------------
+//*
+//* Fonction      : F_IMEI
+//* Auteur        : Fabry JF
+//* Date          : 27/08/2003 15:59:24
+//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: Contr$$HEX1$$f400$$ENDHEX$$le d'un n$$HEX2$$b0002000$$ENDHEX$$IMEI
+//* Commentaires  : Doc sur K:\Simpa2\Analyse\Doc\T$$HEX1$$e900$$ENDHEX$$l$$HEX1$$e900$$ENDHEX$$phonie\Fournisseurs\...
+//*					  ...ARVATO (Cegetel SFR MUST)\Recu de C MAILLOT le 19 08 2003\ETSI 0216_720.doc
+//*
+//* Arguments     : asIMEIorig			String			Val		// IMEI d'origine
+//*					  asIMEIcorrige		String			Ref		// IMEI corrig$$HEX2$$e9002000$$ENDHEX$$en retour
+//*
+//* Retourne      : Boolean	VRAI : Le n$$HEX2$$b0002000$$ENDHEX$$IMEI d'origine est valide / FAUX : Le n$$HEX2$$b0002000$$ENDHEX$$orig. n'$$HEX1$$e900$$ENDHEX$$tait pas valide.
+//*
+//* 					  La correction de l'IMEI en duxi$$HEX1$$e800$$ENDHEX$$me argument ne se fait que si les 14 
+//*					  premier caract$$HEX1$$e800$$ENDHEX$$re sont des chiffres, sinon l'IMEI corrig$$HEX2$$e9002000$$ENDHEX$$est null.
+//*
+//*-----------------------------------------------------------------
+//* MAJ   PAR      Date	     Modification
+//* #1    JFF    18/07/2006  Traitement des $$HEX1$$e900$$ENDHEX$$xceptions $$HEX2$$e0002000$$ENDHEX$$la r$$HEX1$$e800$$ENDHEX$$gle de Luhn invers$$HEX1$$e900$$ENDHEX$$e
+//*
+//*-----------------------------------------------------------------
+
+Integer	iCpt, iChiffre, iTot
+
+String	sCalCul1
+Long		lCalcul2
+Integer  iCle
+Boolean	bRet
+
+iCle = 0
+asIMEIcorrige = ""
+asIMEIorig = Trim ( asIMEIorig )
+
+/*------------------------------------------------------------------*/
+/* TAC	: "Type Approval Code" 6 Premier Chiffres                  */
+/* FAC   : "Final Assembly Code" 2 Chiffres suivant                 */
+/* SNR   : "Serial NumbeR"  6 Chiffres suivant                      */
+/* SVN   : "Software Version Number"  15$$HEX1$$e800$$ENDHEX$$me et Dernier Chiffre $$HEX5$$e0002000200020002000$$ENDHEX$$*/
+/* d$$HEX1$$e900$$ENDHEX$$terminer (Cl$$HEX1$$e900$$ENDHEX$$)                                                 */
+/*------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------*/
+/* L'IMEI doit $$HEX1$$ea00$$ENDHEX$$tre un nombre.                                      */
+/* Si ce n'est pas un nombre, aucune correction possible, retour    */
+/* imm$$HEX1$$e900$$ENDHEX$$diat.																		  */
+/*------------------------------------------------------------------*/
+If Not IsNumber ( asIMEIorig ) Or IsNull ( asIMEIorig ) Or asIMEIorig = "" Then Return False	
+If Long ( asIMEIorig ) = 0 Then Return False	
+
+/*------------------------------------------------------------------*/
+/* Si l'IMEI fait moins de 14 caract$$HEX1$$e800$$ENDHEX$$res, il est d'une part faux    */
+/* et en plus ne pourra pas $$HEX1$$ea00$$ENDHEX$$tre corrig$$HEX1$$e900$$ENDHEX$$.                           */
+/*------------------------------------------------------------------*/
+If Len ( asIMEIorig ) < 14 Or Len ( asIMEIorig ) > 15 Then Return False	
+
+sCalcul1 = ""
+
+/*------------------------------------------------------------------*/
+/* Construction d'une cha$$HEX1$$ee00$$ENDHEX$$ne de calcul : 1                          */
+/*------------------------------------------------------------------*/
+For iCpt = 1 To 14
+	iChiffre = Integer ( Mid ( asIMEIorig, iCpt, 1 ) )
+
+	If Mod ( iCpt, 2 ) <> 0 Then
+		sCalcul1 += String ( iChiffre * 1 )
+	ELse
+		sCalcul1 += String ( iChiffre * 2 )
+	End If
+
+Next
+
+/*------------------------------------------------------------------*/
+/* D$$HEX1$$e900$$ENDHEX$$termination de la cl$$HEX2$$e9002000$$ENDHEX$$SVN.                                     */
+/*------------------------------------------------------------------*/
+iTot = Len ( sCalCul1 )
+lCalcul2 = 0
+
+For iCpt = 1 To iTot
+	lCalCul2+= Integer ( Mid ( sCalCul1, iCpt, 1 ) )	
+Next
+
+sCalCul1 = String ( lCalCul2 ) 
+sCalCul1 = Replace ( sCalCul1, Len ( sCalCul1 ), 1, "0" )
+
+iCle = ( ( Integer ( sCalCul1 ) + 10 ) - lCalCul2 )
+
+If iCle = 10 then iCle = 0
+
+// #1
+Choose Case Left ( asIMEIorig, 6 )
+	Case "500039"
+		asIMEIcorrige = Left ( asIMEIorig, 14 ) + "0"
+		Return Right ( asIMEIorig, 1 ) = "0"
+End CHoose
+
+/*------------------------------------------------------------------*/
+/* On arme l'IMEI corrig$$HEX44$$e9002000200020002000200020002000200020002000200020002000200020002000200020002000200020002000200020002000200020002000200020002000200020002000200020002000200020002000200020002000$$ENDHEX$$*/
+/*------------------------------------------------------------------*/
+asIMEIcorrige = Left ( asIMEIorig, 14 ) + String ( iCle )
+
+
+/*------------------------------------------------------------------*/
+/* La cl$$HEX2$$e9002000$$ENDHEX$$calcul$$HEX1$$e900$$ENDHEX$$e est-elle la m$$HEX1$$ea00$$ENDHEX$$me que la cl$$HEX2$$e9002000$$ENDHEX$$pass$$HEX1$$e900$$ENDHEX$$e ?             */
+/*------------------------------------------------------------------*/
+Return iCle = Integer ( Right ( asIMEIorig, 1 ) ) And Len ( asIMEIorig ) = 15
+
+
+
+
+
+
+
+
+
+end function
+

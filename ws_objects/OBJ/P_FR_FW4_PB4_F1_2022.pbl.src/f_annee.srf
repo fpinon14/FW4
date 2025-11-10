@@ -1,0 +1,54 @@
+HA$PBExportHeader$f_annee.srf
+$PBExportComments$-----} Fonction de regroupement des r$$HEX1$$e800$$ENDHEX$$gles de validation pour les ann$$HEX1$$e900$$ENDHEX$$es
+global type f_annee from function_object
+end type
+
+forward prototypes
+global function boolean f_annee (string astexte, integer airegle)
+end prototypes
+
+global function boolean f_annee (string astexte, integer airegle);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_montant
+//* Auteur			: V.Capelle
+//* Date				: 01/02/1997 11:44:36
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Fonction de regroupement des r$$HEX1$$e800$$ENDHEX$$gles de validation
+//*					  pour les champs de type ann$$HEX1$$e900$$ENDHEX$$e.
+//* Commentaires	: 
+//*
+//* Arguments		: String		asTexte	-->	Valeur saisie pour le champ
+//*					  Integer	aiRegle  -->	Type de r$$HEX1$$e800$$ENDHEX$$gle de validation
+//*														que valeur doit respecter   	
+//*
+//* Retourne		: Bool$$HEX1$$e900$$ENDHEX$$en	Vrai 		-->	La valeur saisie pour le
+//*														respecte la r$$HEX1$$e800$$ENDHEX$$gle de 
+//*														validation correspondant 
+//*														au champ
+//*
+//*									Faux		-->	La r$$HEX1$$e800$$ENDHEX$$gle de validation du 
+//*														champ n'est pas respect$$HEX1$$e900$$ENDHEX$$e 	
+//*										
+//*
+//*-----------------------------------------------------------------
+
+
+Boolean		bRet = True		// Valeur de retour de la fonction.
+Integer		iVal				// Valeur saisie format integer.
+
+iVal = Integer ( asTexte )
+
+Choose Case aiRegle
+
+	Case 1
+
+		If Not ( iVal >= 1980	 AND iVal <= Year ( Today () ) ) Then
+
+			bRet = False
+
+		End If
+
+End Choose
+
+Return ( bRet ) 
+end function
+

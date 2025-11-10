@@ -1,0 +1,37 @@
+HA$PBExportHeader$f_word_quitte.srf
+$PBExportComments$Fonction fermant Word
+global type f_word_quitte from function_object
+end type
+
+forward prototypes
+global function boolean f_word_quitte (string asservertopic, string asclienttopic)
+end prototypes
+
+global function boolean f_word_quitte (string asservertopic, string asclienttopic);//===========================================================================
+// F_Quitter_Word : Fermeture de Microsoft Word Et du canal DDE ouvert
+//
+// Auteur VCP le 04/08/94
+//
+// --> Aucun
+//
+// <-- True si fermeture Ok
+//
+//===========================================================================
+
+Boolean	bRet  = True
+Int		iRet = 0
+
+SetPointer(HourGlass!)
+
+If ( asServerTopic = "" ) Then  asServerTopic = "System" 
+If ( asClientTopic = "" ) Then  asClientTopic = "System" 
+
+iRet = ExecRemote( "[FichierFermerTout 2]", "WinWord", asClientTopic )
+iRet = ExecRemote( "[FichierQuitter 2]", "WinWord", asClientTopic )
+Yield()
+
+StopServerDDE ( "SPB", asServerTopic )
+If iRet < 0 Then bRet = False
+Return ( bRet )
+end function
+

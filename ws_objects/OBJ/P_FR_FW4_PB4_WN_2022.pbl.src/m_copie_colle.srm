@@ -1,0 +1,638 @@
+HA$PBExportHeader$m_copie_colle.srm
+$PBExportComments$menu rajout$$HEX2$$e9002000$$ENDHEX$$suite $$HEX2$$e0002000$$ENDHEX$$la migration PB4 => PB8 pour pallier au bug microsoft du menu contextuel
+forward
+global type m_copie_colle from menu
+end type
+type m_annuler from menu within m_copie_colle
+end type
+type m_- from menu within m_copie_colle
+end type
+type m_couper from menu within m_copie_colle
+end type
+type m_copier from menu within m_copie_colle
+end type
+type m_coller from menu within m_copie_colle
+end type
+type m_supprimer from menu within m_copie_colle
+end type
+type m_-1 from menu within m_copie_colle
+end type
+type m_selectionnertout from menu within m_copie_colle
+end type
+global type m_copie_colle from menu
+m_annuler m_annuler
+m_- m_-
+m_couper m_couper
+m_copier m_copier
+m_coller m_coller
+m_supprimer m_supprimer
+m_-1 m_-1
+m_selectionnertout m_selectionnertout
+end type
+end forward
+
+global type m_copie_colle from menu
+m_annuler m_annuler
+m_- m_-
+m_couper m_couper
+m_copier m_copier
+m_coller m_coller
+m_supprimer m_supprimer
+m_-1 m_-1
+m_selectionnertout m_selectionnertout
+end type
+global m_copie_colle m_copie_colle
+
+forward prototypes
+public subroutine mf_gest ()
+end prototypes
+
+public subroutine mf_gest ();//*****************************************************************************
+//
+// Objet 		: m_copie_colle
+// Fonction 	: mf_gest
+//	Auteur		: F. Musso (WYNIWYG)
+//	Date			: 21/06/2004
+// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Commentaires: gestion des items du menu
+//					  cr$$HEX3$$e900e9002000$$ENDHEX$$pour r$$HEX1$$e900$$ENDHEX$$soudre le probl$$HEX1$$e800$$ENDHEX$$me du menu contextuel 
+//					  sur les fen$$HEX1$$ea00$$ENDHEX$$tres avec une titlebar suite Migration PB8-WYNIWYG-03/2004
+// ----------------------------------------------------------------------------
+// MAJ PAR		Date		Modification
+//
+//*****************************************************************************
+
+graphicobject		lgo_current_object
+boolean				lb_text_selected = false
+boolean				lb_all_text_selected = false
+boolean				lb_can_modify_control = false
+datawindow			ldw_current
+editmask				lem_current
+singlelineedit		lsle_current
+multilineedit		lmle_current
+dropdownlistbox	lddlb_current
+string				ls_columnname, ls_temp
+
+boolean				lb_aff_menu = true
+long					ll_sel_len, ll_len
+
+this.m_annuler.enabled = false
+this.m_copier.enabled = false
+this.m_couper.enabled = false
+this.m_coller.enabled = false
+this.m_supprimer.enabled = false
+this.m_selectionnertout.enabled = false
+
+lgo_current_object = GetFocus()
+if IsNull( lgo_current_object ) then return
+
+choose case lgo_current_object.TypeOf()
+	case multilineedit!
+		lmle_current = lgo_current_object
+		if lmle_current.CanUndo() then this.m_annuler.enabled = true
+		if lmle_current.SelectedLength() > 0 then
+			lb_text_selected = true
+		else
+ 			lb_text_selected = false
+		end if
+		if lmle_current.SelectedLength() = Len(lmle_current.Text) then
+			lb_all_text_selected = true
+		else
+			lb_all_text_selected = false
+		end if
+		if lmle_current.displayonly = false then
+			lb_can_modify_control = true
+		end if
+	case editmask!
+		lem_current  = lgo_current_object
+		if lem_current.CanUndo() then this.m_annuler.enabled = true
+		if lem_current.SelectedLength() > 0 then
+			lb_text_selected = true
+		else
+			lb_text_selected = false
+		end if
+		if lem_current.SelectedLength() = Len(lem_current.Text) then
+			lb_all_text_selected = true
+		else
+			lb_all_text_selected = false
+		end if
+		lb_can_modify_control = true
+	case singlelineedit!
+		lsle_current = lgo_current_object
+		if lsle_current.CanUndo() then this.m_annuler.enabled = true
+		if lsle_current.SelectedLength() > 0 then
+			lb_text_selected = true
+		else
+			lb_text_selected = false
+		end if
+		if lsle_current.SelectedLength() = Len(lsle_current.Text) then
+			lb_all_text_selected = true
+		else
+			lb_all_text_selected = false
+		end if
+		if lsle_current.displayonly = false then
+			lb_can_modify_control = true
+		end if
+	case DataWindow!
+		ldw_current  = lgo_current_object
+		if ldw_current.CanUndo() then this.m_annuler.enabled = true
+		if ldw_current.SelectedLength() > 0 then
+			lb_text_selected = true
+		else
+			lb_text_selected = false
+		end if
+		ll_sel_len = ldw_current.SelectedLength()	//-1
+		ll_len = Len(ldw_current.GetText())		//1
+//		messagebox("testfmo", string(ll_sl) + "; " + string(ll_len))
+		if ll_sel_len < 0 then lb_aff_menu = false
+		if ll_sel_len = ll_len then
+			lb_all_text_selected = true
+		else
+			lb_all_text_selected = false
+		end if
+		ls_columnname = ldw_current.GetColumnName ()
+		if ls_columnname <> "" then
+			ls_temp = ldw_current.Describe( ls_columnname + &
+											".edit.style")
+			choose case ls_temp
+				case "edit"
+					ls_temp = ldw_current.Describe( ls_columnname + &
+											".edit.displayonly")
+					if ls_temp = "no" then
+						lb_can_modify_control = true
+					end if
+				case "ddlb", "dddw"
+					ls_temp = ldw_current.Describe( ls_columnname + &
+											"." + ls_temp + ".allowedit")
+					if ls_temp = "yes" then
+						lb_can_modify_control = true
+					end if
+				case "editmask"
+					lb_can_modify_control = true
+			end choose
+		else
+			//aucune colonne s$$HEX1$$e900$$ENDHEX$$lectionn$$HEX1$$e900$$ENDHEX$$e, le menu n'apparait pas!
+			lb_aff_menu = false
+		end if
+	case DropDownListBox!
+		lddlb_current  = lgo_current_object   // undo is not a valid function for a ddlb
+		if lddlb_current.SelectedLength() > 0 then
+			lb_text_selected = true
+		else
+			lb_text_selected = false
+		end if
+		if lddlb_current.SelectedLength()  = Len(lddlb_current.Text) then
+			lb_all_text_selected = true
+		else
+			lb_all_text_selected = false
+		end if
+		if lddlb_current.allowedit = true then
+			lb_can_modify_control = true
+		end if
+end choose
+
+if lb_text_selected = true then
+	this.m_copier.enabled = true
+	if lb_can_modify_control then
+		this.m_couper.enabled = true
+		this.m_supprimer.enabled = true
+	else
+		this.m_couper.enabled = false
+		this.m_supprimer.enabled = false
+	end if
+else
+	this.m_couper.enabled = false
+	this.m_copier.enabled = false
+	this.m_supprimer.enabled = false
+end if
+
+if lb_all_text_selected then
+	this.m_selectionnertout.enabled = false
+else
+	this.m_selectionnertout.enabled = true
+end if
+
+if Len( ClipBoard() ) > 0 and lb_can_modify_control then // clipboard has something in it and control can be pasted into
+	this.m_coller.enabled = true
+else
+	this.m_coller.enabled = false
+end if
+
+if not(lb_aff_menu) then
+	m_annuler.visible = false
+	m_-.visible = false
+	m_couper.visible = false
+	m_copier.visible = false
+	m_coller.visible = false
+	m_supprimer.visible = false
+	m_-1.visible = false
+	m_selectionnertout.visible = false
+end if
+
+end subroutine
+
+on m_copie_colle.create
+m_copie_colle=this
+call super::create
+this.text = "m_copie_colle"
+this.m_annuler=create m_annuler
+this.m_-=create m_-
+this.m_couper=create m_couper
+this.m_copier=create m_copier
+this.m_coller=create m_coller
+this.m_supprimer=create m_supprimer
+this.m_-1=create m_-1
+this.m_selectionnertout=create m_selectionnertout
+this.Item[UpperBound(this.Item)+1]=this.m_annuler
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_couper
+this.Item[UpperBound(this.Item)+1]=this.m_copier
+this.Item[UpperBound(this.Item)+1]=this.m_coller
+this.Item[UpperBound(this.Item)+1]=this.m_supprimer
+this.Item[UpperBound(this.Item)+1]=this.m_-1
+this.Item[UpperBound(this.Item)+1]=this.m_selectionnertout
+end on
+
+on m_copie_colle.destroy
+call super::destroy
+destroy(this.m_annuler)
+destroy(this.m_-)
+destroy(this.m_couper)
+destroy(this.m_copier)
+destroy(this.m_coller)
+destroy(this.m_supprimer)
+destroy(this.m_-1)
+destroy(this.m_selectionnertout)
+end on
+
+type m_annuler from menu within m_copie_colle
+end type
+
+on m_annuler.create
+call super::create
+this.text = "Annuler"
+this.enabled = false
+end on
+
+on m_annuler.destroy
+call super::destroy
+end on
+
+event clicked;//*****************************************************************************
+//
+// Objet 		: m_copie_colle ( m_annuler )
+// Evenement 	: Clicked
+//	Auteur		: F. Musso (WYNIWYG)
+//	Date			: 21/06/2004
+// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Commentaires: cr$$HEX3$$e900e9002000$$ENDHEX$$pour r$$HEX1$$e900$$ENDHEX$$soudre le probl$$HEX1$$e800$$ENDHEX$$me du menu contextuel 
+//					  sur les fen$$HEX1$$ea00$$ENDHEX$$tres avec une titlebar suite Migration PB8-WYNIWYG-03/2004
+//					  
+// ----------------------------------------------------------------------------
+// MAJ PAR		Date		Modification
+//
+//*****************************************************************************
+
+graphicobject		lgo_current_object
+datawindow			ldw_current
+editmask				lem_current
+singlelineedit		lsle_current
+multilineedit		lmle_current
+dropdownlistbox	lddlb_current
+
+lgo_current_object = GetFocus()
+if IsNull( lgo_current_object ) then return
+
+choose case lgo_current_object.TypeOf()
+	case multilineedit!
+		lmle_current = lgo_current_object
+		lmle_current.Undo()
+	case editmask!
+		lem_current  = lgo_current_object
+		lem_current.Undo()
+	case singlelineedit!
+		lsle_current = lgo_current_object
+		lsle_current.Undo()
+	case DataWindow!
+		ldw_current  = lgo_current_object
+		ldw_current.Undo()
+	case DropDownListBox!
+		lddlb_current  = lgo_current_object   // undo is not a valid function for a ddlb
+end choose
+
+end event
+
+type m_- from menu within m_copie_colle
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_couper from menu within m_copie_colle
+end type
+
+on m_couper.create
+call super::create
+this.text = "Couper"
+this.enabled = false
+end on
+
+on m_couper.destroy
+call super::destroy
+end on
+
+event clicked;//*****************************************************************************
+//
+// Objet 		: m_copie_colle ( m_couper )
+// Evenement 	: Clicked
+//	Auteur		: F. Musso (WYNIWYG)
+//	Date			: 21/06/2004
+// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Commentaires: cr$$HEX3$$e900e9002000$$ENDHEX$$pour r$$HEX1$$e900$$ENDHEX$$soudre le probl$$HEX1$$e800$$ENDHEX$$me du menu contextuel 
+//					  sur les fen$$HEX1$$ea00$$ENDHEX$$tres avec une titlebar suite Migration PB8-WYNIWYG-03/2004
+//					  
+// ----------------------------------------------------------------------------
+// MAJ PAR		Date		Modification
+//
+//*****************************************************************************
+
+graphicobject		lgo_current_object
+datawindow			ldw_current
+editmask				lem_current
+singlelineedit		lsle_current
+multilineedit		lmle_current
+dropdownlistbox	lddlb_current
+
+lgo_current_object = GetFocus()
+if IsNull( lgo_current_object ) then return
+
+choose case lgo_current_object.TypeOf()
+	case multilineedit!
+		lmle_current = lgo_current_object
+		lmle_current.Cut()
+	case editmask!
+		lem_current  = lgo_current_object
+		lem_current.Cut()
+	case singlelineedit!
+		lsle_current = lgo_current_object
+		lsle_current.Cut()
+	case DataWindow!
+		ldw_current  = lgo_current_object
+		ldw_current.Cut()
+	case DropDownListBox!
+		lddlb_current  = lgo_current_object
+		lddlb_current.Cut()
+end choose
+
+end event
+
+type m_copier from menu within m_copie_colle
+end type
+
+on m_copier.create
+call super::create
+this.text = "Copier"
+this.enabled = false
+end on
+
+on m_copier.destroy
+call super::destroy
+end on
+
+event clicked;//*****************************************************************************
+//
+// Objet 		: m_copie_colle ( m_copier )
+// Evenement 	: Clicked
+//	Auteur		: F. Musso (WYNIWYG)
+//	Date			: 21/06/2004
+// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Commentaires: cr$$HEX3$$e900e9002000$$ENDHEX$$pour r$$HEX1$$e900$$ENDHEX$$soudre le probl$$HEX1$$e800$$ENDHEX$$me du menu contextuel 
+//					  sur les fen$$HEX1$$ea00$$ENDHEX$$tres avec une titlebar suite Migration PB8-WYNIWYG-03/2004
+//					  
+// ----------------------------------------------------------------------------
+// MAJ PAR		Date		Modification
+//
+//*****************************************************************************
+
+graphicobject		lgo_current_object
+datawindow			ldw_current
+editmask				lem_current
+singlelineedit		lsle_current
+multilineedit		lmle_current
+dropdownlistbox	lddlb_current
+
+lgo_current_object = GetFocus()
+if IsNull( lgo_current_object ) then return
+
+choose case lgo_current_object.TypeOf()
+	case multilineedit!
+		lmle_current = lgo_current_object
+		lmle_current.Copy()
+	case editmask!
+		lem_current  = lgo_current_object
+		lem_current.Copy()
+	case singlelineedit!
+		lsle_current = lgo_current_object
+		lsle_current.Copy()
+	case DataWindow!
+		ldw_current  = lgo_current_object
+		ldw_current.Copy()
+	case DropDownListBox!
+		lddlb_current  = lgo_current_object
+		lddlb_current.Copy()
+end choose
+
+end event
+
+type m_coller from menu within m_copie_colle
+end type
+
+on m_coller.create
+call super::create
+this.text = "Coller"
+this.enabled = false
+end on
+
+on m_coller.destroy
+call super::destroy
+end on
+
+event clicked;//*****************************************************************************
+//
+// Objet 		: m_copie_colle ( m_coller )
+// Evenement 	: Clicked
+//	Auteur		: F. Musso (WYNIWYG)
+//	Date			: 21/06/2004
+// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Commentaires: cr$$HEX3$$e900e9002000$$ENDHEX$$pour r$$HEX1$$e900$$ENDHEX$$soudre le probl$$HEX1$$e800$$ENDHEX$$me du menu contextuel 
+//					  sur les fen$$HEX1$$ea00$$ENDHEX$$tres avec une titlebar suite Migration PB8-WYNIWYG-03/2004
+//					  
+// ----------------------------------------------------------------------------
+// MAJ PAR		Date		Modification
+//
+//*****************************************************************************
+
+graphicobject		lgo_current_object
+datawindow			ldw_current
+editmask				lem_current
+singlelineedit		lsle_current
+multilineedit		lmle_current
+dropdownlistbox	lddlb_current
+
+lgo_current_object = GetFocus()
+if IsNull( lgo_current_object ) then return
+
+choose case lgo_current_object.TypeOf()
+	case multilineedit!
+		lmle_current = lgo_current_object
+		lmle_current.Paste()
+	case editmask!
+		lem_current  = lgo_current_object
+		lem_current.Paste()
+	case singlelineedit!
+		lsle_current = lgo_current_object
+		lsle_current.Paste()
+	case DataWindow!
+		ldw_current  = lgo_current_object
+		ldw_current.Paste()
+	case DropDownListBox!
+		lddlb_current  = lgo_current_object
+		lddlb_current.Paste()
+end choose
+
+end event
+
+type m_supprimer from menu within m_copie_colle
+end type
+
+on m_supprimer.create
+call super::create
+this.text = "Supprimer"
+this.enabled = false
+end on
+
+on m_supprimer.destroy
+call super::destroy
+end on
+
+event clicked;//*****************************************************************************
+//
+// Objet 		: m_copie_colle ( m_supprimer )
+// Evenement 	: Clicked
+//	Auteur		: F. Musso (WYNIWYG)
+//	Date			: 21/06/2004
+// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Commentaires: cr$$HEX3$$e900e9002000$$ENDHEX$$pour r$$HEX1$$e900$$ENDHEX$$soudre le probl$$HEX1$$e800$$ENDHEX$$me du menu contextuel 
+//					  sur les fen$$HEX1$$ea00$$ENDHEX$$tres avec une titlebar suite Migration PB8-WYNIWYG-03/2004
+//					  
+// ----------------------------------------------------------------------------
+// MAJ PAR		Date		Modification
+//
+//*****************************************************************************
+
+graphicobject		lgo_current_object
+datawindow			ldw_current
+editmask				lem_current
+singlelineedit		lsle_current
+multilineedit		lmle_current
+dropdownlistbox	lddlb_current
+
+lgo_current_object = GetFocus()
+if IsNull( lgo_current_object ) then return
+
+choose case lgo_current_object.TypeOf()
+	case multilineedit!
+		lmle_current = lgo_current_object
+		lmle_current.Clear()
+	case editmask!
+		lem_current  = lgo_current_object
+		lem_current.Clear()
+	case singlelineedit!
+		lsle_current = lgo_current_object
+		lsle_current.Paste()
+	case DataWindow!
+		ldw_current  = lgo_current_object
+		ldw_current.Clear()
+	case DropDownListBox!
+		lddlb_current  = lgo_current_object
+		lddlb_current.Clear()
+end choose
+
+end event
+
+type m_-1 from menu within m_copie_colle
+end type
+
+on m_-1.create
+call super::create
+this.text = "-"
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_selectionnertout from menu within m_copie_colle
+end type
+
+on m_selectionnertout.create
+call super::create
+this.text = "Selectionner tout"
+this.enabled = false
+end on
+
+on m_selectionnertout.destroy
+call super::destroy
+end on
+
+event clicked;//*****************************************************************************
+//
+// Objet 		: m_copie_colle ( m_selectionnertout )
+// Evenement 	: Clicked
+//	Auteur		: F. Musso (WYNIWYG)
+//	Date			: 21/06/2004
+// Libell$$HEX3$$e90009000900$$ENDHEX$$: 
+// Commentaires: cr$$HEX3$$e900e9002000$$ENDHEX$$pour r$$HEX1$$e900$$ENDHEX$$soudre le probl$$HEX1$$e800$$ENDHEX$$me du menu contextuel 
+//					  sur les fen$$HEX1$$ea00$$ENDHEX$$tres avec une titlebar suite Migration PB8-WYNIWYG-03/2004
+//					  
+// ----------------------------------------------------------------------------
+// MAJ PAR		Date		Modification
+//
+//*****************************************************************************
+
+graphicobject		lgo_current_object
+datawindow			ldw_current
+editmask				lem_current
+singlelineedit		lsle_current
+multilineedit		lmle_current
+dropdownlistbox	lddlb_current
+
+lgo_current_object = GetFocus()
+if IsNull( lgo_current_object ) then return
+
+choose case lgo_current_object.TypeOf()
+	case multilineedit!
+		lmle_current = lgo_current_object
+		lmle_current.SelectText(1, Len(lmle_current.Text))
+	case editmask!
+		lem_current  = lgo_current_object
+		lem_current.SelectText(1, Len(lem_current.Text))
+	case singlelineedit!
+		lsle_current = lgo_current_object
+		lsle_current.SelectText(1, Len(lsle_current.Text))
+	case DataWindow!
+		ldw_current  = lgo_current_object
+		ldw_current.SelectText(1, Len(ldw_current.GetText()))
+	case DropDownListBox!
+		lddlb_current  = lgo_current_object
+		lddlb_current.SelectText(1, Len(lddlb_current.Text))
+end choose
+
+end event
+

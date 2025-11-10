@@ -1,0 +1,222 @@
+HA$PBExportHeader$f_message.srf
+$PBExportComments$----} Affichage du message d'erreur format SPB
+global type f_message from function_object
+end type
+
+forward prototypes
+global function integer f_message (ref s_message astmessage)
+end prototypes
+
+global function integer f_message (ref s_message astmessage);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_Message
+//* Auteur			: Erick John Stark
+//* Date				: 01/10/1996 13:57:49
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Affichage du message d'erreur format SPB
+//*
+//* Arguments		: Structure		astMessage		(Val)	Structure de d$$HEX1$$e900$$ENDHEX$$finition de message
+//*
+//* Retourne		: Integer		 Le num$$HEX1$$e900$$ENDHEX$$ro du bouton press$$HEX1$$e900$$ENDHEX$$
+//*
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date			Modification
+//* EJS			01/10/1996	Prise en compte d'un fichier d'erreur global			  
+//* EJS			28/08/1997	Ajout d'une fonctionnalit$$HEX2$$e9002000$$ENDHEX$$de trace du message si besoin.
+//* EJS			08/09/1997	Il est maintenant possible de remplacer (| Alt124) par une tabulation
+//* EJS			09/07/1998	Modification demand$$HEX1$$e900$$ENDHEX$$e par FS/St Denis. Ajout du code du message dans la barre de Titre
+//* EJS			15/12/1998	Ajout d'une valeur iDefautBouton dans la structure stMessage
+//* FS #1      15/03/2002  Ajout du nom de l'appli dans le titre
+//* JFF #2     05/03/2003  Gestion des @ pour les emails, saisir <@>
+//*-----------------------------------------------------------------
+
+Integer		iBouton			// Bouton press$$HEX1$$e900$$ENDHEX$$
+Integer		iCpt				// Compteur de boucle
+Integer		iPos				// Position $$HEX2$$e0002000$$ENDHEX$$remplacer
+Integer		iNbVar			// Nombre de variables $$HEX2$$e0002000$$ENDHEX$$remplacer
+
+String		sMessage			// Message d'erreur
+String		sFic				// Fichier d'erreur $$HEX2$$e0002000$$ENDHEX$$lire
+String      sLibAppli
+
+
+/*------------------------------------------------------------------*/
+/* #1 FS d$$HEX1$$e900$$ENDHEX$$but de modification                                      */
+/*      Je r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$re une partie du nom de l'application              */
+/*------------------------------------------------------------------*/
+
+iPos =  Pos ( stglb.slibcourtappli, " " ) - 1
+
+If iPos > 0 Then sLibAppli = left ( stglb.slibcourtappli, iPos )
+
+// ... #1 FS Fin de modification
+
+
+/*------------------------------------------------------------------*/
+/* On d$$HEX1$$e900$$ENDHEX$$termine s'il s'agit d'un message d'erreur propre $$HEX11$$e0002000200020002000200020002000200020002000$$ENDHEX$$*/
+/* l'application ou aux anc$$HEX1$$ea00$$ENDHEX$$tres                                    */
+/*------------------------------------------------------------------*/
+
+If	astMessage.bErreurG Then
+	sFic		= astMessage.sFichierG
+Else
+	sFic		= astMessage.sFichier
+End If
+
+sMessage	=	ProfileString ( sFic, "MESSAGE", astMessage.sCode, "Message d'erreur " + astMessage.sCode + " non trouv$$HEX2$$e9002000$$ENDHEX$$" )
+
+iCpt 	= 1
+iPos	= 1
+
+/*------------------------------------------------------------------*/
+/* #2 Recherche des <@> pour remplacement temporaire par <AROBACE>  */
+/*------------------------------------------------------------------*/
+Do While iPos > 0
+
+	iPos = Pos ( sMessage , "<@>" , iPos)
+	If  iPos > 0 Then
+		sMessage = Replace ( sMessage, iPos, 3, "<AROBACE>" )
+		iPos += 2
+	Else
+		Exit
+	End If
+Loop
+
+
+/*------------------------------------------------------------------*/
+/* Remplacement des @ par des Retour Chariot                        */
+/*------------------------------------------------------------------*/
+iCpt 	= 1
+iPos	= 1
+
+Do While iPos > 0
+
+	iPos = Pos ( sMessage , "@" , iPos)
+
+	If  iPos > 0 Then
+
+		/*------------------------------------------------------------------*/
+		/* La position est calcul$$HEX1$$e900$$ENDHEX$$e car on remplace 1 caract$$HEX1$$e800$$ENDHEX$$re simple par  */
+		/* 2 caract$$HEX1$$e800$$ENDHEX$$res.                                                    */
+		/*------------------------------------------------------------------*/
+
+		sMessage = Replace ( sMessage, iPos, 1, "~r~n" )
+		iPos += 2
+
+	Else
+
+		Exit
+	End If
+
+Loop
+
+/*------------------------------------------------------------------*/
+/* #2 Remplacement d$$HEX1$$e900$$ENDHEX$$finitif des <AROBACE> par @			    		  */
+/*------------------------------------------------------------------*/
+iCpt 	= 1
+iPos	= 1
+
+Do While iPos > 0
+
+	iPos = Pos ( sMessage , "<AROBACE>" , iPos)
+	If  iPos > 0 Then
+		sMessage = Replace ( sMessage, iPos, 9, "@" )
+		iPos += 2
+	Else
+		Exit
+	End If
+Loop
+
+
+
+/*------------------------------------------------------------------*/
+/* Le 08/09/1997                                                    */
+/* Gestion d'un type de variable suppl$$HEX1$$e900$$ENDHEX$$mentaire. La fonction        */
+/* ProfileString ne peut interpr$$HEX1$$e900$$ENDHEX$$ter une tabulation (Alt 09). Pour  */
+/* aligner les zones d'un message on ajoute le caract$$HEX1$$e800$$ENDHEX$$re (Alt 124)  */
+/* qui sera remplac$$HEX2$$e9002000$$ENDHEX$$par une tabulation.                            */
+/*------------------------------------------------------------------*/
+
+iPos = 1
+
+Do While iPos > 0
+
+	iPos = Pos ( sMessage , "|" , iPos)
+
+	If  iPos > 0 Then
+		sMessage = Replace ( sMessage, iPos, 1, "~t" )
+		iPos ++
+	Else
+		Exit
+	End If
+
+Loop
+
+/*------------------------------------------------------------------*/
+/* Positionnement des Variables.                                    */
+/*------------------------------------------------------------------*/
+
+iCpt 		= 1
+iPos		= 1
+iNbVar	= UpperBound ( astMessage.sVar )
+
+
+Do While iPos > 0
+
+	iPos = Pos ( sMessage , "#" , iPos )
+
+	If  iPos > 0 Then
+
+/*------------------------------------------------------------------*/
+/* La position est calcul$$HEX1$$e900$$ENDHEX$$e car on remplace 1 caract$$HEX1$$e800$$ENDHEX$$re simple par  */
+/* 2 caract$$HEX1$$e800$$ENDHEX$$res.                                                    */
+/*------------------------------------------------------------------*/
+
+		sMessage = Replace ( sMessage, iPos, 1, astMessage.sVar[iCpt] )
+
+		If iCpt >= iNbVar Then Exit
+
+		iPos += Len ( astMessage.sVar[iCpt] )
+		iCpt++
+
+
+	Else
+
+		Exit
+	End If
+
+Loop
+
+If IsNull ( astMessage.bouton ) Then astMessage.Bouton 			= Ok!
+If IsNull ( astMessage.icon   ) Then astMessage.Icon   			= Information!
+If IsNull ( astMessage.sTitre ) Then astMessage.sTitre 			= "Information"
+If astMessage.iDefautBouton = 0 Then astMessage.iDefautBouton	= 1
+
+// PHG 03/08/2007 Correction d'un bu : Le titre pointait toujorus sur le dernier titre de stMessage et nom pat sur *a*stmessage
+astMessage.sTitre = sLibAppli + " " + astMessage.sCode + " : " + astMessage.sTitre // ... #1 Affectation du libell$$HEX2$$e9002000$$ENDHEX$$de l'application
+
+iBouton = MessageBox ( astMessage.sTitre, sMessage, astMessage.Icon, astMessage.Bouton, astMessage.iDefautBouton )
+
+/*------------------------------------------------------------------*/
+/* Le 28/08/1997                                                    */
+/* Ajout d'une fonctionnalit$$HEX2$$e9002000$$ENDHEX$$de trace du message si besoin.        */
+/*------------------------------------------------------------------*/
+
+If	astMessage.bTrace Then
+	Error.Object 	= astMessage.sCode
+	Error.Text		= sMessage
+	Error.Line		= iBouton
+
+	F_Trace_Erreur ( "2", stGLB )
+End If
+
+astMessage.bouton 			= Ok!
+astMessage.icon   			= Information!
+astMessage.sTitre 			= "Information"
+astMessage.bErreurG 			= False
+astMessage.bTrace 			= False
+astMessage.iDefautBouton	= 1
+
+Return ( iBouton )
+end function
+

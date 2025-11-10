@@ -1,0 +1,76 @@
+HA$PBExportHeader$f_txt_date.srf
+$PBExportComments$----} Fonction retournant une date en toute lettres ( ex: 15 Ao$$HEX1$$fb00$$ENDHEX$$t 1996 )
+global type f_txt_date from function_object
+end type
+
+forward prototypes
+global function string f_txt_date (date adDate)
+end prototypes
+
+global function string f_txt_date (date adDate);//*******************************************************************************************
+// Fonction            	: f_Txt_Date
+//	Auteur              	: Vincent Capelle
+//	Date 					 		: 02/05/1996
+//	Libell$$HEX7$$e900090009000900090009000900$$ENDHEX$$: 
+//	Commentaires				: Fonction exprimant la date pass$$HEX1$$e900$$ENDHEX$$e en argument, sous forme  
+//									  de chaine de caract$$HEX1$$e800$$ENDHEX$$res	
+//	
+// Arguments					: Date			adDate: Date $$HEX2$$e0002000$$ENDHEX$$retourner sous forme de chaine 
+//																	de caract$$HEX1$$e800$$ENDHEX$$res.
+//
+// Retourne					: String		sDate : Date en lettres.
+//								  
+//*******************************************************************************************
+
+
+String sJour, sMois, sAnnee, sDate
+
+sJour = String ( Day 		( adDate ) )
+sAnnee=	String ( Year		( adDate ) )
+sMois = String ( Month	( adDate ) )
+
+Choose Case sMois
+
+	Case "1"
+		sMois = " Janvier "
+
+	Case "2"
+		sMois = " F$$HEX1$$e900$$ENDHEX$$vrier "
+
+	Case "3"
+		sMois = " Mars "
+
+	Case "4"
+		sMois = " Avril "
+
+	Case "5"
+		sMois = " Mai "
+
+	Case "6"
+		sMois = " Juin "
+
+	Case "7"
+		sMois = " Juillet "
+
+	Case "8"
+		sMois = " Ao$$HEX1$$fb00$$ENDHEX$$t "
+
+	Case "9"
+		sMois = " Septembre "
+
+	Case "10"
+		sMois = " Octobre "
+
+	Case "11"
+		sMois = " Novembre "
+
+	Case "12"
+		sMois = " D$$HEX1$$e900$$ENDHEX$$cembre "
+
+End Choose
+
+sDate = sJour + sMois + sAnnee
+
+Return ( sDate ) 
+end function
+

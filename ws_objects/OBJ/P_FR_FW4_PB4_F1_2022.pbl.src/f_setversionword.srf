@@ -1,0 +1,94 @@
+HA$PBExportHeader$f_setversionword.srf
+global type f_setversionword from function_object
+end type
+
+forward prototypes
+global function integer f_setversionword (ref n_cst_word anvword, boolean abinit)
+end prototypes
+
+global function integer f_setversionword (ref n_cst_word anvword, boolean abinit);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_SetVersionWord
+//* Auteur			: Erick John Stark
+//* Date				: 05/01/2001 14:53:42
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Initialisation d'un NVUO en fonction de la version du WORD
+//*
+//* Arguments		: (R$$HEX1$$e900$$ENDHEX$$f)		N_Cst_Word		anvWord
+//*					  (Val)		Boolean			abInit
+//*
+//* Retourne		: Integer					 1 = Tout est OK
+//*													-1 = Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*
+//*-----------------------------------------------------------------
+//* MAJ   PAR      Date	     Modification
+//* #..   FMU   22/09/2010   adaptation Office 2010
+//				FPI	03/02/2016		[OFFICE2016]
+//*-----------------------------------------------------------------
+
+String sVersionWord
+Integer iRet
+String	sWordMajeur, sWordMoyen, sWordMineur
+long	ll_pos1, ll_pos2
+
+iRet = -1
+
+/*------------------------------------------------------------------*/
+/* On v$$HEX1$$e900$$ENDHEX$$rifie si tous les arguments sont bons.                      */
+/*------------------------------------------------------------------*/
+If	IsNull ( abInit ) Then Return ( -1 )
+
+If	abInit	Then
+	If	IsNull ( anvWord )	Or Not IsValid ( anvWord )	Then
+/*------------------------------------------------------------------*/
+/* Quelle version de WORD doit on utiliser ?                        */
+/*------------------------------------------------------------------*/
+/* Par d$$HEX1$$e900$$ENDHEX$$faut, on utilise la version WORD95 si la section n'existe  */
+/* pas dans le fichier INI.                                         */
+/*------------------------------------------------------------------*/
+// [Office2010] [FMU] : Debut : 
+		sVersionWord = f_GetVersionWord()
+		ll_pos1 = Pos(sVersionWord, '.', 1)
+		ll_pos2 = Pos(sVersionWord, '.', ll_pos1 + 1)
+		sWordMajeur = Left(sVersionWord, ll_pos1 - 1)
+		sWordMoyen = Mid(sVersionWord, ll_pos1 + 1, ll_pos2 - ll_pos1 - 1)
+		sWordMineur = Right(sVersionWord, len(sVersionWord) - ll_pos2)
+		//MessageBox("FMU Test version Word", sVersionWord + "~r~n" + sWordMajeur + "~r~n" + sWordMoyen + "~r~n" + sWordMineur)
+		Choose Case sWordMajeur
+			Case '9'
+				anvWord = CREATE N_Cst_Word2000
+			Case '11'
+				anvWord = CREATE N_Cst_Word2003
+			Case '14', '16'		// [OFFICE2016]
+				anvWord = CREATE N_Cst_Word2010
+			Case Else
+				MessageBox('Erreur lancement Word', "Votre version de word (" + sVersionWord + ") n'est pas r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$renc$$HEX1$$e900$$ENDHEX$$e")
+				anvWord = CREATE N_Cst_Word
+		End Choose
+		anvWord.uf_SetVersionWord(sWordMajeur, sWordMoyen, sWordMineur)
+//ancienne r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration en .INI d$$HEX1$$e900$$ENDHEX$$sactiv$$HEX1$$e900$$ENDHEX$$e
+//		sVersionWord = ProfileString ( stGLB.sFichierIni, "APPLICATION", "Version_Office", "95" )
+//		Choose Case sVersionWord
+//		Case "95"
+//			anvWord = CREATE N_Cst_Word95
+//		Case "2000"
+//			anvWord = CREATE N_Cst_Word2000
+//		Case "2003"
+//			anvWord = CREATE N_Cst_Word2003
+//		End Choose
+// [Office2010] [FMU] : Fin
+
+		iRet = 1
+	End If
+Else
+	If IsValid ( anvWord )	Then
+		DESTROY anvWord
+
+		iRet = 1
+	End If
+End If
+
+Return ( iRet )
+
+end function
+

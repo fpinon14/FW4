@@ -1,0 +1,269 @@
+HA$PBExportHeader$f_crypter.srf
+global type f_crypter from function_object
+end type
+
+forward prototypes
+global function integer f_crypter (ref string aschaine, boolean abswitch)
+end prototypes
+
+global function integer f_crypter (ref string aschaine, boolean abswitch);//*-----------------------------------------------------------------
+//*
+//* Fonction		: uf_Crypter
+//* Acc$$HEX1$$e800$$ENDHEX$$s			: Public
+//* Auteur			: Fabry JF
+//* Date				: 13/09/1999 15:43:46
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Cryptage d'une cha$$HEX1$$ee00$$ENDHEX$$ne de caract$$HEX1$$e800$$ENDHEX$$re 
+//* Commentaires	: La cha$$HEX1$$ee00$$ENDHEX$$ne retourn$$HEX1$$e900$$ENDHEX$$e peut $$HEX1$$ea00$$ENDHEX$$tre $$HEX1$$e900$$ENDHEX$$crite sur une base SQLSERVER,
+//*					  et contient un caract$$HEX1$$e800$$ENDHEX$$re de plus que la cha$$HEX1$$ee00$$ENDHEX$$ne pass$$HEX1$$e900$$ENDHEX$$e en argument.
+//*                 
+//*
+//* Arguments		: String			asChaine					(R$$HEX1$$e900$$ENDHEX$$f)		   Chaine de caract$$HEX1$$e800$$ENDHEX$$res sans limite de taille
+//*					  String			abSwitch					(Val)       True : Cryptage, False : D$$HEX1$$e900$$ENDHEX$$cryptage
+//*																					
+//*
+//* Retourne		: Integer		1	->	 Cha$$HEX1$$ee00$$ENDHEX$$ne Crypt$$HEX1$$e900$$ENDHEX$$e/D$$HEX1$$e900$$ENDHEX$$crypt$$HEX1$$e900$$ENDHEX$$e avec Succ$$HEX1$$e800$$ENDHEX$$s
+//*										-1 ->  La cha$$HEX1$$ee00$$ENDHEX$$ne pass$$HEX1$$e900$$ENDHEX$$e en argument est vide
+//*										-2 ->  Erreur de cryptage, un des caract$$HEX1$$e800$$ENDHEX$$res de la cha$$HEX1$$ee00$$ENDHEX$$ne pass$$HEX1$$e900$$ENDHEX$$e
+//*												 en argument n'est pas compris dans la plage d$$HEX1$$e900$$ENDHEX$$finie.
+//*														
+//*												 En cas d'erreur la cha$$HEX1$$ee00$$ENDHEX$$ne pass$$HEX1$$e900$$ENDHEX$$e en argument est retourn$$HEX1$$e900$$ENDHEX$$e $$HEX2$$e0002000$$ENDHEX$$l'identique. 
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//* #1  FS    21/02/2002 Recopie de cette fonction en PB4 pour hamonisation
+//*                      De la m$$HEX1$$e900$$ENDHEX$$thode de codage des mots de passe				  
+//* SBA			23/10/2009 [SESAME_PWD].1.1.5 Appel au uf_crypter ad$$HEX1$$e900$$ENDHEX$$quate
+//*-----------------------------------------------------------------
+
+//[SESAME_PWD].1.1.5
+String 			sObjClassName
+Int				iRet
+n_cst_crypter 	lnvCrypter
+
+iRet = -1
+
+if IsValid(stGlb) then
+	sObjClassName = ProfileString ( stGlb.sfichierini , "APPLICATION", "CRYPTER_CLASSNAME","n_cst_crypter_base64" )
+	lnvCrypter = create using sObjClassName
+	
+	iRet = lnvCrypter.uf_crypter(aschaine,abswitch)
+
+	destroy ( lnvCrypter )
+
+end if
+
+return iRet
+
+
+////*-----------------------------------------------------------------
+////*
+////* Fonction		: uf_Crypter
+////* Acc$$HEX1$$e800$$ENDHEX$$s			: Public
+////* Auteur			: Fabry JF
+////* Date				: 13/09/1999 15:43:46
+////* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Cryptage d'une cha$$HEX1$$ee00$$ENDHEX$$ne de caract$$HEX1$$e800$$ENDHEX$$re 
+////* Commentaires	: La cha$$HEX1$$ee00$$ENDHEX$$ne retourn$$HEX1$$e900$$ENDHEX$$e peut $$HEX1$$ea00$$ENDHEX$$tre $$HEX1$$e900$$ENDHEX$$crite sur une base SQLSERVER,
+////*					  et contient un caract$$HEX1$$e800$$ENDHEX$$re de plus que la cha$$HEX1$$ee00$$ENDHEX$$ne pass$$HEX1$$e900$$ENDHEX$$e en argument.
+////*                 
+////*
+////* Arguments		: String			asChaine					(R$$HEX1$$e900$$ENDHEX$$f)		   Chaine de caract$$HEX1$$e800$$ENDHEX$$res sans limite de taille
+////*					  String			abSwitch					(Val)       True : Cryptage, False : D$$HEX1$$e900$$ENDHEX$$cryptage
+////*																					
+////*
+////* Retourne		: Integer		1	->	 Cha$$HEX1$$ee00$$ENDHEX$$ne Crypt$$HEX1$$e900$$ENDHEX$$e/D$$HEX1$$e900$$ENDHEX$$crypt$$HEX1$$e900$$ENDHEX$$e avec Succ$$HEX1$$e800$$ENDHEX$$s
+////*										-1 ->  La cha$$HEX1$$ee00$$ENDHEX$$ne pass$$HEX1$$e900$$ENDHEX$$e en argument est vide
+////*										-2 ->  Erreur de cryptage, un des caract$$HEX1$$e800$$ENDHEX$$res de la cha$$HEX1$$ee00$$ENDHEX$$ne pass$$HEX1$$e900$$ENDHEX$$e
+////*												 en argument n'est pas compris dans la plage d$$HEX1$$e900$$ENDHEX$$finie.
+////*														
+////*												 En cas d'erreur la cha$$HEX1$$ee00$$ENDHEX$$ne pass$$HEX1$$e900$$ENDHEX$$e en argument est retourn$$HEX1$$e900$$ENDHEX$$e $$HEX2$$e0002000$$ENDHEX$$l'identique. 
+////*-----------------------------------------------------------------
+////* MAJ PAR		Date		Modification
+////* #1  FS    21/02/2002 Recopie de cette fonction en PB4 pour hamonisation
+////*                      De la m$$HEX1$$e900$$ENDHEX$$thode de codage des mots de passe				  
+////*-----------------------------------------------------------------
+//
+///*------------------------------------------------------------------*/
+///* Plage de caract$$HEX1$$e800$$ENDHEX$$res pouvant $$HEX1$$ea00$$ENDHEX$$tre cod$$HEX1$$e900$$ENDHEX$$e.								  */
+///*------------------------------------------------------------------*/
+//Int K_BORNMIN	  = 32   // Borne ASCII Minimum
+//Int K_BORNMAX	  = 124  // Borne ASCII Maximum
+//
+//Int		iRet = 1 	  				// Retour
+//Int		iCle			  				// Valeur de cl$$HEX1$$e900$$ENDHEX$$
+//Int		iMilChaine    				// Milieu de la cha$$HEX1$$ee00$$ENDHEX$$ne
+//Int		iVal, iVal2, iVal3 	  	// Valeurs enti$$HEX1$$e800$$ENDHEX$$res
+//Int		iCpt			  				// Compteur entier
+//Int		iSeconde						// Seconde en cours
+//Long		lCpt			  				// Compteur Long
+//String	sCopChaine[]  				// Copie de la Chaine pass$$HEX1$$e900$$ENDHEX$$e en argument en 2 tableau
+//String	sCarCle		  				// Symbole repr$$HEX1$$e900$$ENDHEX$$sentant la cl$$HEX1$$e900$$ENDHEX$$
+//
+//
+///*------------------------------------------------------------------*/
+///* La cha$$HEX1$$ee00$$ENDHEX$$ne ne doit pas $$HEX1$$ea00$$ENDHEX$$tre vide.											  */
+///*------------------------------------------------------------------*/
+//If asChaine = "" Then iRet = -1
+//
+///*------------------------------------------------------------------*/
+///* CRYPTAGE de la Cha$$HEX1$$ee00$$ENDHEX$$ne														  */
+///*------------------------------------------------------------------*/
+//If abSwitch then
+//
+//
+//	// Tous les caract$$HEX1$$e800$$ENDHEX$$res doivent $$HEX1$$ea00$$ENDHEX$$tre dans la plage d$$HEX1$$e900$$ENDHEX$$finie.
+//	iVal = Len ( asChaine ) 
+//	For lCpt = 1 to iVal
+//	
+//		iVal2 = Asc ( Mid ( asChaine, lCpt, 1) )
+//		If iVal2 < K_BORNMIN or iVal2 > K_BORNMAX Then
+//			iRet = -2
+//			Exit
+//		End If
+//	
+//	Next
+//
+//	
+//	If iRet = 1 Then
+//	
+//		// D$$HEX1$$e900$$ENDHEX$$termination de la cl$$HEX1$$e900$$ENDHEX$$
+//		iSeconde = Integer ( Right ( String ( Now () ), 1 ) )
+//		If iSeconde < 4 Then	
+//			iCle = ( K_BORNMAX - K_BORNMIN ) / 4
+//		ElseIf iSeconde > 3 and iSeconde < 7 Then	
+//			iCle = ( ( K_BORNMAX - K_BORNMIN ) / 4 ) * 2
+//		ElseIf iSeconde > 6 and iSeconde < 10 Then
+//			iCle = ( ( K_BORNMAX - K_BORNMIN ) / 4 ) * 3
+//		End If
+//	
+//		
+//		// D$$HEX1$$e900$$ENDHEX$$termination du Symbole qui repr$$HEX1$$e900$$ENDHEX$$sentra la cl$$HEX2$$e9002000$$ENDHEX$$dans la future chaine crypt$$HEX1$$e900$$ENDHEX$$e
+//		Randomize ( 0 )
+//		sCarcle = ""
+//		Do While sCarCle = "" 
+//			iVal = Rand ( K_BORNMAX - K_BORNMIN ) + K_BORNMIN
+//	
+//			If ( iCle = ( K_BORNMAX - K_BORNMIN ) / 4 )         and ( iVal >= K_BORNMIN and iVal <= K_BORNMIN + 30  ) Or & 
+//				( iCle = ( ( K_BORNMAX - K_BORNMIN ) / 4 ) * 2 ) and ( iVal > K_BORNMIN + 30 and iVal <= K_BORNMIN + 60  ) Or & 
+//				( iCle = ( ( K_BORNMAX - K_BORNMIN ) / 4 ) * 3 ) and ( iVal > K_BORNMIN + 60  ) Then  
+//				
+//				sCarCle = Char ( iVal )
+//				
+//			End If
+//		Loop
+//		
+//		
+//		// D$$HEX1$$e900$$ENDHEX$$coupage de la cha$$HEX1$$ee00$$ENDHEX$$ne en deux
+//		iMilChaine = Int ( Len ( asChaine ) / 2 )
+//		sCopChaine [1] = Left ( asChaine, iMilChaine )
+//		sCopChaine [2] = Right ( asChaine, Len ( asChaine) - iMilChaine )
+//		
+//		asChaine = ""
+//
+//		// Cryptage des caract$$HEX1$$e800$$ENDHEX$$res		
+//		For iVal = 2 to 1 Step -1
+//			
+//			iVal2 = Len ( sCopChaine [ iVal ] )
+//			For lCpt = 1 to iVal2
+//	
+//				If Mod ( lCpt, 2 ) = 0 then
+//					iVal3 = Asc ( Mid ( sCopChaine [ iVal ], lcpt, 1 ) ) + iCle
+//	
+//					If iVal3 > K_BORNMAX Then
+//						iVal3 = ( iVal3 - K_BORNMAX ) + K_BORNMIN - 1
+//					End If
+//	
+//				Else
+//					iVal3 = Asc ( Mid ( sCopChaine [ iVal ], lcpt, 1 ) ) - iCle
+//	
+//					If iVal3 < K_BORNMIN Then
+//						iVal3 = K_BORNMAX - ( K_BORNMIN - iVal3 ) + 1
+//					End If
+//	
+//				End If
+//				
+//				
+//				asChaine = asChaine + Char ( iVal3 )
+//				
+//			Next
+//			
+//			// On ajoute la cl$$HEX4$$e9002000e0002000$$ENDHEX$$la fin de la premi$$HEX1$$e800$$ENDHEX$$re cha$$HEX1$$ee00$$ENDHEX$$ne
+//			If iVal = 2 Then
+//				asChaine = asChaine + sCarCle
+//			End If
+//			
+//		Next
+//	
+//	End If
+//
+//End If
+//
+//
+//
+///*------------------------------------------------------------------*/
+///* DECRYPTAGE de la Cha$$HEX1$$ee00$$ENDHEX$$ne														  */
+///*------------------------------------------------------------------*/
+//If Not abSwitch then
+//	
+//	// D$$HEX1$$e900$$ENDHEX$$coupage de la cha$$HEX1$$ee00$$ENDHEX$$ne en deux
+//	iVal = Len ( asChaine ) 
+//	If Mod ( iVal, 2 ) = 0 Then
+//		iMilChaine = ( Len ( asChaine ) / 2 ) + 1
+//	Else
+//		iMilChaine = Int ( Len ( asChaine ) / 2 ) + 1
+//	End If
+//
+//	// Recherche du caract$$HEX1$$e800$$ENDHEX$$re symbolisant la cl$$HEX2$$e9002000$$ENDHEX$$cach$$HEX1$$e900$$ENDHEX$$e
+//	sCarCle = Mid ( asChaine, iMilChaine, 1 )
+//	
+//	sCopChaine [1] = Right ( asChaine, Len ( asChaine) - iMilChaine )
+//	
+//	// -1 car on enl$$HEX1$$e800$$ENDHEX$$ve la cl$$HEX1$$e900$$ENDHEX$$
+//	sCopChaine [2] = Left ( asChaine, iMilChaine - 1 )
+//	
+//	asChaine = ""
+//
+//	// D$$HEX1$$e900$$ENDHEX$$chiffrage du symbole de cl$$HEX2$$e9002000$$ENDHEX$$afin d'en extraire la cl$$HEX2$$e9002000$$ENDHEX$$elle-m$$HEX1$$ea00$$ENDHEX$$me.
+//	iVal = Asc ( sCarCle )
+//	If iVal >= K_BORNMIN and iVal <= K_BORNMIN + 30  Then	
+//		iCle = ( K_BORNMAX - K_BORNMIN ) / 4
+//	ElseIf iVal > K_BORNMIN + 30 and iVal <= K_BORNMIN + 60 Then	
+//		iCle = ( ( K_BORNMAX - K_BORNMIN ) / 4 ) * 2
+//	ElseIf iVal > K_BORNMIN + 60   Then
+//		iCle = ( ( K_BORNMAX - K_BORNMIN ) / 4 ) * 3
+//	End If
+//
+//
+//	// D$$HEX1$$e900$$ENDHEX$$cryptage des caract$$HEX1$$e800$$ENDHEX$$res
+//	For iVal = 1 to 2 
+//		
+//		iVal2 = Len ( sCopChaine [ iVal ] )
+//		For lCpt = 1 to iVal2
+//
+//			If Mod ( lCpt, 2 ) = 0 then
+//				iVal3 = Asc ( Mid ( sCopChaine [ iVal ], lcpt, 1 ) ) - iCle
+//
+//				If iVal3 < K_BORNMIN Then
+//					iVal3 = K_BORNMAX - ( K_BORNMIN - iVal3 ) + 1
+//				End If
+//
+//			Else
+//				iVal3 = Asc ( Mid ( sCopChaine [ iVal ], lcpt, 1 ) ) + iCle
+//
+//				If iVal3 > K_BORNMAX Then
+//					iVal3 = ( iVal3 - K_BORNMAX ) + K_BORNMIN - 1
+//				End If
+//
+//			End If
+//			
+//			asChaine = asChaine + Char ( iVal3 )
+//			
+//		Next
+//		
+//	Next
+//
+//		
+//End If
+//
+//Return iRet
+//
+end function
+

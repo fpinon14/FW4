@@ -1,0 +1,102 @@
+HA$PBExportHeader$f_ecrirefichierblob.srf
+$PBExportComments$----} Ecriture d'un blob sur un fichier disque
+global type f_ecrirefichierblob from function_object
+end type
+
+forward prototypes
+global function boolean f_ecrirefichierblob (ref blob abltext, string asfic)
+end prototypes
+
+global function boolean f_ecrirefichierblob (ref blob abltext, string asfic);//*-----------------------------------------------------------------
+//*
+//* Fonction		:	f_ecrirefichierblob
+//* Auteur			:	La Recrue
+//* Date				:	19/02/1997 08:02:07
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	Ecrit un fichier a partir d'un Blob
+//* Commentaires	:	
+//*
+//* Arguments		:	Blob		ablText	(Val) Blob $$HEX2$$e0002000$$ENDHEX$$Ecrire
+//*						String	asFic		(Val)	Nom du fichier $$HEX2$$e0002000$$ENDHEX$$ecrire
+//*
+//* Retourne		:	Bool		True Cr$$HEX1$$e900$$ENDHEX$$ation du fichier Ok
+//*
+//*-----------------------------------------------------------------
+
+Blob		blTemp
+Integer	iFileHandle
+Long		lLen, lNbEcriture, lI, lPos
+
+/*------------------------------------------------------------------*/
+/* Calcul du Nombre d'$$HEX1$$e900$$ENDHEX$$criture $$HEX2$$e0002000$$ENDHEX$$effetuer                           */
+/*------------------------------------------------------------------*/
+
+lLen 	= Len ( ablText )
+
+If ( lLen > 32765 ) Then
+	If ( Mod ( lLen, 32765 ) ) = 0 Then
+		lNbEcriture = llen / 32765
+	Else
+		lNbEcriture = ( llen / 32765 ) + 1
+	End If
+Else
+	lNbEcriture = 1
+End If
+
+/*------------------------------------------------------------------*/
+/* Ouverture du fichier                                             */
+/*------------------------------------------------------------------*/
+
+iFileHandle = FileOpen( asFic, StreamMode!, Write!, LockWrite!, Replace! )
+
+If ( iFileHandle < 0 ) Then 
+	Return ( False )
+End If
+
+/*------------------------------------------------------------------*/
+/* Ecriture du blob                                                 */
+/*------------------------------------------------------------------*/
+
+If ( lNbEcriture = 1 ) Then
+
+	If ( FileWrite( iFileHandle, ablText ) < 0 ) Then
+
+		FileClose( iFileHandle )
+		Return ( False )
+
+	End If
+
+Else
+
+	lPos = 1
+
+	For lI = 1 To lNbEcriture 
+
+		If ( lI = lNbEcriture ) Then
+			blTemp = BlobMid ( ablText, lPos )
+		Else
+			blTemp = BlobMid ( ablText, lPos, 32765 )
+		End If
+
+		If ( FileWrite ( iFileHandle, blTemp ) < 0 ) Then
+
+			FileClose( iFileHandle )
+			Return ( False )
+
+		End If
+	
+		lPos = lPos + 32765
+
+	Next
+
+End If
+
+/*------------------------------------------------------------------*/
+/* Fermeture du fichier                                             */
+/*------------------------------------------------------------------*/
+
+FileClose( iFileHandle )
+
+Return ( True )
+
+end function
+

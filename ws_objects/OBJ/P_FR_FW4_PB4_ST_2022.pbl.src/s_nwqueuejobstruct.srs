@@ -1,0 +1,22 @@
+HA$PBExportHeader$s_nwqueuejobstruct.srs
+$PBExportComments$----} The s_nwQueueJobStruct is defined to hold the information in the queue job record.
+global type s_nwqueuejobstruct from structure
+    unsignedlong clientstation
+    unsignedlong clienttask
+    unsignedlong clientid
+    unsignedlong targetserverid
+    character targetexecutiontime[6]
+    character jobentrytime[6]
+    unsignedlong jobnumber
+    unsignedinteger jobtype
+    unsignedinteger jobposition
+    unsignedinteger jobcontrolflags
+    character jobfilename[14]
+    unsignedlong jobfilehandle
+    unsignedlong servicingserverstation
+    unsignedlong servicingservertasknumber
+    unsignedlong servicingserveridnumber
+    character jobdescription[50]
+    s_clientarearecord stclientarearecord
+end type
+

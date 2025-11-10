@@ -1,0 +1,9 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_F1_2022.pbl.src\\P_FR_FW4_spb_f1_2022.pbl" "";
+@end;
+@begin Objects
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_F1_2022.pbl.src\\f_libelle_old.srf" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_F1_2022.pbl.src\\P_FR_FW4_spb_f1_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_F1_2022.pbl.src\\f_getvaleur.srf" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_F1_2022.pbl.src\\P_FR_FW4_spb_f1_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_F1_2022.pbl.src\\f_procedure.srf" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_F1_2022.pbl.src\\P_FR_FW4_spb_f1_2022.pbl";
+@end;

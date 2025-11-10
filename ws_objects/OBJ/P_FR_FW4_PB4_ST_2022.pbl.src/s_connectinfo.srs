@@ -1,0 +1,14 @@
+HA$PBExportHeader$s_connectinfo.srs
+$PBExportComments$------} Structure servant pour r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer les informations d$$HEX1$$e900$$ENDHEX$$crivant une connexion.
+global type s_connectinfo from structure
+    unsignedinteger uiconnid
+    unsignedinteger uiconnectflags
+    unsignedinteger uisessionid
+    unsignedinteger uiconnnumber
+    character cserveraddr[12]
+    unsignedinteger uiservertype
+    character cservername[48]
+    unsignedinteger uiclienttype
+    character cclientname[48]
+end type
+

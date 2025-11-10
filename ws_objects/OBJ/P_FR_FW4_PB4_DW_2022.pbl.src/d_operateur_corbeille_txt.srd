@@ -1,0 +1,27 @@
+HA$PBExportHeader$d_operateur_corbeille_txt.srd
+$PBExportComments$------} Datawindow utilis$$HEX1$$e900$$ENDHEX$$e dans la fen$$HEX1$$ea00$$ENDHEX$$tre de gestion des Corbeilles/Op$$HEX1$$e900$$ENDHEX$$rateurs (W_TRT_CORB_OPER) DataWindow external utilis$$HEX1$$e900$$ENDHEX$$e pour le stockage
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=89 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=57 color="536870912" )
+table(column=(type=char(4) name=id_oper dbname="id_oper" )
+ column=(type=char(3) name=id_corb dbname="id_corb" )
+ column=(type=char(35) name=lib_corb dbname="lib_corb" )
+ column=(type=char(5) name=id_prod dbname="id_prod" )
+ column=(type=char(35) name=lib_long dbname="lib_long" )
+ column=(type=datetime name=cree_le dbname="cree_le" )
+ column=(type=datetime name=maj_le dbname="maj_le" )
+ column=(type=char(4) name=maj_par dbname="maj_par" )
+ column=(type=char(1) name=alt_reclame dbname="alt_reclame" values="	O/	N" )
+ column=(type=char(1) name=alt_reclame_avant dbname="alt_reclame_avant" )
+  sort="id_oper A id_corb A id_prod A " )
+group(level=1 header.height=61 trailer.height=1 by=("id_corb" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text=" Acc$$HEX1$$e800$$ENDHEX$$s aux produits pour : XXXX "border="6" color="16777215" x="14" y="12" height="69" width="1258"  name=st_titre  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="8421376" )
+column(band=header.1 id=3 alignment="0" tabsequence=32766 border="2" color="16711680" x="133" y="8" height="45" width="522" format="[general]"  name=lib_corb edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=9 alignment="0" tabsequence=10 border="0" color="16711680" x="746" y="8" height="49" width="42" format="[general]"  name=alt_reclame checkbox.text="" checkbox.on="O" checkbox.off="N" checkbox.lefttext=yes checkbox.scale=no checkbox.3d=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=2 alignment="2" tabsequence=32766 border="2" color="16711680" x="14" y="8" height="45" width="101" format="[general]"  name=id_corb edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="2" color="16711680" x="55" y="4" height="45" width="1079" format="[general]"  name=lib_long edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+
+sparse(names="lib_corb	alt_reclame")

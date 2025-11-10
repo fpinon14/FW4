@@ -1,0 +1,16 @@
+HA$PBExportHeader$d_stk_operateur_corbeille.srd
+$PBExportComments$------} Datawindow utilis$$HEX1$$e900$$ENDHEX$$e dans la fen$$HEX1$$ea00$$ENDHEX$$tre de gestion des Corbeilles/Op$$HEX1$$e900$$ENDHEX$$rateurs (W_TRT_CORB_OPER) R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des corbeilles/op$$HEX1$$e900$$ENDHEX$$rateurs.
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=1 color="536870912" )
+table(column=(type=char(4) name=id_oper dbname="id_oper" )
+ column=(type=number name=id_corb dbname="id_corb" )
+ column=(type=char(1) name=alt_valide_avant dbname="alt_valide_avant" )
+ column=(type=char(1) name=alt_valide_apres dbname="alt_valide_apres" )
+ column=(type=datetime name=cree_le dbname="cree_le" )
+ column=(type=datetime name=maj_le dbname="maj_le" )
+ column=(type=char(4) name=maj_par dbname="maj_par" )
+ procedure="1 execute sysadm.DW_S01_CORB_OPER_NEW"  sort="id_oper A maj_le D " )

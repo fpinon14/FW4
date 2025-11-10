@@ -1,0 +1,41 @@
+HA$PBExportHeader$f_fileexists.srf
+global type f_fileexists from function_object
+end type
+
+forward prototypes
+global function boolean f_fileexists (string as_nomfichier)
+end prototypes
+
+global function boolean f_fileexists (string as_nomfichier);//Fonction f_FileExists cr$$HEX2$$e900e900$$ENDHEX$$e lors de la migration PB4 PB8
+//Lors de nos diff$$HEX1$$e900$$ENDHEX$$rents tests, nous nous sommes rendus compte que la fonction PowerBuilder
+//FILEEXISTS se comportait diff$$HEX1$$e900$$ENDHEX$$rent entre PB4 et PB8.
+// 
+//En effet la fonction FILEEXIST permet en PB8 de tester l'existance d'un r$$HEX1$$e900$$ENDHEX$$pertoire alors 
+//qu'elle ne le permet pas en PB4, plus clairement :
+// 
+//String a = "C:\TOTO"  // O$$HEX2$$f9002000$$ENDHEX$$toto est un r$$HEX1$$e900$$ENDHEX$$pertoire
+//String b = "C:\TOTO\"  // O$$HEX2$$f9002000$$ENDHEX$$toto est un r$$HEX1$$e900$$ENDHEX$$pertoire
+//
+//En PB4 :
+//FILEEXISTS ( a ) = FALSE
+//FILEEXISTS ( b ) = FALSE
+// 
+//En pb8
+//FILEEXISTS ( a ) = TRUE
+//FILEEXISTS ( b ) = TRUE
+// 
+//Ce comportement diff$$HEX1$$e900$$ENDHEX$$rent de la fonction m'a permis de trouver un Bug bien cach$$HEX2$$e9002000$$ENDHEX$$dans SIMPA2.
+// 
+Boolean lb_ret
+
+If DirectoryExists(as_NomFichier) Then
+	//c'est un r$$HEX1$$e900$$ENDHEX$$pertoire, on retourne donc Faux
+	lb_ret = False
+else
+	lb_ret = FileExists(as_NomFichier)
+end if
+
+Return lb_ret
+
+end function
+
