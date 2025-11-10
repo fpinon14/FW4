@@ -1,0 +1,68 @@
+HA$PBExportHeader$f_txt_mois.srf
+$PBExportComments$----} Fonction retournant un mois en toute lettres ( ex: Janvier )
+global type f_txt_mois from function_object
+end type
+
+forward prototypes
+global function string f_txt_mois (integer aiMois)
+end prototypes
+
+global function string f_txt_mois (integer aiMois);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Txt_Mois
+//* Auteur			: Erick John Stark
+//* Date				: 20/11/1996 14:18:59
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Retourne le texte du mois en toutes lettres
+//*
+//* Arguments		: Integer		aiMois			(Val)	Mois
+//*
+//* Retourne		: String			 Mois en toutes lettres
+//*
+//*-----------------------------------------------------------------
+
+String sMois
+
+Choose Case aiMois
+Case 1
+	sMois = "Janvier"
+
+Case 2
+	sMois = "F$$HEX1$$e900$$ENDHEX$$vrier"
+
+Case 3
+	sMois = "Mars"
+
+Case 4
+	sMois = "Avril"
+
+Case 5
+	sMois = "Mai"
+
+Case 6
+	sMois = "Juin"
+
+Case 7
+	sMois = "Juillet"
+
+Case 8
+	sMois = "Ao$$HEX1$$fb00$$ENDHEX$$t"
+
+Case 9
+	sMois = "Septembre"
+
+Case 10
+	sMois = "Octobre"
+
+Case 11
+	sMois = "Novembre"
+
+Case 12
+	sMois = "D$$HEX1$$e900$$ENDHEX$$cembre"
+
+End Choose
+
+Return ( sMois )
+
+end function
+

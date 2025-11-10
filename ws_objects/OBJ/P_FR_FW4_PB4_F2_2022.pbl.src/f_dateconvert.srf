@@ -1,0 +1,157 @@
+HA$PBExportHeader$f_dateconvert.srf
+$PBExportComments$---} Conversion d'un interval de temps en un format donn$$HEX1$$e900$$ENDHEX$$.
+global type f_dateconvert from function_object
+end type
+
+forward prototypes
+global function string f_dateconvert (long alInterval, string asTypInterval)
+end prototypes
+
+global function string f_dateconvert (long alInterval, string asTypInterval);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_DateConvert
+//* Auteur			: Fabry JF
+//* Date				: 22/11/1999 14:04:08
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Conversion d'un interval de temps en un format donn$$HEX1$$e900$$ENDHEX$$.
+//* Commentaires	: 
+//*
+//* Arguments  	: LONG	  	alinterval   	(Val)   		 Valeur POSITIVE $$HEX2$$e0002000$$ENDHEX$$Transformer en jj:hh:nn:ss
+//*
+//*			        STRING  	asTypInterval   (Val)   		 Type d'interval pass$$HEX1$$e900$$ENDHEX$$
+//*
+//* Retourne  		: STRING  	sFormat         				 Chaine de retour
+//*         															 -1   Type d'interval impossible $$HEX2$$e0002000$$ENDHEX$$traiter
+//*			
+//*-----------------------------------------------------------------
+//* Tableau de  :  Lib$$HEX1$$e900$$ENDHEX$$ll$$HEX4$$e900200020002000$$ENDHEX$$asTypInterval     sFormat
+//* Conversion
+//*      			 Secondes  "s"        		"jj:hh:nn:ss"
+//*      			 Minutes   "n"             "jj:hh:nn"
+//*                Heures    "h"             "jj:hh"
+//*      			 Jours     Impossible      Impossible
+//*                Mois      "m"             "aaa:mm"
+//*                Ann$$HEX1$$e900$$ENDHEX$$e     Impossible      Impossible
+//*
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+
+String  sFormat = ""      				  // Chaine de retour
+String  sZero         					  // On rajoute un z$$HEX1$$e900$$ENDHEX$$ro si besoin est
+Double  lInterv1, lInterv2, lInterv3  // Variables temporaires
+
+
+
+asTypInterval = Upper ( asTypInterval )
+
+If alinterval >=0 then
+
+	CHOOSE CASE asTypInterval
+
+		CASE "S"
+
+			// Les secondes
+			sZero = ""
+		   lInterv1 = ( alinterval / 60 )
+		   lInterv2 = Truncate (linterv1, 0)
+		   lInterv3 = lInterv1 - lInterv2
+		   lInterv3 =  Round ( ( lInterv3 * 60 ) , 0)
+		   If lInterv3 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv3 )
+
+		   // Les minutes
+		   sZero = ""
+		   lInterv1 = ( lInterv2 / 60 )
+		   lInterv2 = Truncate (linterv1, 0)
+		   lInterv3 = lInterv1 - lInterv2
+		   lInterv3 =  Round ( ( lInterv3 * 60 ) , 0)
+		   If lInterv3 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv3 ) + ":" + sFormat
+
+		   // Les heures
+		   sZero = ""
+	   	lInterv1 = ( lInterv2 / 24 )
+		   lInterv2 = Truncate (linterv1, 0)
+		   lInterv3 = lInterv1 - lInterv2
+		   lInterv3 =  Round ( ( lInterv3 * 24 ) , 0)
+		   If lInterv3 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv3 ) + ":" + sFormat
+
+		   // Les jours
+		   sZero = ""
+		   If lInterv2 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv2 ) + ":" + sFormat
+
+
+		CASE "N"
+
+			// Les minutes
+		   sZero = ""
+		   lInterv1 = ( alinterval / 60 )
+		   lInterv2 = Truncate (linterv1, 0)
+		   lInterv3 = lInterv1 - lInterv2
+		   lInterv3 =  Round ( ( lInterv3 * 60 ) , 0)
+		   If lInterv3 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv3 )
+
+		   // Les heures
+		   sZero = ""
+		   lInterv1 = ( lInterv2 / 24 )
+		   lInterv2 = Truncate (linterv1, 0)
+		   lInterv3 = lInterv1 - lInterv2
+		   lInterv3 =  Round ( ( lInterv3 * 24 ) , 0)
+		   If lInterv3 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv3 ) + ":" + sFormat
+
+		   // Les jours
+		   sZero = ""
+		   If lInterv2 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv2 ) + ":" + sFormat
+
+		CASE "H"
+
+		   // Les heures
+		   sZero = ""
+		   lInterv1 = ( alinterval / 24 )
+		   lInterv2 = Truncate (linterv1, 0)
+		   lInterv3 = lInterv1 - lInterv2
+		   lInterv3 =  Round ( ( lInterv3 * 24 ) , 0)
+		   If lInterv3 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv3 )
+
+		   // Les jours
+   		sZero = ""
+		   If lInterv2 < 10 Then sZero = "0"
+   		sFormat  = sZero + String ( lInterv2 ) + ":" + sFormat
+
+		CASE "M"
+
+		   // Les Mois
+		   sZero = ""
+		   lInterv1 = ( alinterval / 12 )
+		   lInterv2 = Truncate (linterv1, 0)
+		   lInterv3 = lInterv1 - lInterv2
+		   lInterv3 =  Round ( ( lInterv3 * 12 ) , 0)
+		   If lInterv3 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv3 )
+	
+   		// Les Ann$$HEX1$$e900$$ENDHEX$$es
+		   sZero = ""
+		   If lInterv2 < 10 Then sZero = "0"
+		   sFormat  = sZero + String ( lInterv2 ) + ":" + sFormat
+
+		CASE ELSE
+		   sFormat = "-1"
+
+	END CHOOSE
+
+ELSE
+ sFormat = "-1"
+END IF
+
+
+Return sFormat
+end function
+

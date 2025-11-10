@@ -1,0 +1,35 @@
+HA$PBExportHeader$f_erreurbase.srf
+$PBExportComments$----} Fonction construction message erreur Database
+global type f_erreurbase from function_object
+end type
+
+forward prototypes
+global function string f_erreurbase (u_transaction atrtrans)
+end prototypes
+
+global function string f_erreurbase (u_transaction atrtrans);//*******************************************************************************************
+// Fonction            	: f_ErreurBase
+//	Auteur              	: D.Bizien
+//	Date 					 	: 22/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Construit la valeur compl$$HEX1$$e800$$ENDHEX$$te d'un erreur de base de donn$$HEX1$$e900$$ENDHEX$$e
+// Commentaires			: 
+//
+// Arguments				: Objet de u_transaction en cause
+//
+// Retourne					: Le message D'erreur Complet ( Sans DBPASS )
+//								  
+//*******************************************************************************************
+
+String	sMessage 		// Message Erreur Complet
+
+sMessage = 	"Code  Erreur	: " 	+ 	String ( atrTrans.SQLDBCode )	+ "~n~r" + &
+ 				"Texte Erreur	: " 	+ 	atrTrans.SQLErrText				+ "~n~r" + &
+ 				"DBMS		: " 			+  atrTrans.DBMS						+ "~n~r" + &
+ 				"Database	: " 		+  atrTrans.Database					+ "~n~r" + &
+ 				"User		: " 			+  atrTrans.UserId					+ "~n~r" + &
+ 				"Lock		: " 			+  atrTrans.Lock  
+
+Return  sMessage
+
+end function
+

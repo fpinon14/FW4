@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_ofstruct32.srs
+global type s_ofstruct32 from structure
+	integer		cBytes
+	integer		fFixedDisk
+	integer		nErrCode
+	integer		Reserved1
+	integer		Reserved2
+	string		szPathName
+end type
+

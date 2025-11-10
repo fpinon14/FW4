@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_mois_en_lettre.srf
+$PBExportComments$------} Retourne le mois en toutes lettres, $$HEX2$$e0002000$$ENDHEX$$partir de sa valeur num$$HEX1$$e900$$ENDHEX$$rique pass$$HEX1$$e900$$ENDHEX$$e en argument.
+global type f_mois_en_lettre from function_object
+end type
+
+forward prototypes
+global function string f_mois_en_lettre (integer aimois)
+end prototypes
+
+global function string f_mois_en_lettre (integer aimois);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Mois_En_Lettre
+//* Auteur			: FABRY JF
+//* Date				: 28/12/1998 12:04:15
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Retourne le mois en lettre $$HEX2$$e0002000$$ENDHEX$$partir de sa valeur en chiffre 
+//* Commentaires	: Ex : 1 retourne  'Janvier'
+//*
+//* Arguments		: Integer			aiMois				(Val)	Mois en chiffre
+//*
+//* Retourne		: String		 	
+//*
+//*-----------------------------------------------------------------
+
+Choose Case aiMois
+
+	Case 1  
+			Return ( "Janvier"   )
+	Case 2  
+			Return ( "F$$HEX1$$e900$$ENDHEX$$vrier"   )
+	Case 3  
+			Return ( "Mars"      ) 
+	Case 4
+			Return ( "Avril"     )
+	Case 5
+			Return ( "Mai"       )
+	Case 6
+			Return ( "Juin"      )
+	Case 7
+			Return ( "Juillet"   )
+	Case 8
+			Return ( "Ao$$HEX1$$fb00$$ENDHEX$$t"      )
+	Case 9
+			Return ( "Septembre" )
+	Case 10
+			Return ( "Octobre"   )
+	Case 11
+			Return ( "Novembre"  )
+	Case 12
+			Return ( "D$$HEX1$$e900$$ENDHEX$$cembre"  )
+	Case Else 
+			Return ( "ERREUR!"  )
+End Choose
+
+
+end function
+

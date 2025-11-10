@@ -1,0 +1,41 @@
+HA$PBExportHeader$f_getobjectatpointer.srf
+global type f_getobjectatpointer from function_object
+end type
+
+forward prototypes
+global function long f_getobjectatpointer (ref Datawindow aDw, ref string asText)
+end prototypes
+
+global function long f_getobjectatpointer (ref Datawindow aDw, ref string asText);//*******************************************************************************************
+// Fonction            	: f_GetObjectAtPointer
+//	Auteur              	: Erick John Stark
+//	Date 					 	: 22/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: 
+// Commentaires			: La souris se trouve-t-elle sur une colonne ? DBI en a fait un fct globale le 
+//								  27-06-97
+// Arguments				: DataWindow	aDw		(R$$HEX1$$e900$$ENDHEX$$f)	La DataWindow sur lequel est positionn$$HEX2$$e9002000$$ENDHEX$$le pointeur
+//								  String			asText	(R$$HEX1$$e900$$ENDHEX$$f) La colonne sur laquelle est positionn$$HEX1$$e900$$ENDHEX$$e le pointeur
+//
+// Retourne					: Long	0 -> Pas de Ligne sous le pointeur
+//											? -> N$$HEX2$$b0002000$$ENDHEX$$de la Ligne 
+//								  
+//*******************************************************************************************
+
+
+String sText
+Long lLig, lPos
+
+lLig = 0
+
+sText = aDw.GetObjectAtPointer ()
+
+If	sText <> "" Then
+	lPos		= Pos ( sText, "~t" )
+
+	asText	= Left ( sText, lPos - 1 )
+	lLig 		= Long ( Mid( sText, lPos + 1 ) )
+End If
+
+Return ( lLig )
+end function
+

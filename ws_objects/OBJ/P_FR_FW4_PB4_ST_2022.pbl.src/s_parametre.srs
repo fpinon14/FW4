@@ -1,0 +1,11 @@
+HA$PBExportHeader$s_parametre.srs
+$PBExportComments$------} Structure servant $$HEX2$$e0002000$$ENDHEX$$la construction dynamique des DW
+global type s_parametre from structure
+    integer itmavecharwidth
+    integer iheaderheight
+    integer idetailheight
+    integer inbelement
+    integer ixpos
+    string sPointer
+end type
+

@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_wkf_corbeille_mss.srd
+$PBExportComments$------} Datawindow utilis$$HEX1$$e900$$ENDHEX$$e dans la fen$$HEX1$$ea00$$ENDHEX$$tre de workflow(W_ACCUEIL_WORKFLOW) R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des corbeilles/op$$HEX1$$e900$$ENDHEX$$rateurs (SqlServer)
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=decimal(0) name=id_corb dbname="id_corb" )
+ procedure="1 execute sysadm.DW_S02_CORB_OPER;1 @sIdOper = :sIdOper" arguments=(("sIdOper", string)) )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="0" x="42" y="4" height="57" width="330" format="[general]"  name=id_corb dddw.name=dddw_spb_code dddw.displaycolumn=id_code dddw.datacolumn=id_code dddw.percentwidth=100 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

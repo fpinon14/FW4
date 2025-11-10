@@ -1,0 +1,19 @@
+HA$PBExportHeader$d_spb_int_police.srd
+$PBExportComments$---} Datawindow d'interrogation pour la recherche des polices
+release 8;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=308 color="536870912" )
+table(column=(type=char(4) updatewhereclause=yes name=id_police dbname="id_police" )
+ column=(type=char(3) updatewhereclause=yes name=id_cie dbname="id_cie" )
+ column=(type=char(35) updatewhereclause=yes name=lib_police dbname="lib_police" )
+ )
+text(band=detail alignment="1" text="Police" border="0" color="0" x="151" y="20" height="64" width="133" html.valueishtml="0"  name=id_police_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="16711680" x="320" y="20" height="64" width="334" format="[general]" html.valueishtml="0"  name=id_police  tag="Identifiant de la police d'assurance" visible="1" dddw.name=dddw_spb_police dddw.displaycolumn=id_police dddw.datacolumn=id_police dddw.percentwidth=250 dddw.lines=0 dddw.limit=4 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.imemode=0 dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Compagnie" border="0" color="0" x="37" y="124" height="64" width="247" html.valueishtml="0"  name=id_cie_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="16711680" x="320" y="124" height="64" width="334" format="[general]" html.valueishtml="0"  name=id_cie  tag="Identifiant de la compagnie" visible="1" dddw.name=dddw_spb_compagnie dddw.displaycolumn=id_cie dddw.datacolumn=id_cie dddw.percentwidth=250 dddw.lines=0 dddw.limit=3 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.imemode=0 dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="N$$HEX2$$b0002000$$ENDHEX$$de Police" border="0" color="0" x="23" y="228" height="64" width="261" html.valueishtml="0"  name=lib_police_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="5" color="16711680" x="320" y="228" height="64" width="997" format="[general]" html.valueishtml="0"  name=lib_police  tag="Num$$HEX1$$e900$$ENDHEX$$ro de la police d'assurance pour la compagnie" visible="1" edit.limit=35 edit.case=upper edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )

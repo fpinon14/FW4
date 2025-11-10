@@ -1,0 +1,55 @@
+HA$PBExportHeader$f_getexcelpath.srf
+global type f_getexcelpath from function_object
+end type
+
+forward prototypes
+global function string f_getexcelpath ()
+end prototypes
+
+global function string f_getexcelpath ();//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_GetVersionExcel			(PUBLIC)
+//* Auteur			: FPI (pour Office 2010)
+//* Date				: 13/12/2011
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration du chemin Excel
+//*
+//* Arguments		: Aucun
+//*
+//* Retourne		: String		 chemin complet d'ex$$HEX1$$e900$$ENDHEX$$cution de Excel
+//*
+//*-----------------------------------------------------------------
+//* MAJ      PAR      Date	  Modification
+//* 			PHG		25/08/2011	Correction Bug : Si le ConnectToNewObject echouait,
+//*										On applicait quand m$$HEX1$$ea00$$ENDHEX$$me les ordres OLE, d'ou exception
+//*										SystemError. Ajout donc de lb_LolExcelOk
+//*-----------------------------------------------------------------
+
+integer		li_Res
+oleobject		lol_Excel
+boolean		lb_LolExcelOk
+String sPath
+	
+lol_Excel = CREATE OLEObject
+li_Res = lol_Excel.ConnectToNewObject( "excel.application")
+If li_Res < 0 Then
+	li_Res = lol_Excel.ConnectToObject("", "excel.application")
+End If
+lb_LolExcelOk = IsValid(lol_Excel) and ( li_Res = 0 )
+
+if lb_LolExcelOk Then
+	sPath = lol_Excel.Application.Path + '\Excel.EXE'
+Else
+	sPath=""
+End If
+Yield() // On laisse le temps $$HEX2$$e0002000$$ENDHEX$$l'objet de pour terminer son instanciation.
+If lb_LolExcelOk Then 
+	lol_Excel.Application.Quit()	//pour ne pas laisser un process Excel ouvert
+	li_Res = lol_Excel.DisconnectObject()
+End If
+if IsValid(lol_Excel) Then Destroy lol_Excel
+
+Return sPath
+
+end function
+

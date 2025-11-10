@@ -1,0 +1,78 @@
+HA$PBExportHeader$f_connectopena.srf
+$PBExportComments$----} Fonction g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$rique de connexion $$HEX2$$e0002000$$ENDHEX$$la mini
+global type f_connectopena from function_object
+end type
+
+forward prototypes
+global function boolean f_connectopena (string asfichierini, string assection, ref transaction atrtrans, ref s_message astmessage)
+end prototypes
+
+global function boolean f_connectopena (string asfichierini, string assection, ref transaction atrtrans, ref s_message astmessage);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_ConnectOpena
+//* Auteur			: Erick John Stark
+//* Date				: 22/07/1998 10:22:21
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Connection sur une base de type ODBC (OPENA) $$HEX2$$e0002000$$ENDHEX$$partir d'un fichier INI
+//*
+//* Arguments		: String			asFichierIni		(Val)	Fichier d'initialisation
+//* 					  String			asSection			(Val)	Section pour la connection
+//* 					  Transaction	atrTrans				(R$$HEX1$$e900$$ENDHEX$$f)	Objet de transaction associ$$HEX4$$e9002000e0002000$$ENDHEX$$la connection
+//* 					  S_Message		astMessage			(R$$HEX1$$e900$$ENDHEX$$f)	Structure de Message d'Erreur
+//*
+//* Retourne		: Boolean		Vrai = La connection est OK
+//*										Faux = Un probl$$HEX1$$e800$$ENDHEX$$me est survenu
+//*
+//*-----------------------------------------------------------------
+
+Boolean bConnectOk
+
+bConnectOk = True
+
+//Migration PB8-WYNIWYG-03/2006 CP
+//If FileExists ( asFichierIni ) Then 
+If f_FileExists ( asFichierIni ) Then 	
+//Fin Migration PB8-WYNIWYG-03/2006 CP
+
+	atrTrans.DBMS     = ProfileString ( asFichierIni, asSection, "DBMS", 		"DBMS ERREUR" )
+	atrTrans.Database = ProfileString ( asFichierIni, asSection, "DATABASE", 	"Database ERREUR" )
+	atrTrans.UserId   = ProfileString ( asFichierIni, asSection, "USERID", 		"UserId ERREUR" )
+	atrTrans.DbPass   = ProfileString ( asFichierIni, asSection, "DBPASS", 		"DbPass ERREUR" )
+	atrTrans.Lock     = ProfileString ( asFichierIni, asSection, "LOCK", 		"Lock ERREUR" )
+	atrTrans.DBParm   = ProfileString ( asFichierIni, asSection, "DBPARM", 		"" )
+
+	CONNECT	USING atrTrans		;
+
+	If	atrTrans.SqlCode <> 0	Then
+		bConnectOk	= False
+
+		astMessage.sCode		= 	"OPENA01"
+		astMessage.sVar[1]	= String ( atrTrans.SQLDBCode )
+		astMessage.sVar[2]	= atrTrans.SQLErrText
+		astMessage.sVar[3]	= atrTrans.DBMS
+
+	End If
+Else
+
+	bConnectOk = False
+
+	astMessage.sCode		= 	"OPENA02"
+	astMessage.sVar[1]	= asFichierIni
+
+End if
+
+If	Not bConnectOk	Then
+	astMessage.Bouton			= OK!
+	astMessage.Icon			= StopSign!
+	astMessage.sTitre			= 'Erreur Fatale'
+	astMessage.bErreurG		= True
+	astMessage.bTrace			= True
+End If
+
+Return bConnectOk
+
+
+
+
+end function
+

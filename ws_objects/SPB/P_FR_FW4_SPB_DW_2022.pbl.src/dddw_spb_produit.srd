@@ -1,0 +1,18 @@
+HA$PBExportHeader$dddw_spb_produit.srd
+$PBExportComments$--- } Dddw table produit
+release 8;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=id_prod dbname="id_prod" )
+ column=(type=char(65) updatewhereclause=yes name=lib_long dbname="lib_long" )
+ column=(type=char(20) updatewhereclause=yes name=lib_court dbname="lib_court" )
+ column=(type=number updatewhereclause=yes name=id_dept dbname="id_dept" )
+ column=(type=number updatewhereclause=yes name=id_depts dbname="id_depts" )
+ procedure="1 execute sysadm.DD_S01_PRODUIT;1 "  sort="id_prod A " )
+compute(band=detail alignment="0" expression="String(  id_prod ) + ~" ~" + lib_long "border="0" color="16711680" x="2002" y="180" height="56" width="1353" format="[GENERAL]" html.valueishtml="0"  name=code_libelle visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression=" id_prod "border="0" color="16711680" x="18" y="8" height="56" width="155" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="16711680" x="201" y="8" height="56" width="1925" format="[general]" html.valueishtml="0"  name=lib_long visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )

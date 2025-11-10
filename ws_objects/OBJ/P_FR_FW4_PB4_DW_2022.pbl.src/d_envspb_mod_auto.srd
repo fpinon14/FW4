@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_envspb_mod_auto.srd
+$PBExportComments$------} Datawindow de chargement des modules autoris$$HEX1$$e900$$ENDHEX$$s pour l'op$$HEX1$$e900$$ENDHEX$$rateur
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=5 color="536870912" )
+table(column=(type=char(4) name=cod_mod dbname="cod_mod" )
+ column=(type=char(20) name=lib_entree_menu dbname="Lib_entree_menu" )
+ column=(type=decimal(0) name=cod_acces dbname="cod_acces" )
+ column=(type=char(20) name=lib_module dbname="lib_module" )
+ procedure="1 execute SYSADM.S_MOD_AUTOR :asCodOper, :asCodAppli;0 " arguments=(("asCodOper", string),("asCodAppli", string),("asNull", string)) )

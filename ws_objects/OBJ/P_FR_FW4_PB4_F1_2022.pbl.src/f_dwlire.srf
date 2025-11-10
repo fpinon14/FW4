@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_dwlire.srf
+$PBExportComments$------} R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des informations d'une datawindow de stockage pour saisie
+global type f_dwlire from function_object
+end type
+
+forward prototypes
+global subroutine f_dwlire (string asfiltre, ref u_datawindow adwsource, ref u_datawindow adwcible)
+end prototypes
+
+global subroutine f_dwlire (string asfiltre, ref u_datawindow adwsource, ref u_datawindow adwcible);//*******************************************************************************************
+// Fonction            	: f_DwLire
+//	Auteur              	: D.Bizien
+//	Date 					 	: 27/03/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: R$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des informations d'une datawindow de stockage pour saisie
+// Commentaires			: Positionnement d'un filtre avant copie si besoin
+//
+// Arguments				: asFiltre - String - Filtre $$HEX2$$e0002000$$ENDHEX$$appliquer
+//								  adwSource- u_Datawindow - Datawindow contenant les lignes $$HEX2$$e0002000$$ENDHEX$$copier
+//								  adwCible - u_Datawindow - Datawindow de destination
+//
+// Retourne					: Rien
+//								  
+//*******************************************************************************************
+
+
+// *****        Copie simple des informations
+
+f_DwCopier ( asFiltre, adwSource, adwCible )
+
+end subroutine
+

@@ -1,0 +1,30 @@
+HA$PBExportHeader$s_pass.srs
+$PBExportComments$----} Structure de passage de param$$HEX1$$ea00$$ENDHEX$$tres
+global type s_pass from structure
+	date		dtab[]
+	datetime		dttab[]
+	long		ltab[]
+	string		stab[]
+// [MIGPB11] [EMD] : Debut Migration : tableau binaire de taille fixe n'est pas support$$HEX1$$e900$$ENDHEX$$
+//	blob{106437800}		bltab[]
+	blob	bltab[]
+// [MIGPB11] [EMD] : Fin Migration	
+	u_datawindow_detail		dwtab[]
+	u_datawindow		udwtab[]
+	boolean		btab[]
+	u_datawindow		dwmaster
+	u_datawindow		dwmaster1
+	u_transaction		trtrans
+	window		wparent
+	boolean		benableparent
+	boolean		bcloseretour
+	boolean		binsert
+	boolean		bcontrol
+	boolean		bsupprime
+	datawindow		dwnorm[]
+	boolean		bretour
+	statictext		sttab[]
+	decimal { 2 }		dctab[]
+	datawindow		dwnTab[]
+end type
+

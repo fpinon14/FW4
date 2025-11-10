@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_spb_lst_groupe.srd
+$PBExportComments$---} liste des groupes avec : code + libelle groupe sherpa
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=5 color="536870912" )
+table(column=(type=number name=id_grp dbname="id_grp" )
+ column=(type=char(35) name=lib_grp dbname="lib_grp" )
+ column=(type=number name=id_grp_base dbname="id_grp_base" )
+ column=(type=char(35) name=lib_grp_base dbname="lib_grp_base" )
+ column=(type=number name=id_grp_prod dbname="id_grp_prod" )
+ column=(type=char(35) name=lib_grp_sherpa dbname="lib_grp_sherpa" )
+ column=(type=datetime name=cree_le dbname="cree_le" )
+ column=(type=datetime name=maj_le dbname="maj_le" )
+ column=(type=char(4) name=maj_par dbname="maj_par" )
+ procedure="1 execute sysadm.DW_S03_GROUPE_V00;1 " )

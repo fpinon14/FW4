@@ -1,0 +1,36 @@
+HA$PBExportHeader$f_critere_decimal.srf
+global type f_critere_decimal from function_object
+end type
+
+forward prototypes
+global function string f_critere_decimal (string aschainesql)
+end prototypes
+
+global function string f_critere_decimal (string aschainesql);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Critere_Decimal
+//* Auteur			: Fabry JF
+//* Date				: 17/03/2008 21:42:15
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: [DECIMAL_PAPILLON]
+//* Commentaires	: 
+//*
+//* Arguments		: String			asChaineSql			(Val)	
+//*
+//* Retourne		: Boolean
+//*
+//*-----------------------------------------------------------------
+
+Integer iPos
+String sVal
+
+iPos = Pos ( asChaineSql, " WHERE " )
+sVal = Mid ( asChaineSql, iPos, Len ( asChaineSql ) )
+
+sVal = F_Remplace ( sVal, " AND", ". AND" )
+sVal = Trim ( sVal ) + ". "
+asChaineSql = Left ( asChaineSql, iPos ) + sVal
+
+Return asChaineSql 
+
+end function
+

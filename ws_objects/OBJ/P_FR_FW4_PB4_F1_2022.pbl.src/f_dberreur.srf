@@ -1,0 +1,87 @@
+HA$PBExportHeader$f_dberreur.srf
+$PBExportComments$----} Gestion des messages d'erreurs qui arrivent sur une DW
+global type f_dberreur from function_object
+end type
+
+forward prototypes
+global function long f_dberreur (long alerreur, string aserreur, ref u_transaction atrtrans)
+end prototypes
+
+global function long f_dberreur (long alerreur, string aserreur, ref u_transaction atrtrans);//*******************************************************************************************
+// Fonction          	: F_DbErreur
+//	Auteur            	: Erick John Stark
+//	Date 					 	: 09/08/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Gestion des messages d'erreurs qui arrivent sur une DW
+// Commentaires			: 
+//
+// Arguments				: alErreur			Long				(Val)	N$$HEX2$$b0002000$$ENDHEX$$de l'erreur
+//								  asErreur			String			(Val) Libell$$HEX2$$e9002000$$ENDHEX$$de l'erreur
+//								  atrTrans			U_Transaction	(R$$HEX1$$e900$$ENDHEX$$f)	Objet de Transaction
+//
+// Retourne				: Long	 1 = Le N$$HEX2$$b0002000$$ENDHEX$$de l'erreur existe dans la liste ci dessous
+//								  		-1	= Le N$$HEX2$$b0002000$$ENDHEX$$de l'erreur n'existe pas dans la liste, 
+//											on affiche le message par d$$HEX1$$e900$$ENDHEX$$faut
+//*******************************************************************************************
+
+Long lRet
+
+lRet = 1
+
+stMessage.sTitre		= "Erreur sur la Data Window"
+stMessage.Icon			= StopSign!
+stMessage.sCode		= "ANCE030"
+stMessage.sVar[1]		= String ( alErreur )
+
+//*******************************************************************************************
+//
+// Modif DBI du 17/06/1998 : Tracage des Dberreurs
+//
+//*******************************************************************************************
+
+stMessage.bTrace		= True
+
+
+If	alErreur <> 0 Then
+
+	stMessage.bErreurG	= True
+
+	Choose Case alErreur
+	Case	331					// ....	Insertion de donn$$HEX1$$e900$$ENDHEX$$es $$HEX2$$e0002000$$ENDHEX$$blanc dans une zone NOT NULL.
+		stMessage.sVar[2] 	= "Trop de colonnes ont une valeur nulle."
+
+	Case	341					// ....  Modification d'une ligne en mettant des valeurs Nulles dans une zone NOT NULL
+		stMessage.sVar[2] 	= "Trop de colonnes ont une valeur nulle."
+
+	Case	382					// ....	Int$$HEX1$$e900$$ENDHEX$$grit$$HEX2$$e9002000$$ENDHEX$$R$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rentielle non respect$$HEX1$$e900$$ENDHEX$$e (Insertion)
+		stMessage.sVar[2] 	= "L'int$$HEX1$$e900$$ENDHEX$$grit$$HEX2$$e9002000$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rentielle n'est pas respect$$HEX1$$e900$$ENDHEX$$e."
+
+	Case	383					// ....	Int$$HEX1$$e900$$ENDHEX$$grit$$HEX2$$e9002000$$ENDHEX$$R$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rentielle non respect$$HEX1$$e900$$ENDHEX$$e (Suppression)
+		stMessage.sVar[2] 	= "L'int$$HEX1$$e900$$ENDHEX$$grit$$HEX2$$e9002000$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rentielle n'est pas respect$$HEX1$$e900$$ENDHEX$$e."
+
+	Case	805					// ....	Insertion d'un doublon sur cl$$HEX2$$e9002000$$ENDHEX$$unique
+		stMessage.sVar[2] 	= "L'identifiant existe d$$HEX1$$e900$$ENDHEX$$j$$HEX1$$e000$$ENDHEX$$."
+
+	Case	3810					// ....
+		stMessage.sVar[2] 	= asErreur
+
+	Case	-3						// ....	Modification simultan$$HEX1$$e900$$ENDHEX$$e interdite
+		stMessage.sVar[2] 	= "L'enregistrement a $$HEX1$$e900$$ENDHEX$$t$$HEX2$$e9002000$$ENDHEX$$modifi$$HEX2$$e9002000$$ENDHEX$$par quelqu'un d'autre pendant votre traitement."
+
+	Case Else
+		lRet = -lRet
+		stMessage.sVar[2] 	= asErreur
+
+	End Choose
+
+	// .... La premi$$HEX1$$e800$$ENDHEX$$re chose $$HEX2$$e0002000$$ENDHEX$$faire est d'envoyer un ROLLBACK
+
+	f_Commit( atrTrans, False )
+	f_Message ( stMessage )
+
+End If
+
+Return lRet
+
+
+end function
+

@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_euro_luc.srd
+$PBExportComments$------} Datawindow external utilis$$HEX1$$e900$$ENDHEX$$e avec U_Euro
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=decimal(2) name=mt_euro dbname="mt_euro" )
+ )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="2" color="0" x="5" y="4" height="57" width="151" format="#,##0.00 \$$HEX2$$ac202000$$ENDHEX$$"  name=mt_euro edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )

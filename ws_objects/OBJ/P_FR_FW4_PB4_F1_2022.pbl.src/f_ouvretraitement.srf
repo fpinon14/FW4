@@ -1,0 +1,42 @@
+HA$PBExportHeader$f_ouvretraitement.srf
+$PBExportComments$----} Fonction ouverture fen$$HEX1$$ea00$$ENDHEX$$tre Traitement dans Environnement MDI envspb
+global type f_ouvretraitement from function_object
+end type
+
+forward prototypes
+global subroutine f_ouvretraitement (ref w_ancetre_traitement awtraitement, ref s_pass astpass)
+end prototypes
+
+global subroutine f_ouvretraitement (ref w_ancetre_traitement awtraitement, ref s_pass astpass);//*******************************************************************************************
+// Fonction            	: f_OuvreTraitement
+//	Auteur              	: D.Bizien
+//	Date 					 	: 22/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Ouverture d'une fen$$HEX1$$ea00$$ENDHEX$$tre de traitement
+// Commentaires			: 
+//
+// Arguments				: awTraitement - w_Traitement - Fen$$HEX1$$ea00$$ENDHEX$$tre devant $$HEX1$$ea00$$ENDHEX$$tre ouverte et enable
+//								  astPass		- s_Pass			- Structure de passage d'arguments entre 
+//																		  Fen$$HEX1$$ea00$$ENDHEX$$tres	
+//
+// Retourne					: Rien
+//								  
+//*******************************************************************************************
+
+If isValid ( astPass ) Then
+
+	If isValid ( awTraitement ) Then
+		awTraitement.ibAInitialiser	= True
+		Message.PowerObjectParm			= astPass
+	End If
+
+	If ( astPass.wParent.windowType = Child! ) Or ( astPass.wParent.windowType = Popup! ) Then
+		OpenWithParm ( awTraitement, astPass, astPass.wParent.ParentWindow() )
+	Else
+		OpenWithParm ( awTraitement, astPass, astPass.wParent )		
+	End If
+
+End If
+
+
+end subroutine
+

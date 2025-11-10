@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_envspb_menu.srd
+$PBExportComments$------} Datawindow de chargement des menus $$HEX2$$e0002000$$ENDHEX$$cacher par module
+release 4;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=9 color="536870912" )
+table(column=(type=char(10) name=cod_menu dbname="cod_menu" )
+ column=(type=char(1) name=typ_menu dbname="typ_menu" )
+ procedure="1 execute SYSADM.S_MENU :asModule, :asNiveau;0 " arguments=(("asModule", string),("asNiveau", string)) )

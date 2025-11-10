@@ -1,0 +1,59 @@
+HA$PBExportHeader$f_proteger_dw.srf
+$PBExportComments$------}Prot$$HEX1$$e800$$ENDHEX$$ge toutes les colonnes saisissables d'une DW
+global type f_proteger_dw from function_object
+end type
+
+forward prototypes
+global function boolean f_proteger_dw (ref datawindow adw)
+end prototypes
+
+global function boolean f_proteger_dw (ref datawindow adw);//------------------------------------------------------------------------------------------
+//	Fonction          	: F_Proteger_Dw
+//	Auteur            	: FS
+//	Date 					 	: 12/02/1998
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Prot$$HEX1$$e800$$ENDHEX$$ge toutes les colonnes saisissable d'une datawindow
+//	Commentaires			: ( pas de maj de la couleur et du fond pour CBX et RBT )
+//
+//	Arguments				: adw	DataWindow	Data Window $$HEX2$$e0002000$$ENDHEX$$prot$$HEX1$$e900$$ENDHEX$$ger
+//
+//	Retourne					: True / False si pb
+//								  
+//------------------------------------------------------------------------------------------
+
+String  sCol, sRes = "", sType
+Long    l   , lTot, lTab
+
+lTot  = Long( adw.Describe( "DataWindow.Column.Count" ) )		// .... Nombre de colonnes
+
+adw.SetRedraw( False )
+
+For l = 1 To lTot
+
+	sCol = "#" + String( l )	
+
+	lTab = Long( adw.Describe( sCol +".TabSequence" ) )
+
+	If lTab <> 0 Then
+
+		sRes  = adw.Modify( sCol + ".Protect = 1" )				// .... Protection si TabOrder <> 0
+
+		sType = Left( adw.Describe( sCol + ".Edit.Style" ), 5 )	// .... Format Radio Bouton ou check Box ?
+
+		If sType <> "check" and sType <> "radio" Then				// .... 3DRaised + Fond Gris si pas Cbx et pas Rbt
+
+			If sRes = "" Then sRes = adw.Modify( sCol + ".Border = 6"  )
+			If sRes = "" Then sRes = adw.Modify( sCol + ".BackGround.Color='12632256'"  )
+
+		End If
+
+		If sRes <> "" Then return False
+			
+	End If
+
+Next
+
+adw.SetRedraw( True )
+
+Return True
+end function
+

@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_isapplication.srf
+$PBExportComments$[I027] - Fonction permettant de d$$HEX1$$e900$$ENDHEX$$terminer a coup sur $$HEX2$$e0002000$$ENDHEX$$partir du classname Quelle application est lanc$$HEX1$$e900$$ENDHEX$$e.
+global type f_isapplication from function_object
+end type
+
+forward prototypes
+global function boolean f_isapplication (string asappname)
+end prototypes
+
+global function boolean f_isapplication (string asappname);
+
+
+application l_app
+string sAppName
+boolean bRet
+
+//[I027].BUG2 - D$$HEX1$$e900$$ENDHEX$$tetection de l'application savane par le classname et non plus
+// par le code appli...
+l_app = GetApplication()
+sAppName = l_App.Appname
+bRet = ( lower(sAppName) = lower(asAppName) )
+
+return bRet
+end function
+

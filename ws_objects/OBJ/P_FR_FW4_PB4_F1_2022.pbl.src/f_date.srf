@@ -1,0 +1,88 @@
+HA$PBExportHeader$f_date.srf
+$PBExportComments$---} Fonction de regroupement des r$$HEX1$$e800$$ENDHEX$$gles de validation pour les dates
+global type f_date from function_object
+end type
+
+forward prototypes
+global function boolean f_date (string astexte, integer airegle)
+end prototypes
+
+global function boolean f_date (string astexte, integer airegle);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_Date
+//* Auteur			: V.Capelle
+//* Date				: 09/01/1997 15:26:02
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: Fonction de regroupement des r$$HEX1$$e800$$ENDHEX$$gles de validation
+//*					  des diff$$HEX1$$e900$$ENDHEX$$rents champs dates
+//* Commentaires	: 
+//*
+//* Arguments		: String		asTexte	-->	Valeur saisie pour le champ
+//*					  Integer	aiRegle  -->	Type de r$$HEX1$$e800$$ENDHEX$$gle de validation
+//*														que valeur doit respecter   	
+//*
+//* Retourne		: Bool$$HEX1$$e900$$ENDHEX$$en	Vrai 		-->	La valeur saisie pour le
+//*														respecte la r$$HEX1$$e800$$ENDHEX$$gle de 
+//*														validation correspondant 
+//*														au champ
+//*
+//*									Faux		-->	La r$$HEX1$$e800$$ENDHEX$$gle de validation du 
+//*														champ n'est pas respect$$HEX1$$e900$$ENDHEX$$e 	
+//*										
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//* #1  JFF    11/06/99 Ajout d'une R$$HEX1$$e800$$ENDHEX$$gle 4				  
+//*-----------------------------------------------------------------
+
+Boolean	bRet = False		//Valeur de retour de la fonction
+Date		dVal					//Valeur du champ au format date
+DateTime dtVal					// #1
+
+Choose Case aiRegle
+
+	Case 1
+		bRet = IsDate ( asTexte ) 
+
+	Case 2
+		bRet = IsDate ( asTexte ) 
+
+		If bRet Then
+
+			dVal	= Date ( astexte )
+
+			If Not ( dVal >= Date ( "1980-01-01" ) AND dVal <= Today () ) Then
+
+				bRet = False
+
+			End If
+
+		End If
+
+	Case 3
+		bRet = IsDate ( asTexte ) 
+
+		If bRet Then
+
+			dVal	= Date ( astexte )
+
+			If Not ( dVal >= Date ( "1980-01-01" ) ) Then
+
+				bRet = False
+
+			End If
+
+		End If
+
+	//.. #1
+	Case 4
+
+		dtVal = DateTime ( Date ( Left ( asTexte, 10 ) ), Time ( Right ( asTexte, 8 ) ) )
+
+		bRet = Not ( IsNull ( dtVal ) Or  String ( Date ( dtVal ) ) = "01/01/1900" )
+	
+
+End Choose
+
+
+Return ( bRet ) 
+end function
+

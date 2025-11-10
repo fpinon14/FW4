@@ -1,0 +1,14 @@
+HA$PBExportHeader$st_processentry32.srs
+$PBExportComments$Stucture de r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$ration des taches Win32 actives
+global type st_processentry32 from structure
+	long		lsize
+	long		lcntusage
+	long		lprocessid
+	long		ldefaultheapid
+	long		lcnttreads
+	long		lparentprocessid
+	long		lpriclassbase
+	long		lflags
+	character		snomfichierexe[260]
+end type
+

@@ -1,0 +1,12 @@
+HA$PBExportHeader$dddw_spb_code_sherpa.srd
+$PBExportComments$---} DropDownDatawindow pour les codes Sherpa
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=5 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=61 color="536870912" )
+table(column=(type=number name=id_code dbname="id_code" )
+ column=(type=char(35) name=lib_code dbname="lib_code" )
+ procedure="1 execute sysadm.DD_S01_SPB_CODE_SHERPA;1 @sIdTypCode = :sIdTypCode" arguments=(("sIdTypCode", string)) )
+compute(band=detail alignment="0" expression="id_code + '  ' + lib_code"border="0" color="16711680" x="10" y="8" height="57" width="965" format="[GENERAL]"  name=cp_id_lib_code  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

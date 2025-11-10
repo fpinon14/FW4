@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_tracelog.srf
+$PBExportComments$----} Fonction Ecriture information dans un fichier de log
+global type f_tracelog from function_object
+end type
+
+forward prototypes
+global function boolean f_tracelog (string asfichier, string astype, string asmessage, ref s_glb astglb)
+end prototypes
+
+global function boolean f_tracelog (string asfichier, string astype, string asmessage, ref s_glb astglb);//*******************************************************************************************
+// Fonction            	: f_TraceLog
+//	Auteur              	: D.Bizien
+//	Date 					 	: 22/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Ecriture standard dans un fichier de log
+// Commentaires			:
+//
+// Arguments				: asFichier - String - Nom du fichier de log
+//								  asType		- String - Type de l'information $$HEX1$$e900$$ENDHEX$$crite(d$$HEX1$$e900$$ENDHEX$$finit par programmeur)
+//								  asMessage	- String - Message $$HEX3$$e0002000e900$$ENDHEX$$crire dans fichier log
+//								  astGLB		- s_GLB	- Structure globale de l'application
+//
+// Retourne					: True si Tout Ok
+//								  
+//*******************************************************************************************
+
+Boolean 	bRet 		// Valeur de retour de la fonction
+String	sMessageComplet
+
+sMessageComplet = 	String ( DateTime ( Today (), Now () ), "dd/mm/yyyy hh:mm:ss" ) + "~t" + &
+							astGLB.sCodOper																 + "~t" + &
+							asType																			 + "~t" + &
+							asMessage
+
+bRet = f_EcrireFichierText ( asFichier, sMessageComplet )
+
+Return bRet
+
+
+end function
+

@@ -1,0 +1,29 @@
+HA$PBExportHeader$s_txtmetrics.srs
+$PBExportComments$----} Structure Windows Servant pour le clcul de la taille des caract$$HEX1$$e800$$ENDHEX$$res
+global type s_txtmetrics from structure
+    int tmheight
+    int tmascent
+    int tmDescent
+    int tminternalleading
+    int tmexternalleading
+    int tmavecharwidth
+    int tmmaxcharwidth
+    int tmweight
+    blob{1} tmitalic
+    blob{1} tmUnderlined
+    blob{1} tmStruckout
+    blob{1} tmFirstChar
+    blob{1} tmLastChar
+    blob{1} tmDefaultChar
+    blob{1} tmBreakChar
+    blob{1} tmPitchAndFamily
+    blob{1} tmCharSet
+    int tmOverHang
+    int tmDigitizedAspectX
+    int tmDigitizedAspectY
+    Long ntmFlags
+    Uint ntmSizeEM
+    Uint ntmCellHeight
+    Uint ntmAvgWidth
+end type
+

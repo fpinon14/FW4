@@ -1,0 +1,66 @@
+HA$PBExportHeader$f_fermemdi.srf
+$PBExportComments$----} Fonction fermeture application dans Environnement MDI envspb
+global type f_fermemdi from function_object
+end type
+
+forward prototypes
+global function boolean f_fermemdi (ref s_glb astglb)
+end prototypes
+
+global function boolean f_fermemdi (ref s_glb astglb);//*******************************************************************************************
+// Fonction            	: f_FermeMDI
+//	Auteur              	: D.Bizien
+//	Date 					 	: 27/02/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Fermeture d'une application SPB
+// Commentaires			: Mise $$HEX2$$e0002000$$ENDHEX$$jour de la base ENVSPB Date DCNX
+//								  Ecriture d$$HEX1$$e900$$ENDHEX$$connexion dans fichier LOG
+//								  Mise $$HEX2$$e0002000$$ENDHEX$$Jour fen$$HEX1$$ea00$$ENDHEX$$tre FILENET si Existe
+// Arguments				: 
+//
+// Retourne					: 
+//								  
+//*******************************************************************************************
+
+Boolean	bOk							// -- Valeur de retour
+uInt		uiHandleFileNet_Exe		// -- Handle du filenet.exe si il est lanc$$HEX1$$e900$$ENDHEX$$
+
+											// -- Le message pbm_custom75 dans FileNet.exe correspond $$HEX2$$e0002000$$ENDHEX$$
+											// -- la d$$HEX1$$e900$$ENDHEX$$cr$$HEX1$$e900$$ENDHEX$$mentation du nombre d'application utilisant la connexion
+											// -- le n$$HEX2$$b0002000$$ENDHEX$$message windows est calcul$$HEX2$$e9002000$$ENDHEX$$en ajoutant 1023 au 
+											// -- n$$HEX2$$b0002000$$ENDHEX$$message pbm_customXX de PowerBuilder
+											// -- pbm_custom75 = 1023 + 75 = 1098
+
+
+astGLB.uoEnvSpb 	=	CREATE u_Sesame
+
+/*------------------------------------------------------------------*/
+/* L'erreur de d$$HEX1$$e900$$ENDHEX$$connexion $$HEX1$$e900$$ENDHEX$$ventuelle est g$$HEX1$$e900$$ENDHEX$$r$$HEX1$$e900$$ENDHEX$$e dans U_ENVSPB.      */
+/*------------------------------------------------------------------*/
+
+astGLB.uoEnvSpb.uf_Fin_Connexion ( astGLB )
+
+//Migration PB8-WYNIWYG-03/2006 FM
+//DESTROY astGLB.uoEnvSpb						// Fermeture de l'Objet de connexion ENVSPB
+If IsValid(astGLB.uoEnvSpb) Then DESTROY astGLB.uoEnvSpb
+//Fin Migration PB8-WYNIWYG-03/2006 FM
+
+If ProfileString ( astGLB.sFichierIni, "APPLICATION", "FILENET_EXE", "Pas Trouve") <> "Pas Trouve" Then
+
+											// -- La fonction FindWindow permet de r$$HEX1$$e900$$ENDHEX$$cup$$HEX1$$e900$$ENDHEX$$rer le handle d'une tache
+											// -- Windows. Elle sert pour d$$HEX1$$e900$$ENDHEX$$terminer si Filenet.exe est d$$HEX1$$e900$$ENDHEX$$j$$HEX2$$e0002000$$ENDHEX$$lanc$$HEX1$$e900$$ENDHEX$$
+
+
+	uiHandleFileNet_Exe = astGLB.uoWin.Uf_FindWindow ( "FNWND040", "Connexion FileNet" )
+
+	If uiHandleFileNet_Exe <> 0 Then				
+
+		Post ( uiHandleFileNet_Exe, 1098, 0, 0 )
+
+	End If
+
+
+End If
+
+Return bOk
+end function
+

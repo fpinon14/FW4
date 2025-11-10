@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_routage_nom_gup.srd
+$PBExportComments$( Sql ) MSS Liste des op$$HEX1$$e900$$ENDHEX$$rateurs ayant acc$$HEX1$$e800$$ENDHEX$$s aux m$$HEX1$$ea00$$ENDHEX$$mes corbeilles qu'un op$$HEX1$$e900$$ENDHEX$$rateur. (Fen$$HEX1$$ea00$$ENDHEX$$tre ROUTAGE)
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=89 color="536870912" )
+table(column=(type=char(4) name=id_oper dbname="cod_oper" )
+ column=(type=char(61) name=nom dbname="compute_0002" )
+ procedure="1 EXECUTE sysadm.d_s_nom_oper :asCodAppli" arguments=(("asCodAppli", string))  sort="id_oper A " )
+text(band=header alignment="2" text="Cod Oper"border="0" color="0" x="5" y="4" height="65" width="252"  name=cod_oper_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="@left ( Nom||' '||prenom, 50 )"border="0" color="0" x="261" y="4" height="65" width="1701"  name=compute_0002_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="16711680" x="5" y="4" height="77" width="138" format="[general]"  name=id_oper edit.limit=4 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="16711680" x="261" y="4" height="77" width="1701" format="[general]"  name=nom edit.limit=61 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

@@ -1,0 +1,14 @@
+HA$PBExportHeader$s_spb.srs
+$PBExportComments$------} Structure contenant les informations administratives de la SPB
+global type s_spb from structure
+    string snom
+    string srso
+    string sad1
+    string sad2
+    string scpo
+    string svil
+    string slidir
+    string slivoc
+    string sFax
+end type
+

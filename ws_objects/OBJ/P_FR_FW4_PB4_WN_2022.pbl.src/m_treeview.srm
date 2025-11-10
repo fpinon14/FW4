@@ -1,0 +1,272 @@
+HA$PBExportHeader$m_treeview.srm
+forward
+global type m_treeview from menu
+end type
+type m_menucontext from menu within m_treeview
+end type
+type m_item15 from menu within m_menucontext
+end type
+type m_item14 from menu within m_menucontext
+end type
+type m_- from menu within m_menucontext
+end type
+type m_item13 from menu within m_menucontext
+end type
+type m_item12 from menu within m_menucontext
+end type
+type m_item11 from menu within m_menucontext
+end type
+type m_item10 from menu within m_menucontext
+end type
+type m_item9 from menu within m_menucontext
+end type
+type m_menucontext from menu within m_treeview
+m_item15 m_item15
+m_item14 m_item14
+m_- m_-
+m_item13 m_item13
+m_item12 m_item12
+m_item11 m_item11
+m_item10 m_item10
+m_item9 m_item9
+end type
+end forward
+
+global type m_treeview from menu
+m_menucontext m_menucontext
+end type
+global m_treeview m_treeview
+
+on m_treeview.create
+m_treeview=this
+this.m_menucontext=create m_menucontext
+this.Item[]={this.m_menucontext}
+end on
+
+on m_treeview.destroy
+destroy(this.m_menucontext)
+end on
+
+type m_menucontext from menu within m_treeview
+m_item15 m_item15
+m_item14 m_item14
+m_- m_-
+m_item13 m_item13
+m_item12 m_item12
+m_item11 m_item11
+m_item10 m_item10
+m_item9 m_item9
+end type
+
+on m_menucontext.create
+this.Text="MenuContext"
+this.m_item15=create m_item15
+this.m_item14=create m_item14
+this.m_-=create m_-
+this.m_item13=create m_item13
+this.m_item12=create m_item12
+this.m_item11=create m_item11
+this.m_item10=create m_item10
+this.m_item9=create m_item9
+this.Item[]={this.m_item15, &
+this.m_item14, &
+this.m_-, &
+this.m_item13, &
+this.m_item12, &
+this.m_item11, &
+this.m_item10, &
+this.m_item9}
+end on
+
+on m_menucontext.destroy
+destroy(this.m_item15)
+destroy(this.m_item14)
+destroy(this.m_-)
+destroy(this.m_item13)
+destroy(this.m_item12)
+destroy(this.m_item11)
+destroy(this.m_item10)
+destroy(this.m_item9)
+end on
+
+type m_item15 from menu within m_menucontext
+end type
+
+on clicked;//*-----------------------------------------------------------------
+//*
+//* Objet 			: M_TreeView::M_Ouvrit_Tout::Clicked
+//* Evenement 		: Clicked
+//* Auteur			: Erick John Stark
+//* Date				: 10/06/1998 10:42:20
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: 
+//*				  
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+ParentWindow.TriggerEvent ( "Ue_Item15" )
+end on
+
+on m_item15.create
+this.Text="Ouvrir Tout"
+end on
+
+type m_item14 from menu within m_menucontext
+end type
+
+on clicked;//*-----------------------------------------------------------------
+//*
+//* Objet 			: M_TreeView::M_Fermer_Tout::Clicked
+//* Evenement 		: Clicked
+//* Auteur			: Erick John Stark
+//* Date				: 10/06/1998 10:42:20
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: 
+//*				  
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+ParentWindow.TriggerEvent ( "Ue_Fermer_Tout" )
+end on
+
+on m_item14.create
+this.Text="Fermer Tout"
+end on
+
+type m_- from menu within m_menucontext
+end type
+
+on m_-.create
+this.Text="-"
+this.Visible=false
+end on
+
+type m_item13 from menu within m_menucontext
+end type
+
+on clicked;//*-----------------------------------------------------------------
+//*
+//* Objet 			: M_TreeView::M_Item13::Clicked
+//* Evenement 		: Clicked
+//* Auteur			: Erick John Stark
+//* Date				: 10/06/1998 10:42:20
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: 
+//*				  
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+ParentWindow.TriggerEvent ( "Ue_Item13" )
+end on
+
+on m_item13.create
+this.Text="Item13"
+this.Visible=false
+end on
+
+type m_item12 from menu within m_menucontext
+end type
+
+on clicked;//*-----------------------------------------------------------------
+//*
+//* Objet 			: M_TreeView::M_Item12::Clicked
+//* Evenement 		: Clicked
+//* Auteur			: Erick John Stark
+//* Date				: 10/06/1998 10:42:20
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: 
+//*				  
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+ParentWindow.TriggerEvent ( "Ue_Item12" )
+end on
+
+on m_item12.create
+this.Text="Item12"
+this.Visible=false
+end on
+
+type m_item11 from menu within m_menucontext
+end type
+
+on clicked;//*-----------------------------------------------------------------
+//*
+//* Objet 			: M_TreeView::M_Item11::Clicked
+//* Evenement 		: Clicked
+//* Auteur			: Erick John Stark
+//* Date				: 10/06/1998 10:42:20
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: 
+//*				  
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+ParentWindow.TriggerEvent ( "Ue_Item11" )
+end on
+
+on m_item11.create
+this.Text="Item11"
+this.Visible=false
+end on
+
+type m_item10 from menu within m_menucontext
+end type
+
+on clicked;//*-----------------------------------------------------------------
+//*
+//* Objet 			: M_TreeView::M_Item10::Clicked
+//* Evenement 		: Clicked
+//* Auteur			: Erick John Stark
+//* Date				: 10/06/1998 10:42:20
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: 
+//*				  
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+ParentWindow.TriggerEvent ( "Ue_Item10" )
+end on
+
+on m_item10.create
+this.Text="Item10"
+this.Visible=false
+end on
+
+type m_item9 from menu within m_menucontext
+end type
+
+on clicked;//*-----------------------------------------------------------------
+//*
+//* Objet 			: M_TreeView::M_Item9::Clicked
+//* Evenement 		: Clicked
+//* Auteur			: Erick John Stark
+//* Date				: 10/06/1998 10:42:20
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: 
+//*				  
+//*-----------------------------------------------------------------
+//* MAJ PAR		Date		Modification
+//*				  
+//*-----------------------------------------------------------------
+
+ParentWindow.TriggerEvent ( "Ue_Item9" )
+end on
+
+on m_item9.create
+this.Text="Item9"
+this.Visible=false
+end on
+

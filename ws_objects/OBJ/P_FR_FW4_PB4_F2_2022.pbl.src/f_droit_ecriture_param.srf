@@ -1,0 +1,63 @@
+HA$PBExportHeader$f_droit_ecriture_param.srf
+$PBExportComments$Affectation des personnes ayant le droit d'$$HEX1$$e900$$ENDHEX$$crire dans le param$$HEX1$$e800$$ENDHEX$$trage SIMPA2
+global type f_droit_ecriture_param from function_object
+end type
+
+forward prototypes
+global subroutine f_droit_ecriture_param (ref picturebutton atabpictbutt[], string ascas)
+end prototypes
+
+global subroutine f_droit_ecriture_param (ref picturebutton atabpictbutt[], string ascas);//*-----------------------------------------------------------------
+//*
+//* Fonction      : F_Droit_Ecriture_Param
+//* Auteur        : Fabry JF
+//* Date          : 16/09/2003 10:25:17
+//* Libell$$HEX8$$e9002000200020002000200020002000$$ENDHEX$$: DCMP030399 : Demande expresse d'OMG, le Param ne doit $$HEX1$$ea00$$ENDHEX$$tre accessible
+//*					  en $$HEX1$$e900$$ENDHEX$$criture qu'aux membres (SLE,MLB,PPO,LF)
+//* Commentaires  : 
+//*
+//* Arguments     : PictureButton		aTabPictButt		R$$HEX1$$e900$$ENDHEX$$f
+//*					  String					asCas					Val
+//*
+//* Retourne      : 
+//*
+//*-----------------------------------------------------------------
+//* MAJ   PAR      Date	     Modification
+//* #..   ...   ../../....
+//*
+//#1 [DCMP-060643]-19/09/2006-PHG Gestion repertoire temporaire
+//*-----------------------------------------------------------------
+
+Integer iTotTab, iCpt
+Boolean bAutoriseAEcrire
+
+//Migration PB8-WYNIWYG-03/2006 FM
+//bAutoriseAEcrire = FileExists ( stGlb.sWinDir + "\TEMP\AUTO20" )
+//#1 [DCMP-060643]-19/09/2006-PHG Gestion repertoire temporaire
+//bAutoriseAEcrire = f_FileExists ( stGlb.sWinDir + "\TEMP\AUTO20" )
+bAutoriseAEcrire = f_FileExists ( stGlb.sRepTempo + "AUTO20" )
+//Fin Migration PB8-WYNIWYG-03/2006 FM
+
+/*------------------------------------------------------------------*/
+/* On dispo/Indispo les boutons concern$$HEX1$$e900$$ENDHEX$$s                           */
+/*------------------------------------------------------------------*/
+iTotTab = UpperBound ( aTabPictButt )
+For iCpt = 1 To iTotTab
+	aTabPictButt [ iCpt ].Enabled = bAutoriseAEcrire 
+Next
+
+/*------------------------------------------------------------------*/
+/* Message si le user n'est pas autoris$$HEX1$$e900$$ENDHEX$$.                           */
+/*------------------------------------------------------------------*/
+If Not bAutoriseAEcrire And asCas = "BOX" Then
+	
+		stMessage.sTitre		= "Param$$HEX1$$e800$$ENDHEX$$trage en consultation (DCMP030339/OMG)"
+		stMessage.Icon			= Information!
+		stMessage.bErreurG	= TRUE
+		stMessage.Bouton		= Ok!
+		stMessage.sCode		= "GENE015"
+		F_Message ( stMessage )
+
+End If
+end subroutine
+

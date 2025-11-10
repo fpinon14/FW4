@@ -1,0 +1,78 @@
+HA$PBExportHeader$f_getitem4.srf
+$PBExportComments$( Sql ) Fonction f_getitem mais avec les formats date time compatibles SqlServer
+global type f_getitem4 from function_object
+end type
+
+forward prototypes
+global function string f_getitem4 (ref datastore ads, long allig, string ascol)
+end prototypes
+
+global function string f_getitem4 (ref datastore ads, long allig, string ascol);//*******************************************************************************************
+// Fonction          	: F_GetItem4
+//	Auteur            	: JFF
+//	Date 					 	: 24/11/2010
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Variante de F_GetItem3
+// Commentaires			: [PC301].[LOT2]
+//
+// Arguments				:	adq   * Dataqtore source pour le GetItem x
+//									alLig : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									asCol : Nom de la colonne
+//
+// Retourne				:	Valeur sous forme de chaine
+//								  
+//*******************************************************************************************
+
+
+String sGet, sType
+
+sType =  left ( aDs.describe( asCol + ".coltype"), 5 )
+
+Choose Case sType
+
+Case "char("
+
+	sGet = aDs.GetItemString ( alLig, asCol )
+
+Case "decim", "numbe"
+
+	sGet = string ( aDs.GetItemNumber ( alLig, asCol ) )
+
+Case "date"
+
+	sGet = string ( aDs.GetItemDate ( alLig, asCol ), "dd/mm/yyyy" )
+
+Case "datet"
+
+
+	sGet = string ( aDs.GetItemDateTime ( alLig, asCol ), "dd/mm/yyyy hh:mm:ss.ff"  )
+
+Case "time"
+
+	sGet = string ( aDs.GetItemTime ( alLig, asCol ), "hh:mm:ss.ffffff" )
+
+End Choose
+
+
+If isNull ( sGet ) Then 
+	sGet = "null"
+
+ElseIf sGet = "" And Left ( sType , 4 ) = "date" Then // ... #1
+   sGet = "null"
+
+ElseIf sType <> "decim" And sType <> "numbe" Then
+	sGet = "'" + sGet + "'"
+End If
+
+
+If sGet = "null" Then 
+	sGet = ""
+ElseIf Left ( sGet, 1 ) = "'" And Right ( sGet, 1 ) = "'" Then
+	sGet = Mid ( sGet, 2, Len ( sGet ) - 2 )
+End If
+
+Return ( sGet )
+
+
+
+end function
+

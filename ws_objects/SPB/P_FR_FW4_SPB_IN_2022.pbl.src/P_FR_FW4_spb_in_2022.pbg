@@ -1,0 +1,18 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl" "";
+@end;
+@begin Objects
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_code.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_departement.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_codes.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_courtype.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_groupe.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_police.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_w_queue.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_c_produit.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_codes_car.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_codes_num.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_compagnie.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+ "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\d_spb_int_paragraphe.srd" "FW4\\pb_2022\\ws_objects\\SPB\\P_FR_FW4_SPB_IN_2022.pbl.src\\P_FR_FW4_spb_in_2022.pbl";
+@end;

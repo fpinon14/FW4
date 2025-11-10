@@ -1,0 +1,165 @@
+HA$PBExportHeader$f_rib.srf
+$PBExportComments$------} Contr$$HEX1$$f400$$ENDHEX$$le de R.I.B
+global type f_rib from function_object
+end type
+
+forward prototypes
+global function boolean f_rib (string abanque, string aguichet, string acompte, ref string acle)
+end prototypes
+
+global function boolean f_rib (string abanque, string aguichet, string acompte, ref string acle);//*******************************************************************************************
+//	Fonction          	: F_Rib
+//	Auteur            	: SBA, d'apr$$HEX1$$e800$$ENDHEX$$s FS
+//	Date 					 	: 16/07/2009
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Contr$$HEX1$$f400$$ENDHEX$$le de rib
+//	Commentaires			:
+//...........................................................................................
+// M$$HEX1$$e900$$ENDHEX$$thode : Pour les 11 caract$$HEX1$$e800$$ENDHEX$$re du compte 
+//           Faire correspondre les Lettres $$HEX2$$e0002000$$ENDHEX$$la valeur indiqu$$HEX1$$e900$$ENDHEX$$e dans aCar ( ordre alpha )
+//			                       les chiffres gardent leurs valeurs
+//			    Compte modifi$$HEX12$$e90020002000200020002000200020002000200020002000$$ENDHEX$$----> C
+//
+//			  : Modulo = (( 89.B + 15.G + 3.C ) mod 97 )
+//			  : Faire 97 - Modulo        ----> V
+//			  : Si V = Cl$$HEX2$$e9002000$$ENDHEX$$alors le RIB est correct
+//...........................................................................................
+//	Arguments				: Abanque : Code banque 
+//								: Aguichet: Codeacle Guichet
+//								: Acompte : N$$HEX2$$b0002000$$ENDHEX$$de compte
+//       					: Acle	 : Cl$$HEX2$$e9002000$$ENDHEX$$de contr$$HEX1$$f400$$ENDHEX$$le (par r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence)
+//
+//	Retourne				: True / False
+//								  
+//*******************************************************************************************
+
+
+Integer iX,	iDeb = 1
+String	sCpt,	sCar, sMbg
+String 	aCar[26] =	{"1","2","3","4","5","6","7","8","9" &
+							,"1","2","3","4","5","6","7","8","9" &
+							    ,"2","3","4","5","6","7","8","9" }
+long  C,V,B,G,D
+Boolean bRet
+
+sCpt = ""
+
+// Zones null
+If ( IsNull(aBanque) or IsNull(aGuichet) or IsNull(aCompte) or IsNull( aCle ) Or IsNull( aCle ) ) then
+	Return (False)
+End If
+
+// Longueur des zones
+if ( Len(trim(aBanque)) <> 5 or Len(trim(aGuichet)) <> 5 or Len(trim(aCompte)) <> 11 or Len(trim(aCle)) <> 2 ) then
+	Return (False)
+end if		
+
+// Les zones doivent $$HEX1$$ea00$$ENDHEX$$tre numeriques
+if ( Not(isnumber(aBanque)) or Not(isnumber(aGuichet)) or Not(isnumber(aCle)) ) then
+	Return (False)
+end if	
+
+// Substitution des lettres par les valeurs
+For iX = iDeb to 11				
+	sCar = Mid( Acompte, iX, 1 ) 
+	If Asc( sCar ) < 65 then
+		sCPt = sCpt + sCar
+	Else
+		sCpt = sCpt + aCar[ Asc(sCar) - 64 ]
+	End If
+Next
+
+// Calcul de la cl$$HEX2$$e9002000$$ENDHEX$$: K = 97 - (( 89.B + 15.G + 3.C ) mod 97 )
+B=Long(abanque)
+G=Long(aguichet)
+D=Long(left(string(sCpt),6))
+C=Long(right(string(Scpt),5))
+
+V = MOD ( (89 * B + 15 * G + 76 * D + 3 * C) , 97 )
+
+V = 97 -  V
+
+// Test de la cl$$HEX2$$e9002000$$ENDHEX$$d'origine avec la cl$$HEX2$$e9002000$$ENDHEX$$calcul$$HEX1$$e900$$ENDHEX$$e
+bRet = ( V = Long ( aCle ) ) 
+
+// La cl$$HEX2$$e9002000$$ENDHEX$$correcte est pass$$HEX1$$e900$$ENDHEX$$e par r$$HEX1$$e900$$ENDHEX$$f$$HEX1$$e900$$ENDHEX$$rence
+aCle =  right('00' + String ( V ),2)
+
+
+return bRet
+
+
+////*******************************************************************************************
+////	Fonction          	: F_Rib
+////	Auteur            	: FS
+////	Date 					 	: 27/04/1996
+////	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Contr$$HEX1$$f400$$ENDHEX$$le de rib
+////	Commentaires			:
+////...........................................................................................
+//// M$$HEX1$$e900$$ENDHEX$$thode : Concatener Banque + Guichet
+////         : En extraire le modulo 97 ----> A
+////
+////         : Pour les 11 caract$$HEX1$$e800$$ENDHEX$$re du compte ( seulement le 11$$HEX2$$b0002000$$ENDHEX$$pour CL )
+////           Faire correspondre les Lettres $$HEX2$$e0002000$$ENDHEX$$la valeur indiqu$$HEX1$$e900$$ENDHEX$$e dans aCar ( ordre alpha )
+////			                       les chiffres gardent leurs valeurs
+////			    Compte modifi$$HEX12$$e90020002000200020002000200020002000200020002000$$ENDHEX$$----> C
+////
+////			  : Concat$$HEX1$$e900$$ENDHEX$$ner A + C et multiplier la valeur par 100
+////			  : Faire 97 - modulo 97 du r$$HEX1$$e900$$ENDHEX$$sultat pr$$HEX1$$e900$$ENDHEX$$c$$HEX1$$e900$$ENDHEX$$dent
+////                                      ----> V
+////			  : Si V = Cl$$HEX2$$e9002000$$ENDHEX$$alors le RIB est correct
+////...........................................................................................
+////	Arguments				: Abanque : Code banque 
+////								: Aguichet: Codeacle Guichet
+////								: Acompte : N$$HEX2$$b0002000$$ENDHEX$$de compte
+////       					: Acle	  : Cl$$HEX2$$e9002000$$ENDHEX$$de contr$$HEX1$$f400$$ENDHEX$$le
+////
+////	Retourne				: True / False
+////								  
+////*******************************************************************************************
+//
+//
+//Integer iX,	iDeb = 1
+//String	sCpt,	sCar, sMbg
+//String 	aCar[26] =	{"1","2","3","4","5","6","7","8","9" &
+//							,"1","2","3","4","5","6","7","8","9" &
+//							,"2","3","4","5","6","7","8","9" }
+//Decimal{0}  C,V
+//
+//sCpt = ""
+//
+//If ( IsNull(aBanque) or IsNull(aGuichet) or IsNull(aCompte) or IsNull( aCle ) Or (Len ( aCle ) <> 2) ) then
+//	Return (False)
+//End If
+//
+//							// Modulo 97 de Bq + Guichet sous forme de string
+//sMbg = String( Mod( Dec( Abanque + Aguichet ), 97 ),"##" )
+//
+//							// Pour CL seulement le 11eme caract$$HEX1$$e800$$ENDHEX$$re
+//if Abanque = "30002" Then		
+//	sCPt = Left( Acompte, 10 )
+//	iDeb = 11
+//End If
+//							// Substitution des lettres par les valeurs
+//For iX = iDeb to 11				
+//	sCar = Mid( Acompte, iX, 1 ) 
+//	If Asc( sCar ) < 65 then
+//		sCPt = sCpt + sCar
+//	Else
+//		sCpt = sCpt + aCar[ Asc(sCar) - 64 ]
+//	End If
+//Next
+//
+//C = Dec( sMbg + sCpt + "00" ) 
+//
+//V = 97 - Mod( C, 97 )
+//
+//If aCle = ""	Then		aCle = String ( V )
+//
+//return ( V = Dec ( Acle ) ) 
+//
+//
+//
+//
+//
+end function
+

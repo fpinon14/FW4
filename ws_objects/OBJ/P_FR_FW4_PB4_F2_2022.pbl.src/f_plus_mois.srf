@@ -1,0 +1,58 @@
+HA$PBExportHeader$f_plus_mois.srf
+$PBExportComments$------} Ajoute n mois $$HEX2$$e0002000$$ENDHEX$$une date
+global type f_plus_mois from function_object
+end type
+
+forward prototypes
+global function date f_plus_mois (date adDepart, integer aiDur)
+end prototypes
+
+global function date f_plus_mois (date adDepart, integer aiDur);//*******************************************************************************************
+//	Fonction          	: F_Plus_Mois
+//	Auteur            	: FS
+//	Date 					 	: 30/04/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Ajout de n Mois $$HEX2$$e0002000$$ENDHEX$$une date 
+//	Commentaires			: 
+//
+//	Arguments				: adDepart : Date de d$$HEX1$$e900$$ENDHEX$$part
+//								: aiDur    : Dur$$HEX1$$e900$$ENDHEX$$e en mois
+//
+//	Retourne				: Date calcul$$HEX1$$e900$$ENDHEX$$e ( Date )
+//								  
+//*******************************************************************************************
+
+
+Integer iAn, iMois, iJour, iCal
+
+iCal  = Month ( adDepart ) + aiDur
+
+If Mod ( iCal, 12 ) = 0 Then
+
+	iAn = Year ( adDepart ) + ( iCal / 12 ) -1 
+	iMois = 12
+
+Else
+
+	iAn   = Int(  iCal / 12 ) + Year ( adDepart )
+
+	If ( iCal < 0 ) Then
+
+		iMois = 12 + Mod ( iCal, 12 ) 
+
+	Else
+
+		iMois = Mod ( iCal, 12 )
+
+	End If
+
+End If
+
+iJour = Day ( adDepart )
+
+if iJour > F_fin_Mois ( iAn, iMois ) Then iJour = F_fin_Mois ( iAn, iMois )
+
+Return ( Date ( iAn, iMois, iJour ) )
+
+
+end function
+

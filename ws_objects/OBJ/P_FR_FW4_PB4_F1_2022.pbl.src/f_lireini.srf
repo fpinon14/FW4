@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_lireini.srf
+$PBExportComments$----} Lecture de toutes les section d'un Fichier INI
+global type f_lireini from function_object
+end type
+
+forward prototypes
+global function long f_lireini (string asficini, ref string assection[])
+end prototypes
+
+global function long f_lireini (string asficini, ref string assection[]);//*-----------------------------------------------------------------
+//*
+//* Fonction		: f_LireSection
+//* Auteur			: Erick John Stark
+//* Date				: 28/05/1996 09:10:09
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Lit la section sp$$HEX1$$e900$$ENDHEX$$cifi$$HEX1$$e900$$ENDHEX$$e d'un fichier INI et retourne
+//*                 l'ensemble des entr$$HEX1$$e900$$ENDHEX$$es lues
+//*
+//* Arguments		: String			asFicIni			(Val)	Nom du fichier INI
+//*                 String			asSection[]		(R$$HEX1$$e900$$ENDHEX$$f)	Tableau des sections
+//*
+//* Retourne		: Long			 ? = Nbr de section lues
+//*
+//*-----------------------------------------------------------------
+
+Long lLnFic, lGauche, lDroit, lNbrSection
+Integer iFic, iTotal
+String sText, sValeur
+
+lLnFic		= FileLength ( asFicIni )
+iFic			= FileOpen ( asFicIni, LineMode!, Read! )
+
+iTotal   	= FileRead ( iFic, sText ) + 2
+lNbrSection = 0
+
+Do While iTotal < lLnFic
+	lGauche = Pos ( sText, "[" )
+//	If lGauche <> 0 Then
+	If lGauche = 1 Then
+		lDroit = Pos ( sText, "]" )
+		If lDroit > lGauche Then
+			sValeur = Mid ( sText, lGauche + 1, lDroit - 2 )
+			lNbrSection ++
+			asSection[ lNbrSection ] = sValeur
+		End If
+	End If
+	iTotal = iTotal + FileRead( iFic, sText ) + 2
+Loop
+
+FileClose ( iFic )
+
+Return ( lNbrSection )
+
+
+end function
+

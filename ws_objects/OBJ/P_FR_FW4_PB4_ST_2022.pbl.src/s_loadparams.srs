@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_loadparams.srs
+$PBExportComments$------} Structure servant au chargement des applications
+global type s_loadparams from structure
+    unsignedinteger uisegenv
+    string slignecommande
+    string slpshow
+    string slpreserved
+end type
+

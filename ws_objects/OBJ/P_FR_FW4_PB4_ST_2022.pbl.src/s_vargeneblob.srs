@@ -1,0 +1,17 @@
+HA$PBExportHeader$s_vargeneblob.srs
+$PBExportComments$------} Structure servant $$HEX2$$e0002000$$ENDHEX$$stocker les valeurs des variables d'ordre g$$HEX1$$e900$$ENDHEX$$n$$HEX1$$e900$$ENDHEX$$ral pour le blob des data d'un interlocuteur.
+global type s_vargeneblob from structure
+    string sidsin
+    string snomass
+    string slibcivass
+    string sprenomass
+    string sidadh
+    string slibbq
+    string sdtesu
+    string snumfax
+    string snumtel
+    string slibdetsin
+    string sidnatsin
+    string slibgti
+end type
+

@@ -1,0 +1,49 @@
+HA$PBExportHeader$f_variablechaine.srf
+$PBExportComments$------} Retourne une chaine de carract$$HEX1$$e800$$ENDHEX$$re contenant les donn$$HEX1$$e900$$ENDHEX$$es d'un courrier
+global type f_variablechaine from function_object
+end type
+
+forward prototypes
+global function boolean f_variablechaine (s_spb astspb, ref string asvar[], ref string aschaine)
+end prototypes
+
+global function boolean f_variablechaine (s_spb astspb, ref string asvar[], ref string aschaine);//=====================================================================
+// f_VariableChaine : Transformation d'un tableau de valeurs en chaine
+//                    s$$HEX1$$e900$$ENDHEX$$parateur = Tabulation
+//
+// Auteur FS le 01/03/95
+//
+// asVar    * Tableau des valeurs de variables
+// asChaine * Chaine des valeurs de variables
+//
+//=====================================================================
+
+Integer i, iFin
+String sTab
+
+sTab     = Char(9)	// S$$HEX1$$e900$$ENDHEX$$parateur utilis$$HEX1$$e900$$ENDHEX$$
+iFin     = UpperBound( asVar )
+
+// .... Pr$$HEX1$$e900$$ENDHEX$$paration de l'adresse SPB
+
+asChaine =	astSPB.snom		+ sTab +&	
+				astSPB.sad1 	+ sTab +&
+				astSPB.sad2 	+ sTab +&
+				astSPB.scpo		+ sTab +&
+				astSPB.svil		+ sTab +&
+				astSPB.slidir	+ sTab +&
+				astSPB.slivoc	+ sTab +&
+				astSPB.srso		+ sTab 
+
+For i = 1 To iFin
+
+	If Not isNull( asVar[i] ) Then asChaine = asChaine + asVar[i]
+
+	If i <> iFin Then asChaine = asChaine + sTab
+Next
+
+Return True
+
+	
+end function
+

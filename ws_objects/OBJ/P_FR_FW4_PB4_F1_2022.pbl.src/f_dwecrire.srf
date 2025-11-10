@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_dwecrire.srf
+$PBExportComments$----} Enregistrement des info. d'une datawindow de saisie vers une dw stockage
+global type f_dwecrire from function_object
+end type
+
+forward prototypes
+global subroutine f_dwecrire (string asFiltre, ref u_datawindow adwsource, ref u_datawindow adwcible)
+end prototypes
+
+global subroutine f_dwecrire (string asFiltre, ref u_datawindow adwsource, ref u_datawindow adwcible);//*******************************************************************************************
+// Fonction            	: f_DwEcrire
+//	Auteur              	: D.Bizien
+//	Date 					 	: 27/03/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Enregistrement des info. d'une datawindow de saisie vers une dw stockage
+// Commentaires			: 
+//
+// Arguments				: asFiltre - String - Filtre $$HEX2$$e0002000$$ENDHEX$$positionner sur la datawindow source avant copie
+//								  adwSource- u_Datawindow - Datawindow contenant les lignes $$HEX2$$e0002000$$ENDHEX$$copier
+//								  adwCible - u_Datawindow - Datawindow de de stockage (destination)
+//
+// Retourne					: Rien
+//								  
+//*******************************************************************************************
+
+
+// *****        Copie simple des informations
+
+adwCible.uf_Desactiver ( 1, adwCible.RowCount ( ) )
+
+f_DwCopier ( asFiltre, adwSource, adwCible )
+
+end subroutine
+

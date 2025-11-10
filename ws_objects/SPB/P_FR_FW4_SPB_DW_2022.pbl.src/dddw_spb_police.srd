@@ -1,0 +1,16 @@
+HA$PBExportHeader$dddw_spb_police.srd
+$PBExportComments$---} DropDownDatawindow pour les polices
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=9 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=decimal(0) name=id_police dbname="id_police" )
+ column=(type=char(35) name=lib_police dbname="lib_police" )
+ column=(type=char(35) name=lib_cie dbname="lib_cie" )
+ procedure="1 execute sysadm.DD_S01_POLICE;1 "  sort="lib_cie A id_police A " )
+compute(band=detail alignment="0" expression="String(  id_police ) + ~" / ~" + lib_cie  + ~" / ~" + lib_police "border="0" color="16711680" x="1687" y="160" height="57" width="1125" format="[GENERAL]"  name=code_libelle  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="16711680" x="19" y="12" height="57" width="78" format="[general]"  name=id_police edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="lib_cie + ~" ~" + lib_police"border="0" color="16711680" x="115" y="12" height="57" width="1537" format="[GENERAL]"  name=cp_libcie_libpolice  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="lib_police + ~"  (~" + string(id_police) + ~")~""border="0" color="16711680" x="2017" y="8" height="45" width="878" format="[GENERAL]"  name=cp_libpolice_idpolice  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )

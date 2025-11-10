@@ -1,0 +1,73 @@
+HA$PBExportHeader$f_lirefichierblob.srf
+$PBExportComments$----} Lecture d'un fichier disque dans un blob
+global type f_lirefichierblob from function_object
+end type
+
+forward prototypes
+global function boolean f_lirefichierblob (ref blob abltext, string asfic)
+end prototypes
+
+global function boolean f_lirefichierblob (ref blob abltext, string asfic);//*******************************************************************************************
+//	Fonction          	: F_LireFichierBlob
+//	Auteur            	: FS
+//	Date 					 	: le 30/04/1996
+//	Libell$$HEX6$$e90009000900090009000900$$ENDHEX$$: Lecture d'un fichier disque vers un blob
+//	Commentaires			:
+//
+//	Arguments				: ablText * Texte du blob ( ex .DOC )
+//								: asFic   : Nom Complet du fichier $$HEX3$$e0002000e900$$ENDHEX$$crire
+//
+//	Retourne				: True / False
+//								  
+//
+//       JFF   12/06/2014 [PI052] Je change le LockWrite! en Shared!
+//*******************************************************************************************
+
+Boolean 	bOk = True
+
+Long			lLen, lNbLu, lpos
+blob			blLect, blResult
+Integer		iFic, iNbLect, iCpt
+
+SetPointer ( HourGlass! )
+
+llen 	= FileLength ( asFic )
+
+iFic	= FileOpen ( asFic, StreamMode!, Read!, Shared! ) // [PI052] Je change le LockWrite! en Shared!
+
+// .... Nombre de lecture $$HEX2$$e0002000$$ENDHEX$$effectuer
+
+If lLen > 32765 Then
+
+	If Mod ( lLen, 32765 ) = 0 Then
+
+		iNbLect = llen/32765
+
+	Else
+
+		iNbLect = ( llen/32765 ) + 1
+
+	End If
+
+Else
+
+	iNbLect = 1
+
+End If
+
+For iCpt = 1 to iNbLect
+
+	lNbLu    = FileRead ( iFic, blLect )
+	blResult = blResult + blLect
+	lpos     = lpos + lNbLu
+	FileSeek ( iFic, lpos, FromBeginning! )
+
+Next
+
+FileClose ( iFic )
+
+ablText = blResult
+
+Return bOk
+end function
+

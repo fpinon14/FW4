@@ -1,0 +1,52 @@
+HA$PBExportHeader$f_procedure.srf
+$PBExportComments$---} fonction de test du SqlCode lors de l'appel d'une proc$$HEX1$$e900$$ENDHEX$$dure stock$$HEX1$$e900$$ENDHEX$$e.
+global type f_procedure from function_object
+end type
+
+forward prototypes
+global function boolean f_procedure (ref s_message astmessage, ref u_transaction atrtrans, string asprocedure)
+end prototypes
+
+global function boolean f_procedure (ref s_message astmessage, ref u_transaction atrtrans, string asprocedure);//*-----------------------------------------------------------------
+//*
+//* Fonction		: F_Procedure
+//* Auteur			: Erick John Stark
+//* Date				: 01/07/1998 10:14:52
+//* Libell$$HEX4$$e900090009000900$$ENDHEX$$: 
+//* Commentaires	: Fonction de test cons$$HEX1$$e900$$ENDHEX$$cutif $$HEX2$$e0002000$$ENDHEX$$l'appel d'une proc$$HEX1$$e900$$ENDHEX$$dure
+//*
+//* Arguments		: s_Message			astMessage			(R$$HEX1$$e900$$ENDHEX$$f)	Structure du Message
+//*					  U_Transaction	atrTrans				(R$$HEX1$$e900$$ENDHEX$$f)	Transaction dont on doit tester le SQLCODE
+//*					  String				asProcedure			(Val)	Nom de la proc$$HEX1$$e900$$ENDHEX$$dure en clair
+//*
+//* Retourne		: Boolean		True	= Ok tout va bien
+//*										Faux	= Il y a un probl$$HEX1$$e800$$ENDHEX$$me
+//*
+//*-----------------------------------------------------------------
+
+Boolean	bRet = True
+
+If	atrTrans.SqlCode <> 0 Or atrTrans.SqlDbCode <> 0	Then
+
+	bRet							= False
+/*------------------------------------------------------------------*/
+/* Or arme simplement la structure de message, le script client     */
+/* s'occupe de l'afficher ou pas. Il na faut pas oublier de faire   */
+/* un ROLLBACK avant.                                               */
+/*------------------------------------------------------------------*/
+	astMessage.Bouton			= OK!
+	astMessage.Icon			= StopSign!
+	astMessage.sTitre			= 'Erreur Fatale'
+	astMessage.bErreurG		= True
+	astMessage.bTrace			= True
+
+	astMessage.sCode			= 	"PROC003"
+	astMessage.sVar [ 1 ]	= 	asProcedure
+	astMessage.sVar [ 2 ]	= 	String ( atrTrans.SqlDbCode )
+	astMessage.sVar [ 3 ]	= 	atrTrans.SQLErrText
+
+End If
+
+Return ( bRet ) 
+end function
+
