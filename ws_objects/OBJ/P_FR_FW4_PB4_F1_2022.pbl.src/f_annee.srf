@@ -10,7 +10,7 @@ end prototypes
 global function boolean f_annee (string astexte, integer airegle);//*-----------------------------------------------------------------
 //*
 //* Fonction		: f_montant
-//* Auteur			: V.Capelle     
+//* Auteur			: V.Capelle  
 //* Date				: 01/02/1997 11:44:36
 //* Libellé			: Fonction de regroupement des règles de validation
 //*					  pour les champs de type année.
