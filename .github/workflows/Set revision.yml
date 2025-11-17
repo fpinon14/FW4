@@ -3,8 +3,8 @@
 name: Set app version Action
 
 env:
-  repo_owner="fpinon14" 
-  repo_name="Framework4"  
+  repo_owner: fpinon14" 
+  repo_name: Framework4"  
           
 permissions:
   contents: write
