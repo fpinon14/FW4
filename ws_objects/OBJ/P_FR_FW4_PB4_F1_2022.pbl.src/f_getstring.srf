@@ -1,5 +1,5 @@
-HA$PBExportHeader$f_getstring.srf
-$PBExportComments$---} Fonction de GetItem avec retour en chaine format$$HEX1$$e900$$ENDHEX$$e pour une chaine de caract$$HEX1$$e800$$ENDHEX$$re.
+﻿$PBExportHeader$f_getstring.srf
+$PBExportComments$---} Fonction de GetItem avec retour en chaine formatée pour une chaine de caractère.
 global type f_getstring from function_object
 end type
 
@@ -10,13 +10,13 @@ end prototypes
 global function string f_getstring (datawindow adw, long allig, string ascol);//*-----------------------------------------------------------------
 //*
 //* Fonction		:	f_getstring ()
-//* Auteur			:	N$$HEX1$$b000$$ENDHEX$$6
+//* Auteur			:	N°6 
 //* Date				:	13/06/97 11:44:29
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	
+//* Libellé			:	
 //* Commentaires	:	
 //*
 //* Arguments		:	adw   Data Window source pour le GetItem x
-//									alLig : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									alLig : Numéro de la ligne
 //									asCol : Nom de la colonne
 //*
 //* Retourne		:	Valeur sous forme de chaine
