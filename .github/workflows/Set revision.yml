@@ -31,13 +31,12 @@ jobs:
       - name: Set version in remote repo
         run: |
          event_type="trigger-workflow" 
-          service=${{ github.event.inputs.target_service }}"
-          version="${{ github.event.inputs.target_version }}"
+          token="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"
   
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.PAT }}" \
+            -H "Authorization: Bearer $token" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/$env.repo_owner/$env.repo_name/actions/workflows/increment_version.yml/dispatches \
             -d "{\"ref\": \"main\"}"
