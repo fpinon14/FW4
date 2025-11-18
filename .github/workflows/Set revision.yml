@@ -48,7 +48,7 @@ jobs:
         env:
             TOKEN: ${{ secrets.repo_token }}
         run: |
-          curl -H "Authorization: token ${TOKEN}" https://api.github.com/repos/$repo_owner/$repo_name/Framework4/REVISIONS/current_rev.info
+          curl -H "Authorization: token ${TOKEN}" https://api.github.com/repos/$env.repo_owner/$env.repo_name/Framework4/REVISIONS/current_rev.info
           
       
       - name: Get version and add notes
