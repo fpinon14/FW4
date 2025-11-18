@@ -15,7 +15,7 @@ global function string f_getstring (datawindow adw, long allig, string ascol);//
 //* Libellé			:	
 //* Commentaires	:	
 //*
-//* Arguments		:	adw   Data Window source pour le GetItem x
+//* Arguments		:	adw   Data Window source pour le GetItem x  
 //									alLig : Numéro de la ligne
 //									asCol : Nom de la colonne
 //*
