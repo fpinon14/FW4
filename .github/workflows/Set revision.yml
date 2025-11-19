@@ -59,9 +59,8 @@ jobs:
           git config --global user.email "pinon.fabien@gmail.com" 
           git config --global user.name "fpinon14"
 
-          ls REVISIONS/REVISIONS
-          GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' FW4/REVISIONS/current_rev.info)
-          cat FW4/REVISIONS/current_rev.info
+          GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' REVISIONS/REVISIONS/current_rev.info)
+          cat REVISIONS/REVISIONS/current_rev.info
           echo $GIT_VERSION
           git notes add -f -m "Révision : "$GIT_VERSION
 
