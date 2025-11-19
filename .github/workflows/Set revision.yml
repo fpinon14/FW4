@@ -23,14 +23,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Checkout source 
-        uses: actions/checkout@v4
-     
-
+    
    # Runs a single command using the runners shell
       - name: Set version in remote repo
         run: |
-         event_type="trigger-workflow" 
           token=${{ secrets.TOK_Framework4 }}
   
           curl -L \
@@ -41,9 +37,7 @@ jobs:
             https://api.github.com/repos/fpinon14/Framework4/actions/workflows/increment_version.yml/dispatches \
             -d '{"ref":"main"}' 
             
-      - name: Checkout source 
-        uses: actions/checkout@v4
-     
+    
       - name: Get revision file
         uses: actions/checkout@v5
         with:
@@ -61,11 +55,16 @@ jobs:
 
           GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' REVISIONS/REVISIONS/current_rev.info)
         
-          echo $GIT_VERSION
-          
-          git notes add -f -m "Révision : "$GIT_VERSION
+          echo Version récupérée : $GIT_VERSION
+       
+          echo "GIT_VERSION=$GIT_VERSION" >>$GITHUB_ENV
+          #git notes add -f -m "Révision : "$GIT_VERSION
 
+      - name: Checkout source 
+        uses: actions/checkout@v4
+     
       - name: Push
         run: |
+          git notes add -f -m "Révision : "$GIT_VERSION
           git pull --rebase origin main
           git push --force origin  'refs/notes/*'
