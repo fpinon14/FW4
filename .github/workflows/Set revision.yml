@@ -48,13 +48,10 @@ jobs:
         env:
             TOKEN: ${{ secrets.repo_token }}
         run: |
-          curl -H "Authorization: token ${TOKEN}" -o current_rev.info https://github.com/fpinon14/Framework4/raw/refs/heads/main/REVISIONS/current_rev.info
+          #curl -H "Authorization: token ${TOKEN}" -o current_rev.info https://github.com/fpinon14/Framework4/raw/refs/heads/main/REVISIONS/current_rev.info
           #https://api.github.com/repos/$env.repo_owner/Framework4/REVISIONS/current_rev.info?ref=main
           
-      
-      - name: Check out Notehub JS project
-        run: |
-          git archive --remote=https://github.com/fpinon14/Framework4.git HEAD:REVISIONS current_rev.info | tar -x
+          curl -H 'Accept: application/vnd.github.v3.raw' -O -L https://api.github.com/repos/fpinon14/Framework4/contents/REVISIONS/current_rev.info
           
       - name: Get version and add notes
         run: |
