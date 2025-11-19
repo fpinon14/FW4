@@ -56,7 +56,7 @@ jobs:
         run: |
           #!/bin/sh
           
-          git config --global user.email "pinon.fabien@gmail.com"
+          git config --global user.email "pinon.fabien@gmail.com" 
           git config --global user.name "fpinon14"
 
           GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' current_rev.info)
