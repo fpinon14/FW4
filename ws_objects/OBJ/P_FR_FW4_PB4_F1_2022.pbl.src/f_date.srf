@@ -9,7 +9,7 @@ end prototypes
 
 global function boolean f_date (string astexte, integer airegle);//*-----------------------------------------------------------------
 //*
-//* Fonction		: f_Date
+//* Fonction		: f_Date  
 //* Auteur			: V.Capelle  
 //* Date				: 09/01/1997 15:26:02
 //* Libellé			: Fonction de regroupement des règles de validation
