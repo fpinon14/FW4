@@ -57,7 +57,8 @@ jobs:
         with:
           repository: fpinon14/Framework4
           path: REVISIONS/current_rev.info
-       
+          ref: main
+          
       - name: Get version and add notes
         run: |
           #!/bin/sh
