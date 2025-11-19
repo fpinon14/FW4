@@ -52,6 +52,12 @@ jobs:
           #https://api.github.com/repos/$env.repo_owner/Framework4/REVISIONS/current_rev.info?ref=main
           
       
+      - name: Check out Notehub JS project
+        uses: actions/checkout@v3
+        with:
+          repository: Framework4
+          path: REVISIONS/current_rev.info
+       
       - name: Get version and add notes
         run: |
           #!/bin/sh
