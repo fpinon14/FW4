@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: fpinon14/Framework4  
-          token: G  
+          token: ${{ secrets.TOK_Framework4 }}         
           path: REVISIONS
           ref: main
     
