@@ -54,9 +54,11 @@ jobs:
       - name: Get version and add notes
         run: |
           #!/bin/sh
-          ls
-          #git pull origin +refs/notes/*:refs/notes/*
           
+          #git pull origin +refs/notes/*:refs/notes/*
+          git config --global user.email "pinon.fabien@gmail.com"
+          git config --global user.name "fpinon14"
+
           GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' current_rev.info)
           git notes add -f -m "Révision : "$GIT_VERSION
 
