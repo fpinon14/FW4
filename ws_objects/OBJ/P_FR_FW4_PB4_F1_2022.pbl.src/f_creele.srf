@@ -9,7 +9,7 @@ end prototypes
 
 global subroutine f_creele (ref datawindow adwdatawindow, long allig);//*-----------------------------------------------------------------
 //*
-//* Fonction		: F_CREELE
+//* Fonction		: F_CREELE  
 //* Auteur			: Erick John Stark
 //* Date				: 20/05/1996 15:45:37
 //* Libellé			: 
