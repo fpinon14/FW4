@@ -53,11 +53,8 @@ jobs:
           
       
       - name: Check out Notehub JS project
-        uses: actions/checkout@v3
-        with:
-          repository: fpinon14/Framework4
-          path: REVISIONS/current_rev.info
-          ref: main
+        run: |
+          git archive --remote=https://github.com/fpinon14/Framework4.git HEAD:REVISIONS current_rev.info | tar -x
           
       - name: Get version and add notes
         run: |
