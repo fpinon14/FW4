@@ -53,7 +53,7 @@ jobs:
           
           #curl -H 'Accept: application/vnd.github.v3.raw' -O -L https://api.github.com/repos/fpinon14/Framework4/contents/REVISIONS/current_rev.info
           #wget https://raw.githubusercontent.com/fpinon14/Framework4/refs/heads/main/REVISIONS/current_rev.info
-          git clone --single-branch --branch "main" "https://$API_TOKEN_GITHUB@github.com/fpinon14/Framework4.git" "REVISIONS"
+          git clone --single-branch --branch "main" "https://github.com/fpinon14/Framework4.git" "REVISIONS"
 
       - name: Get version and add notes
         run: |
