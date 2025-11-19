@@ -65,7 +65,7 @@ jobs:
      
       - name: Push
         run: |
-           #!/bin/sh
+          #!/bin/sh
           echo $GIT_VERSION
           cd FW4
           git notes add -f -m "Révision : "$GIT_VERSION
