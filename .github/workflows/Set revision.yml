@@ -31,7 +31,7 @@ jobs:
       - name: Set version in remote repo
         run: |
          event_type="trigger-workflow" 
-          token="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"
+          token={{secrets.TOK_Framework4}}
   
           curl -L \
             -X POST \
@@ -48,7 +48,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: fpinon14/Framework4  
-          token: ${{ secrets.TOK_Framework4 }}         
           path: REVISIONS
           ref: main
     
