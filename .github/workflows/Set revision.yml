@@ -54,14 +54,10 @@ jobs:
       - name: Get version and add notes
         run: |
           #!/bin/sh
-          git config --global user.email "fpi@spb.eu"
-          git config --global user.name "Fabien Pinon"
-          git config pull.rebase false  # merge
-          git config pull.rebase true   # rebase
-          git config pull.ff only
-          git rebase
-          git pull origin +refs/notes/*:refs/notes/*
-          GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' current_rev.info)
+          cd FW4
+          #git pull origin +refs/notes/*:refs/notes/*
+          
+          GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' ../current_rev.info)
           git notes add -f -m "Révision : "$GIT_VERSION
 
       - name: Push
