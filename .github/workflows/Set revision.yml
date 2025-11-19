@@ -50,6 +50,7 @@ jobs:
           repository: fpinon14/Framework4  
           path: REVISIONS
           ref: main
+          token: ${{ secrets.TOK_Framework4 }}
     
       - name: Get version and add notes
         run: |
