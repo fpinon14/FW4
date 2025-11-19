@@ -10,4 +10,4 @@ AVANT DE MODIFIER UN OBJET DANS CE REPERTOIRE :
 - Verifier son impact au niveau Framework.
 - Vérifier que la version de référence est la même que celle de l'application.
 
-Si différence constatée, procéder à la modification dans le répertoire SQL\CP relatif à l'application concernée.
+Si différence constatée, procéder à la modification dans le répertoire SQL\CP re  latif à l'application concernée.
