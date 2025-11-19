@@ -52,8 +52,9 @@ jobs:
           #https://api.github.com/repos/$env.repo_owner/Framework4/REVISIONS/current_rev.info?ref=main
           
           #curl -H 'Accept: application/vnd.github.v3.raw' -O -L https://api.github.com/repos/fpinon14/Framework4/contents/REVISIONS/current_rev.info
-          wget https://raw.githubusercontent.com/fpinon14/Framework4/refs/heads/main/REVISIONS/current_rev.info
-          
+          #wget https://raw.githubusercontent.com/fpinon14/Framework4/refs/heads/main/REVISIONS/current_rev.info
+          git clone --single-branch --branch "main" "https://$API_TOKEN_GITHUB@github.com/fpinon14/Framework4.git" "REVISIONS"
+
       - name: Get version and add notes
         run: |
           #!/bin/sh
@@ -62,7 +63,7 @@ jobs:
           git config --global user.name "fpinon14"
 
           GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' current_rev.info)
-          cat current_rev.info
+          cat REVISIONS/current_rev.info
           echo $GIT_VERSION
           git notes add -f -m "Révision : "$GIT_VERSION
 
