@@ -31,7 +31,7 @@ jobs:
       - name: Set version in remote repo
         run: |
          event_type="trigger-workflow" 
-          token={{secrets.TOK_Framework4}}
+          token=${{ secrets.GITHUB_TOKEN }}
   
           curl -L \
             -X POST \
