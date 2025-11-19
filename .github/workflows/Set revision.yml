@@ -67,7 +67,7 @@ jobs:
         run: |
           #!/bin/sh
           echo $GIT_VERSION
-          cd FW4
+          ls
           git notes add -f -m "Révision : "$GIT_VERSION
           git pull --rebase origin main
           git push --force -u origin  'refs/notes/*'
