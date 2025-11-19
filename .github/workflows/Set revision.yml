@@ -47,7 +47,8 @@ jobs:
       - name: Get revision file
         uses: actions/checkout@v4
         with:
-          repository: fpinon14/Framework4          
+          repository: fpinon14/Framework4  
+          token: ${{ secrets.G_ACCESS_TOKEN }}  
           path: REVISIONS
           ref: main
     
