@@ -19,7 +19,7 @@ global function string f_getstring (datawindow adw, long allig, string ascol);//
 //									alLig : Numéro de la ligne
 //									asCol : Nom de la colonne
 //*
-//* Retourne		:	Valeur sous forme de chaine
+//* Retourne		:	Valeur sous forme de chaine  
 //*-----------------------------------------------------------------
 //* #1 [MIGPB8COR] 03/05/2006  JFF  Ce code n'est plus utile en PB8
 //*-----------------------------------------------------------------
