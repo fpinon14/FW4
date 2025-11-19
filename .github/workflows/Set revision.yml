@@ -45,16 +45,11 @@ jobs:
         uses: actions/checkout@v4
      
       - name: Get revision file
-        env:
-            TOKEN: ${{ secrets.repo_token }}
-        run: |
-          #curl -H "Authorization: token ${TOKEN}" -o current_rev.info https://github.com/fpinon14/Framework4/raw/refs/heads/main/REVISIONS/current_rev.info
-          #https://api.github.com/repos/$env.repo_owner/Framework4/REVISIONS/current_rev.info?ref=main
-          
-          #curl -H 'Accept: application/vnd.github.v3.raw' -O -L https://api.github.com/repos/fpinon14/Framework4/contents/REVISIONS/current_rev.info
-          #wget https://raw.githubusercontent.com/fpinon14/Framework4/refs/heads/main/REVISIONS/current_rev.info
-          git clone --single-branch --branch "main" "https://github.com/fpinon14/Framework4.git" "REVISIONS"
-
+        uses: actions/checkout@v4
+        with:
+          repository: fpinon14/Framework4          
+          path: REVISIONS
+    
       - name: Get version and add notes
         run: |
           #!/bin/sh
