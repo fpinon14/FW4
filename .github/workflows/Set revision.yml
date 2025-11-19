@@ -49,6 +49,7 @@ jobs:
         with:
           repository: fpinon14/Framework4          
           path: REVISIONS
+          ref: main
     
       - name: Get version and add notes
         run: |
