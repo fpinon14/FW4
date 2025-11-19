@@ -66,5 +66,5 @@ jobs:
       - name: Push
         run: |
           git notes add -f -m "Révision : "$GIT_VERSION
-          git pull --rebase origin main
+          #git pull --rebase origin main
           git push --force origin  'refs/notes/*'
