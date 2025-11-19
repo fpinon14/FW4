@@ -60,8 +60,9 @@ jobs:
           git config --global user.name "fpinon14"
 
           GIT_VERSION=$(awk -F "=" '/GIT_VERSION/ {print $2}' REVISIONS/REVISIONS/current_rev.info)
-          cat REVISIONS/REVISIONS/current_rev.info
+        
           echo $GIT_VERSION
+          
           git notes add -f -m "Révision : "$GIT_VERSION
 
       - name: Push
