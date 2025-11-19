@@ -64,4 +64,5 @@ jobs:
 
       - name: Push
         run: |
+          git pull --rebase origin main
           git push origin  'refs/notes/*'
