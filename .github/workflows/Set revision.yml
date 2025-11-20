@@ -5,6 +5,7 @@ name: Set app version Action
 env:
   # Modifier ici le nom du Framework rattaché (Framework4 ou Framework8)
   framework_repo_name: Framework4
+  # et le nom du token
   framework_token :  ${{ secrets.TOK_Framework4 }}
           
 permissions:
@@ -18,7 +19,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
+      - name: Echos
+        run: |
+          echo Message : ${{ github.event.head_commit.message }}
+          echo Repo actuel : $GITHUB_ACTION_REPOSITORY
+          
       - name: Set version in remote repo
         run: |
           token=${{ secrets.TOK_Framework4 }}
