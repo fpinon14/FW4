@@ -38,7 +38,7 @@ jobs:
           repository: ${{ github.repository_owner }}/${{ env.framework_repo_name }}
           path: REVISIONS
           ref: main
-          token: ${{ framework_token }}
+          token: ${{ env.framework_token }}
     
       - name: Get version 
         run: |
