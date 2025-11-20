@@ -33,7 +33,7 @@ jobs:
       - name: Get revision file
         uses: actions/checkout@v5
         with:
-          repository: $GITHUB_REPOSITORY_OWNER/Framework4  
+          repository: ${{ GITHUB_REPOSITORY_OWNER }}/Framework4  
           path: REVISIONS
           ref: main
           token: ${{ secrets.TOK_Framework4 }}
