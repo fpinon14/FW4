@@ -1,9 +1,11 @@
-# Action à définir dans le repository de FrameWork4 et 8
+# Action à définir dans les repositories des applis
 
 name: Set app version Action
 
 env:
-  repo_name: Framework4  
+  # Modifier ici le nom du Framework rattaché (Framework4 ou Framework8)
+  framework_repo_name: Framework4
+  framework_token :  ${{ secrets.TOK_Framework4 }}
           
 permissions:
   contents: write
@@ -26,17 +28,17 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer $token" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            $GITHUB_API_URL/repos/$GITHUB_REPOSITORY_OWNER/Framework4/actions/workflows/increment_version.yml/dispatches \
+            $GITHUB_API_URL/repos/$GITHUB_REPOSITORY_OWNER/$framework_repo_name/actions/workflows/increment_version.yml/dispatches \
             -d '{"ref":"main"}' 
             
     
       - name: Get revision file
         uses: actions/checkout@v5
         with:
-          repository: ${{ github.repository_owner }}/Framework4  
+          repository: ${{ github.repository_owner }}/${{ framework_repo_name }}
           path: REVISIONS
           ref: main
-          token: ${{ secrets.TOK_Framework4 }}
+          token: ${{ framework_token }}
     
       - name: Get version 
         run: |
