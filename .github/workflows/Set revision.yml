@@ -35,7 +35,7 @@ jobs:
       - name: Get revision file
         uses: actions/checkout@v5
         with:
-          repository: ${{ github.repository_owner }}/${{ framework_repo_name }}
+          repository: ${{ github.repository_owner }}/${{ env.framework_repo_name }}
           path: REVISIONS
           ref: main
           token: ${{ framework_token }}
