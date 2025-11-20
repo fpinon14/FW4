@@ -35,7 +35,7 @@ jobs:
             -H "Authorization: Bearer $token" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             ${{github.api_url}}/repos/${{github.repository_owner}}/${{env.framework_repo_name}}/actions/workflows/increment_version.yml/dispatches \
-            -d '{"ref":"main","inputs":{"commit_message":"${{commit_message}}","repo_source":"${{github.repository}}"}}' 
+            -d '{"ref":"main","inputs":{"commit_message":"$commit_message","repo_source":"${{github.repository}}"}}' 
             
     
       - name: Get revision file
