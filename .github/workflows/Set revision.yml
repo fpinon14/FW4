@@ -22,7 +22,7 @@ jobs:
       - name: Echos
         run: |
           echo Message : ${{ github.event.head_commit.message }}
-          echo Repo actuel : $GITHUB_ACTION_REPOSITORY
+          echo Repo actuel : ${{ github.repository }}
           
       - name: Set version in remote repo
         run: |
