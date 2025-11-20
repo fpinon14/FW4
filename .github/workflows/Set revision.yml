@@ -13,8 +13,6 @@ on:
 
 jobs:
   set_version:
-    env: 
-      GITHUB_REPOSITORY_OWNER: $GITHUB_REPOSITORY_OWNER
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +33,7 @@ jobs:
       - name: Get revision file
         uses: actions/checkout@v5
         with:
-          repository: ${{ env.GITHUB_REPOSITORY_OWNER }}/Framework4  
+          repository: ${{ github.event.GITHUB_REPOSITORY_OWNER }}/Framework4  
           path: REVISIONS
           ref: main
           token: ${{ secrets.TOK_Framework4 }}
