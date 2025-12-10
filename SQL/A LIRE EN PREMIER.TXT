@@ -1,13 +1,14 @@
-Les SQL présents dans le répertoires CP Sont des objets de SQL de références niveau Framework, pour les applications dépendantes du Framework 4.
+Les SQL prÃ©sents dans le rÃ©pertoires CP Sont des objets de SQL de rÃ©fÃ©rences niveau Framework, pour les applications dÃ©pendantes du Framework 4.
 
-Chacun de ces objets est compilés sur les bases respectives de ces applications.
+Chacun de ces objets est compilÃ©s sur les bases respectives de ces applications.   
 
 /!\ ATTENTION /!\
 
-Des spécialisations de ces objets portant les *mêmes* noms ont pu être développés au fil des ans dans les bases des applications.
+Des spÃ©cialisations de ces objets portant les *mÃªmes* noms ont pu Ãªtre dÃ©veloppÃ©s au fil des ans dans les bases des applications.
 
 AVANT DE MODIFIER UN OBJET DANS CE REPERTOIRE :
 - Verifier son impact au niveau Framework.
-- Vérifier que la version de référence est la même que celle de l'application.
+- VÃ©rifier que la version de rÃ©fÃ©rence est la mÃªme que celle de l'application.
 
-Si différence constatée, procéder à la modification dans l e répertoire SQL\CP re  latif à l'application concernée. v   
+
+Si diffÃ©rence constatÃ©e, procÃ©der Ã  la modification dans l e rÃ©pertoire SQL\CP re  latif Ã  l'application concernÃ©e. v   
