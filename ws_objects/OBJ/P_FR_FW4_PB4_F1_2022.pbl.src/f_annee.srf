@@ -37,7 +37,7 @@ Integer		iVal				// Valeur saisie format integer.
 
 iVal = Integer ( asTexte )
 
-Choose Case aiRegle
+Choose Case aiRegle  
 
 	Case 1
 
