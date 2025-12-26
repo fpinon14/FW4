@@ -27,7 +27,7 @@ global function boolean f_annee (string astexte, integer airegle);//*-----------
 //*
 //*									Faux		-->	La règle de validation du 
 //*														champ n'est pas respectée 	
-//*										
+//*								  		
 //*
 //*-----------------------------------------------------------------
 
@@ -51,4 +51,5 @@ End Choose
 
 Return ( bRet ) 
 end function
+
 
