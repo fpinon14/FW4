@@ -8,7 +8,7 @@ global function string f_getvaleur (datawindow adw, long allig, string ascol)
 end prototypes
 
 global function string f_getvaleur (datawindow adw, long allig, string ascol);//*-----------------------------------------------------------------
-//*
+//* aeaeeezez
 //* Fonction		:	f_getvaleur 
 //* Auteur			:	N$$HEX1$$b000$$ENDHEX$$6
 //* Date				:	30/05/97 15:48:29
@@ -63,5 +63,6 @@ End If
 
 Return ( sGet )
 end function
+
 
 
