@@ -1,5 +1,5 @@
-ï»¿$PBExportHeader$f_getvaleur.srf
-$PBExportComments$-} Fonction de GetItem avec retour en chaine formatÃ©e
+$PBExportHeader$f_getvaleur.srf
+$PBExportComments$-} Fonction de GetItem avec retour en chaine formatée
 global type f_getvaleur from function_object
 end type
 
@@ -8,15 +8,15 @@ global function string f_getvaleur (datawindow adw, long allig, string ascol)
 end prototypes
 
 global function string f_getvaleur (datawindow adw, long allig, string ascol);//*-----------------------------------------------------------------
-//*
+//* aeaeeezez
 //* Fonction		:	f_getvaleur
-//* Auteur			:	NÂ°6
+//* Auteur			:	N°6
 //* Date				:	30/05/97 15:48:29
-//* LibellÃ©			:	
+//* Libellé			:	
 //* Commentaires	:	
 //*
 //* Arguments		:	adw   Data Window source pour le GetItem x
-//									alLig : NumÃ©ro de la ligne
+//									alLig : Numéro de la ligne
 //									asCol : Nom de la colonne
 //*
 //* Retourne		:	Valeur sous forme de chaine
@@ -63,4 +63,6 @@ End If
 
 Return ( sGet )
 end function
+
+
 
