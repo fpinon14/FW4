@@ -2,7 +2,7 @@ Les SQL présents dans le répertoires CP Sont des objets de SQL de références
 
 Chacun de ces objets est compilés sur les bases respectives de ces applications.   
 
-/!\ ATTENTION /!\   
+/!\ ATTENTION /!\  aaaa 
 
 Des spécialisations de ces objets portant les *mêmes* noms ont pu être développés au fil des ans dans les bases des applications.
 
@@ -12,4 +12,5 @@ AVANT DE MODIFIER UN OBJET DANS CE REPERTOIRE :
 
 
 Si différence constatée, procéder à la modification dans l e répertoire SQL\CP re  latif à l'application concernée. v   
+
 
