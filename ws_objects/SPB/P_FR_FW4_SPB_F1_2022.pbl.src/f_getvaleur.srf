@@ -1,5 +1,5 @@
-HA$PBExportHeader$f_getvaleur.srf
-$PBExportComments$-} Fonction de GetItem avec retour en chaine format$$HEX1$$e900$$ENDHEX$$e
+﻿$PBExportHeader$f_getvaleur.srf
+$PBExportComments$-} Fonction de GetItem avec retour en chaine formatée
 global type f_getvaleur from function_object
 end type
 
@@ -9,14 +9,14 @@ end prototypes
 
 global function string f_getvaleur (datawindow adw, long allig, string ascol);//*-----------------------------------------------------------------
 //*
-//* Fonction		:	f_getvaleur 
-//* Auteur			:	N$$HEX1$$b000$$ENDHEX$$6
+//* Fonction		:	f_getvaleur
+//* Auteur			:	N°6
 //* Date				:	30/05/97 15:48:29
-//* Libell$$HEX4$$e900090009000900$$ENDHEX$$:	
+//* Libellé			:	
 //* Commentaires	:	
 //*
 //* Arguments		:	adw   Data Window source pour le GetItem x
-//									alLig : Num$$HEX1$$e900$$ENDHEX$$ro de la ligne
+//									alLig : Numéro de la ligne
 //									asCol : Nom de la colonne
 //*
 //* Retourne		:	Valeur sous forme de chaine
@@ -63,5 +63,4 @@ End If
 
 Return ( sGet )
 end function
-
 
