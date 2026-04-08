@@ -39,5 +39,6 @@ jobs:
           rm Home.md
           mv tmp.md Home.md
 
+          git add Home.md
           git commit -m ""
           git push
