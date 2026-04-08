@@ -18,17 +18,17 @@ jobs:
           echo "NOW=$(date +'%d%/m/%Y %H:%M:%S')" >> $GITHUB_ENV
           echo Date : $NOW
  
-      - name: Get Wiki
-        uses: actions/checkout@v3
+      - name: Checkout Wiki
+        uses: actions/checkout@v4
         with:
-           repository: ${{ github.repository }}.wiki
-           path: wiki
+          repository: ${{github.repository}}.wiki
+          path: ${{github.repository}}.wiki
 		  
       - name: Update wiki
         run: |
           #!/bin/sh
           
-          cd wiki
+          
           echo | Date  | Commentaire | > tmp.md
           echo | ------------- | ------------- | >>tmp.md
           echo | $NOW | ${{ github.event.head_commit.message }} | >>tmp.md 
