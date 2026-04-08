@@ -1,4 +1,3 @@
-
 name: Update wiki
 
 permissions:
@@ -8,7 +7,7 @@ on:
   push:
 
 jobs:
-  set_version:
+  set_wiki:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,28 +16,26 @@ jobs:
           echo Message : ${{ github.event.head_commit.message }}
           echo Repo actuel : ${{ github.repository }}
           echo Date : ${{ github.event.created_at }}
-		  
-      - name: Get Wiki
-        uses: actions/checkout@v3
+ 
+      - name: Get revision file
+        uses: actions/checkout@v5
         with:
-          repository: ${{ github.repository }}.wiki
-          path: wiki
+           repository: ${{ github.repository }}.wiki
+           path: wiki
 		  
       - name: Update wiki
         run: |
           #!/bin/sh
           
-		  cd wiki
-		  
-		  echo | Date  | Commentaire | > tmp.md
-		  echo | ------------- | ------------- | >>tmp.md
-		  echo | ${{ github.event.created_at }} | ${{ github.event.head_commit.message }} | >>tmp.md 
-		  
-		  tail -n +2 Home.md >>tmp.md
-		  
-		  rm Home.md
-		  mv tmp.md Home.md
-		  
-		  git commit -m ""
-		  git push
-		  
+          cd wiki
+          echo | Date  | Commentaire | > tmp.md
+          echo | ------------- | ------------- | >>tmp.md
+          echo | ${{ github.event.created_at }} | ${{ github.event.head_commit.message }} | >>tmp.md 
+ 
+          tail -n +2 Home.md >>tmp.md
+  
+          rm Home.md
+          mv tmp.md Home.md
+
+          git commit -m ""
+          git push
