@@ -16,7 +16,7 @@ jobs:
           echo Message : ${{ github.event.head_commit.message }}
           echo Repo actuel : ${{ github.repository }}
           echo "NOW=$(date +'%d/%m/%Y %H:%M:%S')" >> $GITHUB_ENV
-          echo Date : ${{ env.NOW }}
+          echo Date : $NOW
           echo $(date +"%d/%m/%Y %H:%M:%S")
           
       - name: Checkout Wiki
@@ -31,9 +31,9 @@ jobs:
           git config --global user.email "$GITHUB_ACTOR@$ADDRESS_SUFFIX" 
           git config --global user.name "$GITHUB_ACTOR"
    
-          echo | Date  | Commentaire | > tmp.md
-          echo | ------------- | ------------- | >>tmp.md
-          echo | ${{ env.NOW }} | ${{ github.event.head_commit.message }} | >>tmp.md 
+          echo \| Date  \| Commentaire \| > tmp.md
+          echo \| ------------- \| ------------- \| >>tmp.md
+          echo \| $(date +"%d/%m/%Y %H:%M:%S") \| ${{ github.event.head_commit.message }} \| >>tmp.md 
  
           tail -n +2 Home.md >>tmp.md
   
