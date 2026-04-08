@@ -40,5 +40,5 @@ jobs:
           mv tmp.md Home.md
 
           git add Home.md
-          git commit -m ""
+          git commit -m "Maj Wiki"
           git push
