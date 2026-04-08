@@ -17,7 +17,7 @@ jobs:
           echo Repo actuel : ${{ github.repository }}
           echo "NOW=$(date+'%d%/m/%Y %H:%M:%S')" >> $GITHUB_ENV
           echo Date : $NOW
-          echo $(date +"%B %d, %Y")
+          echo $(date +"d%/m/%Y %H:%M:%S")
           
       - name: Checkout Wiki
         uses: actions/checkout@v4
