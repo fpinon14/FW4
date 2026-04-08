@@ -27,7 +27,9 @@ jobs:
         run: |
           #!/bin/sh
           
-          
+          git config --global user.email "$GITHUB_ACTOR@$ADDRESS_SUFFIX" 
+          git config --global user.name "$GITHUB_ACTOR"
+   
           echo | Date  | Commentaire | > tmp.md
           echo | ------------- | ------------- | >>tmp.md
           echo | $NOW | ${{ github.event.head_commit.message }} | >>tmp.md 
