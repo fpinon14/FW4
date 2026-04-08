@@ -1,5 +1,5 @@
 Les SQL présents dans le répertoires CP Sont des objets de SQL de références niveau Framework, pour les applications dépendantes du Framework 4.
-   dfsf
+   dfsf   
 Chacun de ces objets est compilés sur les bases respectives de ces applications.   
 
 /!\ ATTENTION /!\               
