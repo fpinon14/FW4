@@ -17,7 +17,7 @@ jobs:
           echo Repo actuel : ${{ github.repository }}
           echo "NOW=$(date+'%d%/m/%Y %H:%M:%S')" >> $GITHUB_ENV
           echo Date : $NOW
-          echo $(date +"d%/m/%Y %H:%M:%S")
+          echo $(date +"%d/%m/%Y %H:%M:%S")
           
       - name: Checkout Wiki
         uses: actions/checkout@v4
@@ -33,7 +33,7 @@ jobs:
    
           echo | Date  | Commentaire | > tmp.md
           echo | ------------- | ------------- | >>tmp.md
-          echo | $NOW | ${{ github.event.head_commit.message }} | >>tmp.md 
+          echo | $(date +"%d/%m/%Y %H:%M:%S") | ${{ github.event.head_commit.message }} | >>tmp.md 
  
           tail -n +2 Home.md >>tmp.md
   
