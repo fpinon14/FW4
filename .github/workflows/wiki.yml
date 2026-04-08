@@ -35,7 +35,7 @@ jobs:
           echo \| ------------- \| ------------- \| >>tmp.md
           echo \| $(date +"%d/%m/%Y %H:%M:%S") \| ${{ github.event.head_commit.message }} \| >>tmp.md 
  
-          tail -n +2 Home.md >>tmp.md
+          tail -n +3 Home.md >>tmp.md
   
           rm Home.md
           mv tmp.md Home.md
