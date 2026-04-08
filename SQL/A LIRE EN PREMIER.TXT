@@ -5,7 +5,7 @@ Chacun de ces objets est compilésfs sur les bases respectives de ces applicatio
 /!\ ATTENTION /!\                  
             
 Des spécialisations de ces objets portant les *mêmes* noms ont pu être développés au fil des ans dans les bases des applications.
-
+   
 AVANT DE MODIFIER UN OBJET DANS CE REPERTOIRE :
 - Verifier son impact au niveau Framework.
 - Vérifier que la version de référence est la même que celle de l'application.    
