@@ -15,8 +15,8 @@ jobs:
         run: |
           echo Message : ${{ github.event.head_commit.message }}
           echo Repo actuel : ${{ github.repository }}
-          echo "NOW=$(date+'%d%/m/%Y %H:%M:%S')" >> $GITHUB_ENV
-          echo Date : $NOW
+          echo "NOW=$(date +'%d/%m/%Y %H:%M:%S')" >> $GITHUB_ENV
+          echo Date : ${{ env.NOW }}
           echo $(date +"%d/%m/%Y %H:%M:%S")
           
       - name: Checkout Wiki
@@ -33,7 +33,7 @@ jobs:
    
           echo | Date  | Commentaire | > tmp.md
           echo | ------------- | ------------- | >>tmp.md
-          echo | $(date +"%d/%m/%Y %H:%M:%S") | ${{ github.event.head_commit.message }} | >>tmp.md 
+          echo | ${{ env.NOW }} | ${{ github.event.head_commit.message }} | >>tmp.md 
  
           tail -n +2 Home.md >>tmp.md
   
