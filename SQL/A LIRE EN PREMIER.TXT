@@ -8,7 +8,7 @@ Des spécialisations de ces objets portant les *mêmes* noms ont pu être dével
 
 AVANT DE MODIFIER UN OBJET DANS CE REPERTOIRE :
 - Verifier son impact au niveau Framework.
-- Vérifier que la version de référence est la même que celle de l'application.
+- Vérifier que la version de référence est la même que celle de l'application.    
 
 
 Si différence constatée, procéder à la modification dans l e répertoire SQL\CP re  latif à l'application concernée. v   
